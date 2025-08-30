@@ -1,4 +1,4 @@
-import supabase, { supabaseUrl } from './supabase'
+import supabase from './supabase'
 
 export async function signup(email, password, newUserInfo) {
   try {
@@ -8,7 +8,6 @@ export async function signup(email, password, newUserInfo) {
     })
 
     if (errorUSer) throw errorUSer
-    console.log(dataUser)
 
     const { error: errorUserInfo } = await supabase
       .from('userInfo')
