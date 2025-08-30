@@ -1,32 +1,43 @@
 import supabase, { supabaseUrl } from './supabase'
 
-export async function signup({ fullName, email, password }) {
+export async function signup(email, password, newUserInfo) {
   try {
-    const { data, error } = await supabase.auth.signUp({
+    const { data: dataUser, errorUSer } = await supabase.auth.signUp({
       email,
       password,
-      options: {
-        data: { fullName, avatar: '' },
-      },
     })
 
-    if (error) throw new Error(error.message)
+    if (errorUSer) throw errorUSer
+    console.log(dataUser)
 
-    return data
+    const { error: errorUserInfo } = await supabase
+      .from('userInfo')
+      .insert([{ ...newUserInfo, userId: dataUser.user.id }])
+
+    if (errorUserInfo) throw errorUserInfo
   } catch (error) {
     throw error
   }
 }
 
-export async function login({ email, password }) {
+export async function login(email, password) {
   try {
-    const { data, error } = await supabase.auth.signInWithPassword({
+    const { data: dataUser, error } = await supabase.auth.signInWithPassword({
       email: email,
       password: password,
     })
 
-    if (error) throw new Error(error.message)
+    if (error) throw error
 
+    const { data: dataUserInfo, error: errorUserInfo } = await supabase
+      .from('userInfo')
+      .select('*')
+      .eq('userId', dataUser.user.id)
+      .single()
+
+    if (errorUserInfo) throw errorUserInfo
+
+    const data = { email: dataUser.user.email, ...dataUserInfo }
     return data
   } catch (error) {
     throw error
@@ -37,41 +48,34 @@ export async function logout() {
   try {
     const { error } = await supabase.auth.signOut()
 
-    if (error) throw new Error(error.message)
+    if (error) throw error
   } catch (error) {
     throw error
   }
 }
 
-export async function updateCurrentUser({ password, fullName, avatar }) {
+export async function updateCurrentUser(password, newDataUserInfo) {
   try {
-    let updateData
-    if (password) updateData = { password }
-    if (fullName) updateData = { data: { fullName } }
+    let updateDataUser
+    if (password) updateDataUser = { password }
 
-    const { data, error } = await supabase.auth.updateUser(updateData)
-
-    if (error) throw new Error(error.message)
-    if (!avatar) return data
-
-    const fileName = `avatar-${data.user.id}-${Math.random()}`
-    const { error: storageError } = await supabase.storage
-      .from('avatars')
-      .upload(fileName, avatar)
-
-    if (storageError) throw new Error(storageError.message)
-
-    const { data: updatedUser, error: error2 } = await supabase.auth.updateUser(
-      {
-        data: {
-          avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
-        },
-      }
+    const { data: dataUser, error: errorUser } = await supabase.auth.updateUser(
+      updateDataUser
     )
 
-    if (error2) throw new Error(error2.message)
+    if (errorUser) throw errorUser
+    const { data: dataUserInfo, error: errorUserInfo } = await supabase
+      .from('userInfo')
+      .update({ newDataUserInfo })
+      .eq('userId', dataUser.user.id)
+      .select()
+      .single()
 
-    return updatedUser
+    if (errorUserInfo) throw errorUserInfo
+
+    const data = { email: dataUser.user.email, ...dataUserInfo }
+
+    return data
   } catch (error) {
     throw error
   }
