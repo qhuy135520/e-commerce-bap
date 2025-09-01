@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import AuthLayout from '../../layouts/common/AuthLayout'
 import { ROUTER_PATH } from '../../constants'
+import { Spin } from 'antd'
 
 const LoginPage = React.lazy(() =>
   import('../../pages/publicPages').then((module) => ({
@@ -30,7 +31,7 @@ const NotFoundPage = React.lazy(() =>
 
 export default function GlobalRoutes() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spin size='large' fullscreen />}>
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path={ROUTER_PATH.LOGIN.PATH} element={<LoginPage />} />
