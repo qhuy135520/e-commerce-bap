@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const StyleHeader = styled.header``
 export const HeaderTop = styled.div`
-  background-color: var(--color-blue-8);
+  background-color: var(--color-blue-5);
   height: 6.4rem;
   display: flex;
   align-items: center;
@@ -60,11 +60,16 @@ export const StyleCategory = styled.nav`
 `
 export const StyleMenu = styled(Menu)`
   display: flex;
+  flex-direction: ${(props) =>
+    props.mode === 'horizontal' ? 'row' : 'column'};
+  width: ${(props) => (props.mode === 'horizontal' ? '68rem' : '100%')};
   justify-content: center;
   height: 100%;
   align-items: center;
   background-color: var(--color-grey-200);
-  width: 68rem;
+  &.ant-menu-inline {
+    border-inline-end: none !important;
+  }
 `
 
 export const StyleListCateMobileWrapper = styled(Popover)`

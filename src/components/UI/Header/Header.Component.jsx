@@ -72,13 +72,16 @@ export default function Header() {
             titleMinWidth: '3rem',
           },
           Menu: {
+            itemColor: 'var(--color-grey-800)',
             itemHoverBg: '#fff',
             activeBarHeight: 0,
             itemHoverColor: 'var(--color-blue-6)',
             itemSelectedColor: 'var(--color-blue-6)',
           },
         },
-        token: {},
+        token: {
+          colorText: 'var(--color-grey-800)',
+        },
       }}
     >
       <StyleHeader>
@@ -87,8 +90,16 @@ export default function Header() {
             <StyleListCateMobileWrapper>
               <Popover
                 placement='bottomLeft'
-                title='menu'
-                content='List menu'
+                title='E-BAP'
+                color='var(--color-grey-200)'
+                content={
+                  <StyleMenu
+                    items={items}
+                    onClick={onClick}
+                    selectedKeys={[current]}
+                    mode='inline'
+                  />
+                }
                 trigger='click'
               >
                 <Button>

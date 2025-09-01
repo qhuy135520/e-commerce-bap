@@ -28,6 +28,10 @@ export const Logo = styled(Sprite)`
   width: 90px;
   height: 24px;
   background-position: ${(props) => props.position};
+  @media (max-width: 992px) {
+    width: 80px;
+    height: 24px;
+  }
 `
 
 export const StyleRowLogo = styled.div`
