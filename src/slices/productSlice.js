@@ -49,6 +49,9 @@ const productSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    filteredProducts: [],
+    filterOption: "",
+    searchTerm: "",
     sales: {},
     status: "idle",
     error: null,
@@ -58,6 +61,22 @@ const productSlice = createSlice({
       state.products.sort(
         (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
       );
+    },
+    filterProducts: (state, action) => {
+      state.filterOption = action.payload;
+      let updatedProducts = [...state.products];
+
+      if (action.payload === "sales") {
+        updatedProducts.sort(
+          (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
+        );
+      } else if (action.payload === "priceDesc") {
+        updatedProducts.sort((a, b) => b.price - a.price);
+      } else if (action.payload === "priceAsc") {
+        updatedProducts.sort((a, b) => a.price - b.price);
+      }
+
+      state.filteredProducts = updatedProducts;
     },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
@@ -71,6 +90,7 @@ const productSlice = createSlice({
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.products = action.payload;
+        state.filteredProducts = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
