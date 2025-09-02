@@ -26,14 +26,43 @@ export const fetchProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductSales = createAsyncThunk(
+  "products/fetchProductSales",
+  async () => {
+    const { data: orderDetails, error: orderError } = await supabase
+      .from("orderDetail")
+      .select("productId, quantity");
+    if (orderError) throw new Error(orderError.message);
+
+    const salesMap = {};
+    orderDetails.forEach((od) => {
+      if (!salesMap[od.productId]) {
+        salesMap[od.productId] = 0;
+      }
+      salesMap[od.productId] += od.quantity;
+    });
+    return salesMap;
+  }
+);
+
 const productSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    sales: {},
     status: "idle",
     error: null,
   },
-  reducers: {},
+  reducers: {
+    sortProductsBySales: (state) => {
+      state.products.sort(
+        (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
+      );
+    },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -46,8 +75,12 @@ const productSlice = createSlice({
       .addCase(fetchProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(fetchProductSales.fulfilled, (state, action) => {
+        state.sales = action.payload;
       });
   },
 });
 
+export const { sortProductsBySales } = productSlice.actions;
 export default productSlice.reducer;

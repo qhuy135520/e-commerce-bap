@@ -25,13 +25,10 @@ const ProductList = () => {
   return (
     <ProductListWrapper>
       <ProductTitle level={3}>Danh sách sản phẩm</ProductTitle>
-
       {status === "loading" && (
         <Spin size="large" style={{ display: "block", margin: "20px auto" }} />
       )}
-
       {status === "failed" && <ErrorText type="danger">Lỗi: {error}</ErrorText>}
-
       {status === "succeeded" && (
         <ProductGrid>
           {products.map((product) => (
