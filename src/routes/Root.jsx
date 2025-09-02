@@ -1,7 +1,13 @@
-import GlobalRoutes from './configs/_global'
+import GlobalRoutes from "./configs/_global";
+import PublicRoutes from "./configs/_public";
 
 const RootRouter = () => {
-  return <GlobalRoutes />
-}
+  return (
+    <>
+      <GlobalRoutes />
+      <PublicRoutes />
+    </>
+  );
+};
 
-export default RootRouter
+export default RootRouter;
