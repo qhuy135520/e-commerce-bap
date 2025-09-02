@@ -32,11 +32,6 @@ export const StyleContainer = styled.div`
 export const StyleButton = styled.div`
   display: flex;
   gap: 1rem;
-  /* @media (max-width: 431px) {
-    & button{
-      $props.size : 
-    }
-  } */
 `
 export const StyleImg = styled.img`
   height: 100%;

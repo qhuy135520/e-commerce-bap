@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { Col, Flex } from 'antd'
 
-import Container from '../../components/ui/Container'
+import Container from '../../components/UI/Container'
 import AuthLayoutStyled from './AuthLayout.styled'
 import AuthSideImage from '../../components/auth/AuthSideImage'
 

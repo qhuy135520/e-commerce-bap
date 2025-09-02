@@ -81,6 +81,7 @@ export default function Header() {
         },
         token: {
           colorText: 'var(--color-grey-800)',
+          colorBgElevated: 'var(--color-grey-100)',
         },
       }}
     >

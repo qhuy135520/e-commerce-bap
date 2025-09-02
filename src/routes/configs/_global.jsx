@@ -25,7 +25,7 @@ const ForgotPasswordPage = React.lazy(() =>
 
 const NotFoundPage = React.lazy(() =>
   import('../../pages/NotFound').then((module) => ({
-    default: module.NotFound,
+    default: module.default,
   }))
 )
 
@@ -41,7 +41,7 @@ export default function GlobalRoutes() {
             element={<ForgotPasswordPage />}
           />
         </Route>
-        <Route path={ROUTER_PATH.NOT_FOUND.PATH} element={<NotFoundPage />} />
+        {/* <Route path={ROUTER_PATH.NOT_FOUND.PATH} element={<NotFoundPage />} /> */}
       </Routes>
     </Suspense>
   )
