@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
 :root {
@@ -47,15 +47,15 @@ const GlobalStyles = createGlobalStyle`
   --shadow-lg: 0 2.4rem 3.2rem rgba(0, 0, 0, 0.12);
 
   //Blue
-  --color-blue-1: #e6f4ff
+  --color-blue-1: #e6f4ff;
 --color-blue-2: #bae0ff;
---color-blue-3: #91caff
---color-blue-4: #69b1ff
---color-blue-5: #4096ff
+--color-blue-3: #91caff;
+--color-blue-4: #69b1ff;
+--color-blue-5: #4096ff;
 --color-blue-6: #1677ff;
 --color-blue-7: #0958d9;
 --color-blue-8: #003eb3;
---color-blue-9: #002c8c
+--color-blue-9: #002c8c;
 --color-blue-10: #001d66;
 
     /* For dark mode */
@@ -67,13 +67,13 @@ const GlobalStyles = createGlobalStyle`
     //Blue
   --color-blue-10: #e6f4ff
 --color-blue-9: #bae0ff;
---color-blue-8: #91caff
---color-blue-7: #69b1ff
---color-blue-6: #4096ff
+--color-blue-8: #91caff;
+--color-blue-7: #69b1ff;
+--color-blue-6: #4096ff;
 --color-blue-5: #1677ff;
 --color-blue-4: #0958d9;
 --color-blue-3: #003eb3;
---color-blue-2: #002c8c
+--color-blue-2: #002c8c;
 --color-blue-1: #001d66;
 
 //Grey
@@ -153,6 +153,7 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
+  background-color: var(--color-grey-0);
 }
 
 input,
@@ -231,9 +232,9 @@ html{
   font-size: 50%;
 }
 }
-`;
+`
 
-export default GlobalStyles;
+export default GlobalStyles
 
 // Thuộc tính	Kích thước màn hình (min-width)
 // xs	< 576px (mobile nhỏ)
