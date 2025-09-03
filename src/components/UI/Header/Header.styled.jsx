@@ -1,7 +1,13 @@
 import { Input, Menu, Popover } from 'antd'
 import styled from 'styled-components'
 
-export const StyleHeader = styled.header``
+export const StyleHeader = styled.header`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+`
 export const HeaderTop = styled.div`
   background-color: var(--color-blue-5);
   height: 6.4rem;
@@ -80,8 +86,7 @@ export const StyleContentPopover = styled.div`
   gap: 0.8rem;
   justify-content: center;
   align-items: center;
-  & hr{
+  & hr {
     width: 80%;
   }
-
 `
