@@ -1,6 +1,6 @@
 import React from 'react';
-import Slider from './Slider';
-import ProductList from './ProductList';
+import Slider from './slider';
+import ProductList from './productList';
 
 export default function HomePage() {
   return (

@@ -69,7 +69,6 @@ const ProductList = () => {
       {status === 'failed' && <ErrorText type="danger">Lỗi: {error}</ErrorText>}
 
       {status === 'succeeded' && (
-      {status === 'succeeded' && (
         <ProductGrid>
           {filteredProducts.map((product) => (
             <ProductCard
