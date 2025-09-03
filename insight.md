@@ -11,5 +11,13 @@
 
 ## Git
 
+- **Xóa debugger, console.log trước khi push code**
 - Tạo nhánh theo format: `feature/...`, `fix/...`, `hotfix/...`.
 - Commit message rõ ràng, ngắn gọn: `2025-09-02-Feature-Login` , `2025-09-02-Fix-Header`
+
+
+## DB
+-- Tương tác với supabase => tạo file **api<Name>.js** ví dụ: apiProduct, apiCategory,...
+-- Với các file slice tương tự: **slice<Name>.js**  ví dụ: sliceProduct, sliceUser,...
+
+

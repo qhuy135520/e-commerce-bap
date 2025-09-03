@@ -73,3 +73,15 @@ export const StyleListCateMobileWrapper = styled(Popover)`
     display: block;
   }
 `
+
+export const StyleContentPopover = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  & hr{
+    width: 80%;
+  }
+
+`

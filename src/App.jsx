@@ -8,7 +8,7 @@ import { I18nextProvider } from 'react-i18next'
 
 import { DarkModeProvider } from './contexts/theme/DarkModeContext'
 import queryClient from './configs/queryClient/queryClient'
-import { store } from './stores'
+// import { store } from './stores'
 import GlobalStyles from './styles/GlobalStyles'
 
 import RootRouter from './routes/Root'
@@ -18,7 +18,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <Provider store={store}>
+      {/* <Provider store={store}> */}
         <I18nextProvider i18n={i18n}>
           <DarkModeProvider>
             <GlobalStyles />
@@ -29,7 +29,7 @@ function App() {
             </BrowserRouter>
           </DarkModeProvider>
         </I18nextProvider>
-      </Provider>
+      {/* </Provider> */}
     </QueryClientProvider>
   )
 }
