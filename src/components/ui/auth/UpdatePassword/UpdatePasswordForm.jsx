@@ -5,11 +5,12 @@ import { CiLogin } from 'react-icons/ci'
 
 import useUpdatePassword, {
   initialValues,
-  updatePasswordSchema,
 } from '@/hooks/authentication/useUpdatePassword'
 
 export default function UpdatePasswordForm() {
-  const { handleSubmit, isUpdating } = useUpdatePassword()
+  const { handleSubmit, isUpdating, t, updatePasswordSchema } =
+    useUpdatePassword()
+
   return (
     <Spin spinning={isUpdating}>
       <ConfigProvider
@@ -35,30 +36,38 @@ export default function UpdatePasswordForm() {
           }
         >
           <Form layout='vertical'>
-            <Form.Item label='New password' name='password'>
+            <Form.Item
+              label={t('updatePassword.form.newPasswordLabel')}
+              name='password'
+            >
               <Input
                 type='password'
                 name='password'
-                autoComplete='password'
+                autoComplete='new-password'
                 suffix='🔐'
               />
             </Form.Item>
-            <Form.Item label='Confirn new password' name='confirmPassword'>
+
+            <Form.Item
+              label={t('updatePassword.form.confirmPasswordLabel')}
+              name='confirmPassword'
+            >
               <Input
                 type='password'
                 name='confirmPassword'
-                autoComplete='confirmPassword'
+                autoComplete='new-password'
                 suffix='🔐'
               />
             </Form.Item>
+
             <Button
               type='primary'
               htmlType='submit'
               shape='round'
               icon={<CiLogin />}
-              size={'large'}
+              size='large'
             >
-              Confirm
+              {t('updatePassword.form.submit')}
             </Button>
           </Form>
         </Formik>

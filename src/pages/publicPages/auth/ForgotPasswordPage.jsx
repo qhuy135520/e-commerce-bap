@@ -1,26 +1,30 @@
 import { Spin, Typography } from 'antd'
 
-import ForgotPasswordForm from '@/components/auth/ForgotPassword/ForgotPasswordForm'
-import FormStyled from '@/components/auth/Form.styled'
+import ForgotPasswordForm from '@/components/ui/auth/ForgotPassword/ForgotPasswordForm'
 import useForgotPassword from '@/hooks/authentication/useForgotPassword'
 
 const { Title, Text } = Typography
 
 export default function ForgotPasswordPage() {
-  const { handleSubmit, emailRecovery, isResetting } = useForgotPassword()
+  const { handleSubmit, emailRecovery, isResetting, t, forgotPasswordSchema } =
+    useForgotPassword()
 
   return (
     <Spin spinning={isResetting}>
       {!emailRecovery ? (
-        <ForgotPasswordForm handleSubmit={handleSubmit} />
+        <ForgotPasswordForm
+          handleSubmit={handleSubmit}
+          t={t}
+          forgotPasswordSchema={forgotPasswordSchema}
+        />
       ) : (
         <>
           <Title level={4} type='success'>
-            Check your email:
+            {t('forgotPassword.emailCheck')}
             <Text level={5} keyboard>
               {emailRecovery}
             </Text>
-            to recovery your password
+            {t('forgotPassword.recoveryPass')}
           </Title>
         </>
       )}

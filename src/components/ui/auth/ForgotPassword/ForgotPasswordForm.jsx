@@ -1,15 +1,16 @@
 import { Formik } from 'formik'
 import { Form, Input } from 'formik-antd'
 import React from 'react'
-import FormStyled from '@/components/auth/Form.styled'
+import FormStyled from '@/components/ui/auth/Form.styled'
 import { Button, ConfigProvider } from 'antd'
 
-import {
-  forgotPasswordSchema,
-  initialValues,
-} from '@/hooks/authentication/useForgotPassword'
+import { initialValues } from '@/hooks/authentication/useForgotPassword'
 
-export default function ForgotPasswordForm({ handleSubmit }) {
+export default function ForgotPasswordForm({
+  handleSubmit,
+  t,
+  forgotPasswordSchema,
+}) {
   return (
     <FormStyled>
       <ConfigProvider
@@ -39,13 +40,13 @@ export default function ForgotPasswordForm({ handleSubmit }) {
               <Input
                 type='email'
                 name='email'
-                placeholder='Enter your Email to Reset your password'
+                placeholder={t('forgotPassword.form.placeholder')}
                 suffix='@'
               />
             </Form.Item>
 
             <Button type='primary' htmlType='submit'>
-              Recovery
+              {t('forgotPassword.form.button')}
             </Button>
           </Form>
         </Formik>
