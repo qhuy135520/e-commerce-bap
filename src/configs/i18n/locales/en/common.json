@@ -1,0 +1,6 @@
+{
+  "roles": {
+    "customer": "Customer",
+    "vendor": "Vendor"
+  }
+}

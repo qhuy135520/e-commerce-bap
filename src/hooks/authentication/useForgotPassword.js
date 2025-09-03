@@ -1,26 +1,34 @@
 import { useMutation } from '@tanstack/react-query'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import * as Yup from 'yup'
 import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 
 import { resetPassword as resetPasswordApi } from '@/services/apiAuth'
 
 export const initialValues = { email: '' }
-export const forgotPasswordSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Please Enter a valid Email!')
-    .required('Please enter a Email'),
-})
+
 export default function useForgotPassword() {
   const [emailRecovery, setEmailRecovery] = useState('')
+  const { t } = useTranslation(['auth'])
+
+  const forgotPasswordSchema = useMemo(
+    () =>
+      Yup.object().shape({
+        email: Yup.string()
+          .email(t('forgotPassword.validation.emailInvalid'))
+          .required(t('forgotPassword.validation.emailRequired')),
+      }),
+    [t]
+  )
 
   const { mutate: resetPassword, isPending: isResetting } = useMutation({
     mutationFn: resetPasswordApi,
     onSuccess: () => {
-      toast.success('Please check your Email to Recovery Password')
+      toast.success(t('forgotPassword.toast.success'))
     },
-    onError: (error) => {
-      toast.error(error.message)
+    onError: () => {
+      toast.error(t('forgotPassword.toast.error'))
     },
   })
 
@@ -31,5 +39,5 @@ export default function useForgotPassword() {
     resetForm()
   }
 
-  return { handleSubmit, emailRecovery, isResetting }
+  return { handleSubmit, emailRecovery, isResetting, t, forgotPasswordSchema }
 }

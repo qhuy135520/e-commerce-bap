@@ -1,14 +1,16 @@
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import DividerForgotPassword from '@/components/auth/DividerForgotPassword'
-import SocialAuth from '@/components/auth/SocialAuth'
+import DividerForgotPassword from '@/components/ui/auth/DividerForgotPassword'
+import SocialAuth from '@/components/ui/auth/SocialAuth'
 import Heading from '@/components/ui/Heading'
 import DividerComponent from '@/components/ui/Divider.component'
 import LoadingComponent from '@/components/common/Loading.component'
-import SignUpForm from '@/components/auth/SignUp/SignUpForm'
+import SignUpForm from '@/components/ui/auth/SignUp/SignUpForm'
 
 export default function SignUpPage() {
+  const { t } = useTranslation(['auth', 'common'])
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
   const [isChecking, setIsChecking] = useState(true)
@@ -24,9 +26,12 @@ export default function SignUpPage() {
 
   return (
     <LoadingComponent isLoading={isChecking}>
-      <Heading as='h1'>Sign Up ({role})</Heading>
-      <DividerComponent title='Sign up Social' />
-      <SocialAuth type='Sign up' />
+      <Heading as='h1'>
+        {t('signup.title', { ns: 'auth' })} (
+        {t(`roles.${role}`, { ns: 'common' })})
+      </Heading>
+      <DividerComponent title={t('signup.socialTitle')} />
+      <SocialAuth type={t('signup.title')} />
       <SignUpForm />
       <DividerForgotPassword />
     </LoadingComponent>

@@ -5,14 +5,11 @@ import { CiLogin } from 'react-icons/ci'
 import { BiSolidUserDetail } from 'react-icons/bi'
 
 import NavLinkStyled from '@/components/ui/Navlink.styled'
-import {
-  initialValues,
-  signupSchema,
-  useSignup,
-} from '@/hooks/authentication/useSignup'
+import { initialValues, useSignup } from '@/hooks/authentication/useSignup'
 
 export default function SignUpForm() {
-  const { signup, isPendingSignup, handleSubmit } = useSignup()
+  const { isPendingSignup, handleSubmit, t, signupSchema } = useSignup()
+
   return (
     <ConfigProvider
       theme={{
@@ -39,63 +36,74 @@ export default function SignUpForm() {
         >
           <Form layout='vertical'>
             <>
-              <Form.Item label='Email' name='email'>
+              <Form.Item label={t('signup.form.emailLabel')} name='email'>
                 <Input
                   size='large'
                   name='email'
-                  placeholder='Enter your email'
+                  placeholder={t('signup.form.emailPlaceholder')}
                   suffix='@'
                   autoComplete='email'
                 />
               </Form.Item>
-              <Form.Item label='Name' name='name'>
+
+              <Form.Item label={t('signup.form.nameLabel')} name='name'>
                 <Input
                   size='large'
                   name='name'
-                  placeholder='Enter your name'
+                  placeholder={t('signup.form.namePlaceholder')}
                   suffix={<BiSolidUserDetail />}
                 />
               </Form.Item>
-              <Form.Item label='Birthdate' name='birthdate'>
+
+              <Form.Item
+                label={t('signup.form.birthdateLabel')}
+                name='birthdate'
+              >
                 <Input
                   type='date'
                   size='large'
                   name='birthdate'
-                  placeholder='Enter your birthdate'
+                  placeholder={t('signup.form.birthdatePlaceholder')}
                 />
               </Form.Item>
-              <Form.Item label='Password' name='password'>
+
+              <Form.Item label={t('signup.form.passwordLabel')} name='password'>
                 <Input
                   type='password'
                   size='large'
                   name='password'
-                  placeholder='Enter your password'
+                  placeholder={t('signup.form.passwordPlaceholder')}
                   suffix='🔒'
                   autoComplete='current-password'
                 />
               </Form.Item>
-              <Form.Item label='Confirm Password' name='confirmPassword'>
+
+              <Form.Item
+                label={t('signup.form.confirmPasswordLabel')}
+                name='confirmPassword'
+              >
                 <Input
                   type='password'
                   size='large'
                   name='confirmPassword'
-                  placeholder='Double check your password'
+                  placeholder={t('signup.form.confirmPasswordPlaceholder')}
                   suffix='🔒'
                   autoComplete='confirmPassword'
                 />
               </Form.Item>
+
               <Flex justify='space-between' align='center'>
                 <Button
                   type='primary'
                   htmlType='submit'
                   shape='round'
                   icon={<CiLogin />}
-                  size={'large'}
+                  size='large'
                 >
-                  Sign up
+                  {t('signup.form.submit')}
                 </Button>
                 <NavLinkStyled to='/login'>
-                  Already have an account?
+                  {t('signup.form.alreadyAccount')}
                 </NavLinkStyled>
               </Flex>
             </>
