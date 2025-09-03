@@ -1,106 +1,102 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import supabase from "../services/supabase";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import supabase from '../services/supabase'
 
 export const fetchProducts = createAsyncThunk(
-  "products/fetchProducts",
+  'products/fetchProducts',
   async () => {
     const { data: products, error: productsError } = await supabase
-      .from("product")
-      .select("*");
-    if (productsError) throw new Error(productsError.message);
+      .from('product')
+      .select('*')
+    if (productsError) throw new Error(productsError.message)
 
     const { data: images, error: imagesError } = await supabase
-      .from("productImage")
-      .select("productId, imageUrl");
-    if (imagesError) throw new Error(imagesError.message);
+      .from('productImage')
+      .select('productId, imageUrl')
+    if (imagesError) throw new Error(imagesError.message)
 
     const productsWithImages = products.map((product) => {
-      const productImage = images.find((img) => img.productId === product.id);
+      const productImage = images.find((img) => img.productId === product.id)
       return {
         ...product,
         image_url: productImage ? productImage.imageUrl : null,
-      };
-    });
+      }
+    })
 
-    return productsWithImages;
+    return productsWithImages
   }
-);
+)
 
 export const fetchProductSales = createAsyncThunk(
-  "products/fetchProductSales",
+  'products/fetchProductSales',
   async () => {
     const { data: orderDetails, error: orderError } = await supabase
-      .from("orderDetail")
-      .select("productId, quantity");
-    if (orderError) throw new Error(orderError.message);
+      .from('orderDetail')
+      .select('productId, quantity')
+    if (orderError) throw new Error(orderError.message)
 
-    const salesMap = {};
+    const salesMap = {}
     orderDetails.forEach((od) => {
       if (!salesMap[od.productId]) {
-        salesMap[od.productId] = 0;
+        salesMap[od.productId] = 0
       }
-      salesMap[od.productId] += od.quantity;
-    });
-    return salesMap;
+      salesMap[od.productId] += od.quantity
+    })
+    return salesMap
   }
-);
+)
 
 const productSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState: {
     products: [],
-    filteredProducts: [],
-    filterOption: "",
-    searchTerm: "",
-    sales: {},
-    status: "idle",
+    status: 'idle',
     error: null,
   },
   reducers: {
     sortProductsBySales: (state) => {
       state.products.sort(
         (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-      );
+      )
     },
     filterProducts: (state, action) => {
-      state.filterOption = action.payload;
-      let updatedProducts = [...state.products];
+      state.filterOption = action.payload
+      let updatedProducts = [...state.products]
 
-      if (action.payload === "sales") {
+      if (action.payload === 'sales') {
         updatedProducts.sort(
           (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-        );
-      } else if (action.payload === "priceDesc") {
-        updatedProducts.sort((a, b) => b.price - a.price);
-      } else if (action.payload === "priceAsc") {
-        updatedProducts.sort((a, b) => a.price - b.price);
+        )
+      } else if (action.payload === 'priceDesc') {
+        updatedProducts.sort((a, b) => b.price - a.price)
+      } else if (action.payload === 'priceAsc') {
+        updatedProducts.sort((a, b) => a.price - b.price)
       }
 
-      state.filteredProducts = updatedProducts;
+      state.filteredProducts = updatedProducts
     },
     setSearchTerm: (state, action) => {
-      state.searchTerm = action.payload;
+      state.searchTerm = action.payload
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading'
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded";
-        state.products = action.payload;
-        state.filteredProducts = action.payload;
+        state.status = 'succeeded'
+        state.products = action.payload
+        state.filteredProducts = action.payload
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.error.message;
+        state.status = 'failed'
+        state.error = action.error.message
       })
       .addCase(fetchProductSales.fulfilled, (state, action) => {
-        state.sales = action.payload;
-      });
+        state.sales = action.payload
+      })
   },
-});
+})
 
-export const { sortProductsBySales } = productSlice.actions;
-export default productSlice.reducer;
+export const { sortProductsBySales } = productSlice.actions
+export default productSlice.reducer
