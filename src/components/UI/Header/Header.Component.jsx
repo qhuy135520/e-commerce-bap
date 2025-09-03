@@ -120,6 +120,16 @@ export default function Header() {
               prefix={<IoSearch />}
             />
             <StyleButton>
+              <Popover
+                placement='bottomRight'
+                title='Giỏ hàng của bạn'
+                content='Chưa có sản phẩm nào'
+                trigger='hover'
+              >
+                <Button size='large' type='primary'>
+                  <FaShoppingCart />
+                </Button>
+              </Popover>
               {!!user ? (
                 <Popover
                   placement='bottom'
@@ -142,17 +152,6 @@ export default function Header() {
                   <FaUser />
                 </Button>
               )}
-
-              <Popover
-                placement='bottomRight'
-                title='Giỏ hàng của bạn'
-                content='Chưa có sản phẩm nào'
-                trigger='hover'
-              >
-                <Button size='large' type='primary'>
-                  <FaShoppingCart />
-                </Button>
-              </Popover>
             </StyleButton>
           </StyleContainer>
         </HeaderTop>
