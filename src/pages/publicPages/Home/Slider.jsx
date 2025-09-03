@@ -1,15 +1,15 @@
-import { Carousel } from "antd";
+import { Carousel } from 'antd';
 
 const Slider = () => (
   <Carousel autoplay>
     <div>
       <h3
         style={{
-          height: "200px",
-          background: "#364d79",
-          color: "#fff",
-          lineHeight: "200px",
-          textAlign: "center",
+          height: '200px',
+          background: '#364d79',
+          color: '#fff',
+          lineHeight: '200px',
+          textAlign: 'center',
         }}
       >
         Slide 1
@@ -18,11 +18,11 @@ const Slider = () => (
     <div>
       <h3
         style={{
-          height: "200px",
-          background: "#639",
-          color: "#fff",
-          lineHeight: "200px",
-          textAlign: "center",
+          height: '200px',
+          background: '#639',
+          color: '#fff',
+          lineHeight: '200px',
+          textAlign: 'center',
         }}
       >
         Slide 2

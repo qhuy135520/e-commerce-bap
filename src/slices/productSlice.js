@@ -1,17 +1,17 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import supabase from "../services/supabase";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import supabase from '../services/supabase';
 
 export const fetchProducts = createAsyncThunk(
-  "products/fetchProducts",
+  'products/fetchProducts',
   async () => {
     const { data: products, error: productsError } = await supabase
-      .from("product")
-      .select("*");
+      .from('product')
+      .select('*');
     if (productsError) throw new Error(productsError.message);
 
     const { data: images, error: imagesError } = await supabase
-      .from("productImage")
-      .select("productId, imageUrl");
+      .from('productImage')
+      .select('productId, imageUrl');
     if (imagesError) throw new Error(imagesError.message);
 
     const productsWithImages = products.map((product) => {
@@ -27,24 +27,24 @@ export const fetchProducts = createAsyncThunk(
 );
 
 const productSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState: {
     products: [],
-    status: "idle",
+    status: 'idle',
     error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchProducts.pending, (state) => {
-        state.status = "loading";
+        state.status = 'loading';
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = "succeeded";
+        state.status = 'succeeded';
         state.products = action.payload;
       })
       .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = "failed";
+        state.status = 'failed';
         state.error = action.error.message;
       });
   },
