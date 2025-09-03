@@ -8,39 +8,40 @@ import {
   StylePhone,
   StyleRow,
 } from './Footer.styled'
-import DarkModeToggle from '../../common/DarkModeToggle'
 import { NavLink } from 'react-router-dom'
 import SocialGroup from '@/components/ui/SocialGroup'
+import { useTranslation } from 'react-i18next'
 
 const logos = ['0 0', '-85px 0', '-170px 0']
 
 export default function Footer() {
+  const { t } = useTranslation(['common'])
   return (
     <StyleFooter>
       <StyleContainer>
         <StyleRow gutter={[24, 36]} justify='space-around'>
           <Col xs={24} sm={12} lg={6}>
             <StyleInfo>
-              <b>Tổng đài hỗ trợ</b>
+              <b>{t('footer.supportHotline')}</b>
               <p>
-                Gọi mua: <StylePhone>1900 232 461</StylePhone>{' '}
+                {t('footer.buy')}: <StylePhone>1900 232 461</StylePhone>{' '}
               </p>
               <p>
-                Khiếu nại: <StylePhone>1800 1063</StylePhone>{' '}
-              </p>
-            </StyleInfo>
-          </Col>
-          <Col xs={24} sm={12} lg={6}>
-            <StyleInfo>
-              <b>Về công ty</b>
-              <p>
-                <NavLink to='about'>Giới thiệu về công ty</NavLink>
+                {t('footer.complaint')}: <StylePhone>1800 1063</StylePhone>{' '}
               </p>
             </StyleInfo>
           </Col>
           <Col xs={24} sm={12} lg={6}>
             <StyleInfo>
-              <b>Website cùng tập đoàn</b>
+              <b> {t('footer.aboutCompany')}</b>
+              <p>
+                <NavLink to='about'>{t('footer.introCompany')}</NavLink>
+              </p>
+            </StyleInfo>
+          </Col>
+          <Col xs={24} sm={12} lg={6}>
+            <StyleInfo>
+              <b>{t('footer.groupWebsite')}</b>
               <StyleRowLogo>
                 {logos.map((pos, i) => (
                   <Logo key={i} $position={pos} />
@@ -50,8 +51,8 @@ export default function Footer() {
           </Col>
           <Col xs={24} sm={12} lg={6}>
             <StyleInfo>
-              <b>Contact</b>
-              <SocialGroup/>
+              <b>{t('footer.contact')}</b>
+              <SocialGroup />
             </StyleInfo>
           </Col>
         </StyleRow>

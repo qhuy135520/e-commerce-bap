@@ -29,40 +29,43 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useUser } from '@/hooks/authentication/useUser.js'
 import { useLogout } from '@/hooks/authentication/useLogout.js'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher.jsx'
-
-const items = [
-  {
-    label: <NavLink to='/phone'>Điện thoại</NavLink>,
-    key: 'phone',
-    icon: <IoMdPhonePortrait />,
-  },
-  {
-    label: <NavLink to='/laptop'>Laptop</NavLink>,
-    key: 'laptop',
-    icon: <FaLaptop />,
-  },
-  {
-    label: <NavLink to='/tablet'>Máy tính bảng</NavLink>,
-    key: 'tablet',
-    icon: <FaTabletAlt />,
-  },
-  {
-    label: <NavLink to='/accessory'>Phụ kiện</NavLink>,
-    key: 'accessory',
-    icon: <FaHeadphones />,
-  },
-  {
-    label: <NavLink to='/screen'>Màn hình</NavLink>,
-    key: 'screen',
-    icon: <SlScreenDesktop />,
-  },
-]
+import { useTranslation } from 'react-i18next'
 
 export default function Header() {
   const navigate = useNavigate()
+  const { t } = useTranslation(['common'])
   const { user } = useUser()
   const { logout } = useLogout()
   const [current, setCurrent] = useState('')
+
+  const items = [
+    {
+      label: <NavLink to='/phone'>{t('header.phone')}</NavLink>,
+      key: 'phone',
+      icon: <IoMdPhonePortrait />,
+    },
+    {
+      label: <NavLink to='/laptop'>{t('header.laptop')}</NavLink>,
+      key: 'laptop',
+      icon: <FaLaptop />,
+    },
+    {
+      label: <NavLink to='/tablet'>{t('header.tablet')}</NavLink>,
+      key: 'tablet',
+      icon: <FaTabletAlt />,
+    },
+    {
+      label: <NavLink to='/accessory'>{t('header.accessory')}</NavLink>,
+      key: 'accessory',
+      icon: <FaHeadphones />,
+    },
+    {
+      label: <NavLink to='/screen'>{t('header.screen')}</NavLink>,
+      key: 'screen',
+      icon: <SlScreenDesktop />,
+    },
+  ]
+
   const onClick = (e) => {
     setCurrent(e.key)
   }
@@ -122,14 +125,14 @@ export default function Header() {
             </StyleListCateMobileWrapper>
             <StyleImg src={logo} alt='logo-web' onClick={() => navigate('/')} />
             <StyleInputSearch
-              placeholder='Tìm kiếm sản phẩm...'
+              placeholder={t('header.searchPlaceholder')}
               prefix={<IoSearch />}
             />
             <StyleButton>
               <Popover
                 placement='bottomRight'
-                title='Giỏ hàng của bạn'
-                content='Chưa có sản phẩm nào'
+                title={t('header.cartTitle')}
+                content={t('header.cartEmpty')}
                 trigger='hover'
               >
                 <Button size='large' type='primary'>
@@ -143,11 +146,14 @@ export default function Header() {
                     title=''
                     content={
                       <StyleContentPopover>
-                        <NavLink to='update-user'>Thông tin cá nhân</NavLink>
-                        <NavLink to='deposit'>Nạp tiền</NavLink>
+                        <NavLink to='update-user'>
+                          {t('header.profile')}
+                        </NavLink>
+                        <NavLink to='deposit'>0 VNĐ</NavLink>
                         <hr />
-                        <LanguageSwitcher />
-                        <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
+                        <NavLink onClick={() => logout()}>
+                          {t('header.logout')}
+                        </NavLink>
                       </StyleContentPopover>
                     }
                     trigger='hover'
@@ -162,7 +168,7 @@ export default function Header() {
                   <FaUser />
                 </Button>
               )}
-              <p>10.000$</p>
+              <LanguageSwitcher />
             </StyleButton>
           </StyleContainerTop>
         </HeaderTop>

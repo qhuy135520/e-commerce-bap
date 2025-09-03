@@ -53,6 +53,7 @@ export const StyleButton = styled.div`
 `
 export const StyleImg = styled.img`
   height: 100%;
+  cursor: pointer;
   @media (max-width: 431px) {
     display: none;
   }

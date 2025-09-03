@@ -3,14 +3,12 @@ import { Formik } from 'formik'
 import { Form, Input } from 'formik-antd'
 import { CiLogin } from 'react-icons/ci'
 
-import { loginSchema } from '@/hooks/authentication/useLogin'
-import { initialValues } from '@/hooks/authentication/useLogin'
-import { useLogin } from '@/hooks/authentication/useLogin'
-
-import NavLinkStyled from '../../ui/Navlink.styled'
+import { initialValues, useLogin } from '@/hooks/authentication/useLogin'
+import NavLinkStyled from '../../Navlink.styled'
 
 export default function LoginForm() {
-  const { handleSubmit, isPendingLogin } = useLogin()
+  const { handleSubmit, isPendingLogin, t, loginSchema } = useLogin()
+
   return (
     <ConfigProvider
       theme={{
@@ -37,22 +35,22 @@ export default function LoginForm() {
         >
           <Form layout='vertical' autoCapitalize='off'>
             <>
-              <Form.Item label='Email' name='email'>
+              <Form.Item label={t('login.form.emailLabel')} name='email'>
                 <Input
                   type='email'
                   size='large'
                   name='email'
-                  placeholder='Enter your email'
+                  placeholder={t('login.form.emailPlaceholder')}
                   suffix='@'
                   autoComplete='email'
                 />
               </Form.Item>
-              <Form.Item label='Password' name='password'>
+              <Form.Item label={t('login.form.passwordLabel')} name='password'>
                 <Input
                   type='password'
                   size='large'
                   name='password'
-                  placeholder='Enter your password'
+                  placeholder={t('login.form.passwordPlaceholder')}
                   suffix='🔒'
                   autoComplete='current-password'
                 />
@@ -63,12 +61,12 @@ export default function LoginForm() {
                   htmlType='submit'
                   shape='round'
                   icon={<CiLogin />}
-                  size={'large'}
+                  size='large'
                 >
-                  Sign in
+                  {t('login.form.submit')}
                 </Button>
                 <NavLinkStyled to='/signup'>
-                  Don't have an account?
+                  {t('login.form.noAccount')}
                 </NavLinkStyled>
               </Flex>
             </>

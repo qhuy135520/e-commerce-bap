@@ -1,36 +1,30 @@
 import { updatePassword as updatePasswordApi } from '@/services/apiAuth'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMemo } from 'react'
 import toast from 'react-hot-toast'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router-dom'
 import * as Yup from 'yup'
 
 export const initialValues = { password: '', confirmPassword: '' }
 
-export const updatePasswordSchema = Yup.object({
-  password: Yup.string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Password is required'),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Confirm Password is required'),
-})
-
 export default function useUpdatePassword() {
   const queryClient = useQueryClient()
+  const { t } = useTranslation(['auth'])
   const navigate = useNavigate()
 
   const { mutate: updatePassword, isPending: isUpdating } = useMutation({
     mutationFn: updatePasswordApi,
     onSuccess: ({ user }) => {
-      toast.success('User account updated successfully')
+      toast.success(t('updatePassword.toast.success'))
       queryClient.setQueryData(['user'], user)
       queryClient.invalidateQueries({
         queryKey: ['user'],
       })
       navigate('/')
     },
-    onError: (error) => {
-      toast.error(error.message)
+    onError: () => {
+      toast.error(t('updatePassword.toast.error'))
     },
   })
 
@@ -40,5 +34,21 @@ export default function useUpdatePassword() {
     resetForm()
   }
 
-  return { updatePassword, isUpdating, handleSubmit }
+  const updatePasswordSchema = useMemo(
+    () =>
+      Yup.object({
+        password: Yup.string()
+          .min(6, t('updatePassword.validation.passwordMin'))
+          .required(t('updatePassword.validation.passwordRequired')),
+        confirmPassword: Yup.string()
+          .oneOf(
+            [Yup.ref('password'), null],
+            t('updatePassword.validation.passwordsMustMatch')
+          )
+          .required(t('updatePassword.validation.confirmPasswordRequired')),
+      }),
+    [t]
+  )
+
+  return { updatePassword, isUpdating, handleSubmit, t, updatePasswordSchema }
 }
