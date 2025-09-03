@@ -1,3 +1,15 @@
+import { NavLink } from 'react-router-dom'
+import { useMemo } from 'react'
+import { FaUser, FaShoppingCart } from 'react-icons/fa'
+import { MdMenu } from 'react-icons/md'
+import { IoSearch } from 'react-icons/io5'
+import { FaHeadphones, FaLaptop, FaTabletAlt } from 'react-icons/fa'
+import { IoMdPhonePortrait } from 'react-icons/io'
+import { SlScreenDesktop } from 'react-icons/sl'
+import { Button, ConfigProvider, Popover } from 'antd'
+
+import { useHeader } from '@/hooks/header/useHeader.js'
+
 import {
   StyleHeader,
   StyleContainerTop,
@@ -12,63 +24,41 @@ import {
   StyleContentPopover,
 } from './Header.styled.jsx'
 import logo from '../../../assets/logo.png'
-import { Button, ConfigProvider, Menu, Popover } from 'antd'
-import { IoSearch } from 'react-icons/io5'
-import { MdMenu } from 'react-icons/md'
-import {
-  FaUser,
-  FaShoppingCart,
-  FaLaptop,
-  FaTabletAlt,
-  FaHeadphones,
-} from 'react-icons/fa'
-import { IoMdPhonePortrait } from 'react-icons/io'
-import { SlScreenDesktop } from 'react-icons/sl'
-import { useState } from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
-import { useUser } from '@/hooks/authentication/useUser.js'
-import { useLogout } from '@/hooks/authentication/useLogout.js'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher.jsx'
-import { useTranslation } from 'react-i18next'
 
 export default function Header() {
-  const navigate = useNavigate()
-  const { t } = useTranslation(['common'])
-  const { user } = useUser()
-  const { logout } = useLogout()
-  const [current, setCurrent] = useState('')
+  const { navigate, t, user, logout, current, onClick } = useHeader()
 
-  const items = [
-    {
-      label: <NavLink to='/phone'>{t('header.phone')}</NavLink>,
-      key: 'phone',
-      icon: <IoMdPhonePortrait />,
-    },
-    {
-      label: <NavLink to='/laptop'>{t('header.laptop')}</NavLink>,
-      key: 'laptop',
-      icon: <FaLaptop />,
-    },
-    {
-      label: <NavLink to='/tablet'>{t('header.tablet')}</NavLink>,
-      key: 'tablet',
-      icon: <FaTabletAlt />,
-    },
-    {
-      label: <NavLink to='/accessory'>{t('header.accessory')}</NavLink>,
-      key: 'accessory',
-      icon: <FaHeadphones />,
-    },
-    {
-      label: <NavLink to='/screen'>{t('header.screen')}</NavLink>,
-      key: 'screen',
-      icon: <SlScreenDesktop />,
-    },
-  ]
-
-  const onClick = (e) => {
-    setCurrent(e.key)
-  }
+  const items = useMemo(
+    () => [
+      {
+        label: <NavLink to='/phone'>{t('header.phone')}</NavLink>,
+        key: 'phone',
+        icon: <IoMdPhonePortrait />,
+      },
+      {
+        label: <NavLink to='/laptop'>{t('header.laptop')}</NavLink>,
+        key: 'laptop',
+        icon: <FaLaptop />,
+      },
+      {
+        label: <NavLink to='/tablet'>{t('header.tablet')}</NavLink>,
+        key: 'tablet',
+        icon: <FaTabletAlt />,
+      },
+      {
+        label: <NavLink to='/accessory'>{t('header.accessory')}</NavLink>,
+        key: 'accessory',
+        icon: <FaHeadphones />,
+      },
+      {
+        label: <NavLink to='/screen'>{t('header.screen')}</NavLink>,
+        key: 'screen',
+        icon: <SlScreenDesktop />,
+      },
+    ],
+    [t]
+  )
   return (
     <ConfigProvider
       theme={{
