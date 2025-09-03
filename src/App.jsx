@@ -13,6 +13,7 @@ import GlobalStyles from './styles/GlobalStyles'
 
 import i18n from './configs/i18n/i18n'
 import RootRouter from './routes/Root'
+import DarkModeToggle from '@/components/common/DarkModeToggle'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <GlobalStyles />
             <BrowserRouter>
               <RootRouter />
+              <DarkModeToggle />
             </BrowserRouter>
           </DarkModeProvider>
         </I18nextProvider>
