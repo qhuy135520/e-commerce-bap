@@ -90,7 +90,7 @@ export async function updateCurrentUser(password, newDataUserInfo) {
     if (errorUser) throw errorUser
     const { data: dataUserInfo, error: errorUserInfo } = await supabase
       .from('userInfo')
-      .update({ newDataUserInfo })
+      .update({ ...newDataUserInfo })
       .eq('userId', dataUser.user.id)
       .select()
       .single()
@@ -157,3 +157,4 @@ export async function updatePassword(newPassword) {
     throw error
   }
 }
+
