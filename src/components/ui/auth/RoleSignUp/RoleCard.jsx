@@ -10,7 +10,7 @@ import {
   DividerRole,
   SpaceRole,
   TitleRole,
-} from '@/components/auth/RoleSignUp/RoleCard.styled'
+} from '@/components/ui/auth/RoleSignUp/RoleCard.styled'
 import { useNavigate } from 'react-router-dom'
 
 const RoleCard = ({ role }) => {

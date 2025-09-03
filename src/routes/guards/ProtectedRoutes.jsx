@@ -18,6 +18,7 @@ export default function ProtectedRoute({ children }) {
     },
     [user, navigate]
   )
+
   if (user)
     return <LoadingComponent isLoading={isPending}>{children}</LoadingComponent>
 }

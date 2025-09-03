@@ -114,19 +114,29 @@ export default function Header() {
                 </Button>
               </Popover>
             </StyleListCateMobileWrapper>
-            <StyleImg src={logo} alt='logo-web' />
+            <StyleImg src={logo} alt='logo-web' onClick={() => navigate('/')} />
             <StyleInputSearch
               placeholder='Tìm kiếm sản phẩm...'
               prefix={<IoSearch />}
             />
             <StyleButton>
+              <Popover
+                placement='bottomRight'
+                title='Giỏ hàng của bạn'
+                content='Chưa có sản phẩm nào'
+                trigger='hover'
+              >
+                <Button size='large' type='primary'>
+                  <FaShoppingCart />
+                </Button>
+              </Popover>
               {!!user ? (
                 <Popover
                   placement='bottom'
                   title=''
                   content={
                     <StyleContentPopover>
-                      <NavLink to='user-dashboard'>Thông tin cá nhân</NavLink>
+                      <NavLink to='update-user'>Thông tin cá nhân</NavLink>
                       <hr />
                       <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
                     </StyleContentPopover>
@@ -142,17 +152,6 @@ export default function Header() {
                   <FaUser />
                 </Button>
               )}
-
-              <Popover
-                placement='bottomRight'
-                title='Giỏ hàng của bạn'
-                content='Chưa có sản phẩm nào'
-                trigger='hover'
-              >
-                <Button size='large' type='primary'>
-                  <FaShoppingCart />
-                </Button>
-              </Popover>
             </StyleButton>
           </StyleContainer>
         </HeaderTop>

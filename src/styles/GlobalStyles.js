@@ -11,6 +11,8 @@ const GlobalStyles = createGlobalStyle`
 --priority-low: var(--color-green-500);
 
 
+--grad-blue-1: linear-gradient(180deg, var(--color-blue-6) 0%, var(--color-blue-5) 25%,var(--color-blue-4) 50% , var(--color-blue-5) 75%, var(--color-blue-6) 100%) ;
+
   &, &.light-mode{
   /* Cyan */
   --color-grey-0: #fff;
