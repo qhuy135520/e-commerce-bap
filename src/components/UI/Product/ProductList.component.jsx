@@ -49,37 +49,37 @@ const ProductList = () => {
   }, [products, sales, filterOption])
 
   return (
-    <ProductListWrapper>
-      <ProductTitle level={3}>Danh sách sản phẩm</ProductTitle>
+    <LoadingComponent
+      isLoading={status === 'loading' || status === 'idle'}
+      error={error}
+    >
+      <ProductListWrapper>
+        <ProductTitle level={3}>Danh sách sản phẩm</ProductTitle>
 
-      <Select
-        placeholder='Sắp xếp'
-        value={filterOption || undefined}
-        onChange={(value) => setFilterOption(value)}
-        style={{ width: 150, marginBottom: '20px' }}
-      >
-        <Option value='sales'>Bán nhiều nhất</Option>
-        <Option value='priceDesc'>Giá cao → thấp</Option>
-        <Option value='priceAsc'>Giá thấp → cao</Option>
-      </Select>
+        <Select
+          placeholder='Sắp xếp'
+          value={filterOption || undefined}
+          onChange={(value) => setFilterOption(value)}
+          style={{ width: 150, marginBottom: '20px' }}
+        >
+          <Option value='sales'>Bán nhiều nhất</Option>
+          <Option value='priceDesc'>Giá cao → thấp</Option>
+          <Option value='priceAsc'>Giá thấp → cao</Option>
+        </Select>
 
-      {status === 'loading' && (
-        <Spin size='large' style={{ display: 'block', margin: '20px auto' }} />
-      )}
-      {status === 'failed' && <ErrorText type='danger'>Lỗi: {error}</ErrorText>}
-
-      {status === 'succeeded' && (
-        <ProductGrid>
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              sold={sales[product.id] || 0}
-            />
-          ))}
-        </ProductGrid>
-      )}
-    </ProductListWrapper>
+        {status === 'succeeded' && (
+          <ProductGrid>
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                sold={sales?.[product.id] || 0}
+              />
+            ))}
+          </ProductGrid>
+        )}
+      </ProductListWrapper>
+    </LoadingComponent>
   )
 }
 

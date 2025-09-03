@@ -53,7 +53,7 @@ const Slider = () => {
                   alt={product.name}
                 />
                 <ProductName>{product.name}</ProductName>
-                <SoldText>Đã bán: {sales[product.id] || 0}</SoldText>
+                <SoldText>Đã bán: {sales?.[product.id] || 0}</SoldText>
               </ProductCard>
             ))}
           </SlideWrapper>
