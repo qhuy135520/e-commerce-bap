@@ -1,11 +1,13 @@
+import { useTranslation } from 'react-i18next'
 import { Flex } from 'antd'
 import { Button } from 'antd'
 import { GoogleOutlined } from '@ant-design/icons'
 import { FaFacebook } from 'react-icons/fa'
-import DividerComponent from '../ui/Divider.component'
-import { useLogin } from '../../hooks/authentication/useLogin'
+import DividerComponent from '../Divider.component'
+import { useLogin } from '../../../hooks/authentication/useLogin'
 
 export default function SocialAuth({ type }) {
+  const { t } = useTranslation(['auth'])
   const { loginWithGoogle } = useLogin()
 
   return (
@@ -18,13 +20,13 @@ export default function SocialAuth({ type }) {
           icon={<GoogleOutlined />}
           onClick={() => loginWithGoogle()}
         >
-          {type} with Google
+          {type} {t('social.google')}
         </Button>
         <Button type='primary' size='large' icon={<FaFacebook />}>
-          {type} with Facebook
+          {type} {t('social.facebook')}
         </Button>
       </Flex>
-      <DividerComponent title='Or sign in with email' />
+      <DividerComponent title={t('social.orEmail')} />
     </>
   )
 }

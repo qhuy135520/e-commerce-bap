@@ -1,0 +1,36 @@
+{
+  "roles": {
+    "customer": "Customer",
+    "vendor": "Vendor"
+  },
+  "header": {
+    "phone": "Phone",
+    "laptop": "Laptop",
+    "tablet": "Tablet",
+    "accessory": "Accessories",
+    "screen": "Monitor",
+    "searchPlaceholder": "Search products...",
+    "cartTitle": "Your Cart",
+    "cartEmpty": "No products yet",
+    "profile": "User Profile",
+    "deposit": "Deposit",
+    "logout": "Logout",
+    "personalInfo": "Personal Information",
+    "menuTitle": "E-BAP"
+  },
+  "footer": {
+    "supportHotline": "Support Hotline",
+    "buy": "Sales",
+    "complaint": "Complaint",
+    "aboutCompany": "About the Company",
+    "introCompany": "Introduction the company",
+    "groupWebsite": "Group Websites",
+    "contact": "Contact"
+  },
+  "about": {
+    "title1": "Introduction to the E-BAP system",
+    "desc1": "The E-BAP system opened its first supermarket at SHB Building, 11 Ly Thuong Kiet, Hue. Up to now, the system has expanded to 2965 supermarkets located in 63 major provinces and cities with more than 10,000 employees.",
+    "title2": "Extremely rich and diverse products",
+    "desc2": "The goods at E-BAP Supermarket are extremely diverse, from major categories such as TV, Refrigerator, Washing Machine, Air Conditioner… to Household Appliances such as Rice Cookers, Gas Stoves, Induction Cookers… E-BAP also sells products such as Mobile Phones, Tablets, Laptops, Accessories…"
+  }
+}

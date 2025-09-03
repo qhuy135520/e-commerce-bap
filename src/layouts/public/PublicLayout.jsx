@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom'
 
-import Container from '../../components/UI/Container';
-import Header from '../../components/UI/Header/Header.Component';
-import Footer from '../../components/UI/Footer/Footer.Component';
+import Container from '../../components/ui/Container'
+import Header from '../../components/ui/Header/Header.Component'
+import Footer from '../../components/ui/Footer/Footer.Component'
 
 export default function PublicLayout() {
   return (
@@ -13,5 +13,5 @@ export default function PublicLayout() {
       </Container>
       <Footer />
     </>
-  );
+  )
 }

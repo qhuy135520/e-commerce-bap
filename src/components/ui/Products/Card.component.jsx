@@ -1,12 +1,12 @@
-import React from 'react';
-import noImage from '@/assets/images/NoImage/noimage.jpg';
+import React from 'react'
+import noImage from '@/assets/images/NoImage/noimage.jpg'
 import {
   StyledCard,
   ProductImage,
   ProductPrice,
   ProductDescription,
-} from './Card.styled';
-import { formatCurrency } from '@/utils/helpers';
+} from './Card.styled'
+import { formatCurrency } from '@/utils/helpers'
 
 const ProductCard = ({ product }) => {
   return (
@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
         {product.description || 'Không có mô tả'}
       </ProductDescription>
     </StyledCard>
-  );
-};
+  )
+}
 
-export default ProductCard;
+export default ProductCard

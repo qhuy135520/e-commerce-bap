@@ -1,16 +1,16 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { filterProducts } from '@/slices/productSlice';
-import { Select } from 'antd';
-import { ProductListWrapper, ProductTitle, StyledSelect } from './List.styled';
-import LoadingComponent from '@/components/common/Loading.component';
-import PaginatedGrid from '@/components/ui/PaginatedGrid';
-import ProductCard from './Card.component';
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { filterProducts } from '@/slices/productSlice'
+import { Select } from 'antd'
+import { ProductListWrapper, ProductTitle, StyledSelect } from './List.styled'
+import LoadingComponent from '@/components/common/Loading.component'
+import PaginatedGrid from '@/components/ui/PaginatedGrid'
+import ProductCard from './Card.component'
 
-const { Option } = Select;
+const { Option } = Select
 
 const ProductList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
   const { filteredProducts, filterOption, status, error, sales } = useSelector(
     (state) => ({
       filteredProducts: state.products.filteredProducts,
@@ -19,11 +19,11 @@ const ProductList = () => {
       error: state.products.error,
       sales: state.products.sales,
     })
-  );
+  )
 
   const handleFilterChange = (value) => {
-    dispatch(filterProducts(value));
-  };
+    dispatch(filterProducts(value))
+  }
 
   return (
     <LoadingComponent
@@ -59,7 +59,7 @@ const ProductList = () => {
         )}
       </ProductListWrapper>
     </LoadingComponent>
-  );
-};
+  )
+}
 
-export default ProductList;
+export default ProductList
