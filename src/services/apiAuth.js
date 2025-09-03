@@ -19,24 +19,49 @@ export async function signup(email, password, newUserInfo) {
   }
 }
 
-export async function login(email, password) {
+export async function getUserInfo(id) {
   try {
-    const { data: dataUser, error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    })
+    const { data, error } = await supabase
+      .from('userInfo')
+      .select('*')
+      .eq('userId', id)
+      .single()
 
     if (error) throw error
 
-    const { data: dataUserInfo, error: errorUserInfo } = await supabase
-      .from('userInfo')
-      .select('*')
-      .eq('userId', dataUser.user.id)
-      .single()
+    return data
+  } catch (error) {
+    throw error
+  }
+}
 
-    if (errorUserInfo) throw errorUserInfo
+export async function login(email, password) {
+  try {
+    const { data: dataUser, error: errorUser } =
+      await supabase.auth.signInWithPassword({
+        email: email,
+        password: password,
+      })
+    if (errorUser) throw errorUser
+
+    const dataUserInfo = await getUserInfo(dataUser.user.id)
 
     const data = { email: dataUser.user.email, ...dataUserInfo }
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function signInWithGoogle() {
+  try {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'http://localhost:5173/',
+      },
+    })
+    if (error) throw error
     return data
   } catch (error) {
     throw error
@@ -74,6 +99,59 @@ export async function updateCurrentUser(password, newDataUserInfo) {
 
     const data = { email: dataUser.user.email, ...dataUserInfo }
 
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function getCurrentUser() {
+  try {
+    const { data: session } = await supabase.auth.getSession()
+
+    if (!session.session) return null
+
+    const { data: dataUser, error: errorUser } = await supabase.auth.getUser()
+
+    if (errorUser) throw errorUser
+
+    const dataUserInfo = await getUserInfo(dataUser.user.id)
+
+    const data = { email: dataUser.user.email, ...dataUserInfo }
+
+    return data
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function resetPassword(email) {
+  try {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'http://localhost:5173/update-password/',
+    })
+
+    if (error) {
+      throw error
+    }
+  } catch (error) {
+    throw error
+  }
+}
+
+export async function updatePassword(newPassword) {
+  try {
+    const { data: dataUser, error: errorUser } = await supabase.auth.updateUser(
+      { password: newPassword }
+    )
+
+    if (errorUser) throw errorUser
+
+    const { data: dataUserInfo, error: errorUserInfo } = await getUserInfo(
+      dataUser.user.id
+    )
+
+    const data = { email: dataUser.user.email, ...dataUserInfo }
     return data
   } catch (error) {
     throw error

@@ -3,20 +3,21 @@ import { useEffect } from 'react'
 
 import { useUser } from '../../hooks/authentication/useUser'
 
-import LoadingComponent from '../../components/common/LoadingComponent'
+import LoadingComponent from '../../components/common/Loading.component'
 
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate()
 
-  const { isPending, isAuthenticated } = useUser()
+  const { user, isPending } = useUser()
 
   useEffect(
     function () {
-      if (!isAuthenticated && !isPending) navigate('/login')
+      if (!user?.status === 'active') {
+        navigate('/login')
+      }
     },
-    [isAuthenticated, isPending, navigate]
+    [user, navigate]
   )
-
-  if (isAuthenticated)
+  if (user)
     return <LoadingComponent isLoading={isPending}>{children}</LoadingComponent>
 }
