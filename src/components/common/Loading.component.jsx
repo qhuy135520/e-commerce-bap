@@ -1,12 +1,13 @@
 import { Spin } from 'antd'
 import ErrorComponent from './Error.component'
-import StyledFlex from '@/components/common/Loading.styled'
+import StyledFlex, { Logo } from '@/components/common/Loading.styled'
+import logo from '@/assets/logo.png'
 
 function LoadingComponent({ children, isLoading, error = null }) {
   if (isLoading) {
     return (
       <StyledFlex align='center' justify='center'>
-        <Spin />
+        <Logo src={logo} alt='logo' />{' '}
       </StyledFlex>
     )
   }
@@ -18,3 +19,4 @@ function LoadingComponent({ children, isLoading, error = null }) {
   return children
 }
 export default LoadingComponent
+
