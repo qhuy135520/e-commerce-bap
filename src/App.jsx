@@ -13,17 +13,19 @@ import GlobalStyles from './styles/GlobalStyles'
 
 import i18n from './configs/i18n/i18n'
 import RootRouter from './routes/Root'
+import DarkModeToggle from '@/components/common/DarkModeToggle'
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-       <Provider store={store}> 
+      <Provider store={store}>
         <I18nextProvider i18n={i18n}>
           <DarkModeProvider>
             <GlobalStyles />
             <BrowserRouter>
               <RootRouter />
+              <DarkModeToggle />
             </BrowserRouter>
           </DarkModeProvider>
         </I18nextProvider>

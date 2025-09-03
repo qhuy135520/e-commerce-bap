@@ -1,11 +1,11 @@
 import styled from 'styled-components'
-import Heading from '../../../components/UI/Heading'
+import Heading from '../../../components/ui/Heading'
 
 export const StyleAbout = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: #000;
+  color: var(--color-grey-800);
   & p {
     padding: 1.8rem 0 2.8rem;
   }
