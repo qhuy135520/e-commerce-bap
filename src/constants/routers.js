@@ -7,7 +7,7 @@ export const AUTH_ROUTER_PATH = {
 }
 
 export const PUBLIC_ROUTER_PATH = {
-  HOME_PAGE: { KEY: 'HOME_PAGE', PATH: '/homepage' },
+  HOME_PAGE: { KEY: 'HOME_PAGE', PATH: '/' },
   ABOUT: { KEY: 'ABOUT', PATH: '/about' },
 }
 

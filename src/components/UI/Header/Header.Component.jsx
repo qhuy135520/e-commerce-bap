@@ -25,7 +25,9 @@ import {
 import { IoMdPhonePortrait } from 'react-icons/io'
 import { SlScreenDesktop } from 'react-icons/sl'
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useUser } from '@/hooks/authentication/useUser.js'
+import { useLogout } from '@/hooks/authentication/useLogout.js'
 
 const items = [
   {
@@ -56,6 +58,9 @@ const items = [
 ]
 
 export default function Header() {
+  const navigate = useNavigate()
+  const { user } = useUser()
+  const { logout } = useLogout()
   const [current, setCurrent] = useState('')
   const onClick = (e) => {
     console.log('click ', e)
@@ -116,22 +121,28 @@ export default function Header() {
               prefix={<IoSearch />}
             />
             <StyleButton>
-              <Popover
-                placement='bottomRight'
-                title=''
-                content={
-                  <StyleContentPopover>
-                    <NavLink>Thông tin cá nhân</NavLink>
-                    <hr />
-                    <NavLink>Đăng xuất</NavLink>
-                  </StyleContentPopover>
-                }
-                trigger='hover'
-              >
-                <Button size='large'>
+              {!!user ? (
+                <Popover
+                  placement='bottom'
+                  title=''
+                  content={
+                    <StyleContentPopover>
+                      <NavLink to='user-dashboard'>Thông tin cá nhân</NavLink>
+                      <hr />
+                      <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
+                    </StyleContentPopover>
+                  }
+                  trigger='hover'
+                >
+                  <Button size='large'>
+                    <FaUser />
+                  </Button>
+                </Popover>
+              ) : (
+                <Button size='large' onClick={() => navigate('/login')}>
                   <FaUser />
                 </Button>
-              </Popover>
+              )}
 
               <Popover
                 placement='bottomRight'
