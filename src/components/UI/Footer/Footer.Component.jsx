@@ -7,7 +7,7 @@ import {
   StyleInfo,
   StylePhone,
 } from './Footer.styled'
-import DarkModeToggle from '../../common/darkModeToggle'
+import DarkModeToggle from '../../common/DarkModeToggle'
 import { NavLink } from 'react-router-dom'
 
 const logos = ['0 0', '-85px 0', '-170px 0']
@@ -36,7 +36,7 @@ export default function Footer() {
               </p>
             </StyleInfo>
           </Col>
-          <Col xs={24} sm={12} lg={10 }>
+          <Col xs={24} sm={12} lg={10}>
             <StyleInfo>
               <b>Website cùng tập đoàn</b>
               <StyleRowLogo>
@@ -44,9 +44,6 @@ export default function Footer() {
                   <Logo key={i} $position={pos} />
                 ))}
               </StyleRowLogo>
-              <p>
-                <DarkModeToggle />
-              </p>
             </StyleInfo>
           </Col>
         </Row>

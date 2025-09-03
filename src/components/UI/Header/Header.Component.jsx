@@ -114,7 +114,7 @@ export default function Header() {
                 </Button>
               </Popover>
             </StyleListCateMobileWrapper>
-            <StyleImg src={logo} alt='logo-web' />
+            <StyleImg src={logo} alt='logo-web' onClick={() => navigate('/')} />
             <StyleInputSearch
               placeholder='Tìm kiếm sản phẩm...'
               prefix={<IoSearch />}
@@ -126,7 +126,7 @@ export default function Header() {
                   title=''
                   content={
                     <StyleContentPopover>
-                      <NavLink to='user-dashboard'>Thông tin cá nhân</NavLink>
+                      <NavLink to='update-user'>Thông tin cá nhân</NavLink>
                       <hr />
                       <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
                     </StyleContentPopover>

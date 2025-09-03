@@ -9,7 +9,7 @@ export const StyleHeader = styled.header`
   z-index: 1000;
 `
 export const HeaderTop = styled.div`
-  background-color: var(--color-blue-5);
+  background: var(--grad-blue-1);
   height: 6.4rem;
   display: flex;
   align-items: center;
