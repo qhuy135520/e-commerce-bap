@@ -1,12 +1,12 @@
 import { Carousel } from 'antd';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import noImage from '../../../assets/images/NoImage/noimage.jpg';
+import noImage from '@/assets/images/NoImage/noimage.jpg';
 import {
   fetchProducts,
   fetchProductSales,
   sortProductsBySales,
-} from '../../../slices/productSlice';
+} from '@/slices/productSlice';
 import {
   SlideWrapper,
   ProductCard,

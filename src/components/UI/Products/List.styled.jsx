@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Typography } from 'antd';
+import { Select, Typography } from 'antd';
 
 const { Title } = Typography;
 
@@ -15,6 +15,11 @@ export const ErrorText = styled(Typography.Text)`
   display: block;
   text-align: center;
   margin-bottom: 16px;
+`;
+
+export const StyledSelect = styled(Select)`
+  width: 150px;
+  margin-bottom: 20px;
 `;
 
 export const ProductGrid = styled.div`
