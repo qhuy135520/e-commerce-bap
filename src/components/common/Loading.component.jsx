@@ -1,14 +1,18 @@
-import { Spin } from 'antd'
+import React from 'react'
 import ErrorComponent from './Error.component'
-import StyledFlex, { Logo } from '@/components/common/Loading.styled'
-import logo from '@/assets/logo.png'
+import {
+  CartIcon,
+  LoaderWrapper,
+  LogoText,
+} from '@/components/common/Loading.styled'
 
 function LoadingComponent({ children, isLoading, error = null }) {
   if (isLoading) {
     return (
-      <StyledFlex align='center' justify='center'>
-        <Logo src={logo} alt='logo' />{' '}
-      </StyledFlex>
+      <LoaderWrapper>
+        <CartIcon />
+        <LogoText>E-Bap</LogoText>
+      </LoaderWrapper>
     )
   }
 
@@ -18,5 +22,6 @@ function LoadingComponent({ children, isLoading, error = null }) {
 
   return children
 }
+
 export default LoadingComponent
 
