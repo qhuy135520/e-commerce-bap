@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components'
 
 const Heading = styled.h1`
+  color: var(--color-grey-900);
   ${(props) =>
     props.as === 'h1' &&
     css`
@@ -8,6 +9,10 @@ const Heading = styled.h1`
       font-weight: 600;
       padding: 20px;
       text-align: center;
+
+      @media (max-width: 992px) {
+        font-size: 2.6rem;
+      }
     `}
 
   ${(props) =>

@@ -1,0 +1,29 @@
+import React from 'react'
+import { Route } from 'react-router-dom'
+
+import ProtectedRoute from '@/routes/guards/ProtectedRoutes'
+import AuthLayout from '@/layouts/common/AuthLayout'
+import { ROUTER_PATH } from '@/constants'
+
+const UpdatePasswordPage = React.lazy(() =>
+  import('@/pages/privatePages').then((module) => ({
+    default: module.UpdatePasswordPage,
+  }))
+)
+
+const PrivateRoutes = (
+  <Route
+    element={
+      <ProtectedRoute>
+        <AuthLayout />
+      </ProtectedRoute>
+    }
+  >
+    <Route
+      path={ROUTER_PATH.UPDATE_PASSWORD.PATH}
+      element={<UpdatePasswordPage />}
+    />
+  </Route>
+)
+
+export default PrivateRoutes
