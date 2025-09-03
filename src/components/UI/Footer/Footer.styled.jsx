@@ -27,7 +27,7 @@ export const Sprite = styled.div`
 export const Logo = styled(Sprite)`
   width: 90px;
   height: 24px;
-  background-position: ${(props) => props.position};
+  background-position: ${(props) => props.$position};
   @media (max-width: 992px) {
     width: 80px;
     height: 24px;
@@ -44,4 +44,8 @@ export const StyleInfo = styled(Col)`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+`
+export const StylePhone = styled.span`
+  font-weight: 600;
+  color: var(--color-blue-7);
 `

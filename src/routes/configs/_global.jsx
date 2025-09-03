@@ -58,5 +58,4 @@ const GlobalRoutes = (
     <Route path="*" element={<NotFoundPage />} />
   </>
 );
-
 export default GlobalRoutes;

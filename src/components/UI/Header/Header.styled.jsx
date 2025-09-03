@@ -32,11 +32,6 @@ export const StyleContainer = styled.div`
 export const StyleButton = styled.div`
   display: flex;
   gap: 1rem;
-  /* @media (max-width: 431px) {
-    & button{
-      $props.size : 
-    }
-  } */
 `
 export const StyleImg = styled.img`
   height: 100%;
@@ -77,4 +72,16 @@ export const StyleListCateMobileWrapper = styled(Popover)`
   @media (max-width: 431px) {
     display: block;
   }
+`
+
+export const StyleContentPopover = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  & hr{
+    width: 80%;
+  }
+
 `
