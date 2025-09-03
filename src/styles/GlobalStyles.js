@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-
+import 'flag-icons/css/flag-icons.min.css'
 const GlobalStyles = createGlobalStyle`
 :root {
 --color-yellow-500: #d3c631ff ;
