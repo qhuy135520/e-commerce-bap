@@ -9,21 +9,21 @@ import {
   StyleCategory,
   StyleMenu,
   StyleListCateMobileWrapper,
-} from './Header.styled.jsx'
-import logo from '../../../assets/logo.png'
-import { Button, ConfigProvider, Menu, Popover } from 'antd'
-import { IoSearch } from 'react-icons/io5'
-import { MdMenu } from 'react-icons/md'
+} from './Header.styled.jsx';
+import logo from '../../../assets/logo.png';
+import { Button, ConfigProvider, Menu, Popover } from 'antd';
+import { IoSearch } from 'react-icons/io5';
+import { MdMenu } from 'react-icons/md';
 import {
   FaUser,
   FaShoppingCart,
   FaLaptop,
   FaTabletAlt,
   FaHeadphones,
-} from 'react-icons/fa'
-import { IoMdPhonePortrait } from 'react-icons/io'
-import { SlScreenDesktop } from 'react-icons/sl'
-import { useState } from 'react'
+} from 'react-icons/fa';
+import { IoMdPhonePortrait } from 'react-icons/io';
+import { SlScreenDesktop } from 'react-icons/sl';
+import { useState } from 'react';
 
 const items = [
   {
@@ -51,14 +51,14 @@ const items = [
     key: 'screen',
     icon: <SlScreenDesktop />,
   },
-]
+];
 
 export default function Header() {
-  const [current, setCurrent] = useState('')
+  const [current, setCurrent] = useState('');
   const onClick = (e) => {
-    console.log('click ', e)
-    setCurrent(e.key)
-  }
+    console.log('click ', e);
+    setCurrent(e.key);
+  };
   return (
     <ConfigProvider
       theme={{
@@ -89,40 +89,40 @@ export default function Header() {
           <StyleContainer>
             <StyleListCateMobileWrapper>
               <Popover
-                placement='bottomLeft'
-                title='E-BAP'
-                color='var(--color-grey-200)'
+                placement="bottomLeft"
+                title="E-BAP"
+                color="var(--color-grey-200)"
                 content={
                   <StyleMenu
                     items={items}
                     onClick={onClick}
                     selectedKeys={[current]}
-                    mode='inline'
+                    mode="inline"
                   />
                 }
-                trigger='click'
+                trigger="click"
               >
                 <Button>
                   <MdMenu />
                 </Button>
               </Popover>
             </StyleListCateMobileWrapper>
-            <StyleImg src={logo} alt='logo-web' />
+            <StyleImg src={logo} alt="logo-web" />
             <StyleInputSearch
-              placeholder='Tìm kiếm sản phẩm...'
+              placeholder="Tìm kiếm sản phẩm..."
               prefix={<IoSearch />}
             />
             <StyleButton>
-              <Button size='large'>
+              <Button size="large">
                 <FaUser />
               </Button>
               <Popover
-                placement='bottomRight'
-                title='Giỏ hàng của bạn'
-                content='Chưa có sản phẩm nào'
-                trigger='hover'
+                placement="bottomRight"
+                title="Giỏ hàng của bạn"
+                content="Chưa có sản phẩm nào"
+                trigger="hover"
               >
-                <Button size='large' type='primary' title='đăng nhập'>
+                <Button size="large" type="primary" title="đăng nhập">
                   <FaShoppingCart />
                 </Button>
               </Popover>
@@ -136,7 +136,7 @@ export default function Header() {
               <StyleMenu
                 onClick={onClick}
                 selectedKeys={[current]}
-                mode='horizontal'
+                mode="horizontal"
                 items={items}
               />
             </StyleCategory>
@@ -144,5 +144,5 @@ export default function Header() {
         </HeaderBottom>
       </StyleHeader>
     </ConfigProvider>
-  )
+  );
 }

@@ -1,11 +1,11 @@
-import React from "react";
-import noImage from "../../../assets/images/NoImage/noimage.jpg";
+import React from 'react';
+import noImage from '../../../assets/images/NoImage/noimage.jpg';
 import {
   StyledCard,
   ProductImage,
   ProductPrice,
   ProductDescription,
-} from "./ProductCart.styled";
+} from './ProductCart.styled';
 
 const ProductCard = ({ product }) => {
   return (
@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
     >
       <ProductPrice>Giá: {product.price} VND</ProductPrice>
       <ProductDescription>
-        {product.description || "Không có mô tả"}
+        {product.description || 'Không có mô tả'}
       </ProductDescription>
     </StyledCard>
   );
