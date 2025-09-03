@@ -6,6 +6,7 @@ import {
   ProductPrice,
   ProductDescription,
 } from './ProductCart.styled';
+import { formatCurrency } from '@/utils/helpers';
 
 const ProductCard = ({ product }) => {
   return (
@@ -16,7 +17,7 @@ const ProductCard = ({ product }) => {
         <ProductImage alt={product.name} src={product.image_url || noImage} />
       }
     >
-      <ProductPrice>Giá: {product.price} VND</ProductPrice>
+      <ProductPrice>Giá: {formatCurrency(product.price)}</ProductPrice>
       <ProductDescription>
         {product.description || 'Không có mô tả'}
       </ProductDescription>

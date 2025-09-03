@@ -4,15 +4,17 @@ import {
   fetchProducts,
   fetchProductSales,
   sortProductsBySales,
-} from '../../../slices/productSlice';
-import { Spin, message, Select } from 'antd';
-import ProductCard from '../../../components/ui/Cart/ProductCart.component';
+} from '@/slices/productSlice';
+import { Spin, Select } from 'antd';
+import ProductCard from './ProductCart.component';
 import {
   ProductListWrapper,
   ProductTitle,
   ErrorText,
   ProductGrid,
 } from './ProductList.styled';
+import toast from 'react-hot-toast';
+import LoadingComponent from '@/components/common/Loading.component';
 
 const { Option } = Select;
 
@@ -30,7 +32,7 @@ const ProductList = () => {
       dispatch(fetchProducts())
         .then(() => dispatch(fetchProductSales()))
         .then(() => dispatch(sortProductsBySales()))
-        .catch(() => message.error('Lỗi khi tải sản phẩm'));
+        .catch(() => toast.error('Lỗi khi tải sản phẩm'));
     }
   }, [status, dispatch]);
 
@@ -49,37 +51,37 @@ const ProductList = () => {
   }, [products, sales, filterOption]);
 
   return (
-    <ProductListWrapper>
-      <ProductTitle level={3}>Danh sách sản phẩm</ProductTitle>
+    <LoadingComponent
+      isLoading={status === 'loading' || status === 'idle'}
+      error={error}
+    >
+      <ProductListWrapper>
+        <ProductTitle level={3}>Danh sách sản phẩm</ProductTitle>
 
-      <Select
-        placeholder="Sắp xếp"
-        value={filterOption || undefined}
-        onChange={(value) => setFilterOption(value)}
-        style={{ width: 150, marginBottom: '20px' }}
-      >
-        <Option value="sales">Bán nhiều nhất</Option>
-        <Option value="priceDesc">Giá cao → thấp</Option>
-        <Option value="priceAsc">Giá thấp → cao</Option>
-      </Select>
+        <Select
+          placeholder="Sắp xếp"
+          value={filterOption || undefined}
+          onChange={(value) => setFilterOption(value)}
+          style={{ width: 150, marginBottom: '20px' }}
+        >
+          <Option value="sales">Bán nhiều nhất</Option>
+          <Option value="priceDesc">Giá cao → thấp</Option>
+          <Option value="priceAsc">Giá thấp → cao</Option>
+        </Select>
 
-      {status === 'loading' && (
-        <Spin size="large" style={{ display: 'block', margin: '20px auto' }} />
-      )}
-      {status === 'failed' && <ErrorText type="danger">Lỗi: {error}</ErrorText>}
-
-      {status === 'succeeded' && (
-        <ProductGrid>
-          {filteredProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              sold={sales[product.id] || 0}
-            />
-          ))}
-        </ProductGrid>
-      )}
-    </ProductListWrapper>
+        {status === 'succeeded' && (
+          <ProductGrid>
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                sold={sales?.[product.id] || 0}
+              />
+            ))}
+          </ProductGrid>
+        )}
+      </ProductListWrapper>
+    </LoadingComponent>
   );
 };
 
