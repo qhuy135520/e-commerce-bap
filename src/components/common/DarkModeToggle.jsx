@@ -3,6 +3,9 @@ import { useDarkMode } from '../../contexts/theme/DarkModeContext'
 import styled from 'styled-components'
 
 const StyleButtonToggle = styled.button`
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
   border: none;
   background-color: var(--color-platinum-1);
   color: var(--color-grey-50);
@@ -14,6 +17,11 @@ const StyleButtonToggle = styled.button`
   }
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: 431px) {
+    width: 40px;
+    height: 40px;
   }
 `
 
