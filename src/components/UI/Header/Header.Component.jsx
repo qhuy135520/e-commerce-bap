@@ -9,6 +9,7 @@ import {
   StyleCategory,
   StyleMenu,
   StyleListCateMobileWrapper,
+  StyleContentPopover,
 } from './Header.styled.jsx'
 import logo from '../../../assets/logo.png'
 import { Button, ConfigProvider, Menu, Popover } from 'antd'
@@ -24,39 +25,44 @@ import {
 import { IoMdPhonePortrait } from 'react-icons/io'
 import { SlScreenDesktop } from 'react-icons/sl'
 import { useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { useUser } from '@/hooks/authentication/useUser.js'
+import { useLogout } from '@/hooks/authentication/useLogout.js'
 
 const items = [
   {
-    label: 'Điện thoại',
+    label: <NavLink to='/phone'>Điện thoại</NavLink>,
     key: 'phone',
     icon: <IoMdPhonePortrait />,
   },
   {
-    label: 'Laptop',
+    label: <NavLink to='/laptop'>Laptop</NavLink>,
     key: 'laptop',
     icon: <FaLaptop />,
   },
   {
-    label: 'Máy tính bảng',
+    label: <NavLink to='/tablet'>Máy tính bảng</NavLink>,
     key: 'tablet',
     icon: <FaTabletAlt />,
   },
   {
-    label: 'Phụ kiện',
+    label: <NavLink to='/accessory'>Phụ kiện</NavLink>,
     key: 'accessory',
     icon: <FaHeadphones />,
   },
   {
-    label: 'Màn hình',
+    label: <NavLink to='/screen'>Màn hình</NavLink>,
     key: 'screen',
     icon: <SlScreenDesktop />,
   },
 ]
 
 export default function Header() {
+  const navigate = useNavigate()
+  const { user } = useUser()
+  const { logout } = useLogout()
   const [current, setCurrent] = useState('')
   const onClick = (e) => {
-    console.log('click ', e)
     setCurrent(e.key)
   }
   return (
@@ -81,6 +87,7 @@ export default function Header() {
         },
         token: {
           colorText: 'var(--color-grey-800)',
+          colorBgElevated: 'var(--color-grey-100)',
         },
       }}
     >
@@ -113,16 +120,36 @@ export default function Header() {
               prefix={<IoSearch />}
             />
             <StyleButton>
-              <Button size='large'>
-                <FaUser />
-              </Button>
+              {!!user ? (
+                <Popover
+                  placement='bottom'
+                  title=''
+                  content={
+                    <StyleContentPopover>
+                      <NavLink to='user-dashboard'>Thông tin cá nhân</NavLink>
+                      <hr />
+                      <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
+                    </StyleContentPopover>
+                  }
+                  trigger='hover'
+                >
+                  <Button size='large'>
+                    <FaUser />
+                  </Button>
+                </Popover>
+              ) : (
+                <Button size='large' onClick={() => navigate('/login')}>
+                  <FaUser />
+                </Button>
+              )}
+
               <Popover
                 placement='bottomRight'
                 title='Giỏ hàng của bạn'
                 content='Chưa có sản phẩm nào'
                 trigger='hover'
               >
-                <Button size='large' type='primary' title='đăng nhập'>
+                <Button size='large' type='primary'>
                   <FaShoppingCart />
                 </Button>
               </Popover>

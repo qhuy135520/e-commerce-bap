@@ -18,7 +18,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
-      <Provider store={store}>
+       <Provider store={store}> 
         <I18nextProvider i18n={i18n}>
           <DarkModeProvider>
             <GlobalStyles />
@@ -53,4 +53,3 @@ function App() {
 }
 
 export default React.memo(App)
-

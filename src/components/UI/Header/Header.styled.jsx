@@ -1,7 +1,13 @@
 import { Input, Menu, Popover } from 'antd'
 import styled from 'styled-components'
 
-export const StyleHeader = styled.header``
+export const StyleHeader = styled.header`
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1000;
+`
 export const HeaderTop = styled.div`
   background-color: var(--color-blue-5);
   height: 6.4rem;
@@ -32,11 +38,6 @@ export const StyleContainer = styled.div`
 export const StyleButton = styled.div`
   display: flex;
   gap: 1rem;
-  /* @media (max-width: 431px) {
-    & button{
-      $props.size : 
-    }
-  } */
 `
 export const StyleImg = styled.img`
   height: 100%;
@@ -76,5 +77,16 @@ export const StyleListCateMobileWrapper = styled(Popover)`
   display: none;
   @media (max-width: 431px) {
     display: block;
+  }
+`
+
+export const StyleContentPopover = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: center;
+  align-items: center;
+  & hr {
+    width: 80%;
   }
 `

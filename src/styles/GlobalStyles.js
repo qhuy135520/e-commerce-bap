@@ -65,7 +65,7 @@ const GlobalStyles = createGlobalStyle`
 
   &.dark-mode{
     //Blue
-  --color-blue-10: #e6f4ff
+  --color-blue-10: #e6f4ff;
 --color-blue-9: #bae0ff;
 --color-blue-8: #91caff;
 --color-blue-7: #69b1ff;

@@ -51,7 +51,6 @@ export function useSignup() {
 
   const handleSubmit = async (values, { resetForm }) => {
     const role = searchParams.get('role')
-    debugger
 
     const { email, password } = values
     const newUserInfo = {

@@ -63,6 +63,5 @@ const GlobalRoutes = (
     <Route path={ROUTER_PATH.UPDATE_USER.PATH} element={<UserUpdatePage />} />
   </>
 )
-
 export default GlobalRoutes
 
