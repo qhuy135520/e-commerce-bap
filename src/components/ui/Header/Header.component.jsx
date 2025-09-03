@@ -1,12 +1,12 @@
 import {
   StyleHeader,
-  StyleContainer,
+  StyleContainerTop,
+  StyleContainerBot,
   StyleImg,
   StyleInputSearch,
   StyleButton,
   HeaderTop,
   HeaderBottom,
-  StyleCategory,
   StyleMenu,
   StyleListCateMobileWrapper,
   StyleContentPopover,
@@ -28,6 +28,7 @@ import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useUser } from '@/hooks/authentication/useUser.js'
 import { useLogout } from '@/hooks/authentication/useLogout.js'
+import LanguageSwitcher from '@/components/ui/LanguageSwitcher.jsx'
 
 const items = [
   {
@@ -84,16 +85,21 @@ export default function Header() {
             itemHoverColor: 'var(--color-blue-6)',
             itemSelectedColor: 'var(--color-blue-6)',
           },
+          Input: {
+            activeBg: 'var(--color-grey-100)',
+            hoverBg: 'var(--color-grey-200)',
+          },
         },
         token: {
           colorText: 'var(--color-grey-800)',
           colorBgElevated: 'var(--color-grey-100)',
+          colorIcon: 'white',
         },
       }}
     >
       <StyleHeader>
         <HeaderTop>
-          <StyleContainer>
+          <StyleContainerTop>
             <StyleListCateMobileWrapper>
               <Popover
                 placement='bottomLeft'
@@ -131,42 +137,45 @@ export default function Header() {
                 </Button>
               </Popover>
               {!!user ? (
-                <Popover
-                  placement='bottom'
-                  title=''
-                  content={
-                    <StyleContentPopover>
-                      <NavLink to='update-user'>Thông tin cá nhân</NavLink>
-                      <hr />
-                      <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
-                    </StyleContentPopover>
-                  }
-                  trigger='hover'
-                >
-                  <Button size='large'>
-                    <FaUser />
-                  </Button>
-                </Popover>
+                <>
+                  <Popover
+                    placement='bottom'
+                    title=''
+                    content={
+                      <StyleContentPopover>
+                        <NavLink to='update-user'>Thông tin cá nhân</NavLink>
+                        <NavLink to='deposit'>Nạp tiền</NavLink>
+                        <hr />
+                        <LanguageSwitcher />
+                        <NavLink onClick={() => logout()}>Đăng xuất</NavLink>
+                      </StyleContentPopover>
+                    }
+                    trigger='hover'
+                  >
+                    <Button size='large'>
+                      <FaUser />
+                    </Button>
+                  </Popover>
+                </>
               ) : (
                 <Button size='large' onClick={() => navigate('/login')}>
                   <FaUser />
                 </Button>
               )}
+              <p>10.000$</p>
             </StyleButton>
-          </StyleContainer>
+          </StyleContainerTop>
         </HeaderTop>
 
         <HeaderBottom>
-          <StyleContainer>
-            <StyleCategory>
-              <StyleMenu
-                onClick={onClick}
-                selectedKeys={[current]}
-                mode='horizontal'
-                items={items}
-              />
-            </StyleCategory>
-          </StyleContainer>
+          <StyleContainerBot>
+            <StyleMenu
+              onClick={onClick}
+              selectedKeys={[current]}
+              mode='horizontal'
+              items={items}
+            />
+          </StyleContainerBot>
         </HeaderBottom>
       </StyleHeader>
     </ConfigProvider>

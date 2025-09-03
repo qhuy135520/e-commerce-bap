@@ -6,9 +6,11 @@ import {
   StyleContainer,
   StyleInfo,
   StylePhone,
+  StyleRow,
 } from './Footer.styled'
 import DarkModeToggle from '../../common/DarkModeToggle'
 import { NavLink } from 'react-router-dom'
+import SocialGroup from '@/components/ui/SocialGroup'
 
 const logos = ['0 0', '-85px 0', '-170px 0']
 
@@ -16,8 +18,8 @@ export default function Footer() {
   return (
     <StyleFooter>
       <StyleContainer>
-        <Row gutter={[24, 36]}>
-          <Col xs={24} sm={12} lg={7}>
+        <StyleRow gutter={[24, 36]} justify='space-around'>
+          <Col xs={24} sm={12} lg={6}>
             <StyleInfo>
               <b>Tổng đài hỗ trợ</b>
               <p>
@@ -28,7 +30,7 @@ export default function Footer() {
               </p>
             </StyleInfo>
           </Col>
-          <Col xs={24} sm={12} lg={7}>
+          <Col xs={24} sm={12} lg={6}>
             <StyleInfo>
               <b>Về công ty</b>
               <p>
@@ -36,7 +38,7 @@ export default function Footer() {
               </p>
             </StyleInfo>
           </Col>
-          <Col xs={24} sm={12} lg={10}>
+          <Col xs={24} sm={12} lg={6}>
             <StyleInfo>
               <b>Website cùng tập đoàn</b>
               <StyleRowLogo>
@@ -46,7 +48,13 @@ export default function Footer() {
               </StyleRowLogo>
             </StyleInfo>
           </Col>
-        </Row>
+          <Col xs={24} sm={12} lg={6}>
+            <StyleInfo>
+              <b>Contact</b>
+              <SocialGroup/>
+            </StyleInfo>
+          </Col>
+        </StyleRow>
       </StyleContainer>
     </StyleFooter>
   )
