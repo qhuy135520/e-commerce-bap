@@ -1,9 +1,11 @@
 import { Button, ConfigProvider, Flex } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
-import DividerComponent from '../ui/Divider.component'
+import DividerComponent from '../Divider.component'
+import { useTranslation } from 'react-i18next'
 
 export default function DividerForgotPassword() {
+  const { t } = useTranslation(['auth'])
   const navigate = useNavigate()
 
   return (
@@ -16,7 +18,7 @@ export default function DividerForgotPassword() {
         },
       }}
     >
-      <DividerComponent title='Forgot password' />
+      <DividerComponent title={t('forgotPassword.title')} />
       <Flex vertical>
         <Button
           color='primary'
@@ -24,7 +26,7 @@ export default function DividerForgotPassword() {
           size='large'
           onClick={() => navigate('/forgot-password')}
         >
-          Reset password
+          {t('forgotPassword.resetButton')}
         </Button>
       </Flex>
     </ConfigProvider>

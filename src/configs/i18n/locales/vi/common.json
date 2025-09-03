@@ -1,0 +1,6 @@
+{
+  "roles": {
+    "customer": "Khách hàng",
+    "vendor": "Người bán"
+  }
+}
