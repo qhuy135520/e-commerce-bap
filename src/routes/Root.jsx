@@ -1,10 +1,10 @@
 import { Routes } from 'react-router-dom'
 import { Suspense } from 'react'
-import { Spin } from 'antd'
 
 import PrivateRoutes from '@/routes/configs/_private'
 import GlobalRoutes from '@/routes/configs/_global'
 import LoadingComponent from '@/components/common/Loading.component'
+import PublicRoutes from '@/routes/configs/_public'
 
 const RootRouter = () => {
   return (
@@ -12,6 +12,7 @@ const RootRouter = () => {
       <Routes>
         {PrivateRoutes}
         {GlobalRoutes}
+        {PublicRoutes}
       </Routes>
     </Suspense>
   )

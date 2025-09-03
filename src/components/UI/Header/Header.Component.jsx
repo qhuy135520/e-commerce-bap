@@ -9,6 +9,7 @@ import {
   StyleCategory,
   StyleMenu,
   StyleListCateMobileWrapper,
+  StyleContentPopover,
 } from './Header.styled.jsx'
 import logo from '../../../assets/logo.png'
 import { Button, ConfigProvider, Menu, Popover } from 'antd'
@@ -24,6 +25,7 @@ import {
 import { IoMdPhonePortrait } from 'react-icons/io'
 import { SlScreenDesktop } from 'react-icons/sl'
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 
 const items = [
   {
@@ -81,6 +83,7 @@ export default function Header() {
         },
         token: {
           colorText: 'var(--color-grey-800)',
+          colorBgElevated: 'var(--color-grey-100)',
         },
       }}
     >
@@ -113,16 +116,30 @@ export default function Header() {
               prefix={<IoSearch />}
             />
             <StyleButton>
-              <Button size='large'>
-                <FaUser />
-              </Button>
+              <Popover
+                placement='bottomRight'
+                title=''
+                content={
+                  <StyleContentPopover>
+                    <NavLink>Thông tin cá nhân</NavLink>
+                    <hr />
+                    <NavLink>Đăng xuất</NavLink>
+                  </StyleContentPopover>
+                }
+                trigger='hover'
+              >
+                <Button size='large'>
+                  <FaUser />
+                </Button>
+              </Popover>
+
               <Popover
                 placement='bottomRight'
                 title='Giỏ hàng của bạn'
                 content='Chưa có sản phẩm nào'
                 trigger='hover'
               >
-                <Button size='large' type='primary' title='đăng nhập'>
+                <Button size='large' type='primary'>
                   <FaShoppingCart />
                 </Button>
               </Popover>
