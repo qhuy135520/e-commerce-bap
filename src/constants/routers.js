@@ -13,6 +13,7 @@ export const PUBLIC_ROUTER_PATH = {
 
 export const GLOBAL_ROUTER_PATH = {
   NOT_FOUND: { KEY: 'NOT_FOUND', PATH: '*' },
+  UPDATE_USER: { KEY: 'UPDATE_USER', PATH: '/update-user' },
 }
 
 export const ROUTER_PATH = {
@@ -20,3 +21,4 @@ export const ROUTER_PATH = {
   ...GLOBAL_ROUTER_PATH,
   ...PUBLIC_ROUTER_PATH,
 }
+
