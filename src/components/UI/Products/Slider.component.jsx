@@ -1,45 +1,45 @@
-import { Carousel } from "antd";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import noImage from "../../../assets/images/NoImage/noimage.jpg";
+import { Carousel } from 'antd'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import noImage from '../../../assets/images/NoImage/noimage.jpg'
 import {
   fetchProducts,
   fetchProductSales,
   sortProductsBySales,
-} from "../../../slices/productSlice";
+} from '@/slices/productSlice'
 import {
   SlideWrapper,
   ProductCard,
   ProductImage,
   ProductName,
   SoldText,
-} from "./Slider.styled";
+} from './Slider.styled'
 
 const chunkArray = (arr, size) => {
   return arr.reduce((chunks, item, index) => {
-    const chunkIndex = Math.floor(index / size);
+    const chunkIndex = Math.floor(index / size)
     if (!chunks[chunkIndex]) {
-      chunks[chunkIndex] = [];
+      chunks[chunkIndex] = []
     }
-    chunks[chunkIndex].push(item);
-    return chunks;
-  }, []);
-};
+    chunks[chunkIndex].push(item)
+    return chunks
+  }, [])
+}
 
 const Slider = () => {
-  const dispatch = useDispatch();
-  const { products, sales } = useSelector((state) => state.products);
+  const dispatch = useDispatch()
+  const { products, sales } = useSelector((state) => state.products)
 
   useEffect(() => {
     dispatch(fetchProducts()).then(() => {
       dispatch(fetchProductSales()).then(() => {
-        dispatch(sortProductsBySales());
-      });
-    });
-  }, [dispatch]);
+        dispatch(sortProductsBySales())
+      })
+    })
+  }, [dispatch])
 
-  const topProducts = products.slice(0, 9);
-  const productChunks = chunkArray(topProducts, 3);
+  const topProducts = products.slice(0, 9)
+  const productChunks = chunkArray(topProducts, 3)
 
   return (
     <Carousel autoplay>
@@ -60,7 +60,7 @@ const Slider = () => {
         </div>
       ))}
     </Carousel>
-  );
-};
+  )
+}
 
-export default Slider;
+export default Slider

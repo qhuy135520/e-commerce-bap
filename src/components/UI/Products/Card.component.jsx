@@ -1,11 +1,11 @@
 import React from 'react';
-import noImage from '../../../assets/images/NoImage/noimage.jpg';
+import noImage from '@/assets/images/NoImage/noimage.jpg';
 import {
   StyledCard,
   ProductImage,
   ProductPrice,
   ProductDescription,
-} from './ProductCart.styled';
+} from './Card.styled';
 import { formatCurrency } from '@/utils/helpers';
 
 const ProductCard = ({ product }) => {
