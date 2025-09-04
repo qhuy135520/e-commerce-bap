@@ -5,7 +5,6 @@ export const StyleProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  justify-content: center;
   padding: 0 2rem;
 `
 
@@ -23,6 +22,7 @@ export const StyleRating = styled.div`
   margin-top: 1rem;
   display: flex;
   align-items: center;
+
   & p {
     margin-left: 1rem;
     font-weight: 500;
@@ -30,27 +30,29 @@ export const StyleRating = styled.div`
 `
 export const StyleBrand = styled.div`
   font-size: 1.5rem;
-  color: var(--color-grey-5 00);
+  color: var(--color-grey-500);
 `
 
 export const StyleQuantity = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  & button{
+
+  & button {
     font-weight: 700;
     font-size: 1.8rem;
   }
-  & span{
+
+  & span {
     font-weight: 700;
   }
 `
 export const StyleButton = styled.div`
   display: flex;
   gap: 2rem;
-   & button{
+
+  & button {
     padding: 2.4rem 2rem;
     font-size: 1.8rem;
   }
 `
-

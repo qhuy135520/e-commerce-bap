@@ -15,7 +15,7 @@ export const StyleImgItem = styled.img`
   height: 100px;
   object-fit: cover;
   cursor: pointer;
+  border-radius: 6px;
   border: ${({ $active }) =>
     $active ? '2px solid #1890ff' : '2px solid transparent'};
-  border-radius: 6px;
 `

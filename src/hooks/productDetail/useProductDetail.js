@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 export function useProductDetail() {
-  const [value, setValue] = useState(1)
+  const [quantity, setQuantity] = useState(1)
 
   const settings = {
     infinite: true,
@@ -20,5 +20,22 @@ export function useProductDetail() {
 
   const [mainImage, setMainImage] = useState(images[0])
 
-  return { settings, images, mainImage, setMainImage, value, setValue }
+  function handleIncrease() {
+    setQuantity(Math.min(10, quantity + 1))
+  }
+
+  function handleDecrease() {
+    setQuantity(Math.max(1, quantity - 1))
+  }
+
+  return {
+    settings,
+    images,
+    mainImage,
+    setMainImage,
+    quantity,
+    setQuantity,
+    handleIncrease,
+    handleDecrease,
+  }
 }
