@@ -12,7 +12,6 @@ export default function LoginForm() {
   return (
     <ConfigProvider
       theme={{
-        token: {},
         components: {
           Form: {
             labelFontSize: '1.8rem',
@@ -21,6 +20,7 @@ export default function LoginForm() {
           Input: {
             colorTextPlaceholder: 'var(--color-grey-400)',
             colorBgContainer: 'var(--color-grey-100)',
+            colorText: 'var(--color-grey-800)',
           },
         },
       }}
@@ -37,7 +37,6 @@ export default function LoginForm() {
             <>
               <Form.Item label={t('login.form.emailLabel')} name='email'>
                 <Input
-                  type='email'
                   size='large'
                   name='email'
                   placeholder={t('login.form.emailPlaceholder')}
