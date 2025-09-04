@@ -1,26 +1,26 @@
-import styled from 'styled-components';
-import { Select, Typography } from 'antd';
+import styled from 'styled-components'
+import { Select, Typography } from 'antd'
 
-const { Title } = Typography;
+const { Title } = Typography
 
 export const ProductListWrapper = styled.div`
   padding: 20px 0;
-`;
+`
 
 export const ProductTitle = styled(Title)`
   margin-bottom: 24px;
-`;
+`
 
 export const ErrorText = styled(Typography.Text)`
   display: block;
   text-align: center;
   margin-bottom: 16px;
-`;
+`
 
 export const StyledSelect = styled(Select)`
   width: 150px;
   margin-bottom: 20px;
-`;
+`
 
 export const ProductGrid = styled.div`
   display: grid;
@@ -38,4 +38,4 @@ export const ProductGrid = styled.div`
   @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
-`;
+`
