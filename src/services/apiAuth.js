@@ -1,3 +1,4 @@
+import { USER_DEFAULT_BALANCE } from '@/constants'
 import supabase from './supabase'
 
 export async function signup(email, password, newUserInfo) {
@@ -27,7 +28,7 @@ export async function getUserInfo(id) {
       .eq('userId', id)
       .single()
 
-    if (error) throw error
+    if (error) return null
 
     return data
   } catch (error) {
@@ -115,7 +116,22 @@ export async function getCurrentUser() {
 
     if (errorUser) throw errorUser
 
-    const dataUserInfo = await getUserInfo(dataUser.user.id)
+    let dataUserInfo = await getUserInfo(dataUser.user.id)
+    if (!dataUserInfo) {
+      dataUserInfo = { data } = await supabase
+        .from('userInfo')
+        .insert([
+          {
+            name: 'Customer Temp',
+            role: 'customer',
+            userId: dataUser.user.id,
+            moneyBalance: USER_DEFAULT_BALANCE,
+            status: 'active',
+          },
+        ])
+        .select()
+        .single()
+    }
 
     const data = { email: dataUser.user.email, ...dataUserInfo }
 
@@ -157,4 +173,3 @@ export async function updatePassword(newPassword) {
     throw error
   }
 }
-
