@@ -10,7 +10,7 @@ i18n
   .init({
     fallbackLng: 'en',
     supportedLngs: ['en', 'vi'],
-    ns: ['common', 'auth'], // Define language json file of Page here
+    ns: ['common', 'auth', 'product'], // Define language json file of Page here
     defaultNS: 'common',
     backend: {
       loadPath: 'src/configs/i18n/locales/{{lng}}/{{ns}}.json',

@@ -1,46 +1,65 @@
-import supabase from './supabase';
+import supabase from './supabase'
+import { PAGE_SIZE } from '@/constants'
 
-export async function fetchProductsApi() {
+export async function fetchProductsApi({
+  sort,
+  search,
+  page = 1,
+  pageSize = PAGE_SIZE.PRODUCT_LIST,
+} = {}) {
   try {
-    const { data: products, error: productsError } = await supabase
-      .from('product')
-      .select('*');
-    if (productsError) throw productsError;
+    let query = supabase.from('product').select('*', { count: 'exact' })
+
+    if (search) {
+      query = query.ilike('name', `%${search}%`)
+    }
+
+    if (sort === 'priceAsc') {
+      query = query.order('price', { ascending: true })
+    } else if (sort === 'priceDesc') {
+      query = query.order('price', { ascending: false })
+    }
+
+    const from = (page - 1) * pageSize
+    const to = from + pageSize - 1
+    query = query.range(from, to)
+
+    const { data: products, error: productsError, count } = await query
+    if (productsError) throw productsError
 
     const { data: images, error: imagesError } = await supabase
       .from('productImage')
-      .select('productId, imageUrl');
-    if (imagesError) throw imagesError;
+      .select('productId, imageUrl')
+    if (imagesError) throw imagesError
 
     const productsWithImages = products.map((product) => {
-      const productImage = images.find((img) => img.productId === product.id);
+      const productImage = images.find((img) => img.productId === product.id)
       return {
         ...product,
         image_url: productImage ? productImage.imageUrl : null,
-      };
-    });
+      }
+    })
 
-    return productsWithImages;
+    return { products: productsWithImages, totalCount: count }
   } catch (error) {
-    throw error;
+    throw error
   }
 }
 
 export async function fetchProductSalesApi() {
   try {
-    const { data: orderDetails, error: orderError } = await supabase
-      .from('orderDetail')
-      .select('productId, quantity');
-    if (orderError) throw orderError;
-    const salesMap = {};
-    orderDetails.forEach((od) => {
-      if (!salesMap[od.productId]) {
-        salesMap[od.productId] = 0;
-      }
-      salesMap[od.productId] += od.quantity;
-    });
-    return salesMap;
+    const { data: salesData, error: salesError } = await supabase.rpc(
+      'get_product_sales'
+    )
+    if (salesError) throw salesError
+    const salesMap = {}
+    salesData.forEach((item) => {
+      salesMap[item.productId] = item.totalQuantity || 0
+    })
+    console.log('data: ', salesMap)
+
+    return salesMap
   } catch (error) {
-    throw error;
+    throw error
   }
 }

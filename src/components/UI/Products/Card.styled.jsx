@@ -31,3 +31,7 @@ export const ProductPrice = styled(Text)`
 export const ProductDescription = styled(Text)`
   display: block;
 `
+export const SoldText = styled.p`
+  font-size: 13px;
+  color: #666;
+`

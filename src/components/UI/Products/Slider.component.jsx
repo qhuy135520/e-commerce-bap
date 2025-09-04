@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import noImage from '../../../assets/images/NoImage/noimage.jpg'
 import {
-  fetchProducts,
+  fetchTopProducts,
   fetchProductSales,
   sortProductsBySales,
 } from '@/slices/productSlice'
@@ -12,7 +12,6 @@ import {
   ProductCard,
   ProductImage,
   ProductName,
-  SoldText,
 } from './Slider.styled'
 
 const chunkArray = (arr, size) => {
@@ -28,17 +27,8 @@ const chunkArray = (arr, size) => {
 
 const Slider = () => {
   const dispatch = useDispatch()
-  const { products, sales } = useSelector((state) => state.products)
+  const { topProducts } = useSelector((state) => state.products)
 
-  useEffect(() => {
-    dispatch(fetchProducts()).then(() => {
-      dispatch(fetchProductSales()).then(() => {
-        dispatch(sortProductsBySales())
-      })
-    })
-  }, [dispatch])
-
-  const topProducts = products.slice(0, 9)
   const productChunks = chunkArray(topProducts, 3)
 
   return (
@@ -53,7 +43,6 @@ const Slider = () => {
                   alt={product.name}
                 />
                 <ProductName>{product.name}</ProductName>
-                <SoldText>Đã bán: {sales?.[product.id] || 0}</SoldText>
               </ProductCard>
             ))}
           </SlideWrapper>

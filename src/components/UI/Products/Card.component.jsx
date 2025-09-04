@@ -1,14 +1,17 @@
-import React from 'react';
-import noImage from '@/assets/images/NoImage/noimage.jpg';
+import React from 'react'
+import noImage from '@/assets/images/NoImage/noimage.jpg'
 import {
   StyledCard,
   ProductImage,
   ProductPrice,
   ProductDescription,
-} from './Card.styled';
-import { formatCurrency } from '@/utils/helpers';
+  SoldText,
+} from './Card.styled'
+import { formatCurrency } from '@/utils/helpers'
+import { useTranslation } from 'react-i18next'
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, sold }) => {
+  const { t } = useTranslation(['product'])
   return (
     <StyledCard
       hoverable
@@ -17,12 +20,16 @@ const ProductCard = ({ product }) => {
         <ProductImage alt={product.name} src={product.image_url || noImage} />
       }
     >
-      <ProductPrice>Giá: {formatCurrency(product.price)}</ProductPrice>
+      <ProductPrice>
+        {t('productCard.price')}: {formatCurrency(product.price)}
+      </ProductPrice>
       <ProductDescription>
-        {product.description || 'Không có mô tả'}
+        {product.description || t('productCard.noDescription')}
       </ProductDescription>
-    </StyledCard>
-  );
-};
 
-export default ProductCard;
+      <SoldText>Đã bán: {sold || 0}</SoldText>
+    </StyledCard>
+  )
+}
+
+export default ProductCard
