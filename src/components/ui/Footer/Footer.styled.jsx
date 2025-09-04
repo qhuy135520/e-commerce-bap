@@ -1,4 +1,4 @@
-import { Col } from 'antd'
+import { Col, Row } from 'antd'
 import styled from 'styled-components'
 
 export const StyleFooter = styled.footer`
@@ -25,13 +25,9 @@ export const Sprite = styled.div`
 `
 
 export const Logo = styled(Sprite)`
-  width: 90px;
+  width: 85px;
   height: 24px;
   background-position: ${(props) => props.$position};
-  @media (max-width: 992px) {
-    width: 80px;
-    height: 24px;
-  }
 `
 
 export const StyleRowLogo = styled.div`
@@ -48,4 +44,8 @@ export const StyleInfo = styled(Col)`
 export const StylePhone = styled.span`
   font-weight: 600;
   color: var(--color-blue-7);
+`
+
+export const StyleRow = styled(Row)`
+  width: 100%;
 `

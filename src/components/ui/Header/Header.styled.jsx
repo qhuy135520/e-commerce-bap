@@ -24,7 +24,18 @@ export const HeaderBottom = styled.div`
     display: none;
   }
 `
-export const StyleContainer = styled.div`
+export const StyleContainerTop = styled.div`
+  max-width: 1200px;
+  padding: 0 1rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  gap: 2rem;
+`
+export const StyleContainerBot = styled.div`
   max-width: 1200px;
   padding: 0 1rem;
   height: 100%;
@@ -38,9 +49,11 @@ export const StyleContainer = styled.div`
 export const StyleButton = styled.div`
   display: flex;
   gap: 1rem;
+  align-items: center;
 `
 export const StyleImg = styled.img`
   height: 100%;
+  cursor: pointer;
   @media (max-width: 431px) {
     display: none;
   }
@@ -49,14 +62,14 @@ export const StyleInputSearch = styled(Input)`
   height: 4rem;
   border-radius: 2rem;
   width: 60%;
-  @media (max-width: 431px) {
-    width: 24rem;
-  }
-`
+  background-color: var(--color-grey-100);
 
-export const StyleCategory = styled.nav`
-  height: 100%;
+  .ant-input::placeholder {
+    color: var(--color-grey-800);
+    opacity: 0.5;
+  }
   @media (max-width: 431px) {
+    width: 19rem;
   }
 `
 export const StyleMenu = styled(Menu)`
