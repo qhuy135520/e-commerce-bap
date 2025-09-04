@@ -1,55 +1,55 @@
-import { Carousel } from 'antd'
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import noImage from '../../../assets/images/NoImage/noimage.jpg'
-import {
-  fetchTopProducts,
-  fetchProductSales,
-  sortProductsBySales,
-} from '@/slices/productSlice'
-import {
-  SlideWrapper,
-  ProductCard,
-  ProductImage,
-  ProductName,
-} from './Slider.styled'
+import React, { useEffect } from 'react'
+import Slider from 'react-slick'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAllProducts, fetchProductSales } from '@/slices/productSlice'
+import noimage from '@/assets/images/noImage/noimage.jpg'
 
-const chunkArray = (arr, size) => {
-  return arr.reduce((chunks, item, index) => {
-    const chunkIndex = Math.floor(index / size)
-    if (!chunks[chunkIndex]) {
-      chunks[chunkIndex] = []
-    }
-    chunks[chunkIndex].push(item)
-    return chunks
-  }, [])
-}
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
 
-const Slider = () => {
+import './slider.styled.scss'
+import { formatCurrency } from '@/utils/helpers'
+
+const ProductSlider = () => {
   const dispatch = useDispatch()
-  const { topProducts } = useSelector((state) => state.products)
+  const { sliderProducts } = useSelector((state) => state.products)
 
-  const productChunks = chunkArray(topProducts, 3)
+  useEffect(() => {
+    dispatch(fetchAllProducts())
+    dispatch(fetchProductSales())
+  }, [dispatch])
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    responsive: [
+      { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 2 } },
+      { breakpoint: 768, settings: { slidesToShow: 1, slidesToScroll: 1 } },
+    ],
+  }
 
   return (
-    <Carousel autoplay>
-      {productChunks.map((chunk, i) => (
-        <div key={i}>
-          <SlideWrapper>
-            {chunk.map((product) => (
-              <ProductCard key={product.id}>
-                <ProductImage
-                  src={product.image_url || noImage}
-                  alt={product.name}
-                />
-                <ProductName>{product.name}</ProductName>
-              </ProductCard>
-            ))}
-          </SlideWrapper>
-        </div>
-      ))}
-    </Carousel>
+    <div className='product-slider-container'>
+      <Slider {...settings}>
+        {sliderProducts.map((product) => (
+          <div key={product.id} className='product-card-wrapper'>
+            <div className='product-card'>
+              <img
+                src={product.image_url || noimage}
+                alt={product.name}
+                className='product-image'
+              />
+              <h3 className='product-name'>{product.name}</h3>
+              <p className='product-price'> {formatCurrency(product.price)}</p>
+            </div>
+          </div>
+        ))}
+      </Slider>
+    </div>
   )
 }
 
-export default Slider
+export default ProductSlider

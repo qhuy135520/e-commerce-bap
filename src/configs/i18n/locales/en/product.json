@@ -10,6 +10,7 @@
   },
   "productCard": {
     "price": "Price",
-    "noDescription": "No description available"
+    "noDescription": "No description available",
+    "sold": "Sold"
   }
 }

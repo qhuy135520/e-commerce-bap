@@ -10,6 +10,7 @@
   },
   "productCard": {
     "price": "Giá",
-    "noDescription": "Không có mô tả"
+    "noDescription": "Không có mô tả",
+    "sold": "Đã bán"
   }
 }
