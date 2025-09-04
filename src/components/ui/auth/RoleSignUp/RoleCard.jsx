@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, ConfigProvider, Flex } from 'antd'
+import { Card, ConfigProvider } from 'antd'
 import {
   CardContainer,
   IconWrapper,
@@ -10,6 +10,7 @@ import {
   DividerRole,
   SpaceRole,
   TitleRole,
+  FlexStyled,
 } from '@/components/ui/auth/RoleSignUp/RoleCard.styled'
 import { useNavigate } from 'react-router-dom'
 
@@ -35,7 +36,7 @@ const RoleCard = ({ role }) => {
         }}
       >
         <Card>
-          <Flex align='start' gap={16}>
+          <FlexStyled align='start' gap={16}>
             <IconWrapper $color={role.color}>{role.icon}</IconWrapper>
 
             <SpaceRole direction='vertical' size={1}>
@@ -64,7 +65,7 @@ const RoleCard = ({ role }) => {
                 {role.buttonText}
               </ButtonRole>
             </SpaceRole>
-          </Flex>
+          </FlexStyled>
         </Card>
       </ConfigProvider>
     </CardContainer>
