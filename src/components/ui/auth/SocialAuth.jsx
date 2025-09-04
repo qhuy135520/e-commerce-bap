@@ -1,14 +1,11 @@
-import { useTranslation } from 'react-i18next'
 import { Flex } from 'antd'
 import { Button } from 'antd'
-import { GoogleOutlined } from '@ant-design/icons'
-import { FaFacebook } from 'react-icons/fa'
+import { FaFacebook, FaGoogle } from 'react-icons/fa'
 import DividerComponent from '../Divider.component'
 import { useLogin } from '../../../hooks/authentication/useLogin'
 
 export default function SocialAuth({ type }) {
-  const { t } = useTranslation(['auth'])
-  const { loginWithGoogle } = useLogin()
+  const { loginWithGoogle, t } = useLogin()
 
   return (
     <>
@@ -17,8 +14,8 @@ export default function SocialAuth({ type }) {
           type='primary'
           danger
           size='large'
-          icon={<GoogleOutlined />}
-          onClick={() => loginWithGoogle()}
+          icon={<FaGoogle />}
+          onClick={loginWithGoogle}
         >
           {type} {t('social.google')}
         </Button>

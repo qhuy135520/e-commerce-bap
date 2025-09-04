@@ -1,9 +1,9 @@
+import { useMemo, useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import toast from 'react-hot-toast'
 import * as Yup from 'yup'
-import { useTranslation } from 'react-i18next'
-import { useMemo } from 'react'
 
 import { signup as signupApi } from '@/services/apiAuth'
 import { USER_DEFAULT_BALANCE } from '@/constants'
@@ -17,8 +17,12 @@ export const initialValues = {
 }
 
 export function useSignup() {
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { t } = useTranslation(['auth'])
+  const { t } = useTranslation(['auth', 'common'])
+  const [searchParams] = useSearchParams()
+  const navigate = useNavigate()
+  const [isChecking, setIsChecking] = useState(true)
+
+  const role = searchParams.get('role')
 
   const signupSchema = useMemo(
     () =>
@@ -46,7 +50,6 @@ export function useSignup() {
     [t]
   )
 
-  const navigate = useNavigate()
   const { mutate: signup, isPending: isPendingSignup } = useMutation({
     mutationFn: ({ email, password, newUserInfo }) =>
       signupApi(email, password, newUserInfo),
@@ -71,5 +74,15 @@ export function useSignup() {
     resetForm()
   }
 
-  return { isPendingSignup, handleSubmit, t, signupSchema }
+  return {
+    isPendingSignup,
+    handleSubmit,
+    t,
+    signupSchema,
+    navigate,
+    searchParams,
+    isChecking,
+    setIsChecking,
+    role,
+  }
 }
