@@ -34,9 +34,6 @@ const NotFoundPage = React.lazy(() =>
     default: module.default,
   }))
 )
-const UserUpdatePage = React.lazy(() =>
-  import('@/pages/publicPages/user/UserUpdatePage')
-)
 
 const GlobalRoutes = (
   <>
@@ -60,7 +57,6 @@ const GlobalRoutes = (
       />
     </Route>
     <Route path='*' element={<NotFoundPage />} />
-    <Route path={ROUTER_PATH.UPDATE_USER.PATH} element={<UserUpdatePage />} />
   </>
 )
 export default GlobalRoutes

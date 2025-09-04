@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
 import { updateCurrentUser } from '../../services/apiAuth'
+import { useTranslation } from 'react-i18next'
 
 export function useUpdateUser() {
   const { t } = useTranslation(['auth'])

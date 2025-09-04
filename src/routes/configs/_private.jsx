@@ -11,7 +11,9 @@ const UpdatePasswordPage = React.lazy(() =>
   }))
 )
 const UserUpdatePage = React.lazy(() =>
-  import('@/pages/publicPages/user/UserUpdatePage')
+  import('@/pages/privatePages').then((module) => ({
+    default: module.UpdateUserPage,
+  }))
 )
 
 const PrivateRoutes = (

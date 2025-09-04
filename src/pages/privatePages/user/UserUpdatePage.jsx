@@ -6,33 +6,38 @@ import { Input, DatePicker, Form } from 'formik-antd'
 import dayjs from 'dayjs'
 import { useUpdateUser } from '@/hooks/authentication/useUpdateUser'
 import { useUser } from '@/hooks/authentication/useUser'
-import LoadingComponent from '@/components/common/Loading.component'
 import NavLinkStyled from '@/components/ui/Navlink.styled'
 import Heading from '@/components/ui/Heading'
 import DividerComponent from '@/components/ui/Divider.component'
 import { useNavigate } from 'react-router-dom'
-
-const UpdateUserSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  name: Yup.string().required('Full name is required'),
-  birthdate: Yup.date().required('Birthdate is required'),
-  password: Yup.string(),
-})
+import { useTranslation } from 'react-i18next'
 
 export default function UserUpdatePage() {
   const { user } = useUser()
+  console.log('user', user)
   const { updateUser, isUpdating } = useUpdateUser()
   const navigate = useNavigate()
+  const { t } = useTranslation(['auth'])
+
+  const UpdateUserSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    name: Yup.string().required('Full name is required'),
+    birthdate: Yup.date().required('Birthdate is required'),
+    password: Yup.string(),
+  })
 
   if (!user) return <Spin />
 
   return (
     <>
-      <Heading as='h1'>Update User</Heading>
-      <DividerComponent title='Update User' />
+      <Heading as='h1'>{t('updateUser.title')}</Heading>
+      <DividerComponent title={t('updateUser.socialTitle')} />
       <ConfigProvider
         theme={{
-          token: {},
+          token: {
+            colorText: 'var(--color-grey-600)',
+            colorTextPlaceholder: 'var(--color-grey-100)',
+          },
           components: {
             Form: {
               labelFontSize: '1.8rem',
@@ -73,57 +78,60 @@ export default function UserUpdatePage() {
           }}
         >
           <Form layout='vertical' autoCapitalize='off'>
-            <Form.Item label='Email' name='email'>
+            <Form.Item label={t('updateUser.form.emailLabel')} name='email'>
               <Input
                 type='email'
                 size='large'
                 name='email'
-                placeholder='Enter new email'
-                disabled={true}
+                placeholder={t('updateUser.form.emailPlaceholder')}
+                readOnly
               />
             </Form.Item>
 
-            <Form.Item name='name' label='Full Name'>
+            <Form.Item name='name' label={t('updateUser.form.fullName')}>
               <Input
                 name='name'
-                placeholder='Enter full name'
+                placeholder={t('updateUser.form.fullNamePlaceholder')}
                 disabled={isUpdating}
               />
             </Form.Item>
-            <Form.Item name='birthdate' label='Birthdate'>
+            <Form.Item name='birthdate' label={t('updateUser.form.birthdate')}>
               <DatePicker
                 name='birthdate'
                 format='YYYY-MM-DD'
                 disabled={isUpdating}
                 style={{ width: '100%' }}
-                placeholder='Enter new birthdate'
+                placeholder={t('updateUser.form.birthdatePlaceholder')}
               />
             </Form.Item>
-            <Form.Item name='password' label='New Password'>
+            <Form.Item
+              name='password'
+              label={t('updateUser.form.newPasswordLabel')}
+            >
               <Input.Password
                 name='password'
-                placeholder='Enter new password'
+                placeholder={t('updateUser.form.passwordPlaceholder')}
                 disabled={isUpdating}
               />
             </Form.Item>
-
-            <Flex justify='flex-end' align='center' gap={12}>
-              <Button type='default' shape='round' size={'large'}>
-                <NavLinkStyled to='/'>Back</NavLinkStyled>
-              </Button>
-              <Button
-                type='primary'
-                htmlType='submit'
-                shape='round'
-                size={'large'}
-                onClick={() => navigate('/')}
-              >
-                {isUpdating ? 'Updating...' : 'Update'}
-              </Button>
-            </Flex>
           </Form>
         </Formik>
       </ConfigProvider>
+      <Flex justify='flex-end' align='center' gap={12}>
+        <Button type='default' shape='round' size='large'>
+          <NavLinkStyled to='/'>{t('updateUser.form.back')}</NavLinkStyled>
+        </Button>
+        <Button
+          type='primary'
+          htmlType='submit'
+          shape='round'
+          size='large'
+          disabled={isUpdating}
+          onClick={() => navigate('/')}
+        >
+          {isUpdating ? '...' : t('updateUser.form.submit')}
+        </Button>
+      </Flex>
     </>
   )
 }
