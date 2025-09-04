@@ -79,7 +79,7 @@ export async function logout() {
   }
 }
 
-export async function updateCurrentUser(password, newDataUserInfo) {
+export async function updateCurrentUser({ password, newDataUserInfo }) {
   try {
     let updateDataUser
     if (password) updateDataUser = { password }
@@ -173,3 +173,4 @@ export async function updatePassword(newPassword) {
     throw error
   }
 }
+

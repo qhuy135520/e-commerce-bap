@@ -1,124 +1,122 @@
 import React from 'react'
 import { Formik } from 'formik'
-import * as Yup from 'yup'
 import { Button, ConfigProvider, Flex, Spin } from 'antd'
 import { Input, DatePicker, Form } from 'formik-antd'
-import dayjs from 'dayjs'
 import { useUpdateUser } from '@/hooks/authentication/useUpdateUser'
-import { useUser } from '@/hooks/authentication/useUser'
-import LoadingComponent from '@/components/common/Loading.component'
 import NavLinkStyled from '@/components/ui/Navlink.styled'
 import Heading from '@/components/ui/Heading'
 import DividerComponent from '@/components/ui/Divider.component'
 import { useNavigate } from 'react-router-dom'
-
-const UpdateUserSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
-  name: Yup.string().required('Full name is required'),
-  birthdate: Yup.date().required('Birthdate is required'),
-  password: Yup.string(),
-})
+import { BiSolidUserDetail } from 'react-icons/bi'
 
 export default function UserUpdatePage() {
-  const { user } = useUser()
-  const { updateUser, isUpdating } = useUpdateUser()
+  const {
+    updateUser,
+    isUpdating,
+    UpdateUserSchema,
+    t,
+    handleSubmit,
+    initialValues,
+    user,
+  } = useUpdateUser()
   const navigate = useNavigate()
 
   if (!user) return <Spin />
 
   return (
     <>
-      <Heading as='h1'>Update User</Heading>
-      <DividerComponent title='Update User' />
+      <Heading as='h1'>{t('updateUser.title')}</Heading>
+      <DividerComponent title={t('updateUser.title')} />
       <ConfigProvider
         theme={{
-          token: {},
           components: {
             Form: {
               labelFontSize: '1.8rem',
               labelColor: 'var(--color-grey-600)',
-              controlHeight: 40,
             },
             Input: {
               colorTextPlaceholder: 'var(--color-grey-400)',
               colorBgContainer: 'var(--color-grey-100)',
+              colorText: 'var(--color-grey-800)',
             },
             DatePicker: {
               colorTextPlaceholder: 'var(--color-grey-400)',
               colorBgContainer: 'var(--color-grey-100)',
+              colorText: 'var(--color-grey-800)',
+              colorTextHeading: 'var(--color-grey-800)',
+              colorBgElevated: 'var(--color-grey-100)',
             },
           },
         }}
       >
         <Formik
           enableReinitialize
-          initialValues={{
-            email: user.email || '',
-            name: user.name || '',
-            birthdate: user.birthdate ? dayjs(user.birthdate) : null,
-            password: '',
-          }}
+          initialValues={initialValues}
           validationSchema={UpdateUserSchema}
           onSubmit={(values) => {
-            updateUser({
-              password: values.password,
-              newDataUserInfo: {
-                name: values.name,
-                birthdate:
-                  values.birthdate && dayjs(values.birthdate).isValid()
-                    ? dayjs(values.birthdate).format('YYYY-MM-DD')
-                    : null,
-              },
-            })
+            handleSubmit(values)
           }}
         >
           <Form layout='vertical' autoCapitalize='off'>
-            <Form.Item label='Email' name='email'>
+            <Form.Item label={t('updateUser.form.emailLabel')} name='email'>
               <Input
                 type='email'
                 size='large'
                 name='email'
-                placeholder='Enter new email'
-                disabled={true}
+                placeholder={t('updateUser.form.emailPlaceholder')}
+                readOnly
+                suffix='@'
               />
             </Form.Item>
 
-            <Form.Item name='name' label='Full Name'>
+            <Form.Item name='name' label={t('updateUser.form.nameLabel')}>
               <Input
                 name='name'
-                placeholder='Enter full name'
+                placeholder={t('updateUser.form.namePlaceholder')}
                 disabled={isUpdating}
+                suffix={<BiSolidUserDetail />}
               />
             </Form.Item>
-            <Form.Item name='birthdate' label='Birthdate'>
+
+            <Form.Item
+              name='birthdate'
+              label={t('updateUser.form.birthdateLabel')}
+            >
               <DatePicker
                 name='birthdate'
                 format='YYYY-MM-DD'
                 disabled={isUpdating}
                 style={{ width: '100%' }}
-                placeholder='Enter new birthdate'
+                placeholder={t('updateUser.form.birthdatePlaceholder')}
               />
             </Form.Item>
-            <Form.Item name='password' label='New Password'>
+
+            <Form.Item
+              name='password'
+              label={t('updateUser.form.passwordLabel')}
+            >
               <Input.Password
                 name='password'
-                placeholder='Enter new password'
+                placeholder={t('updateUser.form.passwordPlaceholder')}
                 disabled={isUpdating}
+                suffix='🔒'
               />
             </Form.Item>
 
             <Flex justify='flex-end' align='center' gap={12}>
-              <Button type='default' shape='round' size={'large'}>
-                <NavLinkStyled to='/'>Back</NavLinkStyled>
+              <Button type='default' shape='round' size='large'>
+                <NavLinkStyled to='/'>
+                  {t('updateUser.form.back')}
+                </NavLinkStyled>
               </Button>
               <Button
                 type='primary'
                 htmlType='submit'
                 shape='round'
-                size={'large'}
+                size='large'
                 onClick={() => navigate('/')}
               >
-                {isUpdating ? 'Updating...' : 'Update'}
+                {isUpdating ? 'Updating...' : t('updateUser.form.update')}
               </Button>
             </Flex>
           </Form>
