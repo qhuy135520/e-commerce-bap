@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Button, Card, Divider, Space, Typography } from 'antd'
+import { Button, Card, Divider, Flex, Space, Typography } from 'antd'
 
 export const CardContainer = styled(Card)`
   border-radius: 16px;
@@ -44,10 +44,16 @@ export const TextDescription = styled(Typography.Text)`
 `
 export const DividerRole = styled(Divider)`
   margin: '12px 0';
+  @media (max-width: 992px) {
+    margin: 10px 0;
+  }
 `
 
 export const SpaceRole = styled(Space)`
   width: 100%;
+  @media (max-width: 992px) {
+    margin: 10px 0;
+  }
 `
 export const ButtonRole = styled(Button)`
   color: var(--color-grey-0);
@@ -56,4 +62,18 @@ export const ButtonRole = styled(Button)`
   border-color: ${(props) => props.$color};
   border-radius: 8;
   font-weight: 500;
+
+  @media (max-width: 992px) {
+    font-size: 1.4rem;
+  }
+`
+
+export const FlexStyled = styled(Flex)`
+  padding: 10px;
+  @media (max-width: 992px) {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    text-align: center;
+  }
 `
