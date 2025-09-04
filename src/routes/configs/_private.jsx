@@ -10,8 +10,10 @@ const UpdatePasswordPage = React.lazy(() =>
     default: module.UpdatePasswordPage,
   }))
 )
-const UserUpdatePage = React.lazy(() =>
-  import('@/pages/publicPages/user/UserUpdatePage')
+const UpdateUserPage = React.lazy(() =>
+  import('@/pages/privatePages').then((module) => ({
+    default: module.UpdateUserPage,
+  }))
 )
 
 const PrivateRoutes = (
@@ -26,9 +28,8 @@ const PrivateRoutes = (
       path={ROUTER_PATH.UPDATE_PASSWORD.PATH}
       element={<UpdatePasswordPage />}
     />
-    <Route path={ROUTER_PATH.UPDATE_USER.PATH} element={<UserUpdatePage />} />
+    <Route path={ROUTER_PATH.UPDATE_USER.PATH} element={<UpdateUserPage />} />
   </Route>
 )
 
 export default PrivateRoutes
-

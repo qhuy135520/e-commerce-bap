@@ -12,8 +12,12 @@ dist
 dist-ssr
 *.local
 
+
 # Env files (ignore secrets)
 .env
+
+# Dependency lock files
+package-lock.json
 
 # Editor directories and files
 .vscode/*

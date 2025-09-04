@@ -6,7 +6,6 @@ import AuthLayoutStyled from './AuthLayout.styled'
 import AuthSideImage from '@/components/ui/auth/AuthSideImage'
 import Header from '@/components/ui/Header/Header.Component'
 import Footer from '@/components/ui/Footer/Footer.Component'
-import DividerForgotPassword from '@/components/ui/auth/DividerForgotPassword'
 import FormStyled from '@/components/ui/auth/Form.styled'
 
 export default function AuthLayout() {

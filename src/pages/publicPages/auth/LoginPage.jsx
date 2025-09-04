@@ -4,9 +4,10 @@ import LoginForm from '../../../components/ui/auth/Login/LoginForm'
 import SocialAuth from '../../../components/ui/auth/SocialAuth'
 import DividerComponent from '../../../components/ui/Divider.component'
 import Heading from '../../../components/ui/Heading'
+import { useLogin } from '@/hooks/authentication/useLogin'
 
 export default function LoginPage() {
-  const { t } = useTranslation(['auth'])
+  const { t } = useLogin()
   return (
     <>
       <Heading as='h1'>{t('login.title')}</Heading>
