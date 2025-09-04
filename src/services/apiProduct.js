@@ -1,18 +1,8 @@
 import supabase from './supabase'
-import { PAGE_SIZE } from '@/constants'
 
-export async function fetchProductsApi({
-  sort,
-  search,
-  page = 1,
-  pageSize = PAGE_SIZE.PRODUCT_LIST,
-} = {}) {
+export async function fetchAllProductsApi({ sort, search } = {}) {
   try {
-    let query = supabase.from('product').select('*', { count: 'exact' })
-
-    if (search) {
-      query = query.ilike('name', `%${search}%`)
-    }
+    let query = supabase.from('product').select('*')
 
     if (sort === 'priceAsc') {
       query = query.order('price', { ascending: true })
@@ -20,11 +10,7 @@ export async function fetchProductsApi({
       query = query.order('price', { ascending: false })
     }
 
-    const from = (page - 1) * pageSize
-    const to = from + pageSize - 1
-    query = query.range(from, to)
-
-    const { data: products, error: productsError, count } = await query
+    const { data: products, error: productsError } = await query
     if (productsError) throw productsError
 
     const { data: images, error: imagesError } = await supabase
@@ -40,7 +26,10 @@ export async function fetchProductsApi({
       }
     })
 
-    return { products: productsWithImages, totalCount: count }
+    return {
+      products: productsWithImages,
+      totalCount: productsWithImages.length,
+    }
   } catch (error) {
     throw error
   }
@@ -56,7 +45,6 @@ export async function fetchProductSalesApi() {
     salesData.forEach((item) => {
       salesMap[item.productId] = item.totalQuantity || 0
     })
-    console.log('data: ', salesMap)
 
     return salesMap
   } catch (error) {

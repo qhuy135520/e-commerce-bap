@@ -1,21 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import { fetchProductSalesApi, fetchProductsApi } from '@/services/apiProduct'
-import { PAGE_SIZE } from '@/constants'
+import {
+  fetchAllProductsApi,
+  fetchProductSalesApi,
+} from '@/services/apiProduct'
 
-export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
-  async (
-    { sort, search, page = 1, pageSize = PAGE_SIZE.PRODUCT_LIST },
-    { rejectWithValue }
-  ) => {
+export const fetchAllProducts = createAsyncThunk(
+  'products/fetchAllProducts',
+  async (_, { rejectWithValue }) => {
     try {
-      const { products, totalCount } = await fetchProductsApi({
-        sort,
-        search,
-        page,
-        pageSize,
-      })
-      return { products, totalCount, sort, search }
+      const { products, totalCount } = await fetchAllProductsApi()
+      return { products, totalCount }
     } catch (error) {
       return rejectWithValue(error.message)
     }
@@ -26,140 +20,119 @@ export const fetchProductSales = createAsyncThunk(
   'products/fetchProductSales',
   async (_, { rejectWithValue }) => {
     try {
-      const data = await fetchProductSalesApi()
-      return data
+      return await fetchProductSalesApi()
     } catch (error) {
       return rejectWithValue(error.message)
     }
   }
 )
 
-export const fetchTopProducts = createAsyncThunk(
-  'products/fetchTopProducts',
-  async (_, { rejectWithValue }) => {
-    try {
-      const { products } = await fetchProductsApi({
-        page: 1,
-        pageSize: PAGE_SIZE.TOP_PRODUCTS,
-      })
-      return products
-    } catch (error) {
-      return rejectWithValue(error.message)
-    }
+const sortProducts = (products, sort, sales = {}) => {
+  const sortedProducts = [...products]
+  if (sort === 'sales') {
+    return sortedProducts.sort(
+      (a, b) => (sales[b.id] || 0) - (sales[a.id] || 0)
+    )
+  } else if (sort === 'priceDesc') {
+    return sortedProducts.sort((a, b) => b.price - a.price)
+  } else if (sort === 'priceAsc') {
+    return sortedProducts.sort((a, b) => a.price - b.price)
   }
-)
+  return sortedProducts
+}
+
+const filterAndSortProducts = (
+  products,
+  { sort = '', priceRange = [0, Number.MAX_SAFE_INTEGER], sales = {} }
+) => {
+  let filtered = [...products]
+
+  if (priceRange && Array.isArray(priceRange)) {
+    filtered = filtered.filter(
+      (product) =>
+        product.price >= priceRange[0] && product.price <= priceRange[1]
+    )
+  }
+
+  return sortProducts(filtered, sort, sales)
+}
 
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
     filteredProducts: [],
-    topProducts: [],
+    sliderProducts: [],
     sales: {},
     filterOption: '',
-    searchTerm: '',
+    priceRange: [0, Number.MAX_SAFE_INTEGER],
     totalCount: 0,
     status: 'idle',
     error: null,
   },
   reducers: {
     syncWithURL: (state, action) => {
-      const { sort, search } = action.payload
+      const { sort, priceRange } = action.payload
       state.filterOption = sort || ''
-      state.searchTerm = search || ''
-      state.filteredProducts = [...state.products]
-
-      if (search) {
-        state.filteredProducts = state.filteredProducts.filter((product) =>
-          product.name.toLowerCase().includes(search.toLowerCase())
-        )
-      }
-
-      if (sort === 'sales') {
-        state.filteredProducts.sort(
-          (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-        )
-      }
-    },
-    sortProductsBySales: (state) => {
-      state.topProducts = [...state.topProducts].sort(
-        (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-      )
+      state.priceRange =
+        priceRange && Array.isArray(priceRange) ? priceRange : state.priceRange
+      state.filteredProducts = filterAndSortProducts(state.products, {
+        sort: state.filterOption,
+        priceRange: state.priceRange,
+        sales: state.sales,
+      })
     },
     filterProducts: (state, action) => {
-      const { sort, search } = action.payload
+      const { sort, priceRange } = action.payload
       state.filterOption = sort || ''
-      state.searchTerm = search || ''
-      state.filteredProducts = [...state.products]
-
-      if (search) {
-        state.filteredProducts = state.filteredProducts.filter((product) =>
-          product.name.toLowerCase().includes(search.toLowerCase())
-        )
-      }
-
-      if (sort === 'sales') {
-        state.filteredProducts.sort(
-          (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-        )
-      } else if (sort === 'priceDesc') {
-        state.filteredProducts.sort((a, b) => b.price - a.price)
-      } else if (sort === 'priceAsc') {
-        state.filteredProducts.sort((a, b) => a.price - b.price)
-      }
+      state.priceRange =
+        priceRange && Array.isArray(priceRange) ? priceRange : state.priceRange
+      state.filteredProducts = filterAndSortProducts(state.products, {
+        sort: state.filterOption,
+        priceRange: state.priceRange,
+        sales: state.sales,
+      })
     },
     resetFilter: (state) => {
       state.filterOption = ''
-      state.searchTerm = ''
+      state.priceRange = [0, Number.MAX_SAFE_INTEGER]
       state.filteredProducts = [...state.products]
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state) => {
+      .addCase(fetchAllProducts.pending, (state) => {
         state.status = 'loading'
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
+      .addCase(fetchAllProducts.fulfilled, (state, action) => {
         state.status = 'succeeded'
         state.products = action.payload.products
-        state.filteredProducts = action.payload.products
         state.totalCount = action.payload.totalCount
-
-        const { sort, search } = action.payload
-        state.filterOption = sort || ''
-        state.searchTerm = search || ''
-
-        if (search) {
-          state.filteredProducts = state.filteredProducts.filter((product) =>
-            product.name.toLowerCase().includes(search.toLowerCase())
-          )
-        }
-
-        if (sort === 'sales') {
-          state.filteredProducts.sort(
-            (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-          )
-        }
+        state.sliderProducts = action.payload.products.slice(0, 20)
+        state.filteredProducts = filterAndSortProducts(
+          action.payload.products,
+          {
+            sort: state.filterOption,
+            priceRange: state.priceRange,
+            sales: state.sales,
+          }
+        )
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
+      .addCase(fetchAllProducts.rejected, (state, action) => {
         state.status = 'failed'
         state.error = action.payload
       })
-      .addCase(fetchTopProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.topProducts = action.payload
-      })
-      .addCase(fetchTopProducts.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.payload
+      .addCase(fetchProductSales.pending, (state) => {
+        state.status = 'loading'
       })
       .addCase(fetchProductSales.fulfilled, (state, action) => {
+        state.status = 'succeeded'
         state.sales = action.payload
-        if (state.topProducts.length > 0) {
-          state.topProducts = [...state.topProducts].sort(
-            (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-          )
-        }
+        state.filteredProducts = filterAndSortProducts(state.filteredProducts, {
+          sort: state.filterOption,
+          priceRange: state.priceRange,
+          sales: state.sales,
+        })
       })
       .addCase(fetchProductSales.rejected, (state, action) => {
         state.status = 'failed'
@@ -168,6 +141,5 @@ const productSlice = createSlice({
   },
 })
 
-export const { syncWithURL, sortProductsBySales, filterProducts, resetFilter } =
-  productSlice.actions
+export const { syncWithURL, filterProducts, resetFilter } = productSlice.actions
 export default productSlice.reducer

@@ -27,7 +27,9 @@ const ProductCard = ({ product, sold }) => {
         {product.description || t('productCard.noDescription')}
       </ProductDescription>
 
-      <SoldText>Đã bán: {sold || 0}</SoldText>
+      <SoldText>
+        {t('productCard.sold')}: {sold || 0}
+      </SoldText>
     </StyledCard>
   )
 }
