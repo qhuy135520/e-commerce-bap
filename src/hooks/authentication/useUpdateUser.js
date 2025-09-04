@@ -1,15 +1,19 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import toast from 'react-hot-toast'
-import { updateCurrentUser } from '../../services/apiAuth'
+import { useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import dayjs from 'dayjs'
+
+import { updateCurrentUser } from '../../services/apiAuth'
 import { useUser } from '@/hooks/authentication/useUser'
 
 export function useUpdateUser() {
   const { t } = useTranslation(['auth'])
   const queryClient = useQueryClient()
   const { user } = useUser()
+  const navigate = useNavigate()
 
   const initialValues = {
     email: user.email || '',
@@ -17,16 +21,20 @@ export function useUpdateUser() {
     birthdate: user.birthdate ? dayjs(user.birthdate) : null,
     password: '',
   }
-  const UpdateUserSchema = Yup.object().shape({
-    email: Yup.string()
-      .email(t('updateUser.validation.emailInvalid'))
-      .required(t('updateUser.validation.emailRequired')),
-    name: Yup.string().required(t('updateUser.validation.nameRequired')),
-    birthdate: Yup.date()
-      .max(new Date(), t('updateUser.validation.birthdateFuture'))
-      .required(t('updateUser.validation.birthdateRequired')),
-    password: Yup.string().min(6, t('updateUser.validation.passwordMin')),
-  })
+  const UpdateUserSchema = useMemo(
+    () =>
+      Yup.object().shape({
+        email: Yup.string()
+          .email(t('updateUser.validation.emailInvalid'))
+          .required(t('updateUser.validation.emailRequired')),
+        name: Yup.string().required(t('updateUser.validation.nameRequired')),
+        birthdate: Yup.date()
+          .max(new Date(), t('updateUser.validation.birthdateFuture'))
+          .required(t('updateUser.validation.birthdateRequired')),
+        password: Yup.string().min(6, t('updateUser.validation.passwordMin')),
+      }),
+    [t]
+  )
 
   const { mutate: updateUser, isPending: isUpdating } = useMutation({
     mutationFn: updateCurrentUser,
@@ -34,6 +42,7 @@ export function useUpdateUser() {
       toast.success(t('updateUser.toast.success'))
       queryClient.setQueryData(['user'], user)
       queryClient.invalidateQueries({ queryKey: ['user'] })
+      navigate('/')
     },
     onError: () => {
       toast.error(t('updateUser.toast.error'))
@@ -62,4 +71,3 @@ export function useUpdateUser() {
     user,
   }
 }
-
