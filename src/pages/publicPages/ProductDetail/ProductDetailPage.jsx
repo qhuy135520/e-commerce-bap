@@ -1,15 +1,8 @@
+import React from 'react'
+import { Col, Row } from 'antd'
 import ProductImage from '@/components/ui/productDetail/ProductImage.component'
 import ProductInfo from '@/components/ui/productDetail/ProductInfo.component'
-import { Col, Row } from 'antd'
-import React from 'react'
-import styled from 'styled-components'
-
-const StyleProductDetail = styled.div`
-  padding: 1.8rem 2rem;
-  width: 100%;
-  background-color: var(--color-grey-50);
-  border-radius: 2rem;
-`
+import { StyleProductDetail } from '@/pages/publicPages/ProductDetail/ProductDetail.styled'
 
 export default function ProductDetail({ product }) {
   return (

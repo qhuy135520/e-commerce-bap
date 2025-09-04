@@ -10,7 +10,7 @@ import {
   StyleImgDefault,
   StyleImgSlider,
   StyleImgItem,
-} from './ProductImage.styled'
+} from '@/components/ui/productDetail/ProductImage.styled'
 
 export default function ProductImage() {
   const { settings, images, mainImage, setMainImage } = useProductDetail()
@@ -32,7 +32,6 @@ export default function ProductImage() {
           ))}
         </Slider>
       </StyleImgSlider>
-      <p>♥ Đã thích</p>
     </StyleImgWrapper>
   )
 }
