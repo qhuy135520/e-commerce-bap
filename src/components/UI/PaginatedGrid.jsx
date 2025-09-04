@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react';
-import { Pagination } from 'antd';
-import { ProductGrid } from './Products/List.styled';
+import React, { useRef, useState } from 'react'
+import { Pagination } from 'antd'
+import { ProductGrid } from './Products/List.styled'
 
 const PaginatedGrid = ({
   items,
@@ -9,33 +9,33 @@ const PaginatedGrid = ({
   pageSize = 20,
   gridStyle,
 }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const paginatedItems = items.slice(startIndex, endIndex);
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  const paginatedItems = items.slice(startIndex, endIndex)
 
-  const productGridRef = useRef(null);
+  const productGridRef = useRef(null)
   const handlePageChange = (page) => {
-    setCurrentPage(page);
+    setCurrentPage(page)
     if (productGridRef.current) {
       const gridTop =
-        productGridRef.current.getBoundingClientRect().top + window.scrollY;
+        productGridRef.current.getBoundingClientRect().top + window.scrollY
       window.scrollTo({
-        top: gridTop - 100,
+        top: gridTop - 200,
         behavior: 'smooth',
-      });
+      })
     }
-  };
+  }
 
   return (
     <>
-      <ProductGrid ref={productGridRef} columns={columns} style={gridStyle}>
+      <ProductGrid ref={productGridRef} $columns={columns} style={gridStyle}>
         {paginatedItems.map((item, index) => renderItem(item, index))}
       </ProductGrid>
 
       <Pagination
-        align="center"
+        align='center'
         current={currentPage}
         pageSize={pageSize}
         total={items.length}
@@ -43,7 +43,7 @@ const PaginatedGrid = ({
         style={{ marginTop: '20px', textAlign: 'center' }}
       />
     </>
-  );
-};
+  )
+}
 
-export default PaginatedGrid;
+export default PaginatedGrid
