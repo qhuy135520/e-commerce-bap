@@ -4,6 +4,7 @@ export const AUTH_ROUTER_PATH = {
   SIGN_UP: { KEY: 'SIGN_UP', PATH: '/signup' },
   FORGOT_PASSWORD: { KEY: 'FORGOT_PASSWORD', PATH: '/forgot-password' },
   UPDATE_PASSWORD: { KEY: 'UPDATE_PASSWORD', PATH: '/update-password' },
+  UPDATE_USER: { KEY: 'UPDATE_USER', PATH: '/update-user' },
 }
 
 export const PUBLIC_ROUTER_PATH = {
@@ -13,7 +14,6 @@ export const PUBLIC_ROUTER_PATH = {
 
 export const GLOBAL_ROUTER_PATH = {
   NOT_FOUND: { KEY: 'NOT_FOUND', PATH: '*' },
-  UPDATE_USER: { KEY: 'UPDATE_USER', PATH: '/update-user' },
 }
 
 export const ROUTER_PATH = {
@@ -21,4 +21,3 @@ export const ROUTER_PATH = {
   ...GLOBAL_ROUTER_PATH,
   ...PUBLIC_ROUTER_PATH,
 }
-

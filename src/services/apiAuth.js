@@ -173,4 +173,3 @@ export async function updatePassword(newPassword) {
     throw error
   }
 }
-

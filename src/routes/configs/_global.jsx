@@ -35,7 +35,7 @@ const NotFoundPage = React.lazy(() =>
   }))
 )
 const UserUpdatePage = React.lazy(() =>
-  import('@/pages/publicPages/user/UserUpdatePage')
+  import('@/pages/privatePages/auth/UpdateUserPage')
 )
 
 const GlobalRoutes = (
@@ -64,4 +64,3 @@ const GlobalRoutes = (
   </>
 )
 export default GlobalRoutes
-
