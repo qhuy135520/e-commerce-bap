@@ -8,13 +8,10 @@ import Heading from '@/components/ui/Heading'
 import DividerComponent from '@/components/ui/Divider.component'
 import LoadingComponent from '@/components/common/Loading.component'
 import SignUpForm from '@/components/ui/auth/SignUp/SignUpForm'
+import { useSignup } from '@/hooks/authentication/useSignup'
 
 export default function SignUpPage() {
-  const { t } = useTranslation(['auth', 'common'])
-  const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const [isChecking, setIsChecking] = useState(true)
-  const role = searchParams.get('role')
+  const { t, navigate, isChecking, setIsChecking, role } = useSignup()
 
   useEffect(() => {
     if (!role) {

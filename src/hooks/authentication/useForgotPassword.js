@@ -1,8 +1,9 @@
 import { useMutation } from '@tanstack/react-query'
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import * as Yup from 'yup'
 import toast from 'react-hot-toast'
-import { useTranslation } from 'react-i18next'
 
 import { resetPassword as resetPasswordApi } from '@/services/apiAuth'
 
@@ -10,6 +11,7 @@ export const initialValues = { email: '' }
 
 export default function useForgotPassword() {
   const [emailRecovery, setEmailRecovery] = useState('')
+  const navigate = useNavigate()
   const { t } = useTranslation(['auth'])
 
   const forgotPasswordSchema = useMemo(
@@ -39,5 +41,17 @@ export default function useForgotPassword() {
     resetForm()
   }
 
-  return { handleSubmit, emailRecovery, isResetting, t, forgotPasswordSchema }
+  function handleNavigate() {
+    navigate('/forgot-password')
+  }
+
+  return {
+    handleSubmit,
+    emailRecovery,
+    isResetting,
+    t,
+    forgotPasswordSchema,
+    navigate,
+    handleNavigate,
+  }
 }

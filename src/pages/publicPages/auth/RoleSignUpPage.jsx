@@ -8,7 +8,7 @@ import {
   SubTitle,
 } from '@/components/ui/auth/RoleSignUp/RoleSignUp.styled'
 
-import { UserOutlined, ShopOutlined } from '@ant-design/icons'
+import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
 import { SpaceRole } from '@/components/ui/auth/RoleSignUp/RoleCard.styled'
 import { useTranslation } from 'react-i18next'
 
@@ -26,7 +26,7 @@ export default function RoleSignUpPage() {
       }),
       buttonText: t('roleSignUp.roles.customer.buttonText'),
       icon: (
-        <UserOutlined
+        <AiOutlineUser
           style={{ fontSize: 32, color: 'var(--color-brand-500)' }}
         />
       ),
@@ -39,7 +39,7 @@ export default function RoleSignUpPage() {
       features: t('roleSignUp.roles.vendor.features', { returnObjects: true }),
       buttonText: t('roleSignUp.roles.vendor.buttonText'),
       icon: (
-        <ShopOutlined
+        <AiOutlineShoppingCart
           style={{ fontSize: 32, color: 'var(--color-green-700)' }}
         />
       ),
