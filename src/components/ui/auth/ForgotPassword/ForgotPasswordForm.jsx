@@ -15,7 +15,6 @@ export default function ForgotPasswordForm({
     <FormStyled>
       <ConfigProvider
         theme={{
-          token: {},
           components: {
             Form: {
               labelFontSize: '1.8rem',
@@ -24,6 +23,7 @@ export default function ForgotPasswordForm({
             Input: {
               colorTextPlaceholder: 'var(--color-grey-400)',
               colorBgContainer: 'var(--color-grey-100)',
+              colorText: 'var(--color-grey-800)',
             },
           },
         }}
