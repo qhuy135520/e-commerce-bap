@@ -1,0 +1,15 @@
+{
+  "productList": {
+    "title": "Product List",
+    "filter": {
+      "placeholder": "Sort",
+      "sales": "Best Sellers",
+      "priceDesc": "Price High → Low",
+      "priceAsc": "Price Low → High"
+    }
+  },
+  "productCard": {
+    "price": "Price",
+    "noDescription": "No description available"
+  }
+}

@@ -27,8 +27,3 @@ export const ProductName = styled.h4`
   font-size: 14px;
   color: #333;
 `
-
-export const SoldText = styled.p`
-  font-size: 13px;
-  color: #666;
-`

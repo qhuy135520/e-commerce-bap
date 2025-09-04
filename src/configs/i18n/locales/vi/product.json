@@ -1,0 +1,15 @@
+{
+  "productList": {
+    "title": "Danh sách sản phẩm",
+    "filter": {
+      "placeholder": "Sắp xếp",
+      "sales": "Bán nhiều nhất",
+      "priceDesc": "Giá cao → thấp",
+      "priceAsc": "Giá thấp → cao"
+    }
+  },
+  "productCard": {
+    "price": "Giá",
+    "noDescription": "Không có mô tả"
+  }
+}
