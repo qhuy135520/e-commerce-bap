@@ -8,12 +8,12 @@ import { Toaster } from 'react-hot-toast'
 
 import { DarkModeProvider } from './contexts/theme/DarkModeContext'
 import queryClient from './configs/queryClient/queryClient'
-import { store } from './stores/store'
 import GlobalStyles from './styles/GlobalStyles'
 
 import i18n from './configs/i18n/i18n'
 import RootRouter from './routes/Root'
 import DarkModeToggle from '@/components/common/DarkModeToggle'
+import { store } from '@/stores'
 
 function App() {
   return (
@@ -55,3 +55,4 @@ function App() {
 }
 
 export default React.memo(App)
+
