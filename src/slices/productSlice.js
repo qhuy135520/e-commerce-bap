@@ -1,96 +1,64 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchProductSalesApi, fetchProductsApi } from '@/services/apiProduct';
+import { createSlice, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
+import { fetchAllProductsApi } from '@/services/apiProduct'
 
-export const fetchProducts = createAsyncThunk(
-  'products/fetchProducts',
+export const fetchAllProducts = createAsyncThunk(
+  'products/fetchAll',
   async () => {
     try {
-      const data = await fetchProductsApi();
-      return data;
+      const data = await fetchAllProductsApi()
+      return data
     } catch (error) {
-      throw error;
+      throw error
     }
   }
-);
-
-export const fetchProductSales = createAsyncThunk(
-  'products/fetchProductSales',
-  async () => {
-    try {
-      const data = await fetchProductSalesApi();
-      return data;
-    } catch (error) {
-      throw error;
-    }
-  }
-);
+)
 
 const productSlice = createSlice({
   name: 'products',
   initialState: {
     products: [],
-    filteredProducts: [],
-    sales: {},
-    filterOption: '',
-    searchTerm: '',
     status: 'idle',
     error: null,
+    searchTerm: '',
   },
   reducers: {
-    sortProductsBySales: (state) => {
-      state.filteredProducts.sort(
-        (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-      );
-    },
-    filterProducts: (state, action) => {
-      state.filterOption = action.payload;
-      state.filteredProducts = [...state.products];
-
-      if (action.payload === 'sales') {
-        state.filteredProducts.sort(
-          (a, b) => (state.sales[b.id] || 0) - (state.sales[a.id] || 0)
-        );
-      } else if (action.payload === 'priceDesc') {
-        state.filteredProducts.sort((a, b) => b.price - a.price);
-      } else if (action.payload === 'priceAsc') {
-        state.filteredProducts.sort((a, b) => a.price - b.price);
-      }
-    },
     setSearchTerm: (state, action) => {
-      state.searchTerm = action.payload;
-      state.filteredProducts = state.products.filter((product) =>
-        product.name.toLowerCase().includes(action.payload.toLowerCase())
-      );
-    },
-    resetFilter: (state) => {
-      state.filterOption = '';
-      state.filteredProducts = [...state.products];
+      state.searchTerm = action.payload
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchProducts.pending, (state) => {
-        state.status = 'loading';
+      .addCase(fetchAllProducts.pending, (state) => {
+        state.status = 'loading'
+        state.error = null
       })
-      .addCase(fetchProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded';
-        state.products = action.payload;
-        state.filteredProducts = action.payload;
+      .addCase(fetchAllProducts.fulfilled, (state, action) => {
+        state.status = 'succeeded'
+        state.products = action.payload
       })
-      .addCase(fetchProducts.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error;
+      .addCase(fetchAllProducts.rejected, (state, action) => {
+        state.status = 'failed'
+        state.error = action.error
       })
-      .addCase(fetchProductSales.fulfilled, (state, action) => {
-        state.sales = action.payload;
-      });
   },
-});
+})
 
-export const {
-  sortProductsBySales,
-  filterProducts,
-  setSearchTerm,
-  resetFilter,
-} = productSlice.actions;
-export default productSlice.reducer;
+export const { setSearchTerm } = productSlice.actions
+
+export const selectProducts = (state) => state.products.products
+export const selectStatus = (state) => state.products.status
+export const selectError = (state) => state.products.error
+export const selectSearchTerm = (state) => state.products.searchTerm
+
+export const selectFilteredProducts = createSelector(
+  [selectProducts, selectSearchTerm],
+  (products, searchTerm) => {
+    if (!searchTerm) return products
+    return products.filter((p) =>
+      p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+  }
+)
+
+export default productSlice.reducer
+

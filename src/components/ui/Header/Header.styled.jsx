@@ -103,3 +103,4 @@ export const StyleContentPopover = styled.div`
     width: 80%;
   }
 `
+

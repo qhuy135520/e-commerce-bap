@@ -25,6 +25,7 @@ import {
 } from './Header.styled.jsx'
 import logo from '../../../assets/logo.png'
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher.jsx'
+import SearchBar from '@/components/ui/Header/SearchBar.component.jsx'
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick } = useHeader()
@@ -114,10 +115,8 @@ export default function Header() {
               </Popover>
             </StyleListCateMobileWrapper>
             <StyleImg src={logo} alt='logo-web' onClick={() => navigate('/')} />
-            <StyleInputSearch
-              placeholder={t('header.searchPlaceholder')}
-              prefix={<IoSearch />}
-            />
+
+            <SearchBar placeholder={t('header.searchPlaceholder')} />
             <StyleButton>
               <Popover
                 placement='bottomRight'
@@ -177,3 +176,4 @@ export default function Header() {
     </ConfigProvider>
   )
 }
+
