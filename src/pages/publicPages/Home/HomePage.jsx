@@ -1,12 +1,15 @@
-import React from 'react';
-import Slider from '../../../components/ui/Products/Slider.component';
-import ProductList from '@/components/ui/Products/List.component';
+import React from 'react'
+import ProductsSlider from '@/components/ui/Products/ProductsSlider.component'
+import ProductsList from '@/components/ui/Products/ProductsList.component'
+import ProductsRandom from '@/components/ui/Products/ProductsRandom.component'
 
 export default function HomePage() {
   return (
     <>
-      <Slider />
-      <ProductList />
+      <ProductsSlider />
+      <ProductsList />
+      <ProductsRandom />
     </>
-  );
+  )
 }
+
