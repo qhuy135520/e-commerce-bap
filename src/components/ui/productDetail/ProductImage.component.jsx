@@ -3,35 +3,33 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { useProductDetail } from '@/hooks/productDetail/useProductDetail'
+import { useImage } from '@/hooks/productDetail/useImage'
 
-import {
-  StyleImgWrapper,
-  StyleImgDefault,
-  StyleImgSlider,
-  StyleImgItem,
-} from '@/components/ui/productDetail/ProductImage.styled'
+import * as S from '@/components/ui/productDetail/ProductImage.styled'
 
-export default function ProductImage() {
-  const { settings, images, mainImage, setMainImage } = useProductDetail()
+export default function ProductImage({ productDetail, settings }) {
+  const { mainImage, images, handleChangeImg } = useImage(productDetail)
+
   return (
-    <StyleImgWrapper>
-      <StyleImgDefault src={mainImage} alt='main-img' />
-      <StyleImgSlider>
+    <S.StyleImgWrapper>
+      <S.StyleImgDefault src={mainImage} alt='main-img' />
+      <S.StyleImgSlider>
         <Slider {...settings}>
-          {images.map((img, index) => (
-            <div key={index}>
-              <StyleImgItem
-                src={img}
-                alt={`thumb-${index}`}
-                $active={mainImage === img}
-                onClick={() => setMainImage(img)}
-                onMouseEnter={() => setMainImage(img)}
-              />
-            </div>
-          ))}
+          {images?.length
+            ? images.map((img, index) => (
+                <div key={index}>
+                  <S.StyleImgItem
+                    src={img.imageUrl}
+                    alt={`thumb-${index}`}
+                    $active={mainImage === img.imageUrl}
+                    onClick={handleChangeImg}
+                    onMouseEnter={handleChangeImg}
+                  />
+                </div>
+              ))
+            : null}
         </Slider>
-      </StyleImgSlider>
-    </StyleImgWrapper>
+      </S.StyleImgSlider>
+    </S.StyleImgWrapper>
   )
 }

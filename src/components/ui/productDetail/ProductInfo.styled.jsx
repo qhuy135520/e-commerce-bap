@@ -5,7 +5,7 @@ export const StyleProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-  padding: 0 2rem;
+  padding: 0 0.4rem;
 `
 
 export const StyleTitle = styled.div``
@@ -50,9 +50,4 @@ export const StyleQuantity = styled.div`
 export const StyleButton = styled.div`
   display: flex;
   gap: 2rem;
-
-  & button {
-    padding: 2.4rem 2rem;
-    font-size: 1.8rem;
-  }
 `
