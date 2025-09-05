@@ -10,8 +10,7 @@ export const AUTH_ROUTER_PATH = {
 export const PUBLIC_ROUTER_PATH = {
   HOME_PAGE: { KEY: 'HOME_PAGE', PATH: '/' },
   ABOUT: { KEY: 'ABOUT', PATH: '/about' },
-  // PRODUCT_DETAIL: { KEY: 'PRODUCT_DETAIL', PATH: '/product/:id' },
-  PRODUCT_DETAIL: { KEY: 'PRODUCT_DETAIL', PATH: '/product' },
+  PRODUCT_DETAIL: { KEY: 'PRODUCT_DETAIL', PATH: '/product/:id' },
 }
 
 export const GLOBAL_ROUTER_PATH = {

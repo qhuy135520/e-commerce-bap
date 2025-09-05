@@ -5,6 +5,8 @@ export const StyleImgWrapper = styled.div`
 `
 export const StyleImgDefault = styled.img`
   border-radius: 1rem;
+  width: 43.2rem;
+  height: 43.2rem;
 `
 export const StyleImgSlider = styled.div`
   width: 92%;

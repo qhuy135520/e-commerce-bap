@@ -3,22 +3,19 @@ import { Button, ConfigProvider, InputNumber, Rate, Space } from 'antd'
 import { FaCartPlus } from 'react-icons/fa'
 import { MdOutlinePayments } from 'react-icons/md'
 
-import { useProductDetail } from '@/hooks/productDetail/useProductDetail'
-
 import Heading from '@/components/ui/Heading'
-import {
-  StyleProductInfo,
-  StyleTitle,
-  StyleRating,
-  StyleBrand,
-  StyleDescription,
-  StylePrice,
-  StyleQuantity,
-  StyleButton,
-} from './ProductInfo.styled'
 
-export default function ProductInfo() {
-  const { quantity, setQuantity, handleIncrease, handleDecrease } = useProductDetail()
+import { formatCurrency } from '@/utils/helpers'
+
+import * as S from './ProductInfo.styled'
+
+export default function ProductInfo({
+  productDetail,
+  quantity,
+  onQuantity,
+  onIncrease,
+  onDecrease,
+}) {
   return (
     <ConfigProvider
       theme={{
@@ -36,37 +33,33 @@ export default function ProductInfo() {
         },
       }}
     >
-      <StyleProductInfo>
-        <StyleTitle>
-          <Heading as='h2'>Điện thoại Apple iPhone 15 Plus 128GB </Heading>
-          <StyleRating>
+      <S.StyleProductInfo>
+        <S.StyleTitle>
+          <Heading as='h2'>{productDetail.name} </Heading>
+          <S.StyleRating>
             3.2 &nbsp;
             <Rate defaultValue={3.5} allowHalf disabled />
-            <p>2.1k Đánh giá</p>
-          </StyleRating>
-        </StyleTitle>
-        <StyleBrand>Iphone</StyleBrand>
-        <StyleDescription>
-          An iPhone is a line of smartphones designed and sold by Apple Inc.,
-          known for its iOS operating system, a multitouch touchscreen
-          interface, and an integrated mobile computing experience
-        </StyleDescription>
-        <StylePrice>19.840.000 VND</StylePrice>
-        <StyleQuantity>
+            <p>Đã bán {productDetail.total_sold}</p>
+          </S.StyleRating>
+        </S.StyleTitle>
+        <S.StyleBrand>{productDetail.brandName}</S.StyleBrand>
+        <S.StyleDescription>{productDetail.description}</S.StyleDescription>
+        <S.StylePrice>{formatCurrency(productDetail.price)}</S.StylePrice>
+        <S.StyleQuantity>
           <span> Số lượng:</span>
           <Space>
-            <Button onClick={handleDecrease}>-</Button>
+            <Button onClick={onDecrease}>-</Button>
             <InputNumber
               min={1}
               max={10}
               value={quantity}
-              onChange={setQuantity}
+              onChange={onQuantity}
               controls={false}
             />
-            <Button onClick={handleIncrease}>+</Button>
+            <Button onClick={onIncrease}>+</Button>
           </Space>
-        </StyleQuantity>
-        <StyleButton>
+        </S.StyleQuantity>
+        <S.StyleButton>
           <Button size='large' variant='outlined' color='red'>
             <FaCartPlus />
             Thêm vào giỏ hàng
@@ -74,8 +67,9 @@ export default function ProductInfo() {
           <Button size='large' color='red' variant='solid'>
             <MdOutlinePayments /> Mua ngay
           </Button>
-        </StyleButton>
-      </StyleProductInfo>
+        </S.StyleButton>
+        <p>{productDetail.param}</p>
+      </S.StyleProductInfo>
     </ConfigProvider>
   )
 }
