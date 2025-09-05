@@ -3,11 +3,17 @@
     "title": "Danh sách sản phẩm",
     "filter": {
       "placeholder": "Sắp xếp",
-      "sales": "Bán nhiều nhất",
+      "salesDesc": "Bán nhiều nhất",
+      "salesAsc": "Bán ít nhất",
       "priceDesc": "Giá cao → thấp",
       "priceAsc": "Giá thấp → cao"
     }
   },
+
+  "productSuggest": {
+    "title": "Sản phẩm gợi ý"
+  },
+
   "productCard": {
     "price": "Giá",
     "noDescription": "Không có mô tả",
