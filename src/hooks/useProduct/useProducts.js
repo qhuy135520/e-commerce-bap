@@ -49,13 +49,13 @@ export default function useProducts() {
         dispatch(productsSlice.sortByPrice('asc'))
         break
       case 'price-desc':
-        dispatch(productsSlice.sortByPrice('asc'))
+        dispatch(productsSlice.sortByPrice('desc'))
         break
       case 'sales-asc':
-        dispatch(productsSlice.sortByPrice('asc'))
+        dispatch(productsSlice.sortBySales('asc'))
         break
       case 'sales-desc':
-        dispatch(productsSlice.sortByPrice('asc'))
+        dispatch(productsSlice.sortBySales('desc'))
         break
     }
   }

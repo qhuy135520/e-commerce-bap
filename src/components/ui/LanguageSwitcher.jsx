@@ -11,7 +11,7 @@ export default function LanguageSwitcher() {
   const { i18n } = useTranslation()
 
   const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng) // i18next sẽ cache vào localStorage (detection.caches)
+    i18n.changeLanguage(lng)
   }
 
   return (
@@ -34,10 +34,10 @@ export default function LanguageSwitcher() {
         style={{ width: 92 }}
       >
         <Option value='en'>
-          ENG <span class='fi fi-sh'></span>
+          ENG <span className='fi fi-sh'></span>
         </Option>
         <Option value='vi'>
-          VIE <span class='fi fi-vn'></span>
+          VIE <span className='fi fi-vn'></span>
         </Option>
       </StyleSelect>
     </ConfigProvider>

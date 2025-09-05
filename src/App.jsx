@@ -8,7 +8,7 @@ import { Toaster } from 'react-hot-toast'
 
 import { DarkModeProvider } from './contexts/theme/DarkModeContext'
 import queryClient from './configs/queryClient/queryClient'
-import { store } from './stores'
+import { store } from './stores/store'
 import GlobalStyles from './styles/GlobalStyles'
 
 import i18n from './configs/i18n/i18n'
