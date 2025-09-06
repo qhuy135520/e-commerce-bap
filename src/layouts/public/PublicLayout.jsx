@@ -1,8 +1,6 @@
-import { Outlet } from 'react-router-dom'
+import { Outlet } from "react-router-dom";
 
-import Container from '../../components/ui/Container'
-import Header from '../../components/ui/Header/Header.Component'
-import Footer from '../../components/ui/Footer/Footer.Component'
+import { Container, Header, Footer } from "@/components";
 
 export default function PublicLayout() {
   return (
@@ -13,5 +11,5 @@ export default function PublicLayout() {
       </Container>
       <Footer />
     </>
-  )
+  );
 }

@@ -1,63 +1,63 @@
-import { useState, useMemo, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useTranslation } from 'react-i18next'
+import { useState, useMemo, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
-import { productsSelector } from '@/stores/rootSelector'
-import { productsThunk } from '@/stores/rootThunk'
-import { productsSlice } from '@/stores/rootReducer'
-import { PAGE_SIZE } from '@/constants'
+import { productsSelector } from "@/stores/rootSelector";
+import { productsThunk } from "@/stores/rootThunk";
+import { productsSlice } from "@/stores/rootReducer";
+import { PAGE_SIZE } from "@/constants";
 
 export default function useSearchProducts() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-  const query = searchParams.get('query') || ''
-  const page = parseInt(searchParams.get('page') || 1, 10)
-  const { t } = useTranslation('product')
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const page = parseInt(searchParams.get("page") || 1, 10);
+  const { t } = useTranslation("product");
 
-  const products = useSelector(productsSelector.selectFilteredProducts)
-  const status = useSelector(productsSelector.selectStatus)
-  const [value, setValue] = useState(query)
+  const products = useSelector(productsSelector.selectFilteredProducts);
+  const status = useSelector(productsSelector.selectStatus);
+  const [value, setValue] = useState(query);
 
   // fetch products khi status = idle
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(productsThunk.fetchAllProducts())
+    if (status === "idle") {
+      dispatch(productsThunk.fetchAllProducts());
     }
-  }, [status, dispatch])
+  }, [status, dispatch]);
 
   // đồng bộ searchTerm
   useEffect(() => {
-    dispatch(productsSlice.setSearchTerm(query))
-    setValue(query)
-  }, [query, dispatch])
+    dispatch(productsSlice.setSearchTerm(query));
+    setValue(query);
+  }, [query, dispatch]);
 
-  const pageSize = PAGE_SIZE.PRODUCT_LIST
+  const pageSize = PAGE_SIZE.PRODUCT_LIST;
 
   // lọc theo query
   const filteredProducts = useMemo(() => {
-    if (!query) return products
-    return products.filter((p) =>
-      p.name.toLowerCase().includes(query.toLowerCase())
-    )
-  }, [products, query])
+    if (!query) return products;
+    return products.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
+  }, [products, query]);
 
   // phân trang
   const paginatedProducts = useMemo(() => {
-    return filteredProducts.slice((page - 1) * pageSize, page * pageSize)
-  }, [filteredProducts, page, pageSize])
+    return filteredProducts.slice((page - 1) * pageSize, page * pageSize);
+  }, [filteredProducts, page, pageSize]);
 
   const handlePageChange = (newPage) => {
-    navigate(`/search?query=${encodeURIComponent(query)}&page=${newPage}`)
-  }
+    navigate(`/search?query=${encodeURIComponent(query)}&page=${newPage}`);
+  };
   const handleNavigate = (id) => {
-    navigate(`/product/${id}`)
-  }
+    navigate(`/product/${id}`);
+  };
 
   // autocomplete
+  // autocomplete
   const options = useMemo(() => {
-    if (!value) return []
+    if (!value) return [];
+    // luôn filter từ tất cả products, không phụ thuộc query cũ
     return products
       .filter((p) => p.name.toLowerCase().includes(value.toLowerCase()))
       .slice(0, 8)
@@ -65,19 +65,19 @@ export default function useSearchProducts() {
         value: p.name,
         label: p.name,
         key: p.id || `${p.name}-${idx}`,
-      }))
-  }, [value, products])
+      }));
+  }, [value, products]);
 
-  const handleSearch = (val) => setValue(val)
+  const handleSearch = (val) => setValue(val);
   const handleSelect = (val) => {
-    dispatch(productsSlice.setSearchTerm(val))
-    navigate(`/search?query=${encodeURIComponent(val)}`)
-  }
+    dispatch(productsSlice.setSearchTerm(val));
+    navigate(`/search?query=${encodeURIComponent(val)}`);
+  };
   const handleSubmit = () => {
-    if (!value.trim()) return
-    dispatch(productsSlice.setSearchTerm(value))
-    navigate(`/search?query=${encodeURIComponent(value)}`)
-  }
+    if (!value.trim()) return;
+    dispatch(productsSlice.setSearchTerm(value));
+    navigate(`/search?query=${encodeURIComponent(value)}`);
+  };
 
   return {
     products: paginatedProducts, // trả ra phân trang
@@ -95,5 +95,5 @@ export default function useSearchProducts() {
     handleSubmit,
     handlePageChange,
     t,
-  }
+  };
 }

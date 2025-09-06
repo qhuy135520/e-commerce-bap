@@ -1,52 +1,50 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { fetchAllProducts } from './products.thunks'
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchAllProducts } from "./products.thunks";
 
 const productSlice = createSlice({
-  name: 'products',
+  name: "products",
   initialState: {
     products: [],
     sortType: null,
     sortOrder: null,
-    status: 'idle',
+    status: "idle",
     error: null,
-    searchTerm: '',
+    searchTerm: "",
   },
   reducers: {
     sortByPrice: (state, action) => {
-      state.sortType = 'price'
-      state.sortOrder = action.payload
+      state.sortType = "price";
+      state.sortOrder = action.payload;
     },
     sortBySales: (state, action) => {
-      state.sortType = 'sales'
-      state.sortOrder = action.payload
+      state.sortType = "sales";
+      state.sortOrder = action.payload;
     },
     resetSort: (state) => {
-      state.sortType = null
-      state.sortOrder = null
+      state.sortType = null;
+      state.sortOrder = null;
     },
     setSearchTerm: (state, action) => {
-      state.searchTerm = action.payload
+      state.searchTerm = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllProducts.pending, (state) => {
-        state.status = 'loading'
-        state.error = null
+        state.status = "loading";
+        state.error = null;
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
-        state.status = 'succeeded'
-        state.products = action.payload
+        state.status = "succeeded";
+        state.products = action.payload;
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
-        state.status = 'failed'
-        state.error = action.error
-      })
+        state.status = "failed";
+        state.error = action.error;
+      });
   },
-})
+});
 
-export const { sortByPrice, sortBySales, resetSort, setSearchTerm } =
-  productSlice.actions
+export const { sortByPrice, sortBySales, resetSort, setSearchTerm } = productSlice.actions;
 
-export default productSlice.reducer
-
+export default productSlice.reducer;
