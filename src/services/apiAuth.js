@@ -112,7 +112,7 @@ export async function getCurrentUser() {
 
     let dataUserInfo = await getUserInfo(dataUser.user.id);
     if (!dataUserInfo) {
-      dataUserInfo = { data } = await supabase
+      const { data: insertedUserInfo, error } = await supabase
         .from("userInfo")
         .insert([
           {
@@ -125,7 +125,13 @@ export async function getCurrentUser() {
         ])
         .select()
         .single();
+
+      if (error) throw error;
+
+      dataUserInfo = insertedUserInfo;
     }
+
+    dataUserInfo = insertedUserInfo;
 
     const data = { email: dataUser.user.email, ...dataUserInfo };
 

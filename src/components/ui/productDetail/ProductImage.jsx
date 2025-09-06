@@ -16,7 +16,7 @@ export default function ProductImage({ productDetail, settings }) {
       <PIS.ImgSlider>
         <Slider {...settings}>
           {images?.length
-            ? imagePIS.map((img, index) => (
+            ? images.map((img, index) => (
                 <div key={index}>
                   <PIS.ImgItem
                     src={img.imageUrl}
