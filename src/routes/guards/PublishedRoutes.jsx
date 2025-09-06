@@ -1,23 +1,22 @@
-import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
-import { useUser } from '../../hooks/authentication/useUser'
+import { Loading } from "@/components";
 
-import LoadingComponent from '../../components/common/Loading.component'
+import { useUser } from "@/hooks/authentication/useUser";
 
 export default function PublishedRoutes({ children }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const { user, isPending } = useUser()
+  const { user, isPending } = useUser();
 
   useEffect(
     function () {
       if (user) {
-        user.role === 'admin' ? navigate('/dashboard-admin') : navigate('/')
+        user.role === "admin" ? navigate("/dashboard-admin") : navigate("/");
       }
     },
     [user, navigate]
-  )
-  if (!user)
-    return <LoadingComponent isLoading={isPending}>{children}</LoadingComponent>
+  );
+  if (!user) return <Loading isLoading={isPending}>{children}</Loading>;
 }

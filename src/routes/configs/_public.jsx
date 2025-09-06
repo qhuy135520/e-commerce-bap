@@ -1,32 +1,50 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
-import { ROUTER_PATH } from '../../constants'
-import PublicLayout from '../../layouts/public/PublicLayout'
+import React from "react";
+import { Route } from "react-router-dom";
 
-const HomePage = React.lazy(() =>
-  import('../../pages/publicPages').then((module) => ({
-    default: module.HomePage,
-  }))
-)
+import { ROUTER_PATH } from "@/constants";
 
-const About = React.lazy(() =>
-  import('../../pages/publicPages').then((module) => ({
-    default: module.About,
-  }))
-)
+import PublishedRoutes from "@/routes/guards/PublishedRoutes";
+import AuthLayout from "@/layouts/global/AuthLayout";
 
-const ProductDetail = React.lazy(() =>
-  import('../../pages/publicPages').then((module) => ({
-    default: module.ProductDetail,
+const LoginPage = React.lazy(() =>
+  import("@/pages/publicPages").then((module) => ({
+    default: module.LoginPage,
   }))
-)
+);
+
+const RoleSignUpPage = React.lazy(() =>
+  import("@/pages/publicPages").then((module) => ({
+    default: module.RoleSignUpPage,
+  }))
+);
+
+const SignUpPage = React.lazy(() =>
+  import("@/pages/publicPages").then((module) => ({
+    default: module.SignUpPage,
+  }))
+);
+
+const ForgotPasswordPage = React.lazy(() =>
+  import("@/pages/publicPages").then((module) => ({
+    default: module.ForgotPasswordPage,
+  }))
+);
 
 const PublicRoutes = (
-  <Route element={<PublicLayout />}>
-    <Route path={ROUTER_PATH.HOME_PAGE.PATH} element={<HomePage />} />
-    <Route path={ROUTER_PATH.ABOUT.PATH} element={<About />} />
-    <Route path={ROUTER_PATH.PRODUCT_DETAIL.PATH} element={<ProductDetail />} />
-  </Route>
-)
+  <>
+    <Route
+      element={
+        <PublishedRoutes>
+          <AuthLayout />
+        </PublishedRoutes>
+      }
+    >
+      <Route path={ROUTER_PATH.LOGIN.PATH} element={<LoginPage />} />
+      <Route path={ROUTER_PATH.SIGN_UP.PATH} element={<SignUpPage />} />
 
-export default PublicRoutes
+      <Route path={ROUTER_PATH.FORGOT_PASSWORD.PATH} element={<ForgotPasswordPage />} />
+      <Route path={ROUTER_PATH.ROLE_SIGN_UP.PATH} element={<RoleSignUpPage />} />
+    </Route>
+  </>
+);
+export default PublicRoutes;

@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export function useImage(product) {
-  const [mainImage, setMainImage] = useState(null)
-  const images = product.images
+  const [mainImage, setMainImage] = useState(null);
+  const images = product.images;
 
   useEffect(() => {
     if (images.length) {
-      setMainImage(images[0].imageUrl)
+      setMainImage(images[0].imageUrl);
     } else {
-      setMainImage(null)
+      setMainImage(null);
     }
-  }, [images])
+  }, [images]);
 
   function handleChangeImg() {
-    setMainImage(img.imageUrl)
+    setMainImage(img.imageUrl);
   }
 
-  return { mainImage, setMainImage, images, handleChangeImg }
+  return { mainImage, setMainImage, images, handleChangeImg };
 }
