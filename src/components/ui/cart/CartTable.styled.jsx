@@ -1,26 +1,53 @@
 import { Button, Card } from "antd";
+import { InputNumber } from "formik-antd";
 import styled from "styled-components";
 
 export const CartWrapper = styled.div`
   padding: 16px;
+  .ant-table-thead > tr > th {
+    background-color: var(--color-grey-300);
+    color: var(--color-grey-900);
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .ant-table-tbody > tr > td {
+    background-color: var(--color-grey-50);
+    color: var(--color-grey-800);
+  }
+
+  .ant-table-tbody > tr:hover > td {
+    background-color: var(--color-grey-200) !important;
+  }
+
+  .ant-table-tbody > tr.ant-table-row-selected > td {
+    background-color: var(--color-grey-200) !important;
+    color: var(--color-grey-900);
+  }
+
+  strong {
+    font-size: 16px;
+  }
+
+  .quantity-input {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .quantity-input .ant-input-number {
+    text-align: center;
+  }
 `;
 
 export const CardCartTable = styled(Card)`
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: linear-gradient(145deg, #ffffff, #f9f9f9);
   max-width: 100%;
   margin-top: 16px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-  &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  }
 
   .ant-card-head {
-    background: linear-gradient(to right, #1890ff, #40c4ff);
+    background: var(--color-blue-4);
     color: #ffffff;
     font-size: 18px;
     font-weight: 600;
@@ -31,20 +58,20 @@ export const CardCartTable = styled(Card)`
 
   .ant-card-body {
     padding: 20px;
-    background: #ffffff;
+    background: var(--color-grey-100);
   }
 
   p {
     margin: 8px 0;
     font-size: 16px;
-    color: #333;
+    color: var(--color-grey-800);
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
 
   p strong {
-    color: #555;
+    color: var(--color-grey-800);
     font-weight: 600;
   }
 
@@ -72,22 +99,33 @@ export const CardCartTable = styled(Card)`
   }
 `;
 
-export const BuyButton = styled(Button)`
+export const InputQuantity = styled(InputNumber)`
+  width: 80px;
+`;
+
+export const ButtonWrapper = styled.div`
+  text-align: right;
+`;
+
+export const ButtonCartSubmit = styled.button`
+  /* display: none; */
+`;
+
+export const ButtonCart = styled(Button)`
   width: fit-content;
   margin-top: 16px;
+  margin-left: 20px;
   padding: 10px;
   font-size: 16px;
   font-weight: 600;
-  background: linear-gradient(to right, #1890ff, #40c4ff);
+  background: var(--color-blue-5);
   border: none;
   border-radius: 8px;
-  color: #ffffff;
+  color: #fff;
   height: 48px;
-  transition: background 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    background: linear-gradient(to right, #40c4ff, #1890ff);
-    transform: scale(1.02);
+    background: var(--color-blue-8);
   }
 
   &:disabled {

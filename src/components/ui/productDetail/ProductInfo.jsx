@@ -7,7 +7,15 @@ import { HeadingStyled, ProductInfoStyled as PIS } from "@/components";
 
 import { formatCurrency } from "@/utils/helpers";
 
-export default function ProductInfo({ productDetail, quantity, onQuantity, onIncrease, onDecrease }) {
+export default function ProductInfo({
+  productDetail,
+  quantity,
+  onQuantity,
+  onIncrease,
+  onDecrease,
+  handleAddProductToCart,
+  isLoadingCart,
+}) {
   return (
     <ConfigProvider
       theme={{
@@ -46,7 +54,13 @@ export default function ProductInfo({ productDetail, quantity, onQuantity, onInc
           </Space>
         </PIS.Quantity>
         <PIS.Button>
-          <Button size="large" variant="outlined" color="red">
+          <Button
+            size="large"
+            variant="outlined"
+            color="red"
+            onClick={() => handleAddProductToCart(productDetail.id, quantity)}
+            disabled={isLoadingCart}
+          >
             <FaCartPlus />
             Thêm vào giỏ hàng
           </Button>

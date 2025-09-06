@@ -1,75 +1,121 @@
-import { Button, Table } from "antd";
-import { useState } from "react";
+import { useMemo } from "react";
+import { Button, Space, Table } from "antd";
+import { Formik, Form } from "formik";
 
-import { CartTableStyled as CTS } from "@/components";
+import { CartTableStyled as CTS, Loading } from "@/components";
+
+import useCart from "@/hooks/cart/useCart";
 
 import { formatCurrency } from "@/utils/helpers";
+import i18n from "@/configs/i18n/i18n";
 
-const originalData = [
-  { key: "1", product: "Laptop", unitPrice: 199000, quantity: 2, totalPrice: 398000 },
-  { key: "2", product: "iPhone", unitPrice: 750000, quantity: 1, totalPrice: 750000 },
-  { key: "3", product: "Tai nghe Bluetooth", unitPrice: 320000, quantity: 3, totalPrice: 960000 },
-  { key: "4", product: "laptop 15 inch", unitPrice: 450000, quantity: 1, totalPrice: 450000 },
-];
-
-export default function CartTable() {
-  const [selectedRowKeys, setSelectedRowKeys] = useState([]);
-
-  const columns = [
-    {
-      title: "Sản phẩm",
-      dataIndex: "product",
-    },
-    {
-      title: "Đơn giá",
-      dataIndex: "unitPrice",
-      render: (value) => formatCurrency(value),
-    },
-    {
-      title: "Số lượng",
-      dataIndex: "quantity",
-    },
-    {
-      title: "Giá tiền",
-      dataIndex: "totalPrice",
-      render: (value) => formatCurrency(value),
-    },
-    {
-      title: "Thao tác",
-      render: (_, record) => <Button danger>Xóa</Button>,
-    },
-  ];
-
-  const rowSelection = {
+export default function CartTable({ onMountSubmitRef }) {
+  const {
+    initialValues,
     selectedRowKeys,
-    onChange: (newKeys, selectedRows) => {
-      setSelectedRowKeys(newKeys);
-    },
-  };
+    setSelectedRowKeys,
+    cartTableWithVendors,
+    totalQuantity,
+    totalPrice,
+    handleDeleteCartItem,
+    handleResetCart,
+    cart,
+    error,
+    isLoading,
+    handleSubmit,
+    t,
+  } = useCart();
 
-  const selectedItems = originalData.filter((item) => selectedRowKeys.includes(item.key));
-  const totalQuantity = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = selectedItems.reduce((sum, item) => sum + item.totalPrice, 0);
-
-  const handleBuyNow = () => {
-    if (totalQuantity > 0) {
-    }
-  };
+  const columns = useMemo(
+    () => [
+      {
+        title: t("cart.product"),
+        dataIndex: "product",
+        render: (_, record) => (record.isVendorRow ? <strong>{record.vendorName}</strong> : record.product),
+      },
+      {
+        title: t("cart.unitPrice"),
+        dataIndex: "unitPrice",
+        render: (value, record) => (record.isVendorRow ? null : formatCurrency(value)),
+      },
+      {
+        title: t("cart.quantity"),
+        dataIndex: "quantity",
+        render: (_, record) =>
+          record.isVendorRow ? null : (
+            <Space>
+              <CTS.InputQuantity name={record.key} min={1} />
+            </Space>
+          ),
+      },
+      {
+        title: t("cart.totalPrice"),
+        dataIndex: "totalPrice",
+        render: (value, record) => (record.isVendorRow ? null : formatCurrency(value)),
+      },
+      {
+        title: t("cart.actions"),
+        render: (record) =>
+          record.isVendorRow ? null : (
+            <Button danger onClick={() => handleDeleteCartItem(record.key)}>
+              {t("cart.delete")}
+            </Button>
+          ),
+      },
+    ],
+    [i18n.language]
+  );
 
   return (
-    <CTS.CartWrapper>
-      <Table rowSelection={{ type: "checkbox", ...rowSelection }} columns={columns} dataSource={originalData} />
-      <CTS.CardCartTable title="Tổng hợp giỏ hàng">
-        <p>
-          <strong>Tổng số lượng:</strong> {totalQuantity}
-        </p>
-        <p>
-          <strong>Tổng giá tiền:</strong> {formatCurrency(totalPrice)}
-        </p>
-        <CTS.BuyButton onClick={handleBuyNow} disabled={totalQuantity === 0}>
-          Mua hàng
-        </CTS.BuyButton>
-      </CTS.CardCartTable>
-    </CTS.CartWrapper>
+    <Loading isLoading={isLoading} error={error}>
+      <CTS.CartWrapper>
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          onSubmit={(values) => handleSubmit({ values, type: "updateQuantity" })}
+        >
+          {({ submitForm, values }) => {
+            if (onMountSubmitRef) {
+              onMountSubmitRef.current = submitForm;
+            }
+
+            return (
+              <Form>
+                <Table
+                  rowSelection={{
+                    type: "checkbox",
+                    selectedRowKeys,
+                    onChange: setSelectedRowKeys,
+                    getCheckboxProps: (record) => ({ disabled: record.isVendorRow }),
+                  }}
+                  columns={columns}
+                  dataSource={cartTableWithVendors}
+                  pagination={false}
+                />
+
+                <CTS.CardCartTable title={t("cart.totalSummary")}>
+                  <div>
+                    <p>
+                      <strong>{t("cart.totalQuantity")}:</strong> {totalQuantity}
+                    </p>
+                    <p>
+                      <strong>{t("cart.totalAmount")}:</strong> {formatCurrency(totalPrice)}
+                    </p>
+                  </div>
+                  <CTS.ButtonWrapper>
+                    <CTS.ButtonCart onClick={handleResetCart} disabled={!cart.length}>
+                      {t("cart.resetCart")}
+                    </CTS.ButtonCart>
+                    <CTS.ButtonCart onClick={() => handleSubmit({ values, type: "buy" })} disabled={!totalQuantity}>
+                      {t("cart.buy")}
+                    </CTS.ButtonCart>
+                  </CTS.ButtonWrapper>
+                </CTS.CardCartTable>
+              </Form>
+            );
+          }}
+        </Formik>
+      </CTS.CartWrapper>
+    </Loading>
   );
 }

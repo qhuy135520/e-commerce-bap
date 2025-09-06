@@ -11,28 +11,46 @@ export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
   }
 });
 
-export const addToCart = createAsyncThunk("cart/addToCart", async ({ userId, productId, quantity }) => {
-  try {
-    const data = await addToCartApi({ userId, productId, quantity });
-    return data;
-  } catch (error) {
-    return error;
+export const addToCart = createAsyncThunk(
+  "cart/addToCart",
+  async ({ userId, productId, quantity }, { dispatch, getState }) => {
+    try {
+      const state = getState();
+      const existingItem = state.cart.items.find((item) => item.productId === productId);
+      let data;
+      if (existingItem) {
+        data = await updateQuantityProductApi({
+          cartId: existingItem.id,
+          quantity: existingItem.quantity + quantity,
+        });
+      } else {
+        data = await addToCartApi({ userId, productId, quantity });
+      }
+      await dispatch(fetchCart(userId));
+    } catch (error) {
+      return error;
+    }
   }
-});
+);
 
-export const updateQuantity = createAsyncThunk("cart/updateQuantity", async ({ cartId, quantity }) => {
-  try {
-    const data = await updateQuantityProductApi({ cartId, quantity });
-    return data;
-  } catch (error) {
-    return error;
+export const updateQuantity = createAsyncThunk(
+  "cart/updateQuantity",
+  async ({ items, userId }, { dispatch, getState }) => {
+    try {
+      await Promise.all(
+        items.map((item) => updateQuantityProductApi({ cartId: item.cartId, quantity: item.quantity }))
+      );
+      await dispatch(fetchCart(userId));
+    } catch (error) {
+      return error;
+    }
   }
-});
+);
 
-export const removeFromCart = createAsyncThunk("cart/removeFromCart", async (cartId) => {
+export const removeFromCart = createAsyncThunk("cart/removeFromCart", async ({ cartId, userId }, { dispatch }) => {
   try {
-    const data = await removeFromCartApi(cartId);
-    return data;
+    await removeFromCartApi(cartId);
+    await dispatch(fetchCart(userId));
   } catch (error) {
     return error;
   }

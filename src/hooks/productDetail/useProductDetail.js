@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectError, selectProductById, selectStatus } from "@/stores/products/products.selectors";
-import { getProduct } from "@/stores/products/products.thunks";
+import { productsSelector } from "@/stores/rootSelector";
+import { productsThunk } from "@/stores/rootThunk";
+import { useUser } from "@/hooks/authentication/useUser";
 
 export function useProductDetail(id) {
   const dispatch = useDispatch();
-  const productDetail = useSelector((state) => selectProductById(state));
-  const error = useSelector((state) => selectError(state));
-  const status = useSelector(selectStatus);
+  const { user } = useUser();
+  const productDetail = useSelector((state) => productsSelector.selectProductById(state));
+  const error = useSelector((state) => productsSelector.selectError(state));
+  const status = useSelector(productsSelector.selectStatus);
+
   const [quantity, setQuantity] = useState(1);
   const avgRating = productDetail.reviews.length
     ? parseFloat(
@@ -26,7 +29,7 @@ export function useProductDetail(id) {
 
   useEffect(() => {
     if (id) {
-      dispatch(getProduct(id));
+      dispatch(productsThunk.getProduct(id));
     }
   }, [id, dispatch]);
 

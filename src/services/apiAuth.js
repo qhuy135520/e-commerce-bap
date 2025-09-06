@@ -23,7 +23,11 @@ export async function signup(email, password, newUserInfo) {
 
 export async function getUserInfo(id) {
   try {
-    const { data, error } = await supabase.from("userInfo").select("*").eq("userId", id).single();
+    const { data, error } = await supabase
+      .from("userInfo")
+      .select("role, name, moneyBalance, birthdate, status, userInfoId:id")
+      .eq("userId", id)
+      .single();
 
     if (error) return null;
 
@@ -43,7 +47,7 @@ export async function login(email, password) {
 
     const dataUserInfo = await getUserInfo(dataUser.user.id);
 
-    const data = { email: dataUser.user.email, ...dataUserInfo };
+    const data = { id: dataUser.user.id, email: dataUser.user.email, ...dataUserInfo };
     return data;
   } catch (error) {
     throw error;
@@ -130,7 +134,7 @@ export async function getCurrentUser() {
       dataUserInfo = insertedUserInfo;
     }
 
-    const data = { email: dataUser.user.email, ...dataUserInfo };
+    const data = { id: dataUser.user.id, email: dataUser.user.email, ...dataUserInfo };
 
     return data;
   } catch (error) {

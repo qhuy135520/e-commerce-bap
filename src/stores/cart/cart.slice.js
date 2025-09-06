@@ -34,7 +34,6 @@ const cartSlice = createSlice({
       })
       .addCase(addToCart.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items.push(action.payload);
       })
       .addCase(addToCart.rejected, (state, action) => {
         state.status = "failed";
@@ -45,10 +44,6 @@ const cartSlice = createSlice({
       })
       .addCase(updateQuantity.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const index = state.items.findIndex((item) => item.id === action.payload.id);
-        if (index !== -1) {
-          state.items[index] = action.payload;
-        }
       })
       .addCase(updateQuantity.rejected, (state, action) => {
         state.status = "failed";
