@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Heading from '../../../components/ui/Heading'
+import Heading from '../../../components/ui/Heading.styled'
 
 export const StyleAbout = styled.section`
   display: flex;

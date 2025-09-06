@@ -1,3 +1,4 @@
+import { Button, ConfigProvider, Popover } from 'antd'
 import { NavLink } from 'react-router-dom'
 import { useMemo } from 'react'
 import { FaUser, FaShoppingCart } from 'react-icons/fa'
@@ -6,25 +7,13 @@ import { IoSearch } from 'react-icons/io5'
 import { FaHeadphones, FaLaptop, FaTabletAlt } from 'react-icons/fa'
 import { IoMdPhonePortrait } from 'react-icons/io'
 import { SlScreenDesktop } from 'react-icons/sl'
-import { Button, ConfigProvider, Popover } from 'antd'
+
+import { HeaderStyled } from '@/components/ui/header'
+import LanguageSwitcher from '@/components/ui/header/LanguageSwitcher.jsx'
 
 import { useHeader } from '@/hooks/header/useHeader.js'
 
-import {
-  StyleHeader,
-  StyleContainerTop,
-  StyleContainerBot,
-  StyleImg,
-  StyleInputSearch,
-  StyleButton,
-  HeaderTop,
-  HeaderBottom,
-  StyleMenu,
-  StyleListCateMobileWrapper,
-  StyleContentPopover,
-} from './Header.styled.jsx'
-import logo from '../../../assets/logo.png'
-import LanguageSwitcher from '@/components/ui/LanguageSwitcher.jsx'
+import logo from '@/assets/images/logo.png'
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick } = useHeader()
@@ -90,16 +79,16 @@ export default function Header() {
         },
       }}
     >
-      <StyleHeader>
-        <HeaderTop>
-          <StyleContainerTop>
-            <StyleListCateMobileWrapper>
+      <HeaderStyled.HeaderBg>
+        <HeaderStyled.HeaderTop>
+          <HeaderStyled.ContainerTop>
+            <HeaderStyled.ListCateMobileWrapper>
               <Popover
                 placement='bottomLeft'
                 title='E-BAP'
                 color='var(--color-grey-200)'
                 content={
-                  <StyleMenu
+                  <HeaderStyled.MenuHeader
                     items={items}
                     onClick={onClick}
                     selectedKeys={[current]}
@@ -112,13 +101,17 @@ export default function Header() {
                   <MdMenu />
                 </Button>
               </Popover>
-            </StyleListCateMobileWrapper>
-            <StyleImg src={logo} alt='logo-web' onClick={() => navigate('/')} />
-            <StyleInputSearch
+            </HeaderStyled.ListCateMobileWrapper>
+            <HeaderStyled.Img
+              src={logo}
+              alt='logo-web'
+              onClick={() => navigate('/')}
+            />
+            <HeaderStyled.InputSearch
               placeholder={t('header.searchPlaceholder')}
               prefix={<IoSearch />}
             />
-            <StyleButton>
+            <HeaderStyled.ButtonHeader>
               <Popover
                 placement='bottomRight'
                 title={t('header.cartTitle')}
@@ -135,7 +128,7 @@ export default function Header() {
                     placement='bottom'
                     title=''
                     content={
-                      <StyleContentPopover>
+                      <HeaderStyled.ContentPopover>
                         <NavLink to='update-user'>
                           {t('header.profile')}
                         </NavLink>
@@ -144,7 +137,7 @@ export default function Header() {
                         <NavLink onClick={() => logout()}>
                           {t('header.logout')}
                         </NavLink>
-                      </StyleContentPopover>
+                      </HeaderStyled.ContentPopover>
                     }
                     trigger='hover'
                   >
@@ -159,21 +152,21 @@ export default function Header() {
                 </Button>
               )}
               <LanguageSwitcher />
-            </StyleButton>
-          </StyleContainerTop>
-        </HeaderTop>
+            </HeaderStyled.ButtonHeader>
+          </HeaderStyled.ContainerTop>
+        </HeaderStyled.HeaderTop>
 
         <HeaderBottom>
-          <StyleContainerBot>
+          <HeaderStyled.ContainerBot>
             <StyleMenu
               onClick={onClick}
               selectedKeys={[current]}
               mode='horizontal'
               items={items}
             />
-          </StyleContainerBot>
+          </HeaderStyled.ContainerBot>
         </HeaderBottom>
-      </StyleHeader>
+      </HeaderStyled.HeaderBg>
     </ConfigProvider>
   )
 }

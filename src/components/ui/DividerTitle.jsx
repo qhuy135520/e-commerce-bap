@@ -1,6 +1,6 @@
 import { ConfigProvider, Divider } from 'antd'
 
-function DividerComponent({ title }) {
+function DividerTitle({ title }) {
   return (
     <ConfigProvider
       theme={{
@@ -16,4 +16,4 @@ function DividerComponent({ title }) {
   )
 }
 
-export default DividerComponent
+export default DividerTitle

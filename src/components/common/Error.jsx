@@ -1,7 +1,7 @@
-import { Button, ConfigProvider, Result } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { Button, ConfigProvider, Result } from 'antd'
 
-export default function ErrorComponent({
+export default function Error({
   message = 'There are some problems with your operation.',
 }) {
   const navigate = useNavigate()

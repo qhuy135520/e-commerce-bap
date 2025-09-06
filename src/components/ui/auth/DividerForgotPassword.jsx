@@ -1,6 +1,7 @@
 import { Button, ConfigProvider, Flex } from 'antd'
 
-import DividerComponent from '../Divider.component'
+import { DividerTitle } from '@/components/ui'
+
 import useForgotPassword from '@/hooks/authentication/useForgotPassword'
 
 export default function DividerForgotPassword() {
@@ -16,7 +17,7 @@ export default function DividerForgotPassword() {
         },
       }}
     >
-      <DividerComponent title={t('forgotPassword.title')} />
+      <DividerTitle title={t('forgotPassword.title')} />
       <Flex vertical>
         <Button
           color='primary'

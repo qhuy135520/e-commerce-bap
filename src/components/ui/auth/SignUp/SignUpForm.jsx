@@ -4,8 +4,9 @@ import { Form, Input } from 'formik-antd'
 import { CiLogin } from 'react-icons/ci'
 import { BiSolidUserDetail } from 'react-icons/bi'
 
-import NavLinkStyled from '@/components/ui/Navlink.styled'
 import { initialValues, useSignup } from '@/hooks/authentication/useSignup'
+
+import { NavlinkStyled } from '@/components/ui/auth'
 
 export default function SignUpForm() {
   const { isPendingSignup, handleSubmit, t, signupSchema } = useSignup()
@@ -102,9 +103,9 @@ export default function SignUpForm() {
                 >
                   {t('signup.form.submit')}
                 </Button>
-                <NavLinkStyled to='/login'>
+                <NavlinkStyled to='/login'>
                   {t('signup.form.alreadyAccount')}
-                </NavLinkStyled>
+                </NavlinkStyled>
               </Flex>
             </>
           </Form>

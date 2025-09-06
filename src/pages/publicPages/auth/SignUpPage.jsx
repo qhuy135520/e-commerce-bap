@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next'
 
 import DividerForgotPassword from '@/components/ui/auth/DividerForgotPassword'
 import SocialAuth from '@/components/ui/auth/SocialAuth'
-import Heading from '@/components/ui/Heading'
-import DividerComponent from '@/components/ui/Divider.component'
-import LoadingComponent from '@/components/common/Loading.component'
-import SignUpForm from '@/components/ui/auth/SignUp/SignUpForm'
+import Heading from '@/components/ui/Heading.styled'
+import DividerComponent from '@/components/ui/DividerTitle'
+import LoadingComponent from '@/components/common/Loading'
+import SignUpForm from '@/components/ui/auth/signUp/SignUpForm'
 import { useSignup } from '@/hooks/authentication/useSignup'
 
 export default function SignUpPage() {

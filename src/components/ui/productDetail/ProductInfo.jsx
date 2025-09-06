@@ -3,7 +3,7 @@ import { Button, ConfigProvider, InputNumber, Rate, Space } from 'antd'
 import { FaCartPlus } from 'react-icons/fa'
 import { MdOutlinePayments } from 'react-icons/md'
 
-import Heading from '@/components/ui/Heading'
+import Heading from '@/components/ui/Heading.styled'
 
 import { formatCurrency } from '@/utils/helpers'
 

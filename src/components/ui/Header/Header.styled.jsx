@@ -1,7 +1,7 @@
 import { Input, Menu, Popover } from 'antd'
 import styled from 'styled-components'
 
-export const StyleHeader = styled.header`
+export const HeaderBg = styled.header`
   position: fixed;
   top: 0;
   right: 0;
@@ -24,7 +24,7 @@ export const HeaderBottom = styled.div`
     display: none;
   }
 `
-export const StyleContainerTop = styled.div`
+export const ContainerTop = styled.div`
   max-width: 1200px;
   padding: 0 1rem;
   height: 100%;
@@ -35,7 +35,7 @@ export const StyleContainerTop = styled.div`
   margin: 0 auto;
   gap: 2rem;
 `
-export const StyleContainerBot = styled.div`
+export const ContainerBot = styled.div`
   max-width: 1200px;
   padding: 0 1rem;
   height: 100%;
@@ -46,19 +46,19 @@ export const StyleContainerBot = styled.div`
   margin: 0 auto;
   gap: 2rem;
 `
-export const StyleButton = styled.div`
+export const ButtonHeader = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
 `
-export const StyleImg = styled.img`
+export const Img = styled.img`
   height: 100%;
   cursor: pointer;
   @media (max-width: 431px) {
     display: none;
   }
 `
-export const StyleInputSearch = styled(Input)`
+export const InputSearch = styled(Input)`
   height: 4rem;
   border-radius: 2rem;
   width: 60%;
@@ -72,7 +72,7 @@ export const StyleInputSearch = styled(Input)`
     width: 19rem;
   }
 `
-export const StyleMenu = styled(Menu)`
+export const MenuHeader = styled(Menu)`
   display: flex;
   flex-direction: ${(props) =>
     props.mode === 'horizontal' ? 'row' : 'column'};
@@ -86,14 +86,14 @@ export const StyleMenu = styled(Menu)`
   }
 `
 
-export const StyleListCateMobileWrapper = styled(Popover)`
+export const ListCateMobileWrapper = styled(Popover)`
   display: none;
   @media (max-width: 431px) {
     display: block;
   }
 `
 
-export const StyleContentPopover = styled.div`
+export const ContentPopover = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;

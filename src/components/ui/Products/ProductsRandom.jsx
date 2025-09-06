@@ -1,9 +1,9 @@
 import React from 'react'
 import { Card } from 'antd'
 
-import useProducts from '@/hooks/useProduct/useProducts'
+import useProducts from '@/hooks/products/useProducts'
 
-import * as Styled from '@/components/ui/Products/ProductsList.styled'
+import * as Styled from '@/components/ui/products/ProductsList.styled'
 import noimage from '@/assets/images/noImage/noimage.jpg'
 import Title from 'antd/es/typography/Title'
 

@@ -1,8 +1,10 @@
 import { Flex } from 'antd'
 import { Button } from 'antd'
 import { FaFacebook, FaGoogle } from 'react-icons/fa'
-import DividerComponent from '../Divider.component'
-import { useLogin } from '../../../hooks/authentication/useLogin'
+
+import { DividerTitle } from '@/components/ui'
+
+import { useLogin } from '@/hooks/authentication/useLogin'
 
 export default function SocialAuth({ type }) {
   const { loginWithGoogle, t } = useLogin()
@@ -23,7 +25,7 @@ export default function SocialAuth({ type }) {
           {type} {t('social.facebook')}
         </Button>
       </Flex>
-      <DividerComponent title={t('social.orEmail')} />
+      <DividerTitle title={t('social.orEmail')} />
     </>
   )
 }

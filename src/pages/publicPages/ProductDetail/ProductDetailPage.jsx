@@ -2,14 +2,14 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Col, Row } from 'antd'
 
-import InfoVendor from '@/components/ui/infoVendor/InfoVendor.component'
-import ProductImage from '@/components/ui/productDetail/ProductImage.component'
-import ProductInfo from '@/components/ui/productDetail/ProductInfo.component'
-import LoadingComponent from '@/components/common/Loading.component'
+import InfoVendor from '@/components/ui/infoVendor/InfoVendor'
+import ProductImage from '@/components/ui/productDetail/ProductImage'
+import ProductInfo from '@/components/ui/productDetail/ProductInfo'
+import LoadingComponent from '@/components/common/Loading'
 
 import { useProductDetail } from '@/hooks/productDetail/useProductDetail'
 
-import * as S from '@/pages/publicPages/ProductDetail/ProductDetail.styled'
+import * as S from '@/pages/publicPages/productDetail/ProductDetail.styled'
 
 export default function ProductDetail() {
   const { id } = useParams()

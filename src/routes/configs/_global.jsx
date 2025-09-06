@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import AuthLayout from '@/layouts/common/AuthLayout'
+import AuthLayout from '@/layouts/global/AuthLayout'
 import PublishedRoutes from '@/routes/guards/PublishedRoutes'
 import { ROUTER_PATH } from '@/constants'
 

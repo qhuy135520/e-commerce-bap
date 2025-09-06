@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 
 import { useUser } from '../../hooks/authentication/useUser'
 
-import LoadingComponent from '../../components/common/Loading.component'
+import LoadingComponent from '../../components/common/Loading'
 
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate()

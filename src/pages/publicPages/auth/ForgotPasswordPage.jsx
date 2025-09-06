@@ -1,6 +1,6 @@
 import { Spin, Typography } from 'antd'
 
-import ForgotPasswordForm from '@/components/ui/auth/ForgotPassword/ForgotPasswordForm'
+import ForgotPasswordForm from '@/components/ui/auth/forgotPassword/ForgotPasswordForm'
 import useForgotPassword from '@/hooks/authentication/useForgotPassword'
 
 const { Title, Text } = Typography

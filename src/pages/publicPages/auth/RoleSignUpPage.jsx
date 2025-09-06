@@ -1,15 +1,15 @@
 import React from 'react'
 import { Typography } from 'antd'
-import RoleCard from '@/components/ui/auth/RoleSignUp/RoleCard'
+import RoleCard from '@/components/ui/auth/roleSignUp/RoleCard'
 
 import {
   ContainerRolePage,
   TitleWrapper,
   SubTitle,
-} from '@/components/ui/auth/RoleSignUp/RoleSignUp.styled'
+} from '@/components/ui/auth/roleSignUp/RoleSignUp.styled'
 
 import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
-import { SpaceRole } from '@/components/ui/auth/RoleSignUp/RoleCard.styled'
+import { SpaceRole } from '@/components/ui/auth/roleSignUp/RoleCard.styled'
 import { useTranslation } from 'react-i18next'
 
 const { Title } = Typography

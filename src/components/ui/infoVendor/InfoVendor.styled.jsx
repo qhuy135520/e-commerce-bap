@@ -1,17 +1,17 @@
 import { Button, Col } from 'antd'
 import styled from 'styled-components'
 
-export const StyleInfoVendor = styled.section`
+export const InfoVendor = styled.section`
   margin-top: 1.4rem;
   padding: 1.8rem 2rem;
   width: 100%;
   background-color: var(--color-grey-50);
   border-radius: 1rem;
 `
-export const StyleCol = styled(Col)`
+export const ColInfo = styled(Col)`
   width: 100%;
 `
-export const StyleFlex = styled.div`
+export const FlexInfo = styled.div`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -19,8 +19,8 @@ export const StyleFlex = styled.div`
   gap: 1rem;
 `
 
-export const StyleButton = styled(Button)``
-export const StyleGrid = styled.div`
+export const Button = styled(Button)``
+export const Grid = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 1.2rem;

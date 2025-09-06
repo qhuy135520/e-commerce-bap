@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components'
 
-const Heading = styled.h1`
+const HeadingStyled = styled.h1`
   color: var(--color-grey-900);
   ${(props) =>
     props.as === 'h1' &&
@@ -49,4 +49,4 @@ const Heading = styled.h1`
   line-height: 1.4;
 `
 
-export default Heading
+export default HeadingStyled

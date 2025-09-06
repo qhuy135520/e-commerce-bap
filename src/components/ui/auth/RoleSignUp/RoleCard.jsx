@@ -1,18 +1,8 @@
 import React from 'react'
 import { Card, ConfigProvider } from 'antd'
-import {
-  CardContainer,
-  IconWrapper,
-  FeatureItem,
-  Dot,
-  TextDescription,
-  ButtonRole,
-  DividerRole,
-  SpaceRole,
-  TitleRole,
-  FlexStyled,
-} from '@/components/ui/auth/RoleSignUp/RoleCard.styled'
 import { useNavigate } from 'react-router-dom'
+
+import { RoleCardStyled } from '@/components/ui/auth'
 
 const RoleCard = ({ role }) => {
   const navigate = useNavigate()
@@ -22,7 +12,7 @@ const RoleCard = ({ role }) => {
   }
 
   return (
-    <CardContainer hoverable $bordercolor={role.color}>
+    <RoleCardStyled.CardContainer hoverable $bordercolor={role.color}>
       <ConfigProvider
         theme={{
           token: {
@@ -36,26 +26,32 @@ const RoleCard = ({ role }) => {
         }}
       >
         <Card>
-          <FlexStyled align='start' gap={16}>
-            <IconWrapper $color={role.color}>{role.icon}</IconWrapper>
+          <RoleCardStyled.FlexCard align='start' gap={16}>
+            <RoleCardStyled.IconWrapper $color={role.color}>
+              {role.icon}
+            </RoleCardStyled.IconWrapper>
 
-            <SpaceRole direction='vertical' size={1}>
-              <TitleRole level={4}>{role.title}</TitleRole>
+            <RoleCardStyled.SpaceRole direction='vertical' size={1}>
+              <RoleCardStyled.TitleRole level={4}>
+                {role.title}
+              </RoleCardStyled.TitleRole>
 
-              <TextDescription>{role.description}</TextDescription>
+              <RoleCardStyled.TextDescription>
+                {role.description}
+              </RoleCardStyled.TextDescription>
 
-              <DividerRole />
+              <RoleCardStyled.DividerRole />
 
-              <SpaceRole direction='vertical' size={1}>
+              <RoleCardStyled.SpaceRole direction='vertical' size={1}>
                 {role.features.map((feature, index) => (
-                  <FeatureItem key={index}>
+                  <RoleCardStyled.FeatureItem key={index}>
                     <Dot $color={role.color} />
                     {feature}
-                  </FeatureItem>
+                  </RoleCardStyled.FeatureItem>
                 ))}
-              </SpaceRole>
+              </RoleCardStyled.SpaceRole>
 
-              <ButtonRole
+              <RoleCardStyled.ButtonRole
                 onClick={() => handleChooseRole(role)}
                 type='primary'
                 size='large'
@@ -63,12 +59,12 @@ const RoleCard = ({ role }) => {
                 block
               >
                 {role.buttonText}
-              </ButtonRole>
-            </SpaceRole>
-          </FlexStyled>
+              </RoleCardStyled.ButtonRole>
+            </RoleCardStyled.SpaceRole>
+          </RoleCardStyled.FlexCard>
         </Card>
       </ConfigProvider>
-    </CardContainer>
+    </RoleCardStyled.CardContainer>
   )
 }
 

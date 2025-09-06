@@ -3,22 +3,20 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import { useImage } from '@/hooks/productDetail/useImage'
-
-import * as S from '@/components/ui/productDetail/ProductImage.styled'
+import { ProductImageStyled as PIS } from '@/components/ui/productDetail'
 
 export default function ProductImage({ productDetail, settings }) {
   const { mainImage, images, handleChangeImg } = useImage(productDetail)
 
   return (
-    <S.StyleImgWrapper>
-      <S.StyleImgDefault src={mainImage} alt='main-img' />
-      <S.StyleImgSlider>
+    <PIS.ImgWrapper>
+      <PIS.ImgDefault src={mainImage} alt='main-img' />
+      <PIS.ImgSlider>
         <Slider {...settings}>
           {images?.length
-            ? images.map((img, index) => (
+            ? imagePIS.map((img, index) => (
                 <div key={index}>
-                  <S.StyleImgItem
+                  <PIS.ImgItem
                     src={img.imageUrl}
                     alt={`thumb-${index}`}
                     $active={mainImage === img.imageUrl}
@@ -29,7 +27,7 @@ export default function ProductImage({ productDetail, settings }) {
               ))
             : null}
         </Slider>
-      </S.StyleImgSlider>
-    </S.StyleImgWrapper>
+      </PIS.ImgSlider>
+    </PIS.ImgWrapper>
   )
 }

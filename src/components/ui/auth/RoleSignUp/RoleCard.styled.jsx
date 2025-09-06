@@ -68,7 +68,7 @@ export const ButtonRole = styled(Button)`
   }
 `
 
-export const FlexStyled = styled(Flex)`
+export const FlexCard = styled(Flex)`
   padding: 10px;
   @media (max-width: 992px) {
     flex-direction: column;

@@ -4,7 +4,7 @@ import Slider from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 
-import useProducts from '@/hooks/useProduct/useProducts'
+import useProducts from '@/hooks/products/useProducts'
 
 import { ProductItem, ProductImage } from './ProductsList.styled'
 import noimage from '@/assets/images/noImage/noimage.jpg'

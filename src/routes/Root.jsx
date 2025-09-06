@@ -3,7 +3,7 @@ import { Suspense } from 'react'
 
 import PrivateRoutes from '@/routes/configs/_private'
 import GlobalRoutes from '@/routes/configs/_global'
-import LoadingComponent from '@/components/common/Loading.component'
+import LoadingComponent from '@/components/common/Loading'
 import PublicRoutes from '@/routes/configs/_public'
 
 const RootRouter = () => {

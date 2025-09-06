@@ -4,11 +4,12 @@ import { Button, ConfigProvider, Flex, Spin } from 'antd'
 import { Input, DatePicker, Form } from 'formik-antd'
 import { BiSolidUserDetail } from 'react-icons/bi'
 
+import Heading from '@/components/ui/Heading.styled'
+import DividerComponent from '@/components/ui/DividerTitle'
+
 import { useUpdateUser } from '@/hooks/authentication/useUpdateUser'
 
-import NavLinkStyled from '@/components/ui/Navlink.styled'
-import Heading from '@/components/ui/Heading'
-import DividerComponent from '@/components/ui/Divider.component'
+import { NavlinkStyled } from '@/components/ui/auth'
 
 export default function UpdateUserForm() {
   const { isUpdating, UpdateUserSchema, t, handleSubmit, initialValues } =
@@ -96,9 +97,9 @@ export default function UpdateUserForm() {
 
             <Flex justify='flex-end' align='center' gap={12}>
               <Button type='default' shape='round' size='large'>
-                <NavLinkStyled to='/'>
+                <NavlinkStyled to='/'>
                   {t('updateUser.form.back')}
-                </NavLinkStyled>
+                </NavlinkStyled>
               </Button>
               <Button
                 type='primary'

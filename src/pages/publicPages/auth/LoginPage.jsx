@@ -1,9 +1,9 @@
 import { useTranslation } from 'react-i18next'
 import DividerForgotPassword from '../../../components/ui/auth/DividerForgotPassword'
-import LoginForm from '../../../components/ui/auth/Login/LoginForm'
+import LoginForm from '../../../components/ui/auth/login/LoginForm'
 import SocialAuth from '../../../components/ui/auth/SocialAuth'
-import DividerComponent from '../../../components/ui/Divider.component'
-import Heading from '../../../components/ui/Heading'
+import DividerComponent from '../../../components/ui/DividerTitle'
+import Heading from '../../../components/ui/Heading.styled'
 import { useLogin } from '@/hooks/authentication/useLogin'
 
 export default function LoginPage() {

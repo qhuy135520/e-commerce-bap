@@ -3,7 +3,7 @@ import { FaFacebook, FaLinkedin } from 'react-icons/fa'
 import { FaInstagram } from 'react-icons/fa6'
 import styled from 'styled-components'
 
-const StyleSocialGroup = styled.div`
+const SocialGroupStyled = styled.div`
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -13,11 +13,11 @@ const StyleSocialGroup = styled.div`
 
 export default function SocialGroup() {
   return (
-    <StyleSocialGroup>
+    <SocialGroupStyled>
       <BsTwitterX />
       <FaFacebook />
       <FaInstagram />
       <FaLinkedin />
-    </StyleSocialGroup>
+    </SocialGroupStyled>
   )
 }

@@ -1,18 +1,18 @@
 import styled from 'styled-components'
 
-export const StyleImgWrapper = styled.div`
+export const ImgWrapper = styled.div`
   text-align: center;
 `
-export const StyleImgDefault = styled.img`
+export const ImgDefault = styled.img`
   border-radius: 1rem;
   width: 43.2rem;
   height: 43.2rem;
 `
-export const StyleImgSlider = styled.div`
+export const ImgSlider = styled.div`
   width: 92%;
   margin: 0 auto;
 `
-export const StyleImgItem = styled.img`
+export const ImgItem = styled.img`
   width: 100%;
   height: 100px;
   object-fit: cover;

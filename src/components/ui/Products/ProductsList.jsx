@@ -3,10 +3,10 @@ import { Card, Select, Pagination, ConfigProvider } from 'antd'
 import Title from 'antd/es/typography/Title'
 
 import { productsThunk } from '@/stores/rootThunk'
-import useProducts from '@/hooks/useProduct/useProducts'
+import useProducts from '@/hooks/products/useProducts'
 
 import * as Styled from './ProductsList.styled'
-import LoadingComponent from '@/components/common/Loading.component'
+import LoadingComponent from '@/components/common/Loading'
 import noimage from '@/assets/images/noImage/noimage.jpg'
 
 const { Option } = Select

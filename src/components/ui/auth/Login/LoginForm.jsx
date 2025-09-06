@@ -1,10 +1,11 @@
-import { Button, ConfigProvider, Flex, Spin } from 'antd'
 import { Formik } from 'formik'
 import { Form, Input } from 'formik-antd'
+import { Button, ConfigProvider, Flex, Spin } from 'antd'
 import { CiLogin } from 'react-icons/ci'
 
+import { NavlinkStyled } from '@/components/ui/auth'
+
 import { initialValues, useLogin } from '@/hooks/authentication/useLogin'
-import NavLinkStyled from '../../Navlink.styled'
 
 export default function LoginForm() {
   const { handleSubmit, isPendingLogin, t, loginSchema } = useLogin()
@@ -64,9 +65,9 @@ export default function LoginForm() {
                 >
                   {t('login.form.submit')}
                 </Button>
-                <NavLinkStyled to='/signup'>
+                <NavlinkStyled to='/signup'>
                   {t('login.form.noAccount')}
-                </NavLinkStyled>
+                </NavlinkStyled>
               </Flex>
             </>
           </Form>

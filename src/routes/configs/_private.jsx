@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 
 import ProtectedRoute from '@/routes/guards/ProtectedRoutes'
-import AuthLayout from '@/layouts/common/AuthLayout'
+import AuthLayout from '@/layouts/global/AuthLayout'
 import { ROUTER_PATH } from '@/constants'
 
 const UpdatePasswordPage = React.lazy(() =>
