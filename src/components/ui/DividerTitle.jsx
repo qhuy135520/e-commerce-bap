@@ -1,6 +1,6 @@
 import { ConfigProvider, Divider } from "antd";
 
-function DividerTitle({ title }) {
+function DividerTitle({ title, type = "horizontal" }) {
   return (
     <ConfigProvider
       theme={{
@@ -11,7 +11,7 @@ function DividerTitle({ title }) {
         },
       }}
     >
-      <Divider>{title}</Divider>
+      <Divider type={type}>{title}</Divider>
     </ConfigProvider>
   );
 }
