@@ -41,14 +41,14 @@
 - Nhánh:
 
   - `feature/...` → thêm tính năng.\
-  - `fix/...` → fix bug.\
+  - `bugfix/...` → fix bug.\
   - `hotfix/...` → sửa gấp.
 
 - Commit message: `YYYY-MM-DD-Feature-Name`, `YYYY-MM-DD-Fix-Name`\
   Ví dụ:
 
-      2025-09-02-Feature-Login
-      2025-09-02-Fix-Header
+      2025-09-02-feat: Add Login feature
+      2025-09-02-fix: fix Login feature
 
 - Mỗi PR:
 
