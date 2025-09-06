@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 import { RoleCardStyled as RCS } from "@/components";
 
+import { RoleCardStyled } from "@/components/ui/auth";
+
 const RoleCard = ({ role }) => {
   const navigate = useNavigate();
 

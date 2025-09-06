@@ -8,6 +8,8 @@ import { NavlinkStyled } from "@/components";
 
 import { initialValues, useSignup } from "@/hooks/authentication/useSignup";
 
+import { NavlinkStyled } from "@/components/ui/auth";
+
 export default function SignUpForm() {
   const { isPendingSignup, handleSubmit, t, signupSchema } = useSignup();
 
