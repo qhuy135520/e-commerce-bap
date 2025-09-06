@@ -1,24 +1,24 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const StyleProductInfo = styled.div`
+export const ProductInfo = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
   gap: 3rem;
   padding: 0 0.4rem;
-`
+`;
 
-export const StyleTitle = styled.div``
+export const Title = styled.div``;
 
-export const StyleDescription = styled.p`
+export const Description = styled.p`
   text-align: justify;
-`
-export const StylePrice = styled.div`
+`;
+export const Price = styled.div`
   font-size: 3rem;
   color: red;
   font-weight: 600;
-`
-export const StyleRating = styled.div`
+`;
+export const Rating = styled.div`
   margin-top: 1rem;
   display: flex;
   align-items: center;
@@ -27,13 +27,13 @@ export const StyleRating = styled.div`
     margin-left: 1rem;
     font-weight: 500;
   }
-`
-export const StyleBrand = styled.div`
+`;
+export const Brand = styled.div`
   font-size: 1.5rem;
   color: var(--color-grey-500);
-`
+`;
 
-export const StyleQuantity = styled.div`
+export const Quantity = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -46,8 +46,8 @@ export const StyleQuantity = styled.div`
   & span {
     font-weight: 700;
   }
-`
-export const StyleButton = styled.div`
+`;
+export const Button = styled.div`
   display: flex;
   gap: 2rem;
-`
+`;

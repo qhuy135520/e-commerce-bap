@@ -1,75 +1,65 @@
-import React from 'react'
-import { Card, ConfigProvider } from 'antd'
-import {
-  CardContainer,
-  IconWrapper,
-  FeatureItem,
-  Dot,
-  TextDescription,
-  ButtonRole,
-  DividerRole,
-  SpaceRole,
-  TitleRole,
-  FlexStyled,
-} from '@/components/ui/auth/RoleSignUp/RoleCard.styled'
-import { useNavigate } from 'react-router-dom'
+import React from "react";
+import { Card, ConfigProvider } from "antd";
+import { useNavigate } from "react-router-dom";
+
+import { RoleCardStyled as RCS } from "@/components";
 
 const RoleCard = ({ role }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   function handleChooseRole(role) {
-    navigate(`/signup?role=${role.key}`)
+    navigate(`/signup?role=${role.key}`);
   }
 
   return (
-    <CardContainer hoverable $bordercolor={role.color}>
+    <RCS.CardContainer hoverable $bordercolor={role.color}>
       <ConfigProvider
         theme={{
           token: {
-            colorBgContainer: 'var(--color-grey-50)',
+            colorBgContainer: "var(--color-grey-50)",
           },
           components: {
             Card: {
-              actionsBg: 'var(--color-grey-50)',
+              actionsBg: "var(--color-grey-50)",
             },
           },
         }}
       >
         <Card>
-          <FlexStyled align='start' gap={16}>
-            <IconWrapper $color={role.color}>{role.icon}</IconWrapper>
+          <RCS.FlexCard align="start" gap={16}>
+            <RCS.IconWrapper $color={role.color}>{role.icon}</RCS.IconWrapper>
 
-            <SpaceRole direction='vertical' size={1}>
-              <TitleRole level={4}>{role.title}</TitleRole>
+            <RCS.SpaceRole direction="vertical" size={1}>
+              <RCS.TitleRole level={4}>{role.title}</RCS.TitleRole>
 
-              <TextDescription>{role.description}</TextDescription>
+              <RCS.TextDescription>{role.description}</RCS.TextDescription>
 
-              <DividerRole />
+              <RCS.DividerRole />
 
-              <SpaceRole direction='vertical' size={1}>
+              <RCS.SpaceRole direction="vertical" size={1}>
                 {role.features.map((feature, index) => (
-                  <FeatureItem key={index}>
-                    <Dot $color={role.color} />
+                  <RCS.FeatureItem key={index}>
+                    <RCS.Dot $color={role.color} />
                     {feature}
-                  </FeatureItem>
+                  </RCS.FeatureItem>
                 ))}
-              </SpaceRole>
+              </RCS.SpaceRole>
 
-              <ButtonRole
+              <RCS.ButtonRole
                 onClick={() => handleChooseRole(role)}
-                type='primary'
-                size='large'
+                type="primary"
+                size="large"
                 $color={role.color}
                 block
               >
                 {role.buttonText}
-              </ButtonRole>
-            </SpaceRole>
-          </FlexStyled>
+              </RCS.ButtonRole>
+            </RCS.SpaceRole>
+          </RCS.FlexCard>
         </Card>
       </ConfigProvider>
-    </CardContainer>
-  )
-}
+    </RCS.CardContainer>
+  );
+};
 
-export default RoleCard
+export default RoleCard;

@@ -1,7 +1,4 @@
-export { default as LoginPage } from './auth/LoginPage'
-export { default as SignUpPage } from './auth/SignUpPage'
-export { default as ForgotPasswordPage } from './auth/ForgotPasswordPage'
-export { default as HomePage } from './Home/HomePage'
-export { default as RoleSignUpPage } from '@/pages/publicPages/auth/RoleSignUpPage'
-export { default as About } from './Home/About'
-export { default as ProductDetail } from './ProductDetail/ProductDetailPage'
+export { default as LoginPage } from "@/pages/publicPages/auth/LoginPage";
+export { default as SignUpPage } from "@/pages/publicPages/auth/SignUpPage";
+export { default as ForgotPasswordPage } from "@/pages/publicPages/auth/ForgotPasswordPage";
+export { default as RoleSignUpPage } from "@/pages/publicPages/auth/RoleSignUpPage";

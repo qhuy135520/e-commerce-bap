@@ -1,8 +1,9 @@
-import { HiOutlineMoon, HiOutlineSun } from 'react-icons/hi'
-import { useDarkMode } from '../../contexts/theme/DarkModeContext'
-import styled from 'styled-components'
+import styled from "styled-components";
+import { HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 
-const StyleButtonToggle = styled.button`
+import { useDarkMode } from "@/contexts/theme/DarkModeContext";
+
+const ButtonToggleStyled = styled.button`
   position: fixed;
   bottom: 1rem;
   left: 1rem;
@@ -23,15 +24,15 @@ const StyleButtonToggle = styled.button`
     width: 40px;
     height: 40px;
   }
-`
+`;
 
 function DarkModeToggle() {
-  const { isDarkMode, toggleDarkMode } = useDarkMode()
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
   return (
-    <StyleButtonToggle onClick={toggleDarkMode}>
+    <ButtonToggleStyled onClick={toggleDarkMode}>
       {isDarkMode ? <HiOutlineSun /> : <HiOutlineMoon />}
-    </StyleButtonToggle>
-  )
+    </ButtonToggleStyled>
+  );
 }
 
-export default DarkModeToggle
+export default DarkModeToggle;

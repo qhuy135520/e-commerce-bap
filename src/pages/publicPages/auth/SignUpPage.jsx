@@ -1,36 +1,29 @@
-import { useNavigate, useSearchParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useEffect } from "react";
 
-import DividerForgotPassword from '@/components/ui/auth/DividerForgotPassword'
-import SocialAuth from '@/components/ui/auth/SocialAuth'
-import Heading from '@/components/ui/Heading'
-import DividerComponent from '@/components/ui/Divider.component'
-import LoadingComponent from '@/components/common/Loading.component'
-import SignUpForm from '@/components/ui/auth/SignUp/SignUpForm'
-import { useSignup } from '@/hooks/authentication/useSignup'
+import { DividerForgotPassword, DividerTitle, HeadingStyled, Loading, SignUpForm, SocialAuth } from "@/components";
+
+import { useSignup } from "@/hooks/authentication/useSignup";
 
 export default function SignUpPage() {
-  const { t, navigate, isChecking, setIsChecking, role } = useSignup()
+  const { t, navigate, isChecking, setIsChecking, role } = useSignup();
 
   useEffect(() => {
     if (!role) {
-      navigate('/role-signup')
+      navigate("/role-signup");
     } else {
-      setIsChecking(false)
+      setIsChecking(false);
     }
-  }, [role, navigate, setIsChecking])
+  }, [role, navigate, setIsChecking]);
 
   return (
-    <LoadingComponent isLoading={isChecking}>
-      <Heading as='h1'>
-        {t('signup.title', { ns: 'auth' })} (
-        {t(`roles.${role}`, { ns: 'common' })})
-      </Heading>
-      <DividerComponent title={t('signup.socialTitle')} />
-      <SocialAuth type={t('signup.title')} />
+    <Loading isLoading={isChecking}>
+      <HeadingStyled as="h1">
+        {t("signup.title", { ns: "auth" })} ({t(`roles.${role}`, { ns: "common" })})
+      </HeadingStyled>
+      <DividerTitle title={t("signup.socialTitle")} />
+      <SocialAuth type={t("signup.title")} />
       <SignUpForm />
       <DividerForgotPassword />
-    </LoadingComponent>
-  )
+    </Loading>
+  );
 }
