@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 import { useUser } from "@/hooks/authentication/useUser";
 
-import LoadingComponent from "@/components/common/Loading";
+import { Loading } from "@/components";
 
 export default function ProtectedRoute({ children }) {
   const navigate = useNavigate();
@@ -19,5 +19,5 @@ export default function ProtectedRoute({ children }) {
     [user, navigate]
   );
 
-  if (user) return <LoadingComponent isLoading={isPending}>{children}</LoadingComponent>;
+  if (user) return <Loading isLoading={isPending}>{children}</Loading>;
 }

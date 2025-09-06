@@ -109,7 +109,7 @@ export async function getCurrentUser() {
     const { data: dataUser, error: errorUser } = await supabase.auth.getUser();
 
     if (errorUser) throw errorUser;
-
+    debugger;
     let dataUserInfo = await getUserInfo(dataUser.user.id);
     if (!dataUserInfo) {
       const { data: insertedUserInfo, error } = await supabase
@@ -130,8 +130,6 @@ export async function getCurrentUser() {
 
       dataUserInfo = insertedUserInfo;
     }
-
-    dataUserInfo = insertedUserInfo;
 
     const data = { email: dataUser.user.email, ...dataUserInfo };
 
