@@ -36,3 +36,4 @@ export function useProductDetail(id) {
     isLoadingProduct,
   }
 }
+

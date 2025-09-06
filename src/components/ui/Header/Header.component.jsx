@@ -2,7 +2,6 @@ import { NavLink } from 'react-router-dom'
 import { useMemo } from 'react'
 import { FaUser, FaShoppingCart } from 'react-icons/fa'
 import { MdMenu } from 'react-icons/md'
-import { IoSearch } from 'react-icons/io5'
 import { FaHeadphones, FaLaptop, FaTabletAlt } from 'react-icons/fa'
 import { IoMdPhonePortrait } from 'react-icons/io'
 import { SlScreenDesktop } from 'react-icons/sl'
@@ -10,12 +9,13 @@ import { Button, ConfigProvider, Popover } from 'antd'
 
 import { useHeader } from '@/hooks/header/useHeader.js'
 
+import SearchBar from '@/components/ui/Header/SearchBar.component.jsx'
+
 import {
   StyleHeader,
   StyleContainerTop,
   StyleContainerBot,
   StyleImg,
-  StyleInputSearch,
   StyleButton,
   HeaderTop,
   HeaderBottom,
@@ -114,10 +114,7 @@ export default function Header() {
               </Popover>
             </StyleListCateMobileWrapper>
             <StyleImg src={logo} alt='logo-web' onClick={() => navigate('/')} />
-            <StyleInputSearch
-              placeholder={t('header.searchPlaceholder')}
-              prefix={<IoSearch />}
-            />
+            <SearchBar placeholder={t('header.searchPlaceholder')} />
             <StyleButton>
               <Popover
                 placement='bottomRight'
@@ -177,3 +174,4 @@ export default function Header() {
     </ConfigProvider>
   )
 }
+

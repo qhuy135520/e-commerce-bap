@@ -1,4 +1,4 @@
-import { Input, Menu, Popover } from 'antd'
+import { AutoComplete, Input, Menu, Popover } from 'antd'
 import styled from 'styled-components'
 
 export const StyleHeader = styled.header`
@@ -103,3 +103,7 @@ export const StyleContentPopover = styled.div`
     width: 80%;
   }
 `
+export const StyledAutoComplete = styled(AutoComplete)`
+  width: 60%;
+`
+
