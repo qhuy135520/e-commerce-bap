@@ -1,41 +1,36 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { useSelector } from "react-redux";
 
-export function useProductDetail() {
-  const [quantity, setQuantity] = useState(1)
+import { selectProductById, selectStatus } from "@/stores/products/products.selectors";
 
+export function useProductDetail(id) {
+  const productDetail = useSelector((state) => selectProductById(state, id));
+  const status = useSelector(selectStatus);
+  const [quantity, setQuantity] = useState(1);
+  const isLoadingProduct = status === "loading" || status === "idle";
   const settings = {
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
-  }
-
-  const images = [
-    'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nrfbjcc.webp',
-    'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nq0r39c.webp',
-    'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nom6n41.webp',
-    'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nu8gf2a.webp',
-    'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nzuq72a.webp',
-  ]
-
-  const [mainImage, setMainImage] = useState(images[0])
+    arrows: true,
+  };
 
   function handleIncrease() {
-    setQuantity(Math.min(10, quantity + 1))
+    setQuantity(Math.min(10, quantity + 1));
   }
 
   function handleDecrease() {
-    setQuantity(Math.max(1, quantity - 1))
+    setQuantity(Math.max(1, quantity - 1));
   }
 
   return {
+    productDetail,
     settings,
-    images,
-    mainImage,
-    setMainImage,
     quantity,
     setQuantity,
     handleIncrease,
     handleDecrease,
-  }
+    isLoadingProduct,
+  };
 }

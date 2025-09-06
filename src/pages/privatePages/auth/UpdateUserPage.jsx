@@ -1,7 +1,5 @@
-import React from 'react'
-
-import UpdateUserForm from '@/components/ui/auth/UpdateUser/UpdateUserForm'
+import { UpdateUserForm } from "@/components";
 
 export default function UpdateUserPage() {
-  return <UpdateUserForm />
+  return <UpdateUserForm />;
 }

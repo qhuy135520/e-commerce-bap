@@ -1,0 +1,13 @@
+export * from "@/components/ui/auth";
+export * from "@/components/ui/about";
+export * from "@/components/ui/header";
+export * from "@/components/ui/footer";
+export * from "@/components/ui/infoVendor";
+export * from "@/components/ui/productDetail";
+export * from "@/components/ui/products";
+
+export { default as Container } from "@/components/ui/Container";
+export { default as DividerTitle } from "@/components/ui/DividerTitle";
+export { default as SocialGroup } from "@/components/ui/SocialGroup";
+export { default as HeadingStyled } from "@/components/ui/Heading.styled";
+export { default as ToastStyled } from "@/components/ui/Toast.styled";

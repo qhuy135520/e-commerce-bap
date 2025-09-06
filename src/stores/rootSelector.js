@@ -1,2 +1,3 @@
-import * as productsSelector from '@/stores/products/products.selectors'
-export { productsSelector }
+import * as productsSelector from "@/stores/products/products.selectors";
+
+export { productsSelector };

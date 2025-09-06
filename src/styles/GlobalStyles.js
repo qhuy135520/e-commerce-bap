@@ -1,5 +1,4 @@
-import { createGlobalStyle } from 'styled-components'
-import 'flag-icons/css/flag-icons.min.css'
+import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
 :root {
 --color-yellow-500: #d3c631ff ;
@@ -234,9 +233,9 @@ html{
   font-size: 50%;
 }
 }
-`
+`;
 
-export default GlobalStyles
+export default GlobalStyles;
 
 // Thuộc tính	Kích thước màn hình (min-width)
 // xs	< 576px (mobile nhỏ)

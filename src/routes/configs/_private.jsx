@@ -1,20 +1,21 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
+import React from "react";
+import { Route } from "react-router-dom";
 
-import ProtectedRoute from '@/routes/guards/ProtectedRoutes'
-import AuthLayout from '@/layouts/common/AuthLayout'
-import { ROUTER_PATH } from '@/constants'
+import { ROUTER_PATH } from "@/constants";
+
+import ProtectedRoute from "@/routes/guards/ProtectedRoutes";
+import AuthLayout from "@/layouts/global/AuthLayout";
 
 const UpdatePasswordPage = React.lazy(() =>
-  import('@/pages/privatePages').then((module) => ({
+  import("@/pages/privatePages").then((module) => ({
     default: module.UpdatePasswordPage,
   }))
-)
+);
 const UpdateUserPage = React.lazy(() =>
-  import('@/pages/privatePages').then((module) => ({
+  import("@/pages/privatePages").then((module) => ({
     default: module.UpdateUserPage,
   }))
-)
+);
 
 const PrivateRoutes = (
   <Route
@@ -24,12 +25,9 @@ const PrivateRoutes = (
       </ProtectedRoute>
     }
   >
-    <Route
-      path={ROUTER_PATH.UPDATE_PASSWORD.PATH}
-      element={<UpdatePasswordPage />}
-    />
+    <Route path={ROUTER_PATH.UPDATE_PASSWORD.PATH} element={<UpdatePasswordPage />} />
     <Route path={ROUTER_PATH.UPDATE_USER.PATH} element={<UpdateUserPage />} />
   </Route>
-)
+);
 
-export default PrivateRoutes
+export default PrivateRoutes;
