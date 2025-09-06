@@ -8,11 +8,10 @@ import { useProductDetail } from "@/hooks/productDetail/useProductDetail";
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const { isLoadingProduct, settings, productDetail, quantity, setQuantity, handleIncrease, handleDecrease } =
+  const { isLoadingProduct, settings, productDetail, quantity, setQuantity, handleIncrease, handleDecrease, error } =
     useProductDetail(id);
-
   return (
-    <Loading isLoading={isLoadingProduct}>
+    <Loading isLoading={isLoadingProduct} error={error}>
       <PDS.ProductPage>
         <PDS.ProductDetail>
           <Row gutter={[12, 12]}>

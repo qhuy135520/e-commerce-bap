@@ -12,7 +12,7 @@ export function useImage(product) {
     }
   }, [images]);
 
-  function handleChangeImg() {
+  function handleChangeImg(img) {
     setMainImage(img.imageUrl);
   }
 

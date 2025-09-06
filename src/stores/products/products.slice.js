@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProducts } from "./products.thunks";
+import { fetchAllProducts, getProduct } from "@/stores/products/products.thunks";
 
 const productSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
+    product: {
+      images: [],
+    },
     sortType: null,
     sortOrder: null,
     status: "idle",
@@ -35,6 +38,20 @@ const productSlice = createSlice({
         state.products = action.payload;
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+
+      //GET ONE PRODUCT DETAIL
+      .addCase(getProduct.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getProduct.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.product = action.payload;
+      })
+      .addCase(getProduct.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });

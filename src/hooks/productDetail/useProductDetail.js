@@ -1,10 +1,13 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import { selectProductById, selectStatus } from "@/stores/products/products.selectors";
+import { selectError, selectProductById, selectStatus } from "@/stores/products/products.selectors";
+import { getProduct } from "@/stores/products/products.thunks";
 
 export function useProductDetail(id) {
-  const productDetail = useSelector((state) => selectProductById(state, id));
+  const dispatch = useDispatch();
+  const productDetail = useSelector((state) => selectProductById(state));
+  const error = useSelector((state) => selectError(state));
   const status = useSelector(selectStatus);
   const [quantity, setQuantity] = useState(1);
   const isLoadingProduct = status === "loading" || status === "idle";
@@ -15,6 +18,12 @@ export function useProductDetail(id) {
     slidesToScroll: 1,
     arrows: true,
   };
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getProduct(id));
+    }
+  }, [id, dispatch]);
 
   function handleIncrease() {
     setQuantity(Math.min(10, quantity + 1));
@@ -32,5 +41,6 @@ export function useProductDetail(id) {
     handleIncrease,
     handleDecrease,
     isLoadingProduct,
+    error,
   };
 }

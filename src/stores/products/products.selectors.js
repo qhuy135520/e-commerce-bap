@@ -5,8 +5,7 @@ export const selectSortType = (state) => state.products.sortType;
 export const selectSortOrder = (state) => state.products.sortOrder;
 export const selectStatus = (state) => state.products.status;
 export const selectError = (state) => state.products.error;
-
-export const selectProductById = (state, id) => state.products.products.find((product) => product.id === id);
+export const selectProductById = (state) => state.products.product;
 
 export const selectSortedProducts = createSelector(
   [selectProducts, selectSortType, selectSortOrder],
