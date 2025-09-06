@@ -13,7 +13,7 @@ i18n
     ns: ["common", "auth", "product"],
     defaultNS: "common",
     backend: {
-      loadPath: "src/configs/i18n/locales/{{lng}}/{{ns}}.json",
+      loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
     detection: {
       order: ["querystring", "localStorage", "navigator"],

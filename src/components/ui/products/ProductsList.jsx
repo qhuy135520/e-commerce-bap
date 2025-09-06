@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { Card, Select, Pagination, ConfigProvider, Typography } from "antd";
-
 import { Loading, ProductListStyled as PLS } from "@/components";
 
-import { productsThunk } from "@/stores/rootThunk";
 import useProducts from "@/hooks/products/useProducts";
+import { formatCurrency } from "@/utils/helpers";
 
 import noimage from "@/assets/images/noImage/noimage.jpg";
 
@@ -13,7 +12,8 @@ const { Title } = Typography;
 
 const ProductsList = () => {
   const {
-    sortedProducts,
+    fetchDataProducts,
+    products,
     status,
     error,
     sort,
@@ -22,19 +22,14 @@ const ProductsList = () => {
     handleSortChange,
     handlePageChange,
     paginatedProducts,
-    handleSort,
-    dispatch,
     handleNavigate,
     t,
+    vendorId,
   } = useProducts();
 
   useEffect(() => {
-    dispatch(productsThunk.fetchAllProducts());
-  }, [dispatch]);
-
-  useEffect(() => {
-    handleSort();
-  }, [sort, dispatch]);
+    fetchDataProducts();
+  }, [vendorId]);
 
   const sortOptions = useMemo(
     () => [
@@ -67,9 +62,9 @@ const ProductsList = () => {
                 <Card>
                   <PLS.ProductImage src={product.images[0]?.imageUrl || noimage} alt={product.name} />
                   <p>{product.name}</p>
-                  <p>${product.price}</p>
+                  <p>{formatCurrency(product.price)}</p>
                   <p>
-                    {t("productCard.sold")}: {product.total_sold}
+                    {t("productCard.sold")}: {product.total_sold || 0}
                   </p>
                 </Card>
               </PLS.ProductItem>
@@ -79,7 +74,7 @@ const ProductsList = () => {
             align="center"
             current={page}
             pageSize={pageSize}
-            total={sortedProducts.length}
+            total={products.length}
             onChange={handlePageChange}
           />
         </Loading>

@@ -44,4 +44,3 @@ export function useProductDetail(id) {
     error,
   };
 }
-
