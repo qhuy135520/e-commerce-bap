@@ -8,3 +8,16 @@ export async function fetchAllProductsApi() {
     throw error;
   }
 }
+
+export async function getProductDetailApi(id) {
+  try {
+    const { data, error } = await supabase
+      .rpc("get_one_product_with_sales_images_reviews", { productiddetail: id })
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
