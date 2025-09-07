@@ -22,8 +22,8 @@ export default function ProductImage({ productDetail, settings }) {
                     src={img.imageUrl}
                     alt={`thumb-${index}`}
                     $active={mainImage === img.imageUrl}
-                    onClick={handleChangeImg}
-                    onMouseEnter={handleChangeImg}
+                    onClick={() => handleChangeImg(img)}
+                    onMouseEnter={() => handleChangeImg(img)}
                   />
                 </div>
               ))
