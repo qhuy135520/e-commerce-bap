@@ -5,6 +5,7 @@ export * from "@/components/ui/footer";
 export * from "@/components/ui/infoVendor";
 export * from "@/components/ui/productDetail";
 export * from "@/components/ui/products";
+export * from "@/components/ui/cart";
 
 export { default as Container } from "@/components/ui/Container";
 export { default as DividerTitle } from "@/components/ui/DividerTitle";
