@@ -1,4 +1,4 @@
-import { Input, Menu, Popover } from "antd";
+import { AutoComplete, Input, Menu, Popover } from "antd";
 import styled from "styled-components";
 
 export const HeaderBg = styled.header`
@@ -100,5 +100,24 @@ export const ContentPopover = styled.div`
   align-items: center;
   & hr {
     width: 80%;
+  }
+`;
+
+export const StyledAutoComplete = styled(AutoComplete)`
+  width: 60%;
+`;
+
+export const StyleInputSearch = styled(Input)`
+  height: 4rem;
+  border-radius: 2rem;
+  width: 60%;
+  background-color: var(--color-grey-100);
+
+  .ant-input::placeholder {
+    color: var(--color-grey-800);
+    opacity: 0.5;
+  }
+  @media (max-width: 431px) {
+    width: 19rem;
   }
 `;

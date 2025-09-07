@@ -28,6 +28,11 @@ const NotFoundPage = React.lazy(() =>
     default: module.default,
   }))
 );
+const SearchResult = React.lazy(() =>
+  import("../../components/ui/Products/SearchResult").then((module) => ({
+    default: module.default,
+  }))
+);
 
 const GlobalRoutes = (
   <>
@@ -35,6 +40,7 @@ const GlobalRoutes = (
       <Route path={ROUTER_PATH.HOME_PAGE.PATH} element={<HomePage />} />
       <Route path={ROUTER_PATH.ABOUT.PATH} element={<AboutPage />} />
       <Route path={ROUTER_PATH.PRODUCT_DETAIL.PATH} element={<ProductDetailPage />} />
+      <Route path={ROUTER_PATH.SEARCH.PATH} element={<SearchResult />} />
     </Route>
     <Route path="*" element={<NotFoundPage />} />
   </>

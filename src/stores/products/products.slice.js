@@ -12,6 +12,7 @@ const productSlice = createSlice({
     sortOrder: null,
     status: "idle",
     error: null,
+    searchTerm: "",
   },
   reducers: {
     sortByPrice: (state, action) => {
@@ -25,6 +26,9 @@ const productSlice = createSlice({
     resetSort: (state) => {
       state.sortType = null;
       state.sortOrder = null;
+    },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -58,6 +62,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { sortByPrice, sortBySales, resetSort } = productSlice.actions;
+export const { sortByPrice, sortBySales, resetSort, setSearchTerm } = productSlice.actions;
 
 export default productSlice.reducer;

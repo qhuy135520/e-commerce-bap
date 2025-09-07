@@ -12,6 +12,7 @@ import { HeaderStyled, LanguageSwitcher } from "@/components";
 import { useHeader } from "@/hooks/header/useHeader";
 
 import logo from "@/assets/images/logo.png";
+import SearchBar from "@/components/ui/Header/SearchBar";
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick } = useHeader();
@@ -96,7 +97,7 @@ export default function Header() {
               </Popover>
             </HeaderStyled.ListCateMobileWrapper>
             <HeaderStyled.Img src={logo} alt="logo-web" onClick={() => navigate("/")} />
-            <HeaderStyled.InputSearch placeholder={t("header.searchPlaceholder")} prefix={<IoSearch />} />
+            <SearchBar placeholder={t("header.searchPlaceholder")} />
             <HeaderStyled.ButtonHeader>
               <Popover
                 placement="bottomRight"
