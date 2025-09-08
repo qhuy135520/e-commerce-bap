@@ -15,5 +15,15 @@ export function useHeader() {
     setCurrent(e.key);
   };
 
-  return { navigate, t, user, logout, current, onClick };
+  function handleNavigateToHome() {
+    navigate("/");
+  }
+
+  function handleNavigateToCart() {
+    if (user?.role !== "vendor") {
+      navigate("/cart");
+    }
+  }
+
+  return { navigate, t, user, logout, current, onClick, handleNavigateToHome, handleNavigateToCart };
 }

@@ -53,7 +53,7 @@ export default function useCart() {
 
   useEffect(
     function () {
-      if (status === "idle") {
+      if (status === "idle" && user) {
         dispatch(cartThunk.fetchCart(user?.id));
       }
     },

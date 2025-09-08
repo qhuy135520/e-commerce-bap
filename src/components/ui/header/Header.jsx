@@ -15,7 +15,7 @@ import logo from "@/assets/images/logo.png";
 import SearchBar from "@/components/ui/Header/SearchBar";
 
 export default function Header() {
-  const { navigate, t, user, logout, current, onClick } = useHeader();
+  const { navigate, t, user, logout, current, onClick, handleNavigateToHome, handleNavigateToCart } = useHeader();
 
   const items = useMemo(
     () => [
@@ -96,16 +96,16 @@ export default function Header() {
                 </Button>
               </Popover>
             </HeaderStyled.ListCateMobileWrapper>
-            <HeaderStyled.Img src={logo} alt="logo-web" onClick={() => navigate("/")} />
+            <HeaderStyled.Img src={logo} alt="logo-web" onClick={handleNavigateToHome} />
             <SearchBar placeholder={t("header.searchPlaceholder")} />
             <HeaderStyled.ButtonHeader>
               <Popover
                 placement="bottomRight"
                 title={t("header.cartTitle")}
                 content={t("header.cartEmpty")}
-                trigger="hover"
+                trigger={user?.role === "customer" ? "hover" : "none"}
               >
-                <Button size="large" type="primary">
+                <Button size="large" type="primary" onClick={handleNavigateToCart}>
                   <FaShoppingCart />
                 </Button>
               </Popover>

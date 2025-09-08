@@ -6,10 +6,12 @@ import { useTranslation } from "react-i18next";
 import { useMemo } from "react";
 
 import { login as loginApi, signInWithGoogle } from "@/services/apiAuth";
+import { useLogout } from "@/hooks/authentication/useLogout";
 
 export const initialValues = { email: "", password: "" };
 
 export function useLogin() {
+  const { logout } = useLogout();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { t } = useTranslation(["auth"]);
@@ -26,12 +28,25 @@ export function useLogin() {
   const { mutate: login, isPending: isPendingLogin } = useMutation({
     mutationFn: ({ email, password }) => loginApi(email, password),
     onSuccess: (user) => {
-      queryClient.setQueryData(["user"], user);
-      toast.success(t("login.toast.success"));
-      if (user.role === "admin") {
-        navigate("/dashboard-admin");
+      if (user.status === "active") {
+        switch (user.role) {
+          case "admin":
+            navigate("/admin-dashboard");
+            break;
+          case "vendor":
+            navigate("/vendor-dashboard");
+            break;
+          case "customer":
+            navigate("/");
+            break;
+          default:
+            toast.error(t("login.toast.errorRole"));
+            return;
+        }
+        queryClient.setQueryData(["user"], user);
+        toast.success(t("login.toast.success"));
       } else {
-        navigate("/");
+        toast.error(t("login.toast.errorInactive"));
       }
     },
     onError: () => {

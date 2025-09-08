@@ -1,11 +1,12 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import { ROUTER_PATH } from "@/constants";
+import { ROLE_ADMIN, ROLE_CUSTOMER, ROLE_VENDOR, ROUTER_PATH } from "@/constants";
 
 import ProtectedRoute from "@/routes/guards/ProtectedRoutes";
 import AuthLayout from "@/layouts/global/AuthLayout";
 import PrivateLayout from "@/layouts/private/PrivateLayout";
+import { ProtectedRoleRoutes } from "@/routes/guards/ProtectedRoleRoutes";
 
 const UpdatePasswordPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
@@ -35,6 +36,18 @@ const OrderHistoryPage = React.lazy(() =>
   }))
 );
 
+const VendorDashboardPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.VendorDashboardPage,
+  }))
+);
+
+const AdminDashboardPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.AdminDashboardPage,
+  }))
+);
+
 const PrivateRoutes = (
   <>
     <Route
@@ -57,6 +70,12 @@ const PrivateRoutes = (
       <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
       <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetail />} />
       <Route path={ROUTER_PATH.ORDER_HISTORY.PATH} element={<OrderHistoryPage />} />
+      <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_VENDOR]} />}>
+        <Route path={ROUTER_PATH.VENDOR_DASHBOARD.PATH} element={<VendorDashboardPage />} />
+      </Route>
+      <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>
+        <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH} element={<AdminDashboardPage />} />
+      </Route>
     </Route>
   </>
 );
