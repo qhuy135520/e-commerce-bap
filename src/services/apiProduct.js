@@ -21,3 +21,17 @@ export async function getProductDetailApi(id) {
     throw error;
   }
 }
+
+export async function getProductsByVendorApi(vendorId) {
+  try {
+    const { data, error } = await supabase.rpc("get_products_by_vendor_with_sales", {
+      vendor_id: vendorId,
+    });
+    if (error) {
+      throw error;
+    }
+    return data || [];
+  } catch (error) {
+    throw error;
+  }
+}

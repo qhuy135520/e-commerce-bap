@@ -19,4 +19,4 @@ export const getToday = function (options = {}) {
 };
 
 export const formatCurrency = (value) =>
-  new Intl.NumberFormat("vi", { style: "currency", currency: "vnd" }).format(value);
+  typeof value === "number" ? new Intl.NumberFormat("vi", { style: "currency", currency: "vnd" }).format(value) : 0;

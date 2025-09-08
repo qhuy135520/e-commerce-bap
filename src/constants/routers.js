@@ -12,6 +12,10 @@ export const PUBLIC_ROUTER_PATH = {
   ABOUT: { KEY: "ABOUT", PATH: "/about" },
   PRODUCT_DETAIL: { KEY: "PRODUCT_DETAIL", PATH: "/product/:id" },
   SEARCH: { KEY: "SEARCH", PATH: "/search" },
+  PRODUCT_VENDOR_PAGE: {
+    KEY: "PRODUCT_VENDOR_PAGE",
+    PATH: "/vendor/:vendorId",
+  },
 };
 
 export const GLOBAL_ROUTER_PATH = {

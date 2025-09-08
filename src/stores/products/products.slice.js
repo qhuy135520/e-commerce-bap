@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProducts, getProduct } from "@/stores/products/products.thunks";
+import { fetchAllProducts, getProduct, fetchProductsByVendor } from "@/stores/products/products.thunks";
 
 const productSlice = createSlice({
   name: "products",
@@ -9,25 +9,12 @@ const productSlice = createSlice({
       images: [],
       reviews: [],
     },
-    sortType: null,
-    sortOrder: null,
+    productsVendor: [],
     status: "idle",
     error: null,
     searchTerm: "",
   },
   reducers: {
-    sortByPrice: (state, action) => {
-      state.sortType = "price";
-      state.sortOrder = action.payload;
-    },
-    sortBySales: (state, action) => {
-      state.sortType = "sales";
-      state.sortOrder = action.payload;
-    },
-    resetSort: (state) => {
-      state.sortType = null;
-      state.sortOrder = null;
-    },
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
     },
@@ -57,6 +44,19 @@ const productSlice = createSlice({
         state.product = action.payload;
       })
       .addCase(getProduct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+        state.error = action.error;
+      })
+      .addCase(fetchProductsByVendor.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(fetchProductsByVendor.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.productsVendor = action.payload;
+      })
+      .addCase(fetchProductsByVendor.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });
