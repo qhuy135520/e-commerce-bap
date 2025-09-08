@@ -6,6 +6,7 @@ import { MdOutlinePayments } from "react-icons/md";
 import { HeadingStyled, ProductInfoStyled as PIS } from "@/components";
 
 import { formatCurrency } from "@/utils/helpers";
+import { useUser } from "@/hooks/authentication/useUser";
 
 export default function ProductInfo({
   productDetail,
@@ -16,6 +17,7 @@ export default function ProductInfo({
   handleAddProductToCart,
   isLoadingCart,
 }) {
+  const { user } = useUser();
   return (
     <ConfigProvider
       theme={{
@@ -59,7 +61,7 @@ export default function ProductInfo({
             variant="outlined"
             color="red"
             onClick={() => handleAddProductToCart(productDetail.id, quantity)}
-            disabled={isLoadingCart}
+            disabled={isLoadingCart || user?.role === "vendor"}
           >
             <FaCartPlus />
             Thêm vào giỏ hàng
