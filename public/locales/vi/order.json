@@ -1,0 +1,29 @@
+{
+  "order": {
+    "change": "Thay Đổi",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "pay": "Thanh Toán",
+    "grandTotal": "Tổng thanh toán",
+    "subtotal": "Tạm tính",
+    "shipping": "Phương thức vận chuyển",
+    "shippingFee": "Phí vận chuyển",
+    "total": "Tổng cộng",
+    "recipientName": "Tên người nhận",
+    "phone": "Số điện thoại",
+    "addressDetail": "Địa chỉ chi tiết",
+    "orderDetails": {
+      "address": "Địa Chỉ Nhận Hàng"
+    },
+    "validation": {
+      "nameRequired": "Nhập tên người nhận",
+      "phoneRequired": "Nhập số điện thoại",
+      "addressRequired": "Nhập địa chỉ",
+      "phoneInvalid": "Số điện thoại phải bắt đầu bằng 0 và gồm 10 chữ số"
+    },
+    "toast": {
+      "success": "Cập nhật đơn hàng thành công",
+      "error": "Cập nhật đơn hàng thất bại"
+    }
+  }
+}

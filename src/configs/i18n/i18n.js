@@ -10,10 +10,10 @@ i18n
   .init({
     fallbackLng: "en",
     supportedLngs: ["en", "vi"],
-    ns: ["common", "auth", "product"],
+    ns: ["common", "auth", "product", "order"],
     defaultNS: "common",
     backend: {
-      loadPath: "src/configs/i18n/locales/{{lng}}/{{ns}}.json",
+      loadPath: "/locales/{{lng}}/{{ns}}.json",
     },
     detection: {
       order: ["querystring", "localStorage", "navigator"],
