@@ -7,6 +7,7 @@ const productSlice = createSlice({
     products: [],
     product: {
       images: [],
+      reviews: [],
     },
     sortType: null,
     sortOrder: null,

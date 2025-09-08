@@ -10,6 +10,11 @@ export function useProductDetail(id) {
   const error = useSelector((state) => selectError(state));
   const status = useSelector(selectStatus);
   const [quantity, setQuantity] = useState(1);
+  const avgRating = productDetail.reviews.length
+    ? parseFloat(
+        (productDetail.reviews.reduce((sum, r) => sum + r.rating, 0) / productDetail.reviews.length).toFixed(1)
+      )
+    : 0;
   const isLoadingProduct = status === "loading" || status === "idle";
   const settings = {
     infinite: true,
@@ -42,6 +47,6 @@ export function useProductDetail(id) {
     handleDecrease,
     isLoadingProduct,
     error,
+    avgRating,
   };
 }
-
