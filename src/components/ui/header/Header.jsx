@@ -117,6 +117,7 @@ export default function Header() {
                     content={
                       <HeaderStyled.ContentPopover>
                         <NavLink to="update-user">{t("header.profile")}</NavLink>
+                        <NavLink to={`order-history/${user.id}`}>{t("header.order")}</NavLink>
                         <NavLink to="deposit">0 VNĐ</NavLink>
                         <hr />
                         <NavLink onClick={() => logout()}>{t("header.logout")}</NavLink>

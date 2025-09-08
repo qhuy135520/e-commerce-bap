@@ -14,10 +14,11 @@ export const OrderTitleHeader = styled.div`
   align-items: center;
   justify-content: space-between;
 `;
+
 export const OrderVendor = styled.div`
   display: flex;
-  margin-top: 1rem;
   flex-direction: column;
+  margin-top: 1rem;
 `;
 
 export const StatusOrder = styled.div`
@@ -28,9 +29,10 @@ export const StatusOrder = styled.div`
 export const OrderContent = styled.div`
   padding: 1.2rem 2rem;
   display: flex;
-  gap: 2rem;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 3rem;
 `;
+
 export const Image = styled.img`
   width: 8rem;
   height: 8rem;
@@ -43,8 +45,10 @@ export const InfoItem = styled.div`
 `;
 
 export const ItemInfo = styled.div`
+  width: 100%;
   display: flex;
   gap: 2rem;
+  justify-content: space-between;
 `;
 
 export const Price = styled.span`
@@ -57,9 +61,9 @@ export const Price = styled.span`
 export const ActionButton = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   margin-top: 1rem;
   margin-right: auto;
-  align-items: flex-end;
 
   & p {
     margin: 1rem 0;
@@ -75,4 +79,9 @@ export const PriceTotal = styled.span`
   color: red;
   font-weight: 600;
   align-self: center;
+`;
+
+export const ItemLeft = styled.div`
+  display: flex;
+  gap: 2rem;
 `;
