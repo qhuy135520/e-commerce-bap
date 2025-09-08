@@ -2,14 +2,30 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Col, Row } from "antd";
 
-import { InfoVendor, ProductImage, ProductInfo, Loading, ProductDetailStyled as PDS } from "@/components";
+import {
+  InfoVendor,
+  ProductImage,
+  ProductInfo,
+  Loading,
+  ProductDetailStyled as PDS,
+  ReviewProduct,
+} from "@/components";
 
 import { useProductDetail } from "@/hooks/productDetail/useProductDetail";
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const { isLoadingProduct, settings, productDetail, quantity, setQuantity, handleIncrease, handleDecrease, error } =
-    useProductDetail(id);
+  const {
+    isLoadingProduct,
+    settings,
+    productDetail,
+    quantity,
+    setQuantity,
+    handleIncrease,
+    handleDecrease,
+    avgRating,
+    error,
+  } = useProductDetail(id);
   return (
     <Loading isLoading={isLoadingProduct} error={error}>
       <PDS.ProductPage>
@@ -30,6 +46,7 @@ export default function ProductDetail() {
           </Row>
         </PDS.ProductDetail>
         <InfoVendor />
+        <ReviewProduct reviews={productDetail.reviews} avgRating={avgRating} />
       </PDS.ProductPage>
     </Loading>
   );
