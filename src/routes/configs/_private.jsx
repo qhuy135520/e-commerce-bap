@@ -23,6 +23,11 @@ const CartPage = React.lazy(() =>
     default: module.CartPage,
   }))
 );
+const OrderDetail = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.OrderDetail,
+  }))
+);
 
 const PrivateRoutes = (
   <>
@@ -44,6 +49,7 @@ const PrivateRoutes = (
       }
     >
       <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
+      <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetail />} />
     </Route>
   </>
 );

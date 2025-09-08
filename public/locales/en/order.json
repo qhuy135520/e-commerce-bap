@@ -1,0 +1,29 @@
+{
+  "order": {
+    "change": "Change",
+    "cancel": "Cancel",
+    "save": "Save",
+    "pay": "Pay",
+    "grandTotal": "Grand Total",
+    "subtotal": "Subtotal",
+    "shipping": "Shipping Method",
+    "shippingFee": "Shipping Fee",
+    "total": "Total",
+    "recipientName": "Recipient Name",
+    "phone": "Phone Number",
+    "addressDetail": "Detailed Address",
+    "orderDetails": {
+      "address": "Shipping Address"
+    },
+    "validation": {
+      "nameRequired": "Recipient name is required",
+      "phoneRequired": "Phone number is required",
+      "addressRequired": "Address is required",
+      "phoneInvalid": "Phone number must start with 0 and have exactly 10 digits"
+    },
+    "toast": {
+      "success": "Order updated successfully",
+      "error": "Failed to update order"
+    }
+  }
+}
