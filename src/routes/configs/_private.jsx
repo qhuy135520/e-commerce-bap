@@ -29,6 +29,12 @@ const OrderDetail = React.lazy(() =>
   }))
 );
 
+const OrderHistoryPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.OrderHistoryPage,
+  }))
+);
+
 const PrivateRoutes = (
   <>
     <Route
@@ -50,6 +56,7 @@ const PrivateRoutes = (
     >
       <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
       <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetail />} />
+      <Route path={ROUTER_PATH.ORDER_HISTORY.PATH} element={<OrderHistoryPage />} />
     </Route>
   </>
 );

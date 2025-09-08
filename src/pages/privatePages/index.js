@@ -3,3 +3,4 @@ export { default as UpdateUserPage } from "@/pages/privatePages/auth/UpdateUserP
 
 export { default as CartPage } from "@/pages/privatePages/cart/CartPage";
 export { default as OrderDetail } from "@/pages/privatePages/order/OrderDetail";
+export { default as OrderHistoryPage } from "@/pages/privatePages/orderHistory/OrderHistoryPage";
