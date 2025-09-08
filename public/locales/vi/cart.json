@@ -1,0 +1,19 @@
+{
+  "cart": {
+    "product": "Sản phẩm",
+    "unitPrice": "Đơn giá",
+    "quantity": "Số lượng",
+    "totalPrice": "Giá tiền",
+    "actions": "Thao tác",
+    "delete": "Xóa",
+    "totalSummary": "Tổng hợp giỏ hàng",
+    "totalQuantity": "Tổng số lượng",
+    "totalAmount": "Tổng giá tiền",
+    "resetCart": "Làm mới giỏ hàng",
+    "buy": "Mua hàng",
+    "toast": {
+      "success": "Thêm mặt hàng vào giỏ hàng thành công",
+      "error": "Thêm mặt hàng vào giỏ hàng không thành công"
+    }
+  }
+}

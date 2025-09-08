@@ -12,6 +12,7 @@ import {
 } from "@/components";
 
 import { useProductDetail } from "@/hooks/productDetail/useProductDetail";
+import useCart from "@/hooks/cart/useCart";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -26,6 +27,7 @@ export default function ProductDetail() {
     avgRating,
     error,
   } = useProductDetail(id);
+  const { handleAddProductToCart, isLoading: isLoadingCart } = useCart();
   return (
     <Loading isLoading={isLoadingProduct} error={error}>
       <PDS.ProductPage>
@@ -41,6 +43,8 @@ export default function ProductDetail() {
                 onIncrease={handleIncrease}
                 onDecrease={handleDecrease}
                 onQuantity={setQuantity}
+                handleAddProductToCart={handleAddProductToCart}
+                isLoadingCart={isLoadingCart}
               />
             </Col>
           </Row>

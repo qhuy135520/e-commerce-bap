@@ -2,10 +2,7 @@ import supabase from "@/services/supabase";
 
 export async function fetchUserCartApi(userId) {
   try {
-    const { data, error } = await supabase
-      .from("cart")
-      .select(`id, quantity, createdAt, updatedAt, productId, userId, product(*)`)
-      .eq("userId", userId);
+    const { data, error } = await supabase.from("cart_with_product_vendor").select("*").eq("userId", userId);
 
     if (error) {
       return [];
@@ -19,11 +16,7 @@ export async function fetchUserCartApi(userId) {
 
 export async function addToCartApi({ userId, productId, quantity }) {
   try {
-    const { data, error } = await supabase
-      .from("cart")
-      .insert([{ userId, productId, quantity }])
-      .select(`id, quantity, createdAt, updatedAt, productId, userId`)
-      .single();
+    const { data, error } = await supabase.from("cart").insert([{ userId, productId, quantity }]);
 
     if (error) throw error;
 
@@ -35,13 +28,10 @@ export async function addToCartApi({ userId, productId, quantity }) {
 
 export async function updateQuantityProductApi({ cartId, quantity }) {
   try {
-    debugger;
     const { data, error } = await supabase
       .from("cart")
       .update({ quantity, updatedAt: new Date().toISOString() })
-      .eq("id", cartId)
-      .select()
-      .single();
+      .eq("id", cartId);
 
     if (error) throw error;
 

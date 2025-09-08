@@ -1,0 +1,19 @@
+{
+  "cart": {
+    "product": "Product",
+    "unitPrice": "Unit Price",
+    "quantity": "Quantity",
+    "totalPrice": "Total Price",
+    "actions": "Actions",
+    "delete": "Delete",
+    "totalSummary": "Cart Summary",
+    "totalQuantity": "Total Quantity",
+    "totalAmount": "Total Amount",
+    "resetCart": "Reset Cart",
+    "buy": "Buy",
+    "toast": {
+      "success": "Add Item to Cart succeeded",
+      "error": "Add Item to Cart failed"
+    }
+  }
+}
