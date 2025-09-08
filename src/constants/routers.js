@@ -25,6 +25,7 @@ export const GLOBAL_ROUTER_PATH = {
 export const PRIVATE_ROUTER_PATH = {
   CART: { KEY: "CART", PATH: "/cart" },
   ORDER_DETAIL: { KEY: "ORDER_DETAIL", PATH: "/order-detail" },
+  ORDER_HISTORY: { KEY: "ORDER_HISTORY", PATH: "/order-history/:id" },
 };
 
 export const ROUTER_PATH = {

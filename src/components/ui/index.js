@@ -7,6 +7,7 @@ export * from "@/components/ui/productDetail";
 export * from "@/components/ui/products";
 export * from "@/components/ui/cart";
 export * from "@/components/ui/reviewProduct";
+export * from "@/components/ui/orderHistory";
 
 export { default as Container } from "@/components/ui/Container";
 export { default as DividerTitle } from "@/components/ui/DividerTitle";

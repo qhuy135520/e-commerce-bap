@@ -18,7 +18,7 @@ export default function ReviewProduct({ reviews, avgRating }) {
               {review.userName}
               <RPS.FlexWrapper>
                 <Rate defaultValue={review.rating} allowHalf disabled />
-                {formatDate(review.createdAt, "HH:mm dd/MM/YYYY")}
+                {formatDate(review.createdAt, "HH:mm dd/MM/yyyy")}
               </RPS.FlexWrapper>
             </RPS.TitleReview>
             <RPS.ContentReview>{review.content}</RPS.ContentReview>
