@@ -37,9 +37,21 @@ const OrderHistoryPage = React.lazy(() =>
   }))
 );
 
-const VendorManagerProduct = React.lazy(() =>
+const VendorManagerProductPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
-    default: module.VendorManagerProduct,
+    default: module.VendorManagerProductPage,
+  }))
+);
+
+const VendorManagerOrderPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.VendorManagerOrderPage,
+  }))
+);
+
+const VendorManagerTransactionPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.VendorManagerTransactionPage,
   }))
 );
 
@@ -81,7 +93,9 @@ const PrivateRoutes = (
     >
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_VENDOR]} />}>
         <Route index element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
-        <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProduct />} />
+        <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
+        <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
+        <Route path={ROUTER_PATH.VENDOR_MANAGER_TRANSACTION.PATH} element={<VendorManagerTransactionPage />} />
       </Route>
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>
         <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH} element={<AdminDashboardPage />} />

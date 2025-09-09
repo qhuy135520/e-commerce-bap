@@ -5,6 +5,8 @@ export { default as CartPage } from "@/pages/privatePages/cart/CartPage";
 export { default as OrderDetail } from "@/pages/privatePages/order/OrderDetail";
 export { default as OrderHistoryPage } from "@/pages/privatePages/orderHistory/OrderHistoryPage";
 
-export { default as VendorManagerProduct } from "@/pages/privatePages/vendor/VendorManagerProduct";
+export { default as VendorManagerProductPage } from "@/pages/privatePages/vendor/VendorManagerProductPage";
+export { default as VendorManagerOrderPage } from "@/pages/privatePages/vendor/VendorManagerOrderPage";
+export { default as VendorManagerTransactionPage } from "@/pages/privatePages/vendor/VendorManagerTransactionPage";
 
 export { default as AdminDashboardPage } from "@/pages/privatePages/admin/AdminDashboardPage";

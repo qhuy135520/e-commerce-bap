@@ -11,6 +11,7 @@ export * from "@/components/ui/orderHistory";
 export * from "@/components/ui/mainNavVendor";
 export * from "@/components/ui/mainNavAdmin";
 export * from "@/components/ui/sidebar";
+export * from "@/components/ui/vendorManagerProduct";
 
 export { default as Container } from "@/components/ui/Container";
 export { default as DividerTitle } from "@/components/ui/DividerTitle";
