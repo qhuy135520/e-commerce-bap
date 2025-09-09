@@ -7,57 +7,42 @@ import { useNavigate } from "react-router-dom";
 
 import { PHONE_REGEX } from "@/constants/regex";
 
+import useCart from "@/hooks/cart/useCart";
+import useAddress from "@/hooks/address/useAddress";
+
 export default function useOrder() {
   const [isEditing, setIsEditing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
+  const { cart } = useCart();
+  const { address } = useAddress();
+
   const { t } = useTranslation("order");
   const navigate = useNavigate();
 
-  const [address, setAddress] = useState({
-    name: "Le Thuan",
-    phone: "086879798",
-    detail: "Phố đèn đỏ Trần Duy Hưng, Cầu Giấy, Hà Nội",
-  });
+  const orders = Object.values(
+    cart.reduce((acc, item) => {
+      if (!acc[item.vendorId]) {
+        acc[item.vendorId] = {
+          shop: { name: item.vendorName },
+          products: [],
+          shippingFee: 0,
+          shippingMethod: null,
+        };
+      }
 
-  const orders = [
-    {
-      shop: { name: "OPPO - Official Store" },
-      products: [
-        {
-          id: 1,
-          name: "Oppo A57 (4GB/64GB) - Hàng Chính Hãng",
-          price: 310000,
-          quantity: 1,
-          image: "https://maytinhdongbodell.vn/img/p/laptop-hp-elitebook-840-g2-cau-hinh-3-p838.jpg",
-        },
-        {
-          id: 2,
-          name: "Oppo A37 (4GB/64GB) - Hàng Chính Hãng",
-          price: 350000,
-          quantity: 2,
-          image: "https://maytinhdongbodell.vn/img/p/laptop-hp-elitebook-840-g2-cau-hinh-3-p838.jpg",
-        },
-      ],
-      shippingFee: 45000,
-      shippingMethod: "Nhanh",
-    },
-    {
-      shop: { name: "Hoang Ha Mobile" },
-      products: [
-        {
-          id: 3,
-          name: "Laptop gaming Dell G15 5511 i5 11400H/8GB/512GB/RTX3050 4GB/W11",
-          price: 32000,
-          quantity: 3,
-          image: "https://maytinhdongbodell.vn/img/p/laptop-hp-elitebook-840-g2-cau-hinh-3-p838.jpg",
-        },
-      ],
-      shippingFee: 30000,
-      shippingMethod: "Hỏa tốc",
-    },
-  ];
+      acc[item.vendorId].products.push({
+        id: item.productId,
+        name: item.productName,
+        price: item.productPrice,
+        quantity: item.quantity,
+        image: item.productImage,
+      });
+
+      return acc;
+    }, {})
+  );
 
   const getOrderTotals = (order) => {
     const totalProducts = order.products.reduce((sum, p) => sum + p.price * p.quantity, 0);
@@ -85,7 +70,6 @@ export default function useOrder() {
   );
 
   const handleSubmitAddress = (values) => {
-    setAddress(values);
     setIsEditing(false);
     toast.success(t("order.toast.success"));
   };
@@ -106,7 +90,6 @@ export default function useOrder() {
     isEditing,
     setIsEditing,
     address,
-    setAddress,
     orders,
     paymentMethod,
     setPaymentMethod,
