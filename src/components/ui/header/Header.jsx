@@ -3,19 +3,20 @@ import { NavLink } from "react-router-dom";
 import { Button, ConfigProvider, Popover } from "antd";
 import { FaUser, FaShoppingCart, FaHeadphones, FaLaptop, FaTabletAlt } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
-import { IoSearch } from "react-icons/io5";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { SlScreenDesktop } from "react-icons/sl";
 
-import { HeaderStyled, LanguageSwitcher } from "@/components";
+import { CartPopoverContent, HeaderStyled, LanguageSwitcher } from "@/components";
+import SearchBar from "@/components/ui/Header/SearchBar";
 
 import { useHeader } from "@/hooks/header/useHeader";
+import useCart from "@/hooks/cart/useCart";
 
 import logo from "@/assets/images/logo.png";
-import SearchBar from "@/components/ui/Header/SearchBar";
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick, handleNavigateToHome, handleNavigateToCart } = useHeader();
+  const { cart } = useCart();
 
   const items = useMemo(
     () => [
@@ -102,7 +103,7 @@ export default function Header() {
               <Popover
                 placement="bottomRight"
                 title={t("header.cartTitle")}
-                content={t("header.cartEmpty")}
+                content={<CartPopoverContent cart={cart} t={t} />}
                 trigger={user?.role === "customer" ? "hover" : "none"}
               >
                 <Button size="large" type="primary" onClick={handleNavigateToCart}>
@@ -123,7 +124,7 @@ export default function Header() {
                         <NavLink onClick={() => logout()}>{t("header.logout")}</NavLink>
                       </HeaderStyled.ContentPopover>
                     }
-                    trigger="hover"
+                    trigger={user?.role === "customer" ? "hover" : "none"}
                   >
                     <Button size="large">
                       <FaUser />

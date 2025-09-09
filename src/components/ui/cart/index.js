@@ -1,5 +1,7 @@
 export { default as CartHeader } from "@/components/ui/cart/CartHeader";
 export { default as CartTable } from "@/components/ui/cart/CartTable";
+export { default as CartPopoverContent } from "@/components/ui/cart/CartPopoverContent";
 
 export * as CartHeaderStyled from "@/components/ui/cart/CartHeader.styled";
 export * as CartTableStyled from "@/components/ui/cart/CartTable.styled";
+export * as CartPopoverContentStyled from "@/components/ui/cart/CartPopoverContent.styled";

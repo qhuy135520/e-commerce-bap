@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Button, Space, Table } from "antd";
+import { Button, Space, Table, Avatar } from "antd";
 import { Formik, Form } from "formik";
 
 import { CartTableStyled as CTS, Loading } from "@/components";
@@ -8,6 +8,7 @@ import useCart from "@/hooks/cart/useCart";
 
 import { formatCurrency } from "@/utils/helpers";
 import i18n from "@/configs/i18n/i18n";
+import NoImage from "@/assets/images/NoImage/noimage.jpg";
 
 export default function CartTable({ onMountSubmitRef }) {
   const {
@@ -31,7 +32,15 @@ export default function CartTable({ onMountSubmitRef }) {
       {
         title: t("cart.product"),
         dataIndex: "product",
-        render: (_, record) => (record.isVendorRow ? <strong>{record.vendorName}</strong> : record.product),
+        render: (_, record) =>
+          record.isVendorRow ? (
+            <strong>{record.vendorName}</strong>
+          ) : (
+            <Space>
+              <Avatar shape="square" size={100} src={record.productImage || NoImage} />
+              {record.product}
+            </Space>
+          ),
       },
       {
         title: t("cart.unitPrice"),
