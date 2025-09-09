@@ -26,12 +26,7 @@ export default function MainNavVendor() {
           </MNVS.StyledNavLink>
         </li>
         <li>
-          <MNVS.StyledNavLink to="/vendor-dashboard/stock">
-            <FaWarehouse /> Quản lý kho
-          </MNVS.StyledNavLink>
-        </li>
-        <li>
-          <MNVS.StyledNavLink to="/vendor-dashboard/payment">
+          <MNVS.StyledNavLink to="/vendor-dashboard/transaction">
             <MdOutlinePayments /> Quản lý thanh toán
           </MNVS.StyledNavLink>
         </li>
