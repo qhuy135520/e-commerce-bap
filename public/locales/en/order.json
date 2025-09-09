@@ -1,6 +1,7 @@
 {
   "order": {
-    "change": "Change",
+    "addAddress": "Add address",
+    "changeAddressDefault": "Change address default",
     "cancel": "Cancel",
     "save": "Save",
     "pay": "Pay",
@@ -35,8 +36,11 @@
     "validation": {
       "nameRequired": "Recipient name is required",
       "phoneRequired": "Phone number is required",
-      "addressRequired": "Address is required",
-      "phoneInvalid": "Phone number must start with 0 and contain exactly 10 digits"
+      "phoneInvalid": "Phone number must start with 0 and contain exactly 10 digits",
+      "provinceRequired": "Province is required",
+      "districtRequired": "District is required",
+      "wardRequired": "Ward is required",
+      "detailRequired": "Address detail is required"
     },
     "status": {
       "completed": "Completed",

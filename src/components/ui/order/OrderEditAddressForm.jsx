@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "antd";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-import * as Styled from "@/pages/privatePages/order/Order.styled";
+import { OrderStyled as OS } from "@/components/ui/order";
 
 export default function OrderEditAddressForm({ address, setIsEditing, validateSchema, t, onSubmit }) {
   const handleCancel = () => {
@@ -11,30 +11,30 @@ export default function OrderEditAddressForm({ address, setIsEditing, validateSc
   return (
     <Formik initialValues={address} validationSchema={validateSchema} onSubmit={onSubmit} enableReinitialize>
       <Form>
-        <Styled.FormGroup>
-          <Styled.Label>{t("order.recipientName")}</Styled.Label>
-          <Field name="name">{({ field }) => <Styled.InputField {...field} />}</Field>
-          <ErrorMessage name="name" component={Styled.ErrorText} />
-        </Styled.FormGroup>
+        <OS.FormGroup>
+          <OS.Label>{t("order.recipientName")}</OS.Label>
+          <Field name="name">{({ field }) => <OS.InputField {...field} />}</Field>
+          <ErrorMessage name="name" component={OS.ErrorText} />
+        </OS.FormGroup>
 
-        <Styled.FormGroup>
-          <Styled.Label>{t("order.phone")}</Styled.Label>
-          <Field name="phone">{({ field }) => <Styled.InputField {...field} />}</Field>
-          <ErrorMessage name="phone" component={Styled.ErrorText} />
-        </Styled.FormGroup>
+        <OS.FormGroup>
+          <OS.Label>{t("order.phone")}</OS.Label>
+          <Field name="phone">{({ field }) => <OS.InputField {...field} />}</Field>
+          <ErrorMessage name="phone" component={OS.ErrorText} />
+        </OS.FormGroup>
 
-        <Styled.FormGroup>
-          <Styled.Label>{t("order.addressDetail")}</Styled.Label>
-          <Field name="detail">{({ field }) => <Styled.TextArea rows={2} {...field} />}</Field>
-          <ErrorMessage name="detail" component={Styled.ErrorText} />
-        </Styled.FormGroup>
+        <OS.FormGroup>
+          <OS.Label>{t("order.addressDetail")}</OS.Label>
+          <Field name="detail">{({ field }) => <OS.TextArea rows={2} {...field} />}</Field>
+          <ErrorMessage name="detail" component={OS.ErrorText} />
+        </OS.FormGroup>
 
-        <Styled.ButtonGroup>
+        <OS.ButtonGroup>
           <Button onClick={handleCancel}>{t("order.cancel")}</Button>
           <Button type="primary" htmlType="submit">
             {t("order.save")}
           </Button>
-        </Styled.ButtonGroup>
+        </OS.ButtonGroup>
       </Form>
     </Formik>
   );

@@ -1,6 +1,7 @@
 {
   "order": {
-    "change": "Thay đổi",
+    "addAddress": "Thêm Địa Chỉ",
+    "changeAddressDefault": "Thay đổi địa chỉ mặc định",
     "cancel": "Hủy",
     "save": "Lưu",
     "pay": "Thanh toán",
@@ -35,8 +36,11 @@
     "validation": {
       "nameRequired": "Vui lòng nhập tên người nhận",
       "phoneRequired": "Vui lòng nhập số điện thoại",
-      "addressRequired": "Vui lòng nhập địa chỉ",
-      "phoneInvalid": "Số điện thoại phải bắt đầu bằng 0 và có đúng 10 số"
+      "phoneInvalid": "Số điện thoại phải bắt đầu bằng 0 và có đúng 10 số",
+      "provinceRequired": "Vui lòng chọn tỉnh/thành phố",
+      "districtRequired": "Vui lòng chọn quận/huyện",
+      "wardRequired": "Vui lòng chọn phường/xã",
+      "detailRequired": "Vui lòng nhập địa chỉ chi tiết"
     },
     "status": {
       "completed": "Hoàn thành",

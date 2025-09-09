@@ -25,9 +25,9 @@ const CartPage = React.lazy(() =>
     default: module.CartPage,
   }))
 );
-const OrderDetail = React.lazy(() =>
+const OrderDetailPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
-    default: module.OrderDetail,
+    default: module.OrderDetailPage,
   }))
 );
 
@@ -80,9 +80,11 @@ const PrivateRoutes = (
         </ProtectedRoute>
       }
     >
-      <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
-      <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetail />} />
-      <Route path={ROUTER_PATH.ORDER_HISTORY.PATH} element={<OrderHistoryPage />} />
+      <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_CUSTOMER]} />}>
+        <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
+        <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetailPage />} />
+        <Route path={ROUTER_PATH.ORDER_HISTORY.PATH} element={<OrderHistoryPage />} />
+      </Route>
     </Route>
     <Route
       element={
@@ -92,11 +94,12 @@ const PrivateRoutes = (
       }
     >
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_VENDOR]} />}>
-        <Route index element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
+        <Route element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
         <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
         <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
         <Route path={ROUTER_PATH.VENDOR_MANAGER_TRANSACTION.PATH} element={<VendorManagerTransactionPage />} />
       </Route>
+
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>
         <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH} element={<AdminDashboardPage />} />
       </Route>

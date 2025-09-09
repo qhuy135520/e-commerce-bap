@@ -36,5 +36,13 @@
     "desc1": "The E-BAP system opened its first supermarket at SHB Building, 11 Ly Thuong Kiet, Hue. Up to now, the system has expanded to 2965 supermarkets located in 63 major provinces and cities with more than 10,000 employees.",
     "title2": "Extremely rich and diverse products",
     "desc2": "The goods at E-BAP Supermarket are extremely diverse, from major categories such as TV, Refrigerator, Washing Machine, Air Conditioner… to Household Appliances such as Rice Cookers, Gas Stoves, Induction Cookers… E-BAP also sells products such as Mobile Phones, Tablets, Laptops, Accessories…"
+  },
+  "form": {
+    "province": "Province",
+    "provincePlaceholder": "Select Province",
+    "district": "District",
+    "districtPlaceholder": "Select District",
+    "ward": "Ward",
+    "wardPlaceholder": "Select Ward"
   }
 }

@@ -38,5 +38,13 @@
     "desc1": "Hệ thống E-BAP khai trương siêu thị đầu tiên tại tòa nhà SHB 11 Lý Thường Kiệt, Huế. Đến nay, hệ thống đã mở rộng ra với 2965 siêu thị toạ lạc tại 63 tỉnh thành lớn cùng hơn 10.000 nhân viên.",
     "title2": "Hàng hóa vô cùng phong phú, đa dạng",
     "desc2": "Hàng hoá tại Siêu thị Điện máy XANH vô cùng đa dạng, từ các nhóm hàng lớn như Tivi, Tủ Lạnh, Máy Giặt, Máy Lạnh… đến các nhóm hàng Gia dụng như: Nồi Cơm Điện, Bếp Ga, Bếp Điện Từ… Điện máy XANH cũng kinh doanh các mặt hàng như: Điện Thoại, Máy Tính Bảng, Laptop, Phụ Kiện…"
+  },
+  "form": {
+    "province": "Tỉnh/Thành",
+    "provincePlaceholder": "Chọn Tỉnh/Thành",
+    "district": "Quận/Huyện",
+    "districtPlaceholder": "Chọn Quận/Huyện",
+    "ward": "Phường",
+    "wardPlaceholder": "Chọn Quận/Huyện"
   }
 }

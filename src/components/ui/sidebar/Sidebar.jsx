@@ -5,7 +5,7 @@ import { IoMdMenu } from "react-icons/io";
 
 import { useUser } from "@/hooks/authentication/useUser";
 
-import { SidebarStyled as SS, MainNavAdmin, MainNavVendor } from "@/components";
+import { SidebarStyled as SS, MainNavVendor } from "@/components";
 
 export default function Sidebar() {
   const { user } = useUser();
@@ -19,7 +19,7 @@ export default function Sidebar() {
         {open ? <FaArrowCircleLeft size={20} /> : <IoMdMenu size={20} />}
       </SS.ToggleButton>
       <SS.Overlay $open={open} onClick={closeSidebar} />
-      <SS.StyledSidebar $open={open}>{user.role === "vendor" ? <MainNavVendor /> : <MainNavAdmin />}</SS.StyledSidebar>
+      <SS.StyledSidebar $open={open}>{user.role === "vendor" && <MainNavVendor />}</SS.StyledSidebar>
     </>
   );
 }

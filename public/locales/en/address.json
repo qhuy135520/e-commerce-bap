@@ -1,0 +1,9 @@
+{
+  "address": {
+    "toast": {
+      "success": "Update address succeeded",
+      "error": "Update address failed",
+      "removeDefaultError": "Can't remove default address, please set other address to default before remove"
+    }
+  }
+}
