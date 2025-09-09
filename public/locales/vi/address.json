@@ -1,0 +1,9 @@
+{
+  "address": {
+    "toast": {
+      "success": "Cập nhật địa chỉ thành công",
+      "error": "Cập nhật địa chỉ thất bại",
+      "removeDefaultError": "Không thể xóa địa chỉ mặc định, hãy đặt địa chỉ mặc định khác trước khi xóa"
+    }
+  }
+}

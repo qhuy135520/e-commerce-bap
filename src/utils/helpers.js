@@ -1,5 +1,7 @@
 import { differenceInDays, formatDistance, parseISO } from "date-fns";
 
+import { REPLACE_ADDRESS } from "@/constants/regex";
+
 export const subtractDates = (dateStr1, dateStr2) =>
   differenceInDays(parseISO(String(dateStr1)), parseISO(String(dateStr2)));
 
@@ -20,3 +22,12 @@ export const getToday = function (options = {}) {
 
 export const formatCurrency = (value) =>
   typeof value === "number" ? new Intl.NumberFormat("vi", { style: "currency", currency: "vnd" }).format(value) : 0;
+
+export function formatFullAddress({ detail, ward, district, province }) {
+  return (
+    `${detail ? detail + ", " : ""}` +
+    `${ward ? ward + ", " : ""}` +
+    `${district ? district + ", " : ""}` +
+    `${province || ""}`
+  ).replace(REPLACE_ADDRESS, "");
+}
