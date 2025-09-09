@@ -17,5 +17,7 @@ export default function useOrderHistory() {
     }
   }, [status, dispatch]);
 
-  return { orders, status };
+  const isLoading = status === "idle" || status === "loading";
+
+  return { orders, status, isLoading };
 }

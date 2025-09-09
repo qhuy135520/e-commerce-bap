@@ -37,6 +37,23 @@
       "phoneRequired": "Vui lòng nhập số điện thoại",
       "addressRequired": "Vui lòng nhập địa chỉ",
       "phoneInvalid": "Số điện thoại phải bắt đầu bằng 0 và có đúng 10 số"
-    }
+    },
+    "status": {
+      "completed": "Hoàn thành",
+      "processing": "Đang xử lý"
+    },
+    "review": {
+      "title": "Đánh giá sản phẩm: {{name}}",
+      "placeholder": "Nhập đánh giá của bạn...",
+      "submit": "Gửi đánh giá",
+      "review": "Đánh giá",
+      "reviewed": "Đã đánh giá",
+      "toast": {
+        "success": "Gửi đánh giá thành công",
+        "error": "Gửi đánh giá thất bại"
+      }
+    },
+    "buyAgain": "Mua lại",
+    "totalPrice": "Tổng tiền"
   }
 }

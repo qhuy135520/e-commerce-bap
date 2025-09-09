@@ -1,3 +1,4 @@
+import { Button, Input } from "antd";
 import styled from "styled-components";
 
 export const OrderWrapper = styled.div`
@@ -55,7 +56,6 @@ export const Price = styled.span`
   font-size: 1.6rem;
   color: red;
   font-weight: 600;
-  align-self: center;
 `;
 
 export const ActionButton = styled.div`
@@ -84,4 +84,23 @@ export const PriceTotal = styled.span`
 export const ItemLeft = styled.div`
   display: flex;
   gap: 2rem;
+`;
+
+export const VendorWrapper = styled.div`
+  margin-top: 1rem;
+`;
+
+export const ProductRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+`;
+
+export const TextArea = styled(Input.TextArea)`
+  margin-top: 1rem;
+`;
+
+export const SubmitButton = styled(Button)`
+  margin-top: 1rem;
+  width: 100%;
 `;

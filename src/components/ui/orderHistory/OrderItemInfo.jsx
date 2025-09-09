@@ -14,9 +14,9 @@ export default function OrderItemInfo({ vendorProduct }) {
             <OHTS.InfoItem>
               <p>{product.productName}</p>
               <p>x{product.quantity}</p>
+              <OHTS.Price>{formatCurrency(product.price)}</OHTS.Price>
             </OHTS.InfoItem>
           </OHTS.ItemLeft>
-          <OHTS.Price>{formatCurrency(product.price)}</OHTS.Price>
         </OHTS.ItemInfo>
       ))}
     </>
