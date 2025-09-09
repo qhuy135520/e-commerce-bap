@@ -15,15 +15,28 @@
     "orderDetails": {
       "address": "Shipping Address"
     },
+    "confirmPayment": "Confirm Payment",
+    "paymentMethod": "Payment Method",
+    "paymentDetail": "Payment Details",
+    "placeOrder": "Place Order",
+    "paymentMethods": {
+      "cod": "Cash on Delivery (COD)",
+      "vnpay": "EB E-Wallet",
+      "bank": "Bank Transfer"
+    },
+    "balance": "Balance",
+    "insufficientBalance": "Insufficient balance, please choose another payment method.",
+    "toast": {
+      "success": "Order updated successfully",
+      "error": "Failed to update order",
+      "orderSuccess": "Your order has been placed successfully!",
+      "orderFailed": "Failed to place the order, please try again."
+    },
     "validation": {
       "nameRequired": "Recipient name is required",
       "phoneRequired": "Phone number is required",
       "addressRequired": "Address is required",
       "phoneInvalid": "Phone number must start with 0 and have exactly 10 digits"
-    },
-    "toast": {
-      "success": "Order updated successfully",
-      "error": "Failed to update order"
     }
   }
 }

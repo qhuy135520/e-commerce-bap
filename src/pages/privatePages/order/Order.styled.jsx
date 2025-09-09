@@ -127,3 +127,29 @@ export const GrandTotalText = styled(Typography.Text)`
   font-size: 20px;
   color: red;
 `;
+
+export const ModalTitle = styled.div`
+  text-align: center;
+`;
+
+export const PaymentMethodWrapper = styled.div`
+  margin-top: 8px;
+`;
+
+export const BalanceText = styled(Typography.Text)`
+  margin-left: 24px;
+  display: block;
+`;
+
+export const PaymentDetailWrapper = styled.div`
+  margin-top: 16px;
+`;
+
+export const AlertWrapper = styled.div`
+  margin-top: 12px;
+`;
+
+export const PlaceOrderButton = styled(Button)`
+  margin-top: 16px;
+  width: 100%;
+`;
