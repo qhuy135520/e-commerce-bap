@@ -3,12 +3,17 @@ import { useState, useMemo } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 import { PHONE_REGEX } from "@/constants/regex";
 
 export default function useOrder() {
   const [isEditing, setIsEditing] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("cod");
+
   const { t } = useTranslation("order");
+  const navigate = useNavigate();
 
   const [address, setAddress] = useState({
     name: "Le Thuan",
@@ -53,6 +58,7 @@ export default function useOrder() {
       shippingMethod: "Hỏa tốc",
     },
   ];
+
   const getOrderTotals = (order) => {
     const totalProducts = order.products.reduce((sum, p) => sum + p.price * p.quantity, 0);
     const finalTotal = totalProducts + order.shippingFee;
@@ -77,11 +83,24 @@ export default function useOrder() {
       }),
     [i18n.language]
   );
+
   const handleSubmitAddress = (values) => {
     setAddress(values);
     setIsEditing(false);
     toast.success(t("order.toast.success"));
   };
+
+  const handlePayClick = () => setIsModalOpen(true);
+
+  const handlePlaceOrder = () => {
+    setIsModalOpen(false);
+    toast.success(t("order.orderPlacedSuccessfully"));
+    navigate("/order-success");
+  };
+
+  // Giả sử số dư ví VNPAY
+  const vnpayBalance = 5000000;
+  const isInsufficientBalance = grandTotal > vnpayBalance;
 
   return {
     isEditing,
@@ -89,8 +108,16 @@ export default function useOrder() {
     address,
     setAddress,
     orders,
+    paymentMethod,
+    setPaymentMethod,
+    isModalOpen,
+    setIsModalOpen,
+    handlePayClick,
+    handlePlaceOrder,
     getOrderTotals,
     grandTotal,
+    vnpayBalance,
+    isInsufficientBalance,
     validateSchema,
     t,
     handleSubmitAddress,

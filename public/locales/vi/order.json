@@ -1,9 +1,9 @@
 {
   "order": {
-    "change": "Thay Đổi",
+    "change": "Thay đổi",
     "cancel": "Hủy",
     "save": "Lưu",
-    "pay": "Thanh Toán",
+    "pay": "Thanh toán",
     "grandTotal": "Tổng thanh toán",
     "subtotal": "Tạm tính",
     "shipping": "Phương thức vận chuyển",
@@ -13,17 +13,30 @@
     "phone": "Số điện thoại",
     "addressDetail": "Địa chỉ chi tiết",
     "orderDetails": {
-      "address": "Địa Chỉ Nhận Hàng"
+      "address": "Địa chỉ nhận hàng"
     },
-    "validation": {
-      "nameRequired": "Nhập tên người nhận",
-      "phoneRequired": "Nhập số điện thoại",
-      "addressRequired": "Nhập địa chỉ",
-      "phoneInvalid": "Số điện thoại phải bắt đầu bằng 0 và gồm 10 chữ số"
+    "confirmPayment": "Xác nhận thanh toán",
+    "paymentMethod": "Phương thức thanh toán",
+    "paymentDetail": "Chi tiết thanh toán",
+    "placeOrder": "Đặt hàng",
+    "paymentMethods": {
+      "cod": "Thanh toán khi nhận hàng (COD)",
+      "vnpay": "Ví EB",
+      "bank": "Chuyển khoản ngân hàng"
     },
+    "balance": "Số dư",
+    "insufficientBalance": "Số dư không đủ, vui lòng nạp thêm tiền vào tài khoản hoặc chọn phương thức thanh toán khác.",
     "toast": {
       "success": "Cập nhật đơn hàng thành công",
-      "error": "Cập nhật đơn hàng thất bại"
+      "error": "Cập nhật đơn hàng thất bại",
+      "orderSuccess": "Đặt hàng thành công!",
+      "orderFailed": "Đặt hàng thất bại, vui lòng thử lại."
+    },
+    "validation": {
+      "nameRequired": "Vui lòng nhập tên người nhận",
+      "phoneRequired": "Vui lòng nhập số điện thoại",
+      "addressRequired": "Vui lòng nhập địa chỉ",
+      "phoneInvalid": "Số điện thoại phải bắt đầu bằng 0 và có đúng 10 số"
     }
   }
 }
