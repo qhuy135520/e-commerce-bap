@@ -5,6 +5,7 @@ import { useDarkMode } from "@/contexts/theme/DarkModeContext";
 
 const ButtonToggleStyled = styled.button`
   position: fixed;
+  z-index: 2000;
   bottom: 1rem;
   left: 1rem;
   border: none;

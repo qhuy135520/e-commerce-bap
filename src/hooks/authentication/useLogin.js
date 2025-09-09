@@ -34,7 +34,7 @@ export function useLogin() {
             navigate("/admin-dashboard");
             break;
           case "vendor":
-            navigate("/vendor-dashboard");
+            navigate("/vendor-dashboard/products");
             break;
           case "customer":
             navigate("/");
