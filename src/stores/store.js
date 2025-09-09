@@ -4,6 +4,7 @@ import cartReducer from "@/stores/cart/cart.slice";
 import reviewReducer from "@/stores/reviews/reviews.slice";
 import orderReducer from "@/stores/order/orders.slice";
 import addressReducer from "@/stores/address/address.slice";
+import depositReducer from "@/stores/deposit/deposit.slice";
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export const store = configureStore({
     review: reviewReducer,
     order: orderReducer,
     address: addressReducer,
+    deposit: depositReducer,
   },
 });
