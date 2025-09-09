@@ -1,10 +1,10 @@
 import { Divider, Typography } from "antd";
 
 import { OrderProductCard } from "@/components/ui/order";
+import { OrderStyled as OS } from "@/components/ui/order";
 
 import useOrder from "@/hooks/order/useOrder";
 
-import { OrderStyled as OS } from "@/components/ui/order";
 import { formatCurrency } from "@/utils/helpers";
 
 const { Text } = Typography;

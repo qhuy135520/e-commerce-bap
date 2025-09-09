@@ -42,7 +42,7 @@ export function useGeolocation(defaultPosition = null) {
   async function getPosition() {
     if (!navigator.geolocation) {
       dispatch({ type: "ERROR", payload: new Error("Your browser does not support geolocation") });
-      return;
+      return null;
     }
 
     dispatch({ type: "LOADING" });
@@ -57,8 +57,11 @@ export function useGeolocation(defaultPosition = null) {
         type: "SUCCESS",
         payload: { position: { lat, lng }, address: addr },
       });
+
+      return addr;
     } catch (err) {
       dispatch({ type: "ERROR", payload: err instanceof Error ? err : new Error("Failed to get location") });
+      return null;
     }
   }
 

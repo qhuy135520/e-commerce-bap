@@ -1,4 +1,5 @@
 import { differenceInDays, formatDistance, parseISO } from "date-fns";
+import { getDistrictsByProvinceCode, getProvinces, getWardsByDistrictCode } from "vn-provinces";
 
 import { REPLACE_ADDRESS } from "@/constants/regex";
 
@@ -33,3 +34,43 @@ export function formatFullAddress({ detail, ward, district, province }) {
 }
 export const formatNumberCurrency = (value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 export const parseNumberCurrency = (value) => value.replace(/\$\s?|(,*)/g, "");
+
+function normalize(str = "") {
+  return str
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+function matchAddressPart(part, fullName) {
+  const n1 = normalize(part);
+  const n2 = normalize(fullName);
+
+  return n2.endsWith(n1) || n1.endsWith(n2);
+}
+
+export function parseAddress(addressString) {
+  const parts = addressString.split(",").map((p) => p.trim());
+
+  const province = getProvinces().find((prov) => parts.some((p) => matchAddressPart(p, prov.name)));
+
+  const district = province
+    ? getDistrictsByProvinceCode(province.code).find((dist) => parts.some((p) => matchAddressPart(p, dist.name)))
+    : null;
+
+  const ward = district
+    ? getWardsByDistrictCode(district.code).find((w) => parts.some((p) => matchAddressPart(p, w.name)))
+    : null;
+
+  const excludeNames = [province?.name, district?.name, ward?.name, "Vietnam"].filter(Boolean);
+
+  const detail = parts.filter((p) => !excludeNames.some((ex) => matchAddressPart(p, ex))).join(", ");
+
+  return {
+    province: province?.code || "",
+    district: district?.code || "",
+    ward: ward?.code || "",
+    detail,
+  };
+}

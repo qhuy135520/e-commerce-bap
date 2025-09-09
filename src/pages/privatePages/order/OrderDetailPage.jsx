@@ -1,4 +1,4 @@
-import { Typography, Button, Modal, Alert, Col, Row } from "antd";
+import { Typography, Button, Modal, Alert } from "antd";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 import {

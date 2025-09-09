@@ -1,15 +1,19 @@
 import React from "react";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { Formik, Form, Field } from "formik";
-
-import { OrderStyled as OS } from "@/components";
-import { ProvinceSelect, DistrictSelect, WardSelect } from "@/components";
 import { useTranslation } from "react-i18next";
-import useAddress from "@/hooks/address/useAddress";
 
-export default function OrderEditAddressForm({ onCancel, validateSchema }) {
-  const { t } = useTranslation(["order"]);
-  const { initialValues, handleSubmitAddress } = useAddress();
+import { ProvinceSelect, DistrictSelect, WardSelect, OrderStyled as OS } from "@/components";
+
+import useAddress from "@/hooks/address/useAddress";
+import { useGeolocation } from "@/hooks/useGeolocation/useGeolocation";
+import { parseAddress } from "@/utils/helpers";
+import useOrder from "@/hooks/order/useOrder";
+
+export default function OrderEditAddressForm({ onCancel, address = {} }) {
+  const { initialValues, handleSubmitAddress } = useAddress(address);
+  const { isLoading: isLoadingGeolocation, error, getPosition } = useGeolocation();
+  const { validateSchema, t } = useOrder();
 
   return (
     <>
@@ -33,6 +37,26 @@ export default function OrderEditAddressForm({ onCancel, validateSchema }) {
               <OS.Label>{t("order.phone")}</OS.Label>
               <Field name="phone">{({ field }) => <OS.InputField {...field} />}</Field>
               {touched.phone && errors.phone && <OS.ErrorText>{errors.phone}</OS.ErrorText>}
+            </OS.FormGroup>
+
+            <OS.FormGroup>
+              <Button
+                type="dashed"
+                onClick={async () => {
+                  const addr = await getPosition();
+                  if (addr) {
+                    const parsed = parseAddress(addr);
+                    setFieldValue("province", parsed.province);
+                    setFieldValue("district", parsed.district);
+                    setFieldValue("ward", parsed.ward);
+                    setFieldValue("detail", parsed.detail);
+                  }
+                }}
+              >
+                {isLoadingGeolocation ? <Spin size="small" /> : "Sử dụng vị trí hiện tại"}
+              </Button>
+
+              {error && <OS.ErrorText>{error.message}</OS.ErrorText>}
             </OS.FormGroup>
 
             <ProvinceSelect

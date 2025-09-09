@@ -39,7 +39,7 @@ export const updateAddress = createAsyncThunk("address/updateAddress", async (ne
   try {
     await updateAddressApi(newAddress);
 
-    await dispatch(fetchAddress(userId));
+    await dispatch(fetchAddress(newAddress.userId));
   } catch (error) {
     return error;
   }
@@ -47,6 +47,7 @@ export const updateAddress = createAsyncThunk("address/updateAddress", async (ne
 
 export const updateDefaultAddress = createAsyncThunk(
   "address/updateDefaultAddress",
+
   async ({ id, userId }, { getState, dispatch }) => {
     try {
       const state = getState();

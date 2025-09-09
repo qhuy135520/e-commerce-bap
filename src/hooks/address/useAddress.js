@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -9,10 +9,13 @@ import { addressSelector } from "@/stores/rootSelector";
 import { addressThunk } from "@/stores/rootThunk";
 import { formatFullAddress } from "@/utils/helpers";
 
-export default function useAddress() {
+export default function useAddress(addressEdit = {}) {
   const dispatch = useDispatch();
   const { t } = useTranslation(["address"]);
   const { user } = useUser();
+  const [openModal, setOpenModal] = useState(false);
+  const [editingAddress, setEditingAddress] = useState(null);
+  const isEditting = Boolean(addressEdit.id);
 
   const address = useSelector(addressSelector.selectAddresses);
   const addressDefault = address.find((item) => item.isDefault);
@@ -21,12 +24,12 @@ export default function useAddress() {
   const error = useSelector(addressSelector.selectAddressError);
 
   const initialValues = {
-    name: address?.name ?? "",
-    phone: address?.phone ?? "",
-    province: address?.province ?? "",
-    district: address?.district ?? "",
-    ward: address?.ward ?? "",
-    detail: address?.detail ?? "",
+    name: addressEdit?.name ?? "",
+    phone: addressEdit?.phone ?? "",
+    province: addressEdit?.province ?? "",
+    district: addressEdit?.district ?? "",
+    ward: addressEdit?.ward ?? "",
+    detail: addressEdit?.detail ?? "",
   };
 
   useEffect(() => {
@@ -37,8 +40,20 @@ export default function useAddress() {
 
   async function handleAddAddress(newAddress) {
     await dispatch(addressThunk.addAddress(newAddress));
-    if (status === "succeeded") toast.success(t("address.toast.success"));
-    if (status === "failed") toast.error(t("address.toast.error"));
+    handleStatusAddress();
+  }
+
+  async function handleUpdateAddress(newAddress) {
+    await dispatch(addressThunk.updateAddress(newAddress));
+    handleStatusAddress();
+  }
+
+  async function handleStatusAddress() {
+    if (status === "succeeded") {
+      toast.success(t("address.toast.success"));
+    } else if (status === "failed") {
+      toast.error(t("address.toast.error"));
+    }
   }
 
   async function handleDeleteAddress(address) {
@@ -48,14 +63,7 @@ export default function useAddress() {
     }
 
     dispatch(addressThunk.removeAddress({ id: address.id, userId: user.id }));
-    if (status === "succeeded") toast.success(t("address.toast.success"));
-    if (status === "failed") toast.error(t("address.toast.error"));
-  }
-
-  async function handleUpdateDefaultAddress(id) {
-    await dispatch(addressThunk.updateDefaultAddress({ id, userId: user.id }));
-    if (status === "succeeded") toast.success(t("address.toast.success"));
-    if (status === "failed") toast.error(t("address.toast.error"));
+    handleStatusAddress();
   }
 
   async function handleSubmitAddress(values, { resetForm }, handler) {
@@ -80,17 +88,31 @@ export default function useAddress() {
       phone: values.phone,
       fullAddress,
     };
-
-    await handleAddAddress(newAddress);
+    if (!isEditting) {
+      await handleAddAddress(newAddress);
+    } else {
+      await handleUpdateAddress({ ...newAddress, id: addressEdit.id });
+    }
     if (handler) handler();
     resetForm();
   }
-  const handleSetDefaultAddress = async (id) => {
-    await handleUpdateDefaultAddress(id);
-  };
+
+  async function handleSetDefaultAddress(id) {
+    await dispatch(addressThunk.updateDefaultAddress({ id, userId: user.id }));
+    handleStatusAddress();
+  }
+
+  function handleOpenModal(addr) {
+    setEditingAddress(addr);
+    setOpenModal(true);
+  }
 
   return {
     initialValues,
+    openModal,
+    setOpenModal,
+    editingAddress,
+    setEditingAddress,
     address,
     addressDefault,
     status,
@@ -99,7 +121,7 @@ export default function useAddress() {
     handleAddAddress,
     handleSubmitAddress,
     handleDeleteAddress,
-    handleUpdateDefaultAddress,
     handleSetDefaultAddress,
+    handleOpenModal,
   };
 }

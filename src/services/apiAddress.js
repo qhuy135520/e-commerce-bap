@@ -57,7 +57,7 @@ export async function addAddressApi({ userId, fullAddress, phone, name, isDefaul
   }
 }
 
-export async function updateAddressApi({ newAddress }) {
+export async function updateAddressApi(newAddress) {
   try {
     const { error } = await supabase.from("address").update(newAddress).eq("id", newAddress.id);
 
