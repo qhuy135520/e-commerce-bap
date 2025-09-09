@@ -60,6 +60,17 @@ const AdminDashboardPage = React.lazy(() =>
     default: module.AdminDashboardPage,
   }))
 );
+const DepositPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.DepositPage,
+  }))
+);
+
+const DepositResultPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.DepositResultPage,
+  }))
+);
 
 const PrivateRoutes = (
   <>
@@ -80,6 +91,8 @@ const PrivateRoutes = (
         </ProtectedRoute>
       }
     >
+      <Route path={ROUTER_PATH.DEPOSIT.PATH} element={<DepositPage />} />
+      <Route path={ROUTER_PATH.DEPOSIT_RESULT_PAGE.PATH} element={<DepositResultPage />} />
       <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
       <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetail />} />
       <Route path={ROUTER_PATH.ORDER_HISTORY.PATH} element={<OrderHistoryPage />} />
@@ -92,7 +105,7 @@ const PrivateRoutes = (
       }
     >
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_VENDOR]} />}>
-        <Route index element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
+        <Route element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
         <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
         <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
         <Route path={ROUTER_PATH.VENDOR_MANAGER_TRANSACTION.PATH} element={<VendorManagerTransactionPage />} />

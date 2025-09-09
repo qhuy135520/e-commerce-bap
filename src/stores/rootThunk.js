@@ -3,5 +3,6 @@ import * as reviewsThunk from "@/stores/reviews/reviews.thunks";
 import * as cartThunk from "@/stores/cart/cart.thunks";
 import * as ordersThunk from "@/stores/order/orders.thunks";
 import * as addressThunk from "@/stores/address/address.thunks";
+import * as depotsitThunk from "@/stores/deposit/deposit.thunk";
 
-export { productsThunk, cartThunk, reviewsThunk, ordersThunk, addressThunk };
+export { productsThunk, cartThunk, reviewsThunk, ordersThunk, addressThunk, depotsitThunk };

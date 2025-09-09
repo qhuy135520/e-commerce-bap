@@ -20,3 +20,6 @@ export const getToday = function (options = {}) {
 
 export const formatCurrency = (value) =>
   typeof value === "number" ? new Intl.NumberFormat("vi", { style: "currency", currency: "vnd" }).format(value) : 0;
+
+export const formatNumberCurrency = (value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const parseNumberCurrency = (value) => value.replace(/\$\s?|(,*)/g, "");

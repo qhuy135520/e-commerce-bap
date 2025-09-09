@@ -3,5 +3,6 @@ import * as reviewsSelector from "@/stores/reviews/revies.selectors";
 import * as cartSelector from "@/stores/cart/cart.selectors";
 import * as ordersSelector from "@/stores/order/orders.selector";
 import * as addressSelector from "@/stores/address/address.selectors";
+import * as depositSelector from "@/stores/deposit/deposit.selector";
 
-export { productsSelector, cartSelector, reviewsSelector, ordersSelector, addressSelector };
+export { productsSelector, cartSelector, reviewsSelector, ordersSelector, addressSelector, depositSelector };

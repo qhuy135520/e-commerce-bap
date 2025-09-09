@@ -5,6 +5,8 @@ export const AUTH_ROUTER_PATH = {
   FORGOT_PASSWORD: { KEY: "FORGOT_PASSWORD", PATH: "/forgot-password" },
   UPDATE_PASSWORD: { KEY: "UPDATE_PASSWORD", PATH: "/update-password" },
   UPDATE_USER: { KEY: "UPDATE_USER", PATH: "/update-user" },
+  DEPOSIT: { KEY: "DEPOSIT", PATH: "/deposit" },
+  DEPOSIT_RESULT_PAGE: { KEY: "DEPOSIT_RESULT_PAGE", PATH: "/deposit/result" },
 };
 
 export const PUBLIC_ROUTER_PATH = {
