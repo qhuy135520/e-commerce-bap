@@ -36,7 +36,24 @@
       "nameRequired": "Recipient name is required",
       "phoneRequired": "Phone number is required",
       "addressRequired": "Address is required",
-      "phoneInvalid": "Phone number must start with 0 and have exactly 10 digits"
-    }
+      "phoneInvalid": "Phone number must start with 0 and contain exactly 10 digits"
+    },
+    "status": {
+      "completed": "Completed",
+      "processing": "Processing"
+    },
+    "review": {
+      "title": "Review product: {{name}}",
+      "placeholder": "Enter your review...",
+      "submit": "Submit Review",
+      "review": "Review",
+      "reviewed": "Reviewed",
+      "toast": {
+        "success": "Review submitted successfully",
+        "error": "Failed to submit review"
+      }
+    },
+    "buyAgain": "Buy Again",
+    "totalPrice": "Total Price"
   }
 }
