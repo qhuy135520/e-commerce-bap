@@ -1,5 +1,4 @@
-import { useState } from "react";
-
+import { useReducer } from "react";
 import { fetchAddressLocation } from "@/services/apiAddress";
 
 function getCurrentPosition() {
@@ -8,33 +7,60 @@ function getCurrentPosition() {
   });
 }
 
+const initialState = {
+  isLoading: false,
+  position: null,
+  address: null,
+  error: null,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "LOADING":
+      return { ...state, isLoading: true, error: null };
+    case "SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        position: action.payload.position,
+        address: action.payload.address,
+        error: null,
+      };
+    case "ERROR":
+      return { ...state, isLoading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
 export function useGeolocation(defaultPosition = null) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [position, setPosition] = useState(defaultPosition);
-  const [address, setAddress] = useState(null);
-  const [error, setError] = useState(null);
+  const [state, dispatch] = useReducer(reducer, {
+    ...initialState,
+    position: defaultPosition,
+  });
 
   async function getPosition() {
     if (!navigator.geolocation) {
-      setError(new Error("Your browser does not support geolocation"));
+      dispatch({ type: "ERROR", payload: new Error("Your browser does not support geolocation") });
       return;
     }
 
-    setIsLoading(true);
-    setError(null);
+    dispatch({ type: "LOADING" });
+
     try {
       const pos = await getCurrentPosition();
       const { latitude: lat, longitude: lng } = pos.coords;
-      setPosition({ lat, lng });
 
       const addr = await fetchAddressLocation(lat, lng);
-      setAddress(addr);
+
+      dispatch({
+        type: "SUCCESS",
+        payload: { position: { lat, lng }, address: addr },
+      });
     } catch (err) {
-      setError(new Error("Failed to get location"));
-    } finally {
-      setIsLoading(false);
+      dispatch({ type: "ERROR", payload: err instanceof Error ? err : new Error("Failed to get location") });
     }
   }
 
-  return { isLoading, position, address, error, getPosition };
+  return { ...state, getPosition };
 }
