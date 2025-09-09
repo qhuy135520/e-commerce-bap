@@ -1,10 +1,11 @@
 import { Divider, Typography } from "antd";
 
 import { OrderProductCard } from "@/components/ui/order";
+import { OrderStyled as OS } from "@/components/ui/order";
 
 import useOrder from "@/hooks/order/useOrder";
 
-import { OrderStyled as OS } from "@/components/ui/order";
+import { formatCurrency } from "@/utils/helpers";
 
 const { Text } = Typography;
 
@@ -24,25 +25,25 @@ export default function OrderItem({ order, t }) {
       ))}
 
       <Divider />
-      <OS.FlexRow>
+      {/* <OS.FlexRow>
         <Text>{t("order.shipping")}:</Text>
         <Text strong>
           {order.shippingMethod} | {order.shippingFee.toLocaleString()}₫
         </Text>
-      </OS.FlexRow>
+      </OS.FlexRow> */}
 
       <Divider />
       <OS.FlexRow>
         <Text>{t("order.subtotal")}:</Text>
-        <Text>{totalProducts.toLocaleString()}₫</Text>
+        <Text>{formatCurrency(totalProducts)}</Text>
       </OS.FlexRow>
       <OS.FlexRow>
         <Text>{t("order.shippingFee")}:</Text>
-        <Text>{order.shippingFee.toLocaleString()}₫</Text>
+        <Text>{formatCurrency(order.shippingFee)}</Text>
       </OS.FlexRow>
       <OS.FlexRow>
         <Text strong>{t("order.total")}:</Text>
-        <OS.TotalText>{finalTotal.toLocaleString()}₫</OS.TotalText>
+        <OS.TotalText>{formatCurrency(finalTotal)}</OS.TotalText>
       </OS.FlexRow>
     </OS.Section>
   );
