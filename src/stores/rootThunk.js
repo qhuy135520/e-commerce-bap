@@ -1,5 +1,6 @@
 import * as productsThunk from "@/stores/products/products.thunks";
 import * as reviewsThunk from "@/stores/reviews/reviews.thunks";
 import * as cartThunk from "@/stores/cart/cart.thunks";
+import * as ordersThunk from "@/stores/order/orders.thunks";
 
-export { productsThunk, cartThunk, reviewsThunk };
+export { productsThunk, cartThunk, reviewsThunk, ordersThunk };
