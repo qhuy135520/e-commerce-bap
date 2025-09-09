@@ -19,7 +19,10 @@
     "personalInfo": "Personal Information",
     "language": "Language",
     "menuTitle": "E-BAP",
-    "balance": "Balance"
+    "balance": "Balance",
+    "product": "sản phẩm",
+    "quantity": "Số lượng",
+    "price": "Giá tiền"
   },
   "footer": {
     "supportHotline": "Tổng đài hỗ trợ",

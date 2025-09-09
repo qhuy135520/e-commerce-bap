@@ -24,6 +24,7 @@ export default function useCart() {
   const cartTableData = cart.map((item) => ({
     key: item.id,
     product: item.productName,
+    productImage: item.productImage,
     unitPrice: item.productPrice,
     quantity: item.quantity,
     totalPrice: item.productPrice * item.quantity,
@@ -57,7 +58,7 @@ export default function useCart() {
         dispatch(cartThunk.fetchCart(user?.id));
       }
     },
-    [status]
+    [status, user]
   );
 
   const selectedItems = cartTableWithVendors.filter((item) => !item.isVendorRow && selectedRowKeys.includes(item.key));

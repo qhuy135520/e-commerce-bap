@@ -17,7 +17,10 @@
     "deposit": "Deposit",
     "logout": "Logout",
     "personalInfo": "Personal Information",
-    "menuTitle": "E-BAP"
+    "menuTitle": "E-BAP",
+    "product": "Product",
+    "quantity": "Quantity",
+    "price": "Price"
   },
   "footer": {
     "supportHotline": "Support Hotline",
