@@ -29,6 +29,21 @@ export default function MainNavAdmin() {
             <FaProjectDiagram /> Thống kê
           </MAS.StyledNavLink>
         </li>
+        <li>
+          <MAS.StyledNavLink to="/admin-dashboard/payment-history">
+            <MdContactEmergency /> Payment History
+          </MAS.StyledNavLink>
+        </li>
+        <li>
+          <MAS.StyledNavLink to="/admin-dashboard/payment-history">
+            <FaProjectDiagram /> Projects
+          </MAS.StyledNavLink>
+        </li>
+        <li>
+          <MAS.StyledNavLink to="/admin-dashboard/payment-history">
+            <RiContactsLine /> Contact
+          </MAS.StyledNavLink>
+        </li>
 
         <strong> Settings</strong>
         <li>
