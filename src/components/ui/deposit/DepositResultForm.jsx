@@ -10,12 +10,13 @@ const { Text } = Typography;
 const DepositResultPage = () => {
   const { loading, message, transactionStatus, txnRef, amount, responseCode, handleBackToDeposit, handleGoHome } =
     useDepositResult();
-
-  const { user, refetch } = useUser();
+  const { refetch } = useUser();
 
   useEffect(() => {
-    refetch();
-  }, [refetch, user]);
+    if (transactionStatus === "success") {
+      refetch();
+    }
+  }, [transactionStatus, refetch]);
 
   return (
     <LoadingDeposit isLoading={loading}>
