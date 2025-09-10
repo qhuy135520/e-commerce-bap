@@ -9,28 +9,25 @@ export async function fetchAllProductsApi() {
   }
 }
 
-export async function getProductDetailApi(id) {
-  try {
-    const { data, error } = await supabase
-      .rpc("get_one_product_with_sales_images_reviews", { productiddetail: id })
-      .single();
-
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
-
 export async function getProductsByVendorApi(vendorId) {
   try {
     const { data, error } = await supabase.rpc("get_products_by_vendor_with_sales", {
       vendor_id: vendorId,
     });
-    if (error) {
-      throw error;
-    }
+    if (error) throw error;
     return data || [];
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getProductDetailApi(id) {
+  try {
+    const { data, error } = await supabase
+      .rpc("get_one_product_with_sales_images_reviews", { productiddetail: id })
+      .single();
+    if (error) throw error;
+    return data;
   } catch (error) {
     throw error;
   }
@@ -38,65 +35,55 @@ export async function getProductsByVendorApi(vendorId) {
 
 export async function createProductVendorApi(vendorId, data) {
   try {
+    console.log("Creating product with data:", data);
     const { data: dataCreate, error } = await supabase
       .from("product")
       .insert([{ ...data, vendorId }])
       .select()
       .single();
-
     if (error) throw error;
-
-    console.log("api", dataCreate);
     return dataCreate;
   } catch (error) {
-    console.error("Lỗi khi tạo product:", error.message);
+    console.error("Error creating product:", error.message);
     throw error;
   }
 }
 
-//IMAGE
+export async function updateProductVendorApi(productId, dataUpdate) {
+  try {
+    console.log("Updating product:", dataUpdate);
+    const { data, error } = await supabase
+      .from("product")
+      .update({ ...dataUpdate })
+      .eq("id", productId)
+      .select();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function uploadImage(file, isPrimary) {
   const realFile = file.originFileObj || file;
   const { data, error } = await supabase.storage
     .from("ProductImage")
     .upload(`${Date.now()}_${realFile.name}`, realFile);
-
-  if (error) {
-    throw error;
-  }
+  if (error) throw error;
 
   const { data: urlData } = supabase.storage.from("ProductImage").getPublicUrl(data.path);
-
   return { imageUrl: urlData.publicUrl, isPrimary };
 }
 
 export async function uploadProductImages(fileList, primaryIndex) {
-  const uploadedFiles = [];
+  if (!fileList || !fileList.length) return [];
 
+  const uploadedFiles = [];
   for (let i = 0; i < fileList.length; i++) {
     const result = await uploadImage(fileList[i], i === primaryIndex);
     uploadedFiles.push(result);
   }
-
   return uploadedFiles;
-}
-
-export async function createProductWithImages({ vendorId, values, fileList, primaryIndex }) {
-  const uploadedFiles = await uploadProductImages(fileList, primaryIndex);
-
-  const resProduct = await createProductVendorApi(vendorId, {
-    ...values,
-    status: false,
-  });
-
-  const imagesData = uploadedFiles.map((f) => ({
-    ...f,
-    productId: resProduct.id,
-  }));
-
-  await apiCreateProductImages(imagesData);
-
-  return resProduct;
 }
 
 export async function apiCreateProductImages(imagesData) {
@@ -104,6 +91,30 @@ export async function apiCreateProductImages(imagesData) {
     const { data, error } = await supabase.from("productImage").insert(imagesData).select();
     if (error) throw error;
     return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createProductWithImages(vendorId, data) {
+  try {
+    const { fileList, primaryIndex, ...values } = data;
+
+    const uploadedFiles = await uploadProductImages(fileList, primaryIndex);
+
+    const resProduct = await createProductVendorApi(vendorId, {
+      ...values,
+      status: false,
+    });
+
+    const imagesData = uploadedFiles.map((f) => ({
+      ...f,
+      productId: resProduct.id,
+    }));
+
+    await apiCreateProductImages(imagesData);
+
+    return resProduct;
   } catch (error) {
     throw error;
   }
