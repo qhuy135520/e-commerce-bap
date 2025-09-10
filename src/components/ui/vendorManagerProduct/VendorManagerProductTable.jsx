@@ -1,5 +1,8 @@
-import React from "react";
-import { Avatar, Button, ConfigProvider, Space, Table } from "antd";
+import React, { useState } from "react";
+import { Avatar, Button, ConfigProvider, Space, Table, Tooltip, Modal } from "antd";
+
+import { VendorManagerProductTableStyled as VMPTS, FormAddProduct } from "@/components";
+import { useAddProduct } from "@/hooks/useAddProduct/useAddProduct";
 
 const columns = [
   {
@@ -7,41 +10,66 @@ const columns = [
     dataIndex: "id",
     key: "id",
     width: "5%",
+    render: (text) => <span>{text?.substring(0, 5)}</span>,
   },
   {
     title: "Tên sản phẩm",
     dataIndex: "name",
     key: "name",
-    width: "15%",
+    width: "10%",
     render: (text) => <b>{text}</b>,
   },
   {
     title: "Hình ảnh",
-    dataIndex: "image",
-    key: "image",
+    dataIndex: "images",
+    key: "images",
     width: "10%",
-    render: (text) => <Avatar shape='square' size={80} src={text} />
+    render: (images) =>
+      images && images.length > 0 ? (
+        <Avatar shape="square" size={80} src={images[0].imageUrl} />
+      ) : (
+        <Avatar shape="square" size={80} icon="📷" />
+      ),
   },
   {
-    title: "Brand",
-    dataIndex: "brand",
-    key: "brand",
+    title: "Nhãn hiệu",
+    dataIndex: "brandname",
+    key: "brandname",
+    width: "10%",
+  },
+  {
+    title: "Danh mục",
+    dataIndex: "categoryname",
+    key: "categoryname",
+    width: "10%",
   },
   {
     title: "Số lượng",
-    key: "quantity",
-    dataIndex: "quantity",
-    width: "8%",
+    key: "stock",
+    dataIndex: "stock",
+    width: "10%",
   },
   {
     title: "Mô tả",
     key: "description",
     dataIndex: "description",
+    width: "15%",
+    render: (text) => (
+      <Tooltip title={text}>
+        <span>{text && text.length > 150 ? text.substring(0, 50) + "..." : text}</span>
+      </Tooltip>
+    ),
   },
   {
     title: "Thông số",
     key: "param",
     dataIndex: "param",
+    width: "15%",
+    render: (text) => (
+      <Tooltip title={text}>
+        <span>{text && text.length > 150 ? text.substring(0, 50) + "..." : text}</span>
+      </Tooltip>
+    ),
   },
   {
     title: "Action",
@@ -54,18 +82,8 @@ const columns = [
     ),
   },
 ];
-const data = [
-  {
-    id: "123",
-    name: "Iphone 14 Promaxx",
-    image: "https://cdn.tgdd.vn/Products/Images/42/223602/iphone-13-midnight-2-600x600.jpg",
-    brand: "Iphone",
-    quantity: 99,
-    description: "Iphone 14 siêu đẹp, thế hệ mới nhất với các tính năng nổi trội",
-    param: "Màn hình 12inch, Ram 16GB, dung lượng 512GB, GTX1050Ti",
-  },
-];
-export default function VendorManagerProductTable() {
+export default function VendorManagerProductTable({ products }) {
+  const { handleOk, handleCancel, showModal, isModalOpen } = useAddProduct();
   return (
     <ConfigProvider
       theme={{
@@ -76,6 +94,10 @@ export default function VendorManagerProductTable() {
             headerSplitColor: "var(--color-grey-500)",
             rowHoverBg: "var(--color-grey-200)",
           },
+          Modal: {
+            contentBg: "var(--color-grey-100)",
+            headerBg: "var(--color-grey-100)",
+          },
         },
         token: {
           colorBgContainer: "var(--color-grey-100)",
@@ -83,7 +105,15 @@ export default function VendorManagerProductTable() {
         },
       }}
     >
-      <Table columns={columns} dataSource={data} />;
+      <VMPTS.ButtonPosition>
+        <Button size="large" color="blue" variant="solid" onClick={showModal}>
+          + Thêm sản phẩm
+        </Button>
+      </VMPTS.ButtonPosition>
+      <Table columns={columns} dataSource={products} />
+      <Modal title="Thêm sản phẩm mới" open={isModalOpen} onCancel={handleCancel} footer={null}>
+        <FormAddProduct onCancel={handleCancel} />
+      </Modal>
     </ConfigProvider>
   );
 }
