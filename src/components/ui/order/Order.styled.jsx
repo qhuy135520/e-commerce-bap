@@ -1,5 +1,5 @@
-import { Button, Card, Input, Typography } from "antd";
-import styled from "styled-components";
+import { Button, Card, Input, Space, Typography } from "antd";
+import styled, { css } from "styled-components";
 
 export const WrapperCard = styled(Card)`
   margin-bottom: 12px;
@@ -55,6 +55,24 @@ export const Wrapper = styled.div`
   flex-direction: column;
   gap: 16px;
 `;
+
+export const EmptyAddressCardWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  border: 1px dashed #d9d9d9;
+  border-radius: 8px;
+  background: #fafafa;
+  margin-top: 8px;
+
+  svg {
+    margin-bottom: 8px;
+    color: #999;
+  }
+`;
+
 export const StyledButton = styled(Button)`
   margin-top: 16px;
   float: right; /* đẩy sang phải */
@@ -152,4 +170,75 @@ export const AlertWrapper = styled.div`
 export const PlaceOrderButton = styled(Button)`
   margin-top: 16px;
   width: 100%;
+`;
+
+export const HeadingEditAddress = styled.h3`
+  margin: 20px 0;
+  text-align: center;
+`;
+
+export const CardStyled = styled(Card)`
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  .ant-card-body {
+    padding: 16px 20px;
+  }
+`;
+
+export const AddressInfo = styled(Space)`
+  width: 100%;
+`;
+
+export const NamePhoneWrapper = styled(Space)`
+  align-items: center;
+`;
+
+export const AddressWrapper = styled(Space)`
+  align-items: flex-start;
+`;
+
+export const ChangeButtonWrapper = styled.div`
+  text-align: right;
+  margin-top: 8px;
+`;
+
+export const CardRadioLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  gap: 4px;
+  position: relative;
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      border: 2px solid #1677ff;
+      background-color: #e6f7ff;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    `}
+
+  &:hover {
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+  }
+`;
+
+export const CardHeader = styled.div`
+  font-weight: 600;
+  font-size: 16px;
+`;
+
+export const CardBody = styled.div`
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+`;
+
+export const DeleteButton = styled(Button)`
+  position: absolute;
+  top: 8px;
+  right: 8px;
 `;

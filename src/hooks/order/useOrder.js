@@ -1,24 +1,25 @@
-import i18n from "@/configs/i18n/i18n";
-import { useState, useMemo } from "react";
-import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+import * as Yup from "yup";
 
 import { PHONE_REGEX } from "@/constants/regex";
 
 import useCart from "@/hooks/cart/useCart";
-import useAddress from "@/hooks/address/useAddress";
+
+import i18n from "@/configs/i18n/i18n";
 
 export default function useOrder() {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditting, setisEditting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cod");
 
-  const { cart } = useCart();
-  const { address } = useAddress();
+  const { cart, status: statusCart } = useCart();
 
-  const { t } = useTranslation("order");
+  const isLoading = ["loading", "idle"].includes(statusCart);
+
+  const { t } = useTranslation(["order"]);
   const navigate = useNavigate();
 
   const orders = Object.values(
@@ -60,19 +61,17 @@ export default function useOrder() {
   const validateSchema = useMemo(
     () =>
       Yup.object({
-        name: Yup.string().required(t("order.validation.nameRequired")),
+        name: Yup.string().trim().required(t("order.validation.nameRequired")),
         phone: Yup.string()
-          .required(t("order.validation.phoneRequired"))
-          .matches(PHONE_REGEX, t("order.validation.phoneInvalid")),
-        detail: Yup.string().required(t("order.validation.addressRequired")),
+          .matches(PHONE_REGEX, t("order.validation.phoneInvalid"))
+          .required(t("order.validation.phoneRequired")),
+        province: Yup.string().nullable().required(t("order.validation.provinceRequired")),
+        district: Yup.string().nullable().required(t("order.validation.districtRequired")),
+        ward: Yup.string().nullable().required(t("order.validation.wardRequired")),
+        detail: Yup.string().trim().required(t("order.validation.detailRequired")),
       }),
-    [i18n.language]
+    [i18n.language, t]
   );
-
-  const handleSubmitAddress = (values) => {
-    setIsEditing(false);
-    toast.success(t("order.toast.success"));
-  };
 
   const handlePayClick = () => setIsModalOpen(true);
 
@@ -82,20 +81,25 @@ export default function useOrder() {
     navigate("/order-success");
   };
 
-  // Giả sử số dư ví VNPAY
+  const handleSetEditting = (editValue) => {
+    setisEditting(editValue);
+  };
+
+  const handleCancel = () => setisEditting("");
+
   const vnpayBalance = 5000000;
   const isInsufficientBalance = grandTotal > vnpayBalance;
 
   return {
-    isEditing,
-    setIsEditing,
-    address,
+    isEditting,
+    handleSetEditting,
     orders,
     paymentMethod,
     setPaymentMethod,
     isModalOpen,
     setIsModalOpen,
     handlePayClick,
+    handleCancel,
     handlePlaceOrder,
     getOrderTotals,
     grandTotal,
@@ -103,6 +107,6 @@ export default function useOrder() {
     isInsufficientBalance,
     validateSchema,
     t,
-    handleSubmitAddress,
+    isLoading,
   };
 }
