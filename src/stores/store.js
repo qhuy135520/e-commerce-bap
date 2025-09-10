@@ -7,6 +7,7 @@ import addressReducer from "@/stores/address/address.slice";
 import depositReducer from "@/stores/deposit/deposit.slice";
 import brandReducer from "@/stores/brand/brand.slice";
 import cateogryReducer from "@/stores/category/category.slice";
+import userReducer from "@/stores/user/users.slice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     deposit: depositReducer,
     brand: brandReducer,
     category: cateogryReducer,
+    users: userReducer,
   },
 });

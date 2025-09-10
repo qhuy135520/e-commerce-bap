@@ -6,5 +6,16 @@ import * as addressSlice from "@/stores/address/address.slice";
 import * as depositSlice from "@/stores/deposit/deposit.slice";
 import * as brandSlice from "@/stores/brand/brand.slice";
 import * as categorySlice from "@/stores/category/category.slice";
+import * as userSlice from "@/stores/user/users.slice";
 
-export { productsSlice, reviewsSlice, cartSlice, ordersSlice, addressSlice, depositSlice, brandSlice, categorySlice };
+export {
+  productsSlice,
+  reviewsSlice,
+  cartSlice,
+  ordersSlice,
+  addressSlice,
+  depositSlice,
+  brandSlice,
+  categorySlice,
+  userSlice,
+};

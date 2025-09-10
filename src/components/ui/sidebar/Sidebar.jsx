@@ -3,6 +3,8 @@ import { useState } from "react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 
+import { MainNavAdmin } from "@/components/ui/mainNavAdmin";
+
 import { useUser } from "@/hooks/authentication/useUser";
 
 import { SidebarStyled as SS, MainNavVendor } from "@/components";
@@ -20,6 +22,7 @@ export default function Sidebar() {
       </SS.ToggleButton>
       <SS.Overlay $open={open} onClick={closeSidebar} />
       <SS.StyledSidebar $open={open}>{user.role === "vendor" && <MainNavVendor />}</SS.StyledSidebar>
+      <SS.StyledSidebar $open={open}>{user.role === "admin" && <MainNavAdmin />}</SS.StyledSidebar>
     </>
   );
 }
