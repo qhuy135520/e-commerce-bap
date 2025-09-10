@@ -9,7 +9,7 @@ import { PHONE_REGEX } from "@/constants/regex";
 import useCart from "@/hooks/cart/useCart";
 import { useUser } from "@/hooks/authentication/useUser";
 import { useUpdateUser } from "@/hooks/authentication/useUpdateUser";
-import { ordersThunk } from "@/stores/rootThunk";
+import { cartThunk, ordersThunk } from "@/stores/rootThunk";
 
 import i18n from "@/configs/i18n/i18n";
 import { useDispatch } from "react-redux";
@@ -84,11 +84,11 @@ export default function useOrder() {
 
   const handlePlaceOrder = async () => {
     toast.success(t("order.orderPlacedSuccessfully"));
-    debugger;
 
     await updateUser({ newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal } });
-    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect }));
-
+    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect })).unwrap();
+    await dispatch(cartThunk.removeAllCart(user.id));
+    setIsModalOpen(false);
     navigate("/order-history");
   };
 

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createOrderApi, fetchOrderApi } from "@/services/apiOrder";
+import { incrementVendorBalance } from "@/services/apiAuth";
 
 export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (userId) => {
   try {
@@ -11,8 +12,14 @@ export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (use
 
 export const createOrder = createAsyncThunk("orders/createOrder", async ({ userId, cartItems }, { dispatch }) => {
   try {
-    debugger;
     await createOrderApi(cartItems, userId);
+
+    await Promise.all(
+      cartItems.map((item) => {
+        const vendorEarnings = item.productPrice * 0.85 * item.quantity;
+        return incrementVendorBalance(item.vendorId, vendorEarnings);
+      })
+    );
 
     return dispatch(fetchAllOrder(userId));
   } catch (error) {

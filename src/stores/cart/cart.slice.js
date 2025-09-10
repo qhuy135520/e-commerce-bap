@@ -6,6 +6,7 @@ import {
   updateQuantity,
   removeFromCart,
   updateQuantityAndSelect,
+  removeAllCart,
 } from "@/stores/cart/cart.thunks";
 
 const initialState = {
@@ -70,9 +71,18 @@ const cartSlice = createSlice({
       })
       .addCase(removeFromCart.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items = state.items.filter((item) => item.id !== action.payload);
       })
       .addCase(removeFromCart.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+      .addCase(removeAllCart.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(removeAllCart.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(removeAllCart.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });

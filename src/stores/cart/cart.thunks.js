@@ -3,6 +3,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   addToCartApi,
   fetchUserCartApi,
+  removeAllCartApi,
   removeFromCartApi,
   updateQuantityAndSelectProductApi,
   updateQuantityProductApi,
@@ -67,6 +68,15 @@ export const updateQuantityAndSelect = createAsyncThunk(
 export const removeFromCart = createAsyncThunk("cart/removeFromCart", async ({ cartId, userId }, { dispatch }) => {
   try {
     await removeFromCartApi(cartId);
+    await dispatch(fetchCart(userId));
+  } catch (error) {
+    return error;
+  }
+});
+
+export const removeAllCart = createAsyncThunk("cart/removeAllCart", async (userId, { dispatch }) => {
+  try {
+    await removeAllCartApi(userId);
     await dispatch(fetchCart(userId));
   } catch (error) {
     return error;

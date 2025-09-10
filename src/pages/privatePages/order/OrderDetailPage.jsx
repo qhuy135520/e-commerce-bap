@@ -38,7 +38,6 @@ export default function OrderDetail() {
   } = useOrder();
 
   const submitRefs = useRef([]);
-  console.log(grandTotal);
 
   useEffect(() => {
     const handleUnload = () => {
