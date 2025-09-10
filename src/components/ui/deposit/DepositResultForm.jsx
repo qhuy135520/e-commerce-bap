@@ -1,8 +1,8 @@
 import React from "react";
-import { Typography, Spin, Alert, Button } from "antd";
-import { useDepositResult } from "@/hooks/Deposit/useDepositResult";
-
-import { DepositResultFormStyled as DRFS, Loading } from "@/components";
+import { Typography, Alert, Button } from "antd";
+import { useDepositResult } from "@/hooks/deposit/useDepositResult";
+import { DepositResultFormStyled as DRFS } from "@/components";
+import LoadingDeposit from "@/components/common/LoadingDeposit";
 
 const { Text } = Typography;
 
@@ -11,7 +11,7 @@ const DepositResultPage = () => {
     useDepositResult();
 
   return (
-    <Loading isLoading={loading}>
+    <LoadingDeposit isLoading={loading}>
       <DRFS.StyledContainer>
         <DRFS.StyledCard>
           <DRFS.StyledTitle level={2} $transactionStatus={transactionStatus}>
@@ -48,7 +48,7 @@ const DepositResultPage = () => {
           </DRFS.StyledButtonContainer>
         </DRFS.StyledCard>
       </DRFS.StyledContainer>
-    </Loading>
+    </LoadingDeposit>
   );
 };
 
