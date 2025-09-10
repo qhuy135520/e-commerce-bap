@@ -1,10 +1,15 @@
 import React from "react";
+import { Button } from "antd";
 
-import { OrderHistoryTableStyled as OHTS } from "@/components";
+import useReview from "@/hooks/order/useReview";
+
+import { OrderHistoryTableStyled as OHTS, ReviewModal } from "@/components";
 
 import { formatCurrency } from "@/utils/helpers";
 
 export default function OrderItemInfo({ vendorProduct }) {
+  const { isModalOpen, selectedProduct, openReviewModal, closeReviewModal, handleSubmitReview, loading, t } =
+    useReview();
   return (
     <>
       {vendorProduct.map((product, index) => (
@@ -16,9 +21,19 @@ export default function OrderItemInfo({ vendorProduct }) {
               <p>x{product.quantity}</p>
               <OHTS.Price>{formatCurrency(product.price)}</OHTS.Price>
             </OHTS.InfoItem>
+            <Button size="middle" onClick={() => openReviewModal(product)} disabled={product.isReviewed}>
+              {product.isReviewed ? t("order.review.reviewed") : t("order.review.review")}
+            </Button>
           </OHTS.ItemLeft>
         </OHTS.ItemInfo>
       ))}
+      <ReviewModal
+        visible={isModalOpen}
+        onCancel={closeReviewModal}
+        onSubmit={handleSubmitReview}
+        product={selectedProduct}
+        loading={loading}
+      />
     </>
   );
 }

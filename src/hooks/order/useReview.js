@@ -2,15 +2,19 @@ import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-import { submitReviewApi } from "@/services/apiReview";
 import { useUser } from "@/hooks/authentication/useUser";
+import { createReview } from "@/stores/reviews/reviews.thunks";
+import { useDispatch } from "react-redux";
+import { fetchAllOrder } from "@/stores/order/orders.thunks";
 
 export default function useReview() {
+  const { t } = useTranslation(["order"]);
+  const { user } = useUser();
+  const dispatch = useDispatch();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { t } = useTranslation(["order"]);
-  const { user } = useUser();
 
   const openReviewModal = (product) => {
     setSelectedProduct(product);
@@ -26,32 +30,30 @@ export default function useReview() {
     if (!selectedProduct || !user) return;
 
     try {
-      setLoading(true);
-      await submitReviewApi({
-        userId: user.id,
-        productId: selectedProduct.productId,
-        orderDetailId: selectedProduct.orderDetailId,
-        rating,
-        content: comment,
-      });
+      await dispatch(
+        createReview({
+          userId: user.id,
+          productId: selectedProduct.productId,
+          content: comment,
+          rating,
+          orderDetailId: selectedProduct.orderDetailId,
+        })
+      );
       toast.success(t("order.review.toast.success"));
-
+      await dispatch(fetchAllOrder(user.id));
       closeReviewModal();
     } catch (error) {
-      console.error(error);
       toast.error(t("order.review.toast.error"));
-    } finally {
-      setLoading(false);
     }
   };
 
   return {
     isModalOpen,
     selectedProduct,
+    t,
+    loading,
     openReviewModal,
     closeReviewModal,
     handleSubmitReview,
-    loading,
-    t,
   };
 }
