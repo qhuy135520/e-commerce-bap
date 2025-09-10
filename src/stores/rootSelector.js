@@ -7,6 +7,7 @@ import * as depositSelector from "@/stores/deposit/deposit.selector";
 import * as brandSelector from "@/stores/brand/brand.selector";
 import * as categorySelector from "@/stores/category/category.selector";
 import * as userSelector from "@/stores/user/users.selector";
+import * as transactionsSelector from "@/stores/transactions/transactions.selectors";
 
 export {
   productsSelector,
@@ -18,4 +19,5 @@ export {
   brandSelector,
   categorySelector,
   userSelector,
+  transactionsSelector,
 };

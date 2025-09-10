@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Button } from "antd";
-import { useDeposit } from "@/hooks/Deposit/useDeposit";
+import { useDeposit } from "@/hooks/deposit/useDeposit";
 import { DepositFormStyled as DFS } from "@/components";
 import { formatNumberCurrency, parseNumberCurrency } from "@/utils/helpers";
 

@@ -55,9 +55,9 @@ const VendorManagerTransactionPage = React.lazy(() =>
   }))
 );
 
-const AdminDashboardPage = React.lazy(() =>
+const AdminPaymentHistoryPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
-    default: module.AdminDashboardPage,
+    default: module.AdminPaymentHistoryPage,
   }))
 );
 
@@ -124,6 +124,10 @@ const PrivateRoutes = (
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>
         <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH} element={<AdminDashboardPage />} />
         <Route path={ROUTER_PATH.ADMIN_MANAGER_USER.PATH} element={<AdminManagerUserPage />} />
+        <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH}>
+          <Route index element={<Navigate to={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} replace />} />
+          <Route path={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} element={<AdminPaymentHistoryPage />} />
+        </Route>
       </Route>
     </Route>
   </>
