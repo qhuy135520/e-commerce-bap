@@ -1,4 +1,4 @@
-import { Button, Card, Input, Space, Typography } from "antd";
+import { Button, Card, Input, Radio, Space, Typography } from "antd";
 import styled, { css } from "styled-components";
 
 export const WrapperCard = styled(Card)`
@@ -239,6 +239,20 @@ export const CardBody = styled.div`
 
 export const DeleteButton = styled(Button)`
   position: absolute;
+  top: 40px;
+  right: 8px;
+`;
+
+export const EditAddressButton = styled(Button)`
+  position: absolute;
   top: 8px;
   right: 8px;
+`;
+
+export const RadioAddress = styled(Radio)`
+  display: none;
+`;
+
+export const RadioGroupAddress = styled(Radio.Group)`
+  width: 100%;
 `;
