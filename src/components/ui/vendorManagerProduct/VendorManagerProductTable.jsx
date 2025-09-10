@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Avatar, Button, ConfigProvider, Space, Table, Tooltip, Modal } from "antd";
 
-import { VendorManagerProductTableStyled as VMPTS, FormAddProduct } from "@/components";
 import { useAddProduct } from "@/hooks/useAddProduct/useAddProduct";
+
+import { VendorManagerProductTableStyled as VMPTS, FormAddProduct } from "@/components";
 
 const columns = [
   {
@@ -83,7 +84,21 @@ const columns = [
   },
 ];
 export default function VendorManagerProductTable({ products }) {
-  const { handleOk, handleCancel, showModal, isModalOpen } = useAddProduct();
+  const {
+    isModalOpen,
+    initialValues,
+    validationSchema,
+    categorys,
+    brands,
+    fileList,
+    primaryIndex,
+    handleCancel,
+    showModal,
+    onChange,
+    handleSubmit,
+    setPrimaryIndex,
+  } = useAddProduct();
+
   return (
     <ConfigProvider
       theme={{
@@ -110,9 +125,20 @@ export default function VendorManagerProductTable({ products }) {
           + Thêm sản phẩm
         </Button>
       </VMPTS.ButtonPosition>
-      <Table columns={columns} dataSource={products} />
+      <Table columns={columns} dataSource={products} rowKey="id" />
       <Modal title="Thêm sản phẩm mới" open={isModalOpen} onCancel={handleCancel} footer={null}>
-        <FormAddProduct onCancel={handleCancel} />
+        <FormAddProduct
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          categorys={categorys}
+          brands={brands}
+          fileList={fileList}
+          primaryIndex={primaryIndex}
+          handleCancel={handleCancel}
+          onChange={onChange}
+          handleSubmit={handleSubmit}
+          setPrimaryIndex={setPrimaryIndex}
+        />
       </Modal>
     </ConfigProvider>
   );
