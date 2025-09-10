@@ -35,7 +35,6 @@ export async function getProductDetailApi(id) {
 
 export async function createProductVendorApi(vendorId, data) {
   try {
-    console.log("Creating product with data:", data);
     const { data: dataCreate, error } = await supabase
       .from("product")
       .insert([{ ...data, vendorId }])
@@ -51,7 +50,6 @@ export async function createProductVendorApi(vendorId, data) {
 
 export async function updateProductVendorApi(productId, dataUpdate) {
   try {
-    console.log("Updating product:", dataUpdate);
     const { data, error } = await supabase
       .from("product")
       .update({ ...dataUpdate })

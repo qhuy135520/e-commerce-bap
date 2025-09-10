@@ -105,7 +105,6 @@ export default function useCart() {
           quantity: item.quantity,
           isSelect: false,
         }));
-        console.log(values);
 
         await dispatch(cartThunk.updateQuantityAndSelect({ items: cancelItems, userId: user.id }));
         break;

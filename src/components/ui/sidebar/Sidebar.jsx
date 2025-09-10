@@ -3,15 +3,14 @@ import { useState } from "react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 
-import { MainNavAdmin } from "@/components/ui/mainNavAdmin";
-
 import { useUser } from "@/hooks/authentication/useUser";
 
-import { SidebarStyled as SS, MainNavVendor } from "@/components";
+import { SidebarStyled as SS, MainNavVendor, MainNavAdmin } from "@/components";
 
 export default function Sidebar() {
   const { user } = useUser();
-  const [open, setOpen] = useState(false);
+  console.log(user);
+  const [open, setOpen] = useState(true);
   const toggleSidebar = () => setOpen((prev) => !prev);
   const closeSidebar = () => setOpen(false);
 
@@ -21,8 +20,7 @@ export default function Sidebar() {
         {open ? <FaArrowCircleLeft size={20} /> : <IoMdMenu size={20} />}
       </SS.ToggleButton>
       <SS.Overlay $open={open} onClick={closeSidebar} />
-      <SS.StyledSidebar $open={open}>{user.role === "vendor" && <MainNavVendor />}</SS.StyledSidebar>
-      <SS.StyledSidebar $open={open}>{user.role === "admin" && <MainNavAdmin />}</SS.StyledSidebar>
+      <SS.StyledSidebar $open={open}>{user.role === "vendor" ? <MainNavVendor /> : <MainNavAdmin />}</SS.StyledSidebar>
     </>
   );
 }
