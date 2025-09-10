@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Typography, Alert, Button } from "antd";
 import { useDepositResult } from "@/hooks/deposit/useDepositResult";
 import { DepositResultFormStyled as DRFS } from "@/components";
 import LoadingDeposit from "@/components/common/LoadingDeposit";
+import { useUser } from "@/hooks/authentication/useUser";
 
 const { Text } = Typography;
 
 const DepositResultPage = () => {
   const { loading, message, transactionStatus, txnRef, amount, responseCode, handleBackToDeposit, handleGoHome } =
     useDepositResult();
+
+  const { user, refetch } = useUser();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch, user]);
 
   return (
     <LoadingDeposit isLoading={loading}>

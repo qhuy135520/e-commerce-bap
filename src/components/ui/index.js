@@ -14,6 +14,7 @@ export * from "@/components/ui/mainNavVendor";
 export * from "@/components/ui/sidebar";
 export * from "@/components/ui/vendorManagerProduct";
 export * from "@/components/ui/deposit";
+export * from "@/components/ui/formAddProduct";
 
 export { default as Container } from "@/components/ui/Container";
 export { default as DividerTitle } from "@/components/ui/DividerTitle";
