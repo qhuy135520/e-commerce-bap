@@ -1,23 +1,23 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { ordersSelector } from "@/stores/rootSelector";
 import { ordersThunk } from "@/stores/rootThunk";
+import { useUser } from "@/hooks/authentication/useUser";
 
 export default function useOrderHistory() {
   const dispatch = useDispatch();
-  const { id } = useParams();
+  const { user } = useUser();
   const orders = useSelector(ordersSelector.selectOrders);
   const status = useSelector(ordersSelector.selectOrderStatus);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(ordersThunk.fetchAllOrder(id));
+    if (status === "idle" && user) {
+      dispatch(ordersThunk.fetchAllOrder(user.id));
     }
-  }, [status, dispatch]);
+  }, [status, user, dispatch]);
 
-  const isLoading = status === "idle" || status === "loading";
+  const isLoading = status === "idle" || status === "loading" || !user;
 
   return { orders, status, isLoading };
 }

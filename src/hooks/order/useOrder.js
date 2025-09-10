@@ -7,14 +7,21 @@ import * as Yup from "yup";
 import { PHONE_REGEX } from "@/constants/regex";
 
 import useCart from "@/hooks/cart/useCart";
+import { useUser } from "@/hooks/authentication/useUser";
+import { useUpdateUser } from "@/hooks/authentication/useUpdateUser";
+import { ordersThunk } from "@/stores/rootThunk";
 
 import i18n from "@/configs/i18n/i18n";
+import { useDispatch } from "react-redux";
 
 export default function useOrder() {
   const [isEditting, setisEditting] = useState("");
+  const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cod");
   const { t } = useTranslation(["order"]);
+  const { user } = useUser();
+  const { updateUser } = useUpdateUser();
   const navigate = useNavigate();
 
   const { cartSelect, status: statusCart } = useCart();
@@ -75,10 +82,14 @@ export default function useOrder() {
 
   const handlePayClick = () => setIsModalOpen(true);
 
-  const handlePlaceOrder = () => {
-    setIsModalOpen(false);
+  const handlePlaceOrder = async () => {
     toast.success(t("order.orderPlacedSuccessfully"));
-    navigate("/order-success");
+    debugger;
+
+    await updateUser({ newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal } });
+    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect }));
+
+    navigate("/order-history");
   };
 
   const handleSetEditting = (editValue) => {
@@ -87,7 +98,7 @@ export default function useOrder() {
 
   const handleCancel = () => setisEditting("");
 
-  const vnpayBalance = 5000000;
+  const vnpayBalance = user.moneyBalance;
   const isInsufficientBalance = grandTotal > vnpayBalance;
 
   return {
