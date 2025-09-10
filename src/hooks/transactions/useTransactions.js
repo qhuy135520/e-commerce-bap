@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+<<<<<<< HEAD
 
 import { transactionsThunk } from "@/stores/rootThunk";
 import { transactionsSelector } from "@/stores/rootSelector";
@@ -15,12 +16,32 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
   const isLoading = ["loading", "idle"].includes(status);
   const error = useSelector(transactionsSelector.selectTransactionsError);
   const transaction = user && useSelector((state) => transactionsSelector.selectTransactionById(state, user.id));
+=======
+import { fetchAllTransactions } from "@/stores/transactions/transactions.thunks";
+import {
+  selectTransactions,
+  selectTransactionsStatus,
+  selectTransactionsError,
+} from "@/stores/transactions/transactions.selectors";
+import { formatCurrency } from "@/utils/helpers";
+
+export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
+  const dispatch = useDispatch();
+  const transactions = useSelector(selectTransactions);
+  const status = useSelector(selectTransactionsStatus);
+  const error = useSelector(selectTransactionsError);
+
+>>>>>>> d3490f9 (2025-10-09-feat: deposit history)
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (status === "idle") {
+<<<<<<< HEAD
       dispatch(transactionsThunk.fetchAllTransactions());
+=======
+      dispatch(fetchAllTransactions());
+>>>>>>> d3490f9 (2025-10-09-feat: deposit history)
     }
   }, [status, dispatch]);
 
@@ -49,8 +70,11 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
   };
 
   return {
+<<<<<<< HEAD
     isLoading,
     transaction,
+=======
+>>>>>>> d3490f9 (2025-10-09-feat: deposit history)
     transactions: currentData,
     totalTransactions,
     totalAmount: formatCurrency(totalAmount),

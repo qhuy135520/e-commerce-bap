@@ -57,11 +57,18 @@ const VendorManagerTransactionPage = React.lazy(() =>
 );
 
 const AdminPaymentHistoryPage = React.lazy(() =>
+<<<<<<< HEAD
+=======
   import("@/pages/privatePages").then((module) => ({
     default: module.AdminPaymentHistoryPage,
   }))
 );
-
+const AdminDashboardPage = React.lazy(() =>
+>>>>>>> d3490f9 (2025-10-09-feat: deposit history)
+  import("@/pages/privatePages").then((module) => ({
+    default: module.AdminPaymentHistoryPage,
+  }))
+);
 const DepositPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
     default: module.DepositPage,
@@ -128,7 +135,10 @@ const PrivateRoutes = (
           <Route index element={<Navigate to={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} replace />} />
           <Route path={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} element={<AdminPaymentHistoryPage />} />
         </Route>
+<<<<<<< HEAD
         <Route path={ROUTER_PATH.ADMIN_MANAGER_PRODUCT.PATH} element={<AdminManagerProductPage />} />
+=======
+>>>>>>> d3490f9 (2025-10-09-feat: deposit history)
       </Route>
     </Route>
   </>
