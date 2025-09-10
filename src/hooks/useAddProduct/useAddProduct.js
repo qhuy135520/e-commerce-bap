@@ -1,17 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import supabase from "@/services/supabase";
+import { useEffect, useMemo, useState } from "react";
+import * as Yup from "yup";
+import toast from "react-hot-toast";
 
 import { useUser } from "@/hooks/authentication/useUser";
 
-import { apiCreateProductImages } from "@/services/apiProduct";
-
-import { fetchAllBrand } from "@/stores/brand/brand.thunks";
-import { fetchCategory } from "@/stores/category/category.thunks";
-import { createProductVendor } from "@/stores/products/products.thunks";
-
-import { selectBrandItems, selectBrandStatus } from "@/stores/brand/brand.selector";
-import { selectCategoryItems, selectCategoryStatus } from "@/stores/category/category.selector";
+import { createProductWithImages } from "@/services/apiProduct";
+import { brandSelector, categorySelector } from "@/stores/rootSelector";
+import { brandThunk, categoryThunk } from "@/stores/rootThunk";
 
 export function useAddProduct() {
   const initialValues = {
@@ -23,14 +19,41 @@ export function useAddProduct() {
     description: "",
     param: "",
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const validationSchema = useMemo(() =>
+    Yup.object({
+      name: Yup.string()
+        .required("Tên sản phẩm không được để trống")
+        .min(3, "Tên sản phẩm phải có ít nhất 3 ký tự")
+        .max(100, "Tên sản phẩm không vượt quá 100 ký tự"),
+
+      categoryId: Yup.string().required("Vui lòng chọn danh mục"),
+
+      brandId: Yup.string().required("Vui lòng chọn nhãn hiệu"),
+
+      price: Yup.number()
+        .typeError("Giá phải là số")
+        .required("Giá không được để trống")
+        .min(1000, "Giá phải lớn hơn hoặc bằng 1,000 VNĐ"),
+
+      stock: Yup.number()
+        .typeError("Số lượng phải là số")
+        .required("Số lượng không được để trống")
+        .min(1, "Số lượng phải lớn hơn hoặc bằng 1"),
+
+      description: Yup.string().required("Mô tả không được để trống").min(10, "Mô tả phải có ít nhất 10 ký tự"),
+
+      param: Yup.string().required("Thông số không được để trống").min(5, "Thông số phải có ít nhất 5 ký tự"),
+    })
+  );
 
   const { user } = useUser();
   const dispatch = useDispatch();
-  const categorys = useSelector(selectCategoryItems);
-  const brands = useSelector(selectBrandItems);
-  const statusCate = useSelector(selectCategoryStatus);
-  const statusBrand = useSelector(selectBrandStatus);
+  const categorys = useSelector(categorySelector.selectCategoryItems);
+  const statusCate = useSelector(categorySelector.selectCategoryStatus);
+  const brands = useSelector(brandSelector.selectBrandItems);
+  const statusBrand = useSelector(brandSelector.selectBrandStatus);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [fileList, setFileList] = useState([]);
   const [primaryIndex, setPrimaryIndex] = useState(null);
 
@@ -47,54 +70,54 @@ export function useAddProduct() {
     setFileList(newFileList);
   };
 
-  async function handleSubmit(values) {
-    const uploadedFiles = [];
-    for (let i = 0; i < fileList.length; i++) {
-      const file = fileList[i];
-      const realFile = file.originFileObj || file;
-
-      const { data, error } = await supabase.storage
-        .from("ProductImage")
-        .upload(`${Date.now()}_${realFile.name}`, realFile);
-
-      if (error) {
-        console.error("Upload error:", error);
-      } else {
-        const { data: urlData } = supabase.storage.from("ProductImage").getPublicUrl(data.path);
-        uploadedFiles.push({ imageUrl: urlData.publicUrl, isPrimary: i === primaryIndex });
-      }
+  async function handleSubmit(values, { resetForm }) {
+    if (fileList.length === 0) {
+      toast.error("Vui lòng tải lên ít nhất 1 ảnh sản phẩm");
+      return;
+    }
+    if (primaryIndex === null) {
+      toast.error("Vui lòng chọn ảnh chính");
+      return;
     }
 
-    const resProduct = await dispatch(
-      createProductVendor({ vendorId: user.id, data: { ...values, status: false } })
-    ).unwrap();
-    const imagesData = uploadedFiles.map((f) => ({
-      ...f,
-      productId: resProduct.id,
-    }));
-    await apiCreateProductImages(imagesData);
+    try {
+      await createProductWithImages({
+        vendorId: user.id,
+        values,
+        fileList,
+        primaryIndex,
+      });
+      resetForm();
+      setFileList([]);
+      setPrimaryIndex(null);
+      toast.success("Gửi xét duyệt sản phẩm thành công!");
+      handleCancel();
+    } catch (error) {
+      toast.error("Có lỗi khi gửi xét duyệt sản phẩm");
+      throw error;
+    }
   }
 
   useEffect(() => {
     if (statusCate === "idle" || statusBrand === "idle") {
-      dispatch(fetchCategory());
-      dispatch(fetchAllBrand());
+      dispatch(categoryThunk.fetchCategory());
+      dispatch(brandThunk.fetchAllBrand());
     }
-  }, [statusCate, dispatch]);
+  }, [statusCate, statusBrand, dispatch]);
 
   return {
     initialValues,
+    validationSchema,
     categorys,
     brands,
     fileList,
-    onChange,
-    handleSubmit,
+    isModalOpen,
     primaryIndex,
-    setPrimaryIndex,
+    onChange,
     handleOk,
     handleCancel,
     showModal,
-    isModalOpen,
-    setFileList,
+    handleSubmit,
+    setPrimaryIndex,
   };
 }

@@ -1,25 +1,22 @@
 import React from "react";
+import ImgCrop from "antd-img-crop";
 import { Formik } from "formik";
 import { Form, Select, Input } from "formik-antd";
 import { Button, ConfigProvider, Upload } from "antd";
-import ImgCrop from "antd-img-crop";
-
-import { useAddProduct } from "@/hooks/useAddProduct/useAddProduct";
 
 import { FormAddProductStyled as FAPS } from "@/components";
 
-export default function FormAddProduct({ onCancel }) {
-  const {
-    initialValues,
-    categorys,
-    brands,
-    fileList,
-    onChange,
-    handleSubmit,
-    primaryIndex,
-    setPrimaryIndex,
-    setFileList,
-  } = useAddProduct();
+export default function FormAddProduct({
+  initialValues,
+  validationSchema,
+  categorys,
+  brands,
+  fileList,
+  primaryIndex,
+  onChange,
+  handleSubmit,
+  setPrimaryIndex,
+}) {
   return (
     <ConfigProvider
       theme={{
@@ -31,16 +28,7 @@ export default function FormAddProduct({ onCancel }) {
         },
       }}
     >
-      <Formik
-        initialValues={initialValues}
-        onSubmit={(values, { resetForm }) => {
-          handleSubmit(values);
-          resetForm();
-          setFileList([]);
-          setPrimaryIndex(null);
-          onCancel();
-        }}
-      >
+      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ values, setFieldValue }) => (
           <Form layout="vertical">
             <Form.Item label="Tên sản phẩm" name="name">
@@ -75,9 +63,11 @@ export default function FormAddProduct({ onCancel }) {
                   ))}
               </Select>
             </Form.Item>
+
             <Form.Item label="Giá" name="price">
               <Input type="number" name="price" placeholder="Nhập giá..." />
             </Form.Item>
+
             <Form.Item label="Số lượng" name="stock">
               <Input type="number" name="stock" placeholder="Nhập số lượng..." />
             </Form.Item>
@@ -89,6 +79,7 @@ export default function FormAddProduct({ onCancel }) {
             <Form.Item label="Thông số" name="param">
               <Input type="text" name="param" placeholder="Nhập thông số..." />
             </Form.Item>
+
             <Form.Item name="image" label="Thêm ảnh sản phẩm">
               <ImgCrop rotationSlider>
                 <Upload listType="picture-card" fileList={fileList} onChange={onChange} beforeUpload={() => false}>
@@ -107,8 +98,11 @@ export default function FormAddProduct({ onCancel }) {
                 </FAPS.ChooseImage>
               )}
             </Form.Item>
+
             <FAPS.PositonButton>
-              <Button htmlType="submit">Gửi xét duyệt</Button>
+              <Button type="primary" htmlType="submit">
+                Gửi xét duyệt
+              </Button>
             </FAPS.PositonButton>
           </Form>
         )}

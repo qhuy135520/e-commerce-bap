@@ -54,7 +54,50 @@ export async function createProductVendorApi(vendorId, data) {
   }
 }
 
+//IMAGE
+export async function uploadImage(file, isPrimary) {
+  const realFile = file.originFileObj || file;
+  const { data, error } = await supabase.storage
+    .from("ProductImage")
+    .upload(`${Date.now()}_${realFile.name}`, realFile);
 
+  if (error) {
+    throw error;
+  }
+
+  const { data: urlData } = supabase.storage.from("ProductImage").getPublicUrl(data.path);
+
+  return { imageUrl: urlData.publicUrl, isPrimary };
+}
+
+export async function uploadProductImages(fileList, primaryIndex) {
+  const uploadedFiles = [];
+
+  for (let i = 0; i < fileList.length; i++) {
+    const result = await uploadImage(fileList[i], i === primaryIndex);
+    uploadedFiles.push(result);
+  }
+
+  return uploadedFiles;
+}
+
+export async function createProductWithImages({ vendorId, values, fileList, primaryIndex }) {
+  const uploadedFiles = await uploadProductImages(fileList, primaryIndex);
+
+  const resProduct = await createProductVendorApi(vendorId, {
+    ...values,
+    status: false,
+  });
+
+  const imagesData = uploadedFiles.map((f) => ({
+    ...f,
+    productId: resProduct.id,
+  }));
+
+  await apiCreateProductImages(imagesData);
+
+  return resProduct;
+}
 
 export async function apiCreateProductImages(imagesData) {
   try {
@@ -62,7 +105,6 @@ export async function apiCreateProductImages(imagesData) {
     if (error) throw error;
     return data;
   } catch (error) {
-    console.error("Error creating product images:", error);
     throw error;
   }
 }
