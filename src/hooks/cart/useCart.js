@@ -22,7 +22,7 @@ export default function useCart() {
   const cartSelect = cart.filter((item) => item.isSelect);
   const error = useSelector(cartSelector.selectCartError);
 
-  const isLoading = status === "idle";
+  const isLoading = status === "idle" || status === "idle";
 
   const cartTableData = cart.map((item) => ({
     key: item.id,
@@ -83,7 +83,6 @@ export default function useCart() {
       cartId,
       quantity,
     }));
-
     switch (type) {
       case "updateQuantity":
         dispatch(cartThunk.updateQuantity({ items: allItems, userId: user.id }));
@@ -105,7 +104,6 @@ export default function useCart() {
           quantity: item.quantity,
           isSelect: false,
         }));
-        console.log(values);
 
         await dispatch(cartThunk.updateQuantityAndSelect({ items: cancelItems, userId: user.id }));
         break;

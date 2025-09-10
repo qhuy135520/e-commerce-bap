@@ -38,6 +38,7 @@ export default function OrderDetail() {
   } = useOrder();
 
   const submitRefs = useRef([]);
+  console.log(grandTotal);
 
   useEffect(() => {
     const handleUnload = () => {
@@ -105,7 +106,7 @@ export default function OrderDetail() {
             <OS.GrandTotalText>{formatCurrency(grandTotal)}</OS.GrandTotalText>
           </OS.FlexRow>
 
-          <OS.StyledButton type="primary" size="middle" onClick={handlePayClick}>
+          <OS.StyledButton type="primary" size="middle" onClick={handlePayClick} disabled={!Number(grandTotal)}>
             {t("order.pay")}
           </OS.StyledButton>
         </OS.Section>

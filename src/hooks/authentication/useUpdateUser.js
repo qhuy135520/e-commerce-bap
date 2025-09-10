@@ -42,7 +42,7 @@ export function useUpdateUser() {
       toast.success(t("updateUser.toast.success"));
       queryClient.setQueryData(["user"], user);
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      navigate("/");
+      // navigate("/");
     },
     onError: () => {
       toast.error(t("updateUser.toast.error"));
