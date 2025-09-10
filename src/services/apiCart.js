@@ -67,3 +67,13 @@ export async function removeFromCartApi(cartId) {
     throw error;
   }
 }
+
+export async function removeAllCartApi(userId) {
+  try {
+    const { error } = await supabase.from("cart").delete().eq("userId", userId);
+
+    if (error) throw error;
+  } catch (error) {
+    throw error;
+  }
+}

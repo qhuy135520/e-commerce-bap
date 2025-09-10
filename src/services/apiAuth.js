@@ -37,6 +37,24 @@ export async function getUserInfo(id) {
   }
 }
 
+export async function incrementVendorBalance(vendorId, amount) {
+  try {
+    const vendorData = await getUserInfo(vendorId);
+    if (!vendorData) throw new Error("Vendor not found");
+
+    const newBalance = (vendorData.moneyBalance || 0) + amount;
+
+    const { data, error } = await supabase.from("userInfo").update({ moneyBalance: newBalance }).eq("userId", vendorId);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    console.error(`Failed to increment balance for vendor ${vendorId}:`, error);
+    throw error;
+  }
+}
+
 export async function login(email, password) {
   try {
     const { data: dataUser, error: errorUser } = await supabase.auth.signInWithPassword({
