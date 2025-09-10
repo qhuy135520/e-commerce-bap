@@ -2,7 +2,7 @@ import { Modal, Rate } from "antd";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import * as RMS from "@/components/ui/orderHistory/OrderHistoryTable.styled";
+import { OrderHistoryTableStyled as OHTS } from "@/components";
 
 export default function ReviewModal({ visible, onCancel, onSubmit, product, loading }) {
   const { t } = useTranslation("order");
@@ -22,15 +22,15 @@ export default function ReviewModal({ visible, onCancel, onSubmit, product, load
       title={t("order.review.title", { name: product?.name || "" })}
     >
       <Rate value={rating} onChange={setRating} />
-      <RMS.TextArea
+      <OHTS.TextArea
         rows={4}
         placeholder={t("order.review.placeholder")}
         value={comment}
         onChange={(e) => setComment(e.target.value)}
       />
-      <RMS.SubmitButton type="primary" onClick={handleOk} loading={loading}>
+      <OHTS.SubmitButton type="primary" onClick={handleOk} loading={loading}>
         {t("order.review.submit")}
-      </RMS.SubmitButton>
+      </OHTS.SubmitButton>
     </Modal>
   );
 }

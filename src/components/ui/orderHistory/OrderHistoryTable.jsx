@@ -1,22 +1,18 @@
 import { Button } from "antd";
 import { formatDate } from "date-fns";
 
-import { Loading } from "@/components/common";
-import ReviewModal from "@/components/ui/orderHistory/ReviewModal";
-import { OrderVendor } from "@/components/ui/orderHistory";
-
 import useOrderHistory from "@/hooks/order/useOrderHistory";
 import useReview from "@/hooks/order/useReview";
 
-import { formatCurrency } from "@/utils/helpers";
+import { OrderHistoryTableStyled as OHTS, EmptyCommon, OrderVendor, Loading } from "@/components";
 
-import * as OHTS from "@/components/ui/orderHistory/OrderHistoryTable.styled";
+import { formatCurrency } from "@/utils/helpers";
 
 export default function OrderHistoryTable() {
   const { orders, isLoading } = useOrderHistory();
-  const { isModalOpen, selectedProduct, openReviewModal, closeReviewModal, handleSubmitReview, loading, t } =
-    useReview();
+  const { t } = useReview();
 
+  if (!orders.length) return <EmptyCommon link="/" description="Chưa có đơn hàng nào" />;
   return (
     <Loading isLoading={isLoading}>
       {orders.map((order, index) => (
@@ -27,22 +23,9 @@ export default function OrderHistoryTable() {
             </OHTS.StatusOrder>
             <p>{formatDate(order.ordercreatedat, "dd/MM/yyyy")}</p>
           </OHTS.OrderTitleHeader>
-
-          {order.productsbyvendor.map((vendor, vIdx) => (
-            <OHTS.VendorWrapper key={vIdx}>
-              {vendor.products.map((pro, pIdx) => (
-                <OHTS.ProductRow key={pIdx}>
-                  <OrderVendor productByVendor={order.productsbyvendor} />
-                  <Button size="middle" onClick={() => openReviewModal(pro)} disabled={pro.isReviewed}>
-                    {pro.isReviewed ? t("order.review.reviewed") : t("order.review.review")}
-                  </Button>
-                </OHTS.ProductRow>
-              ))}
-            </OHTS.VendorWrapper>
-          ))}
-
           <hr />
-
+          <OrderVendor productByVendor={order.productsbyvendor} />
+          <hr />
           <OHTS.ActionButton>
             <p>
               {t("order.totalPrice")}: <OHTS.PriceTotal>{formatCurrency(order.totalorder)}</OHTS.PriceTotal>
@@ -53,14 +36,6 @@ export default function OrderHistoryTable() {
           </OHTS.ActionButton>
         </OHTS.OrderWrapper>
       ))}
-
-      <ReviewModal
-        visible={isModalOpen}
-        onCancel={closeReviewModal}
-        onSubmit={handleSubmitReview}
-        product={selectedProduct}
-        loading={loading}
-      />
     </Loading>
   );
 }
