@@ -6,13 +6,15 @@ import { OrderStyled as OS } from "@/components/ui/order";
 import useOrder from "@/hooks/order/useOrder";
 
 import { formatCurrency } from "@/utils/helpers";
+import { Formik } from "formik";
+import useCart from "@/hooks/cart/useCart";
 
 const { Text } = Typography;
 
-export default function OrderItem({ order, t }) {
+export default function OrderItem({ order, t, onMountSubmitRef }) {
   const { getOrderTotals } = useOrder();
   const { totalProducts, finalTotal } = getOrderTotals(order);
-
+  const { handleUpdateCartSelect } = useCart();
   return (
     <OS.Section>
       <OS.FlexRow>
@@ -20,9 +22,27 @@ export default function OrderItem({ order, t }) {
       </OS.FlexRow>
       <Divider />
 
-      {order.products.map((p) => (
-        <OrderProductCard key={p.id} product={p} />
-      ))}
+      <Formik
+        enableReinitialize
+        initialValues={order.products.reduce((acc, p) => {
+          return { ...acc, [p.cartId]: p.quantity };
+        }, {})}
+        onSubmit={(values) => handleUpdateCartSelect({ values, type: "cancelOrder" })}
+      >
+        {({ submitForm }) => {
+          if (onMountSubmitRef) {
+            onMountSubmitRef(submitForm);
+          }
+
+          return (
+            <>
+              {order.products.map((p) => (
+                <OrderProductCard key={p.id} product={p} />
+              ))}
+            </>
+          );
+        }}
+      </Formik>
 
       <Divider />
       {/* <OS.FlexRow>

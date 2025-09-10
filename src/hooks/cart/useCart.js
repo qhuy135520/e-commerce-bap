@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import { useUser } from "@/hooks/authentication/useUser";
 import { cartSlice } from "@/stores/rootReducer";
@@ -10,6 +11,7 @@ import { cartThunk } from "@/stores/rootThunk";
 
 export default function useCart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useUser();
 
   const { t } = useTranslation(["cart"]);
@@ -17,9 +19,10 @@ export default function useCart() {
 
   const status = useSelector(cartSelector.selectCartStatus);
   const cart = useSelector(cartSelector.selectCartItems);
+  const cartSelect = cart.filter((item) => item.isSelect);
   const error = useSelector(cartSelector.selectCartError);
 
-  const isLoading = status === "idle" || status === "loading";
+  const isLoading = status === "idle";
 
   const cartTableData = cart.map((item) => ({
     key: item.id,
@@ -75,23 +78,36 @@ export default function useCart() {
     }
   }
 
-  async function handleSubmit({ values, type }) {
+  async function handleUpdateCartSelect({ values, type }) {
+    const allItems = Object.entries(values).map(([cartId, quantity]) => ({
+      cartId,
+      quantity,
+    }));
+
     switch (type) {
       case "updateQuantity":
-        const allItems = Object.entries(values).map(([cartId, quantity]) => ({
-          cartId,
-          quantity,
-        }));
-
         dispatch(cartThunk.updateQuantity({ items: allItems, userId: user.id }));
         break;
       case "buy":
-        const selectedBuyItems = Object.entries(values)
-          .filter(([cartId]) => selectedRowKeys.includes(cartId))
-          .map(([cartId, quantity]) => ({
-            cartId,
-            quantity,
+        const result = allItems
+          .filter((item) => selectedItems.some((p) => p.key === item.cartId))
+          .map((item) => ({
+            id: item.cartId,
+            quantity: item.quantity,
+            isSelect: true,
           }));
+        await dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
+        navigate("/order-detail");
+        break;
+      case "cancelOrder":
+        const cancelItems = allItems.map((item) => ({
+          id: item.cartId,
+          quantity: item.quantity,
+          isSelect: false,
+        }));
+        console.log(values);
+
+        await dispatch(cartThunk.updateQuantityAndSelect({ items: cancelItems, userId: user.id }));
         break;
     }
   }
@@ -108,6 +124,7 @@ export default function useCart() {
     dispatch,
     status,
     cart,
+    cartSelect,
     initialValues,
     selectedRowKeys,
     setSelectedRowKeys,
@@ -121,7 +138,7 @@ export default function useCart() {
     handleAddProductToCart,
     handleDeleteCartItem,
     handleResetCart,
-    handleSubmit,
+    handleUpdateCartSelect,
     t,
   };
 }

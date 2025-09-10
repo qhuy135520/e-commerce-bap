@@ -1,6 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchCart, addToCart, updateQuantity, removeFromCart } from "@/stores/cart/cart.thunks";
+import {
+  fetchCart,
+  addToCart,
+  updateQuantity,
+  removeFromCart,
+  updateQuantityAndSelect,
+} from "@/stores/cart/cart.thunks";
 
 const initialState = {
   items: [],
@@ -46,6 +52,16 @@ const cartSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(updateQuantity.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+      .addCase(updateQuantityAndSelect.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateQuantityAndSelect.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(updateQuantityAndSelect.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       })

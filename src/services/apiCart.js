@@ -41,6 +41,21 @@ export async function updateQuantityProductApi({ cartId, quantity }) {
   }
 }
 
+export async function updateQuantityAndSelectProductApi({ cartId, quantity, isSelect }) {
+  try {
+    const { data, error } = await supabase
+      .from("cart")
+      .update({ quantity, updatedAt: new Date().toISOString(), isSelect })
+      .eq("id", cartId);
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function removeFromCartApi(cartId) {
   try {
     const { error } = await supabase.from("cart").delete().eq("id", cartId);

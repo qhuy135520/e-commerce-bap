@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Typography, Button, Modal, Alert } from "antd";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
@@ -32,8 +33,28 @@ export default function OrderDetail() {
     vnpayBalance,
     isInsufficientBalance,
     handleCancel,
+
     isLoading,
   } = useOrder();
+
+  const submitRefs = useRef([]);
+
+  useEffect(() => {
+    const handleUnload = () => {
+      submitRefs.current.forEach((submitForm) => {
+        if (submitForm) submitForm();
+      });
+    };
+
+    window.addEventListener("beforeunload", handleUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleUnload);
+      submitRefs.current.forEach((submitForm) => {
+        if (submitForm) submitForm();
+      });
+    };
+  }, []);
 
   const { addressDefault, isLoading: isLoadingAddress } = useAddress();
 
@@ -68,13 +89,20 @@ export default function OrderDetail() {
         </OS.Section>
 
         {orders.map((order, idx) => (
-          <OrderItem key={idx} order={order} t={t} />
+          <OrderItem
+            key={idx}
+            order={order}
+            t={t}
+            onMountSubmitRef={(submitForm) => {
+              submitRefs.current[idx] = submitForm;
+            }}
+          />
         ))}
 
         <OS.Section>
           <OS.FlexRow>
             <Text strong>{t("order.grandTotal")}:</Text>
-            <OS.GrandTotalText>{grandTotal.toLocaleString()}₫</OS.GrandTotalText>
+            <OS.GrandTotalText>{formatCurrency(grandTotal)}</OS.GrandTotalText>
           </OS.FlexRow>
 
           <OS.StyledButton type="primary" size="middle" onClick={handlePayClick}>

@@ -23,7 +23,7 @@ export default function CartTable({ onMountSubmitRef }) {
     cart,
     error,
     isLoading,
-    handleSubmit,
+    handleUpdateCartSelect,
     t,
   } = useCart();
 
@@ -81,7 +81,7 @@ export default function CartTable({ onMountSubmitRef }) {
         <Formik
           enableReinitialize
           initialValues={initialValues}
-          onSubmit={(values) => handleSubmit({ values, type: "updateQuantity" })}
+          onSubmit={(values) => handleUpdateCartSelect({ values, type: "updateQuantity" })}
         >
           {({ submitForm, values }) => {
             if (onMountSubmitRef) {
@@ -115,7 +115,10 @@ export default function CartTable({ onMountSubmitRef }) {
                     <CTS.ButtonCart onClick={handleResetCart} disabled={!cart.length}>
                       {t("cart.resetCart")}
                     </CTS.ButtonCart>
-                    <CTS.ButtonCart onClick={() => handleSubmit({ values, type: "buy" })} disabled={!totalQuantity}>
+                    <CTS.ButtonCart
+                      onClick={() => handleUpdateCartSelect({ values, type: "buy" })}
+                      disabled={!totalQuantity}
+                    >
                       {t("cart.buy")}
                     </CTS.ButtonCart>
                   </CTS.ButtonWrapper>
