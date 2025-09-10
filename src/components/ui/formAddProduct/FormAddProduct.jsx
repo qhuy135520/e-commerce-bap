@@ -28,7 +28,12 @@ export default function FormAddProduct({
         },
       }}
     >
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+        enableReinitialize
+      >
         {({ values, setFieldValue }) => (
           <Form layout="vertical">
             <Form.Item label="Tên sản phẩm" name="name">
@@ -67,15 +72,12 @@ export default function FormAddProduct({
             <Form.Item label="Giá" name="price">
               <Input type="number" name="price" placeholder="Nhập giá..." />
             </Form.Item>
-
             <Form.Item label="Số lượng" name="stock">
               <Input type="number" name="stock" placeholder="Nhập số lượng..." />
             </Form.Item>
-
             <Form.Item label="Mô tả" name="description">
               <Input name="description" placeholder="Nhập mô tả..." />
             </Form.Item>
-
             <Form.Item label="Thông số" name="param">
               <Input type="text" name="param" placeholder="Nhập thông số..." />
             </Form.Item>
@@ -86,13 +88,14 @@ export default function FormAddProduct({
                   {fileList.length < 5 && "+ Upload"}
                 </Upload>
               </ImgCrop>
+
               {fileList.length > 0 && (
                 <FAPS.ChooseImage>
                   <span>Chọn ảnh chính:</span>
                   {fileList.map((file, idx) => (
                     <FAPS.OptionImage key={file.uid}>
                       <Input type="radio" checked={primaryIndex === idx} onChange={() => setPrimaryIndex(idx)} />
-                      {file.name}
+                      {file.name || file.url}
                     </FAPS.OptionImage>
                   ))}
                 </FAPS.ChooseImage>
