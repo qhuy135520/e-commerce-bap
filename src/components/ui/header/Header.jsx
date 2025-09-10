@@ -13,6 +13,7 @@ import { useHeader } from "@/hooks/header/useHeader";
 import useCart from "@/hooks/cart/useCart";
 
 import logo from "@/assets/images/logo.png";
+import { formatCurrency } from "@/utils/helpers";
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick, handleNavigateToHome, handleNavigateToCart } = useHeader();
@@ -119,7 +120,7 @@ export default function Header() {
                       <HeaderStyled.ContentPopover>
                         <NavLink to="update-user">{t("header.profile")}</NavLink>
                         <NavLink to={`order-history/${user.id}`}>{t("header.order")}</NavLink>
-                        <NavLink to="deposit">0 VNĐ</NavLink>
+                        <NavLink to="deposit">{formatCurrency(user.moneyBalance)}</NavLink>
                         <hr />
                         <NavLink onClick={() => logout()}>{t("header.logout")}</NavLink>
                       </HeaderStyled.ContentPopover>

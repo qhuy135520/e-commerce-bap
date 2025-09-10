@@ -31,3 +31,5 @@ export function formatFullAddress({ detail, ward, district, province }) {
     `${province || ""}`
   ).replace(REPLACE_ADDRESS, "");
 }
+export const formatNumberCurrency = (value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+export const parseNumberCurrency = (value) => value.replace(/\$\s?|(,*)/g, "");
