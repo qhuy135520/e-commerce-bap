@@ -10,7 +10,7 @@ export * from "@/components/ui/reviewProduct";
 export * from "@/components/ui/order";
 export * from "@/components/ui/orderHistory";
 export * from "@/components/ui/mainNavVendor";
-// export * from "@/components/ui/mainNavAdmin";
+export * from "@/components/ui/mainNavAdmin";
 export * from "@/components/ui/sidebar";
 export * from "@/components/ui/vendorManagerProduct";
 export * from "@/components/ui/deposit";
