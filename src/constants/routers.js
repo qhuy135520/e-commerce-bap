@@ -29,9 +29,9 @@ export const PRIVATE_ROUTER_PATH = {
   ORDER_DETAIL: { KEY: "ORDER_DETAIL", PATH: "/order-detail" },
   ORDER_HISTORY: { KEY: "ORDER_HISTORY", PATH: "/order-history/:id" },
   VENDOR_DASHBOARD: { KEY: "VENDOR_DASHBOARD", PATH: "/vendor-dashboard" },
-  VENDOR_MANAGER_PRODUCT: { KEY: "VENDOR_MANAGER_PRODUCT", PATH: "/vendor-dashboard/products" },
-  VENDOR_MANAGER_ORDER: { KEY: "VENDOR_MANAGER_ORDER", PATH: "/vendor-dashboard/orders" },
-  VENDOR_MANAGER_TRANSACTION: { KEY: "VENDOR_MANAGER_TRANSACTION", PATH: "/vendor-dashboard/transaction" },
+  VENDOR_MANAGER_PRODUCT: { KEY: "VENDOR_MANAGER_PRODUCT", PATH: "products" },
+  VENDOR_MANAGER_ORDER: { KEY: "VENDOR_MANAGER_ORDER", PATH: "orders" },
+  VENDOR_MANAGER_TRANSACTION: { KEY: "VENDOR_MANAGER_TRANSACTION", PATH: "transaction" },
   ADMIN_DASHBOARD: { KEY: "ADMIN_DASHBOARD", PATH: "/admin-dashboard" },
 };
 

@@ -108,10 +108,12 @@ const PrivateRoutes = (
       }
     >
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_VENDOR]} />}>
-        <Route element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
-        <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
-        <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
-        <Route path={ROUTER_PATH.VENDOR_MANAGER_TRANSACTION.PATH} element={<VendorManagerTransactionPage />} />
+        <Route path={ROUTER_PATH.VENDOR_DASHBOARD.PATH}>
+          <Route index element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
+          <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
+          <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
+          <Route path={ROUTER_PATH.VENDOR_MANAGER_TRANSACTION.PATH} element={<VendorManagerTransactionPage />} />
+        </Route>
       </Route>
 
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>

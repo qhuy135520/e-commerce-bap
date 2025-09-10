@@ -4,5 +4,16 @@ import * as cartSelector from "@/stores/cart/cart.selectors";
 import * as ordersSelector from "@/stores/order/orders.selector";
 import * as addressSelector from "@/stores/address/address.selectors";
 import * as depositSelector from "@/stores/deposit/deposit.selector";
+import * as brandSelector from "@/stores/brand/brand.selector";
+import * as categorySelector from "@/stores/category/category.selector";
 
-export { productsSelector, cartSelector, reviewsSelector, ordersSelector, addressSelector, depositSelector };
+export {
+  productsSelector,
+  cartSelector,
+  reviewsSelector,
+  ordersSelector,
+  addressSelector,
+  depositSelector,
+  brandSelector,
+  categorySelector,
+};

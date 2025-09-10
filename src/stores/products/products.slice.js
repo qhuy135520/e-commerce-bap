@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllProducts, getProduct, fetchProductsByVendor } from "@/stores/products/products.thunks";
+import { fetchAllProducts, getProduct, fetchProductsByVendor, createProductVendor } from "@/stores/products/products.thunks";
 
 const productSlice = createSlice({
   name: "products",
@@ -59,6 +59,20 @@ const productSlice = createSlice({
       .addCase(fetchProductsByVendor.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
+      })
+
+      //CREATE PRODUCT
+      .addCase(createProductVendor.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(createProductVendor.fulfilled, (state) => {
+        state.status = "succeeded";
+        
+      })
+      .addCase(createProductVendor.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
       });
   },
 });

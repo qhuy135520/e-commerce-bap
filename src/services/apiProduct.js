@@ -35,3 +35,34 @@ export async function getProductsByVendorApi(vendorId) {
     throw error;
   }
 }
+
+export async function createProductVendorApi(vendorId, data) {
+  try {
+    const { data: dataCreate, error } = await supabase
+      .from("product")
+      .insert([{ ...data, vendorId }])
+      .select()
+      .single();
+
+    if (error) throw error;
+
+    console.log("api", dataCreate);
+    return dataCreate;
+  } catch (error) {
+    console.error("Lỗi khi tạo product:", error.message);
+    throw error;
+  }
+}
+
+
+
+export async function apiCreateProductImages(imagesData) {
+  try {
+    const { data, error } = await supabase.from("productImage").insert(imagesData).select();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    console.error("Error creating product images:", error);
+    throw error;
+  }
+}
