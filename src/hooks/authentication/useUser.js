@@ -10,6 +10,7 @@ export function useUser() {
     queryKey: ["user"],
     queryFn: () => getCurrentUser(),
     staleTime: 0,
+    refetchOnMount: "always",
   });
 
   return { isPending, user, refetch };
