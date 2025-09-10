@@ -61,6 +61,18 @@ const AdminDashboardPage = React.lazy(() =>
   }))
 );
 
+const DepositPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.DepositPage,
+  }))
+);
+
+const DepositResultPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.DepositResultPage,
+  }))
+);
+
 const PrivateRoutes = (
   <>
     <Route
@@ -84,6 +96,8 @@ const PrivateRoutes = (
         <Route path={ROUTER_PATH.CART.PATH} element={<CartPage />} />
         <Route path={ROUTER_PATH.ORDER_DETAIL.PATH} element={<OrderDetailPage />} />
         <Route path={ROUTER_PATH.ORDER_HISTORY.PATH} element={<OrderHistoryPage />} />
+        <Route path={ROUTER_PATH.DEPOSIT.PATH} element={<DepositPage />} />
+        <Route path={ROUTER_PATH.DEPOSIT_RESULT_PAGE.PATH} element={<DepositResultPage />} />
       </Route>
     </Route>
     <Route
