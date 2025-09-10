@@ -1,6 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { addToCartApi, fetchUserCartApi, removeFromCartApi, updateQuantityProductApi } from "@/services/apiCart";
+import {
+  addToCartApi,
+  fetchUserCartApi,
+  removeFromCartApi,
+  updateQuantityAndSelectProductApi,
+  updateQuantityProductApi,
+} from "@/services/apiCart";
 
 export const fetchCart = createAsyncThunk("cart/fetchCart", async (userId) => {
   try {
@@ -33,12 +39,23 @@ export const addToCart = createAsyncThunk(
   }
 );
 
-export const updateQuantity = createAsyncThunk(
-  "cart/updateQuantity",
-  async ({ items, userId }, { dispatch, getState }) => {
+export const updateQuantity = createAsyncThunk("cart/updateQuantity", async ({ items, userId }, { dispatch }) => {
+  try {
+    await Promise.all(items.map((item) => updateQuantityProductApi({ cartId: item.cartId, quantity: item.quantity })));
+    await dispatch(fetchCart(userId));
+  } catch (error) {
+    return error;
+  }
+});
+
+export const updateQuantityAndSelect = createAsyncThunk(
+  "cart/updateQuantityAndSelect",
+  async ({ items, userId }, { dispatch }) => {
     try {
       await Promise.all(
-        items.map((item) => updateQuantityProductApi({ cartId: item.cartId, quantity: item.quantity }))
+        items.map((item) =>
+          updateQuantityAndSelectProductApi({ cartId: item.id, quantity: item.quantity, isSelect: item.isSelect })
+        )
       );
       await dispatch(fetchCart(userId));
     } catch (error) {

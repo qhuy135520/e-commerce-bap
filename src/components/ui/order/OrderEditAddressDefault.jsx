@@ -17,6 +17,7 @@ export default function OrderEditAddressDefault({ onCancel }) {
     setOpenModal,
     editingAddress,
     handleOpenModal,
+    handleUpdateAddress,
   } = useAddress();
 
   const initialValues = {

@@ -14,16 +14,15 @@ export default function useOrder() {
   const [isEditting, setisEditting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cod");
-
-  const { cart, status: statusCart } = useCart();
-
-  const isLoading = ["loading", "idle"].includes(statusCart);
-
   const { t } = useTranslation(["order"]);
   const navigate = useNavigate();
 
+  const { cartSelect, status: statusCart } = useCart();
+
+  const isLoading = ["loading", "idle"].includes(statusCart);
+
   const orders = Object.values(
-    cart.reduce((acc, item) => {
+    cartSelect.reduce((acc, item) => {
       if (!acc[item.vendorId]) {
         acc[item.vendorId] = {
           shop: { name: item.vendorName },
@@ -35,6 +34,7 @@ export default function useOrder() {
 
       acc[item.vendorId].products.push({
         id: item.productId,
+        cartId: item.id,
         name: item.productName,
         price: item.productPrice,
         quantity: item.quantity,
