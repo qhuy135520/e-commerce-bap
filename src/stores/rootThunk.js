@@ -6,5 +6,16 @@ import * as addressThunk from "@/stores/address/address.thunks";
 import * as depotsitThunk from "@/stores/deposit/deposit.thunk";
 import * as brandThunk from "@/stores/brand/brand.thunks";
 import * as categoryThunk from "@/stores/category/category.thunks";
+import * as userThunk from "@/stores/user/users.thunks";
 
-export { productsThunk, cartThunk, reviewsThunk, ordersThunk, addressThunk, depotsitThunk, brandThunk, categoryThunk };
+export {
+  productsThunk,
+  cartThunk,
+  reviewsThunk,
+  ordersThunk,
+  addressThunk,
+  depotsitThunk,
+  brandThunk,
+  categoryThunk,
+  userThunk,
+};

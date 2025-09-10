@@ -1,13 +1,11 @@
 import { Button } from "antd";
 import React from "react";
-
 import { MdContactEmergency } from "react-icons/md";
 import { FaProjectDiagram } from "react-icons/fa";
 import { RiContactsLine } from "react-icons/ri";
-
-import { MainNavAdminStyled as MAS } from "@/components";
-
 import { useLogout } from "@/hooks/authentication/useLogout";
+
+import { MainNavAdminStyled as MAS } from "@/components/ui/mainNavAdmin";
 
 export default function MainNavAdmin() {
   const { logout } = useLogout();
@@ -17,20 +15,21 @@ export default function MainNavAdmin() {
       <MAS.NavList>
         <strong> Main Menu Admin</strong>
         <li>
-          <MAS.StyledNavLink to="/dashboard/about">
-            <MdContactEmergency /> About
+          <MAS.StyledNavLink to="/admin-dashboard/users">
+            <RiContactsLine /> Quản lí users
           </MAS.StyledNavLink>
         </li>
         <li>
-          <MAS.StyledNavLink to="/dashboard/projects">
-            <FaProjectDiagram /> Projects
+          <MAS.StyledNavLink to="/admin-dashboard/products">
+            <MdContactEmergency /> Quản lí sản phẩm
           </MAS.StyledNavLink>
         </li>
         <li>
-          <MAS.StyledNavLink to="/dashboard/contact">
-            <RiContactsLine /> Contact
+          <MAS.StyledNavLink to="/dashboard/statistics">
+            <FaProjectDiagram /> Thống kê
           </MAS.StyledNavLink>
         </li>
+
         <strong> Settings</strong>
         <li>
           <Button block onClick={() => logout()}>

@@ -72,6 +72,11 @@ const DepositResultPage = React.lazy(() =>
     default: module.DepositResultPage,
   }))
 );
+const AdminManagerUserPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/AdminManagerUserPage").then((module) => ({
+    default: module.default,
+  }))
+);
 
 const PrivateRoutes = (
   <>
@@ -118,6 +123,7 @@ const PrivateRoutes = (
 
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>
         <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH} element={<AdminDashboardPage />} />
+        <Route path={ROUTER_PATH.ADMIN_MANAGER_USER.PATH} element={<AdminManagerUserPage />} />
       </Route>
     </Route>
   </>
