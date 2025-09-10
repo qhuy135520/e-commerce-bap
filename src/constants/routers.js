@@ -34,6 +34,7 @@ export const PRIVATE_ROUTER_PATH = {
   VENDOR_MANAGER_TRANSACTION: { KEY: "VENDOR_MANAGER_TRANSACTION", PATH: "transaction" },
   ADMIN_DASHBOARD: { KEY: "ADMIN_DASHBOARD", PATH: "/admin-dashboard" },
   ADMIN_MANAGER_USER: { KEY: "ADMIN_MANAGER_USER", PATH: "/admin-dashboard/users" },
+  ADMIN_PAYMENT_HISTORY: { KEY: "ADMIN_PAYMENT_HISTORY", PATH: "/admin-dashboard/payment-history" },
 };
 
 export const ROUTER_PATH = {

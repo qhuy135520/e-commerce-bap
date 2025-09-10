@@ -11,4 +11,5 @@ export { default as VendorManagerProductPage } from "@/pages/privatePages/vendor
 export { default as VendorManagerOrderPage } from "@/pages/privatePages/vendor/VendorManagerOrderPage";
 export { default as VendorManagerTransactionPage } from "@/pages/privatePages/vendor/VendorManagerTransactionPage";
 
+export { default as AdminPaymentHistoryPage } from "@/pages/privatePages/admin/AdminPaymentHistoryPage";
 export { default as AdminDashboardPage } from "@/pages/privatePages/admin/AdminDashboardPage";
