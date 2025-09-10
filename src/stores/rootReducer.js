@@ -7,6 +7,4 @@ import * as depositSlice from "@/stores/deposit/deposit.slice";
 import * as brandSlice from "@/stores/brand/brand.slice";
 import * as categorySlice from "@/stores/category/category.slice";
 
-export { productsSlice, reviewsSlice, cartSlice, ordersSlice, addressSlice, depositSlice };
-
 export { productsSlice, reviewsSlice, cartSlice, ordersSlice, addressSlice, depositSlice, brandSlice, categorySlice };
