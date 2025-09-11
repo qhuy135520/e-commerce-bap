@@ -20,6 +20,7 @@ const { Text } = Typography;
 
 export default function OrderDetail() {
   const {
+    error,
     isEditting,
     handleSetEditting,
     orders,
@@ -59,7 +60,7 @@ export default function OrderDetail() {
   const { addressDefault, isLoading: isLoadingAddress } = useAddress();
 
   return (
-    <Loading isLoading={isLoading || isLoadingAddress}>
+    <Loading isLoading={isLoading || isLoadingAddress} error={error}>
       <OS.Wrapper>
         <OS.Section>
           <OS.FlexRow>

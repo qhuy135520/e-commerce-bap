@@ -34,11 +34,11 @@ export function useProductDetail(id) {
   }, [id, dispatch]);
 
   function handleIncrease() {
-    setQuantity(Math.min(10, quantity + 1));
+    setQuantity(() => quantity + 1);
   }
 
   function handleDecrease() {
-    setQuantity(Math.max(1, quantity - 1));
+    setQuantity(() => quantity - 1);
   }
 
   return {

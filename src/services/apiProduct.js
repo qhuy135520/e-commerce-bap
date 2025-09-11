@@ -33,6 +33,19 @@ export async function getProductDetailApi(id) {
   }
 }
 
+export async function updateProductDetailApi(id, newDataUpdate) {
+  try {
+    const { data, error } = await supabase
+      .from("product")
+      .update([{ ...newDataUpdate }])
+      .eq("id", id);
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createProductVendorApi(vendorId, data) {
   try {
     const { data: dataCreate, error } = await supabase

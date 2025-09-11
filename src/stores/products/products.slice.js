@@ -6,6 +6,7 @@ import {
   createProductVendor,
   updateProductVendor,
   getAllProducts,
+  updateStockProduct,
 } from "@/stores/products/products.thunks";
 
 const productSlice = createSlice({
@@ -79,7 +80,18 @@ const productSlice = createSlice({
       })
       .addCase(createProductVendor.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error;
+      })
+      .addCase(updateStockProduct.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateStockProduct.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(updateStockProduct.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
       })
 
       //UPDATE PRODUCT VENDOR
@@ -92,7 +104,7 @@ const productSlice = createSlice({
       })
       .addCase(updateProductVendor.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error;
       })
       .addCase(getAllProducts.pending, (state) => {
         state.status = "loading";
@@ -104,7 +116,7 @@ const productSlice = createSlice({
       })
       .addCase(getAllProducts.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error;
       });
   },
 });

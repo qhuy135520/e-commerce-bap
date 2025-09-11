@@ -50,9 +50,13 @@ export default function ProductInfo({
         <PIS.Quantity>
           <span> Số lượng:</span>
           <Space>
-            <Button onClick={onDecrease}>-</Button>
-            <InputNumber min={1} max={10} value={quantity} onChange={onQuantity} controls={false} />
-            <Button onClick={onIncrease}>+</Button>
+            <Button onClick={onDecrease} disabled={quantity <= 1}>
+              -
+            </Button>
+            <InputNumber min={1} max={productDetail.stock} value={quantity} onChange={onQuantity} controls={false} />
+            <Button onClick={onIncrease} disabled={quantity >= productDetail.stock}>
+              +
+            </Button>
           </Space>
         </PIS.Quantity>
         <PIS.Button>

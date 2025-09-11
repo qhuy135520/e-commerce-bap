@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createOrderApi, fetchOrderApi } from "@/services/apiOrder";
 import { incrementVendorBalance } from "@/services/apiAuth";
+import { productsThunk } from "@/stores/rootThunk";
 
 export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (userId) => {
   try {
@@ -17,7 +18,8 @@ export const createOrder = createAsyncThunk("orders/createOrder", async ({ userI
     await Promise.all(
       cartItems.map((item) => {
         const vendorEarnings = item.productPrice * 0.85 * item.quantity;
-        return incrementVendorBalance(item.vendorId, vendorEarnings);
+        incrementVendorBalance(item.vendorId, vendorEarnings);
+        dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
       })
     );
 
