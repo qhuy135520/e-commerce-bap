@@ -6,6 +6,7 @@ export const selectError = (state) => state.products.error;
 export const selectSearchTerm = (state) => state.products.searchTerm;
 export const selectProductById = (state) => state.products.product;
 export const selectProductsVendor = (state) => state.products.productsVendor;
+export const selectAllProducts = (state) => state.products.allProducts;
 
 export const selectFilteredProducts = createSelector([selectProducts, selectSearchTerm], (products, searchTerm) => {
   if (!searchTerm) return products;
