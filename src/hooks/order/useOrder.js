@@ -14,6 +14,8 @@ import { cartThunk, ordersThunk, productsThunk } from "@/stores/rootThunk";
 import { cartSelector, ordersSelector, productsSelector } from "@/stores/rootSelector";
 
 import i18n from "@/configs/i18n/i18n";
+import { convertCartToTemplateParams } from "@/utils/helpers";
+import { sendEmail } from "@/services/apiEmail";
 
 export default function useOrder() {
   const dispatch = useDispatch();

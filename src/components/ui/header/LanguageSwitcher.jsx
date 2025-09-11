@@ -52,7 +52,7 @@ export default function LanguageSwitcher() {
           </OptionContent>
         </Option>
         <Option value="vi">
-          <OptionContent>
+          <OptionContent style={{ display: "flex", gap: "11px" }}>
             <span>VI</span>
             <img src={VIFlag} alt="VI" />
           </OptionContent>

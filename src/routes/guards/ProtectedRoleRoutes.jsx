@@ -18,7 +18,7 @@ export function ProtectedRoleRoutes({ allowedRoles }) {
   }, [user, isPending, navigate, allowedRoles]);
 
   return (
-    <Loading isLoading={isPending || !isAllowed}>
+    <Loading isLoading={isPending || !isAllowed || !user}>
       <Outlet />
     </Loading>
   );
