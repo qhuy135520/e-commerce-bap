@@ -35,6 +35,7 @@ export const createOrder = createAsyncThunk(
           dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
         })
       );
+      console.log(data);
 
       await sendEmail(
         convertOrderToEmailPayload({ ...data, customerInfo }),

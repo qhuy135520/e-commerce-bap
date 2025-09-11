@@ -90,7 +90,7 @@ export default function CartTable({ onMountSubmitRef }) {
                     ),
                 },
               ],
-              [i18n.language, values]
+              [t, values]
             );
 
             return (
