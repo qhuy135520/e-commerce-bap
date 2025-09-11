@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { Typography, Alert, Button } from "antd";
-import { useDepositResult } from "@/hooks/deposit/useDepositResult";
+import { Typography, Button, Divider } from "antd";
 import { DepositResultFormStyled as DRFS } from "@/components";
 import LoadingDeposit from "@/components/common/LoadingDeposit";
+import { useDepositResult } from "@/hooks/deposit/useDepositResult";
 import { useUser } from "@/hooks/authentication/useUser";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 const { Text } = Typography;
 
@@ -13,32 +14,42 @@ const DepositResultPage = () => {
   const { refetch } = useUser();
 
   useEffect(() => {
-    if (transactionStatus === "success") {
-      refetch();
-    }
+    if (transactionStatus === "success") refetch();
   }, [transactionStatus, refetch]);
+
+  const isSuccess = transactionStatus === "success";
 
   return (
     <LoadingDeposit isLoading={loading}>
       <DRFS.StyledContainer>
-        <DRFS.StyledCard>
-          <DRFS.StyledTitle level={2} $transactionStatus={transactionStatus}>
-            {transactionStatus === "success" ? "🎉 Thành Công" : "❌ Thất Bại"}
-          </DRFS.StyledTitle>
+        <DRFS.StyledCard $status={transactionStatus}>
+          <DRFS.StyledHeader $status={transactionStatus}>
+            {isSuccess ? (
+              <>
+                <FaCheckCircle color="#52c41a" size={60} />
+                <DRFS.StyledTitle level={2}>🎉 Nạp tiền thành công!</DRFS.StyledTitle>
+              </>
+            ) : (
+              <>
+                <FaTimesCircle color="#ff4d4f" size={60} />
+                <DRFS.StyledTitle level={2}>❌ Nạp tiền thất bại</DRFS.StyledTitle>
+              </>
+            )}
+          </DRFS.StyledHeader>
 
-          {message && <Alert type={transactionStatus === "success" ? "success" : "error"} message={message} />}
+          {message && <DRFS.StyledMessage $status={transactionStatus}>{message}</DRFS.StyledMessage>}
 
-          <DRFS.StyledTextContainer>
+          <Divider />
+
+          <DRFS.StyledInfo>
             <Text strong>Mã giao dịch: </Text>
             <DRFS.StyledText>{txnRef || "N/A"}</DRFS.StyledText>
             <br />
             <Text strong>Số tiền: </Text>
-            <DRFS.StyledText>{amount ? (parseInt(amount) / 100).toLocaleString("vi-VN") : "N/A"} VND</DRFS.StyledText>
+            <DRFS.StyledText>{amount ? parseInt(amount).toLocaleString("vi-VN") + " VND" : "N/A"}</DRFS.StyledText>
             <br />
             <Text strong>Trạng thái: </Text>
-            <DRFS.StyledText type={transactionStatus === "success" ? "success" : "danger"}>
-              {transactionStatus === "success" ? "Thành công ✅" : "Thất bại ❌"}
-            </DRFS.StyledText>
+            <DRFS.StyledText $status={transactionStatus}>{isSuccess ? "Thành công ✅" : "Thất bại ❌"}</DRFS.StyledText>
             <br />
             {responseCode && (
               <>
@@ -46,13 +57,15 @@ const DepositResultPage = () => {
                 <DRFS.StyledText>{responseCode}</DRFS.StyledText>
               </>
             )}
-          </DRFS.StyledTextContainer>
+          </DRFS.StyledInfo>
 
           <DRFS.StyledButtonContainer>
-            <Button type="primary" onClick={handleBackToDeposit}>
+            <Button type="primary" size="large" onClick={handleBackToDeposit}>
               Nạp thêm tiền
             </Button>
-            <Button onClick={handleGoHome}>Về trang chủ</Button>
+            <Button size="large" onClick={handleGoHome}>
+              Về trang chủ
+            </Button>
           </DRFS.StyledButtonContainer>
         </DRFS.StyledCard>
       </DRFS.StyledContainer>

@@ -5,5 +5,6 @@ export { default as DistrictSelect } from "@/components/common/formAddress/Distr
 export { default as ProvinceSelect } from "@/components/common/formAddress/ProvinceSelect";
 export { default as WardSelect } from "@/components/common/formAddress/WardSelect";
 export { default as EmptyCommon } from "@/components/common/EmptyCommon";
+export { default as InputQuantity } from "@/components/common/InputQuantity";
 
 export * as AddressFormStyled from "@/components/common/formAddress/AddressForm.styled";

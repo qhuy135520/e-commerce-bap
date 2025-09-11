@@ -2,12 +2,11 @@ import { useMemo } from "react";
 import { Button, Space, Table, Avatar } from "antd";
 import { Formik, Form } from "formik";
 
-import { CartTableStyled as CTS, Loading } from "@/components";
+import { CartTableStyled as CTS, InputQuantity, Loading } from "@/components";
 
 import useCart from "@/hooks/cart/useCart";
 
 import { formatCurrency } from "@/utils/helpers";
-import i18n from "@/configs/i18n/i18n";
 import NoImage from "@/assets/images/NoImage/noimage.jpg";
 
 export default function CartTable({ onMountSubmitRef }) {
@@ -64,11 +63,7 @@ export default function CartTable({ onMountSubmitRef }) {
                   title: t("cart.quantity"),
                   dataIndex: "quantity",
                   render: (_, record) =>
-                    record.isVendorRow ? null : (
-                      <Space>
-                        <CTS.InputQuantity name={record.key} min={1} max={record.productStock} />
-                      </Space>
-                    ),
+                    record.isVendorRow ? null : <InputQuantity name={record.key} min={1} max={record.productStock} />,
                 },
                 {
                   title: t("cart.totalPrice"),
@@ -121,6 +116,7 @@ export default function CartTable({ onMountSubmitRef }) {
                       {t("cart.resetCart")}
                     </CTS.ButtonCart>
                     <CTS.ButtonCart
+                      type="primary"
                       onClick={() => handleUpdateCartSelect({ values, type: "buy" })}
                       disabled={!totalQuantity}
                     >
