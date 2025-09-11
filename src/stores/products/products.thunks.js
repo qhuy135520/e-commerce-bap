@@ -5,6 +5,7 @@ import {
   getProductDetailApi,
   getProductsByVendorApi,
   updateProductVendorApi,
+  getAllProductsApi,
 } from "@/services/apiProduct";
 
 export const fetchAllProducts = createAsyncThunk("products/fetchAll", async () => {
@@ -52,3 +53,11 @@ export const updateProductVendor = createAsyncThunk(
     }
   }
 );
+export const getAllProducts = createAsyncThunk("products/getAllProducts", async () => {
+  try {
+    const data = await getAllProductsApi();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+});

@@ -3,6 +3,8 @@ import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Input, Select, In
 import { useUser } from "@/hooks/authentication/useUser";
 import * as AMUS from "@/components/ui/admin/AdminManagerUser.styled";
 import { Formik, Form, ErrorMessage } from "formik";
+import { formatNumberCurrency } from "@/utils/helpers";
+import styled from "styled-components";
 
 const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
   { title: "ID", dataIndex: "id", key: "id", width: "12%", render: (text) => <span>{text?.substring(0, 6)}</span> },
@@ -26,7 +28,7 @@ const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
     key: "moneyBalance",
     width: "15%",
     render: (balance) => (
-      <span style={{ fontWeight: 600, color: "blue" }}>{Number(balance || 0).toLocaleString("vi-VN")} ₫</span>
+      <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(balance || 0))}</span>
     ),
   },
   {
@@ -63,6 +65,15 @@ const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
     ),
   },
 ];
+
+const ErrorMessageStyled = styled(ErrorMessage)`
+  color: red;
+`;
+const FormStyled = styled(Form)`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 
 export default function AdminManagerUserTable({ users, loading }) {
   const {
@@ -108,7 +119,6 @@ export default function AdminManagerUserTable({ users, loading }) {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           onSearch={handleSearch}
-          style={{ width: 300 }}
         />
       </AMUS.ButtonPosition>
 
@@ -117,7 +127,7 @@ export default function AdminManagerUserTable({ users, loading }) {
         columns={columns(handleDeleteConfirm, handleUpdateConfirm)}
         dataSource={filteredUsers}
         loading={loading}
-        pagination={{ pageSize: 10 }}
+        pagination={{ pageSize: 10, showSizeChanger: false }}
       />
 
       {/* Modal xác nhận xóa */}
@@ -135,7 +145,6 @@ export default function AdminManagerUserTable({ users, loading }) {
         </p>
       </Modal>
 
-      {/* Modal cập nhật */}
       <Modal
         title="Cập nhật User"
         open={isUpdateModal}
@@ -155,29 +164,25 @@ export default function AdminManagerUserTable({ users, loading }) {
           onSubmit={handleSubmitUpdate(handleUpdate, setIsUpdateModal)}
         >
           {({ values, handleChange, setFieldValue }) => (
-            <Form id="updateUserForm" style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-              {/* Tên người dùng */}
+            <FormStyled id="updateUserForm">
               <label>Tên người dùng</label>
               <Input name="name" value={values.name} onChange={handleChange} placeholder="Nhập tên người dùng" />
-              <ErrorMessage name="name" component="div" style={{ color: "red", fontSize: 12 }} />
+              <ErrorMessageStyled name="name" component="div" />
 
-              {/* Vai trò */}
               <label>Vai trò</label>
-              <Select value={values.role} onChange={(val) => setFieldValue("role", val)} style={{ width: "100%" }}>
+              <AMUS.SelectFormStyled value={values.role} onChange={(val) => setFieldValue("role", val)}>
                 <Select.Option value="admin">Admin</Select.Option>
                 <Select.Option value="customer">Customer</Select.Option>
-              </Select>
-              <ErrorMessage name="role" component="div" style={{ color: "red", fontSize: 12 }} />
+              </AMUS.SelectFormStyled>
+              <ErrorMessageStyled name="role" component="div" />
 
-              {/* Trạng thái */}
               <label>Trạng thái</label>
-              <Select value={values.status} onChange={(val) => setFieldValue("status", val)} style={{ width: "100%" }}>
+              <AMUS.SelectFormStyled value={values.status} onChange={(val) => setFieldValue("status", val)}>
                 <Select.Option value="active">Active</Select.Option>
                 <Select.Option value="inactive">Inactive</Select.Option>
-              </Select>
-              <ErrorMessage name="status" component="div" style={{ color: "red", fontSize: 12 }} />
+              </AMUS.SelectFormStyled>
+              <ErrorMessageStyled name="status" component="div" />
 
-              {/* Số dư */}
               <label>Số dư (VNĐ)</label>
               <InputNumber
                 min={0}
@@ -185,8 +190,8 @@ export default function AdminManagerUserTable({ users, loading }) {
                 value={values.moneyBalance}
                 onChange={(val) => setFieldValue("moneyBalance", val)}
               />
-              <ErrorMessage name="moneyBalance" component="div" style={{ color: "red", fontSize: 12 }} />
-            </Form>
+              <ErrorMessageStyled name="moneyBalance" component="div" />
+            </FormStyled>
           )}
         </Formik>
       </Modal>

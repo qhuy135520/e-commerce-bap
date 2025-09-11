@@ -75,7 +75,6 @@ export default function VendorManagerProductTable({ products }) {
     {
       title: "Action",
       key: "action",
-      title: "Action",
       render: (record) => (
         <Space size="middle">
           <Button onClick={() => openUpdateModal(record)}>Cập nhật</Button>

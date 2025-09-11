@@ -5,11 +5,13 @@ import {
   fetchProductsByVendor,
   createProductVendor,
   updateProductVendor,
+  getAllProducts,
 } from "@/stores/products/products.thunks";
 
 const productSlice = createSlice({
   name: "products",
   initialState: {
+    allProducts: [],
     products: [],
     product: {
       images: [],
@@ -89,6 +91,18 @@ const productSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(updateProductVendor.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(getAllProducts.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(getAllProducts.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.allProducts = action.payload;
+      })
+      .addCase(getAllProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       });

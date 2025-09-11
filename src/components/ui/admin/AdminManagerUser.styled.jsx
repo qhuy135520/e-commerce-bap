@@ -1,4 +1,4 @@
-import { Flex, Input } from "antd";
+import { Flex, Input, Select, Space } from "antd";
 import styled from "styled-components";
 
 export const FlexHeader = styled(Flex)`
@@ -26,4 +26,17 @@ export const UpdateUserForm = styled.form`
 export const ErrorText = styled.div`
   color: red;
   font-size: 12px;
+`;
+
+export const SpaceStyled = styled(Space)`
+  margin-bottom: 16px;
+  justify-content: flex-end;
+`;
+
+export const SelectStyled = styled(Select)`
+  width: 150px;
+`;
+
+export const SelectFormStyled = styled(Select)`
+  width: 100%;
 `;

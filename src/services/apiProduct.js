@@ -117,3 +117,16 @@ export async function createProductWithImages(vendorId, data) {
     throw error;
   }
 }
+export async function getAllProductsApi() {
+  try {
+    const { data, error } = await supabase.from("product").select("*");
+
+    if (error) throw error;
+    console.log("Fetched products:", data);
+
+    return data;
+  } catch (error) {
+    console.error("Error fetching products:", error.message);
+    throw error;
+  }
+}

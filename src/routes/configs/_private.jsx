@@ -8,6 +8,7 @@ import AuthLayout from "@/layouts/global/AuthLayout";
 import PrivateLayout from "@/layouts/private/PrivateLayout";
 import DashboardLayout from "@/layouts/private/DashboardLayout";
 import { ProtectedRoleRoutes } from "@/routes/guards/ProtectedRoleRoutes";
+import AdminManagerProductPage from "@/pages/privatePages/admin/AdminManagerProductPage";
 
 const UpdatePasswordPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
@@ -127,6 +128,7 @@ const PrivateRoutes = (
           <Route index element={<Navigate to={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} replace />} />
           <Route path={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} element={<AdminPaymentHistoryPage />} />
         </Route>
+        <Route path={ROUTER_PATH.ADMIN_MANAGER_PRODUCT.PATH} element={<AdminManagerProductPage />} />
       </Route>
     </Route>
   </>
