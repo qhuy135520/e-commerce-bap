@@ -9,7 +9,7 @@ import { OrderHistoryTableStyled as OHTS, EmptyCommon, OrderVendor, Loading } fr
 import { formatCurrency } from "@/utils/helpers";
 
 export default function OrderHistoryTable() {
-  const { orders, isLoading, error } = useOrderHistory();
+  const { orders, isLoading, error, handleClickBuyAgain } = useOrderHistory();
   const { t } = useReview();
 
   if (!orders.length && !isLoading) return <EmptyCommon link="/" description="Chưa có đơn hàng nào" />;
@@ -30,7 +30,7 @@ export default function OrderHistoryTable() {
             <p>
               {t("order.totalPrice")}: <OHTS.PriceTotal>{formatCurrency(order.totalorder)}</OHTS.PriceTotal>
             </p>
-            <Button size="large" color="red" variant="solid">
+            <Button size="large" color="red" variant="solid" onClick={() => handleClickBuyAgain(order)}>
               {t("order.buyAgain")}
             </Button>
           </OHTS.ActionButton>
