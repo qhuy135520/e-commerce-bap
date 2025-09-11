@@ -50,6 +50,7 @@ export const Th = styled.th`
   z-index: 1;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-transform: capitalize;
   white-space: nowrap;
 
   &:nth-child(1) {
@@ -66,12 +67,6 @@ export const Th = styled.th`
   }
   &:nth-child(5) {
     width: 100px;
-  }
-  &:nth-child(6) {
-    width: 100px;
-  }
-  &:nth-child(7) {
-    width: 150px;
   }
 `;
 
@@ -99,12 +94,6 @@ export const Td = styled.td`
   &:nth-child(5) {
     width: 100px;
   }
-  &:nth-child(6) {
-    width: 100px;
-  }
-  &:nth-child(7) {
-    width: 150px;
-  }
 `;
 
 export const Summary = styled.div`
@@ -127,4 +116,19 @@ export const Summaries = styled.div`
 
 export const SearchWrapper = styled.div`
   width: 300px;
+  display: flex;
+`;
+export const StatusButton = styled.button`
+  padding: 6px 12px;
+  border: none;
+  text-transform: capitalize;
+  width: 100px;
+  border-radius: 4px;
+  cursor: pointer;
+  background: ${(props) => (props.$active ? "#4096ff" : "#69b1ff")};
+  color: white;
+
+  &:hover {
+    opacity: 0.9;
+  }
 `;

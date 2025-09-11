@@ -9,6 +9,7 @@ import brandReducer from "@/stores/brand/brand.slice";
 import cateogryReducer from "@/stores/category/category.slice";
 import userReducer from "@/stores/user/users.slice";
 import transactionsReducer from "@/stores/transactions/transactions.slice";
+import vendorReducer from "@/stores/vendor/vendor.slice";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     category: cateogryReducer,
     users: userReducer,
     transactions: transactionsReducer,
+    vendor: vendorReducer,
   },
 });
