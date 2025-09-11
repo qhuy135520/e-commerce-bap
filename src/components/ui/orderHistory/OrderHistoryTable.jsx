@@ -24,7 +24,7 @@ export default function OrderHistoryTable() {
             <p>{formatDate(order.ordercreatedat, "dd/MM/yyyy")}</p>
           </OHTS.OrderTitleHeader>
           <hr />
-          <OrderVendor productByVendor={order.productsbyvendor} />
+          <OrderVendor productByVendor={order.productsbyvendor} orderStatus={order.status} />
           <hr />
           <OHTS.ActionButton>
             <p>
