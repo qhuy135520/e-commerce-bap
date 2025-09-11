@@ -1,9 +1,9 @@
-import { Input, Pagination, message } from "antd";
-import { AdminApprovalVendorStyled as AAVS, Loading } from "@/components";
+import { Input, Pagination, Select } from "antd";
 import { useVendorAdmin } from "@/hooks/vendor/useVendorAdmin";
-import { useDispatch } from "react-redux";
+import { AdminApprovalVendorStyled as AAVS, Loading } from "@/components";
 
 const { Search } = Input;
+const { Option } = Select;
 
 function AdminApprovalVendor() {
   const {
@@ -13,9 +13,12 @@ function AdminApprovalVendor() {
     itemsPerPage,
     searchTerm,
     status,
+    error,
     handlePageChange,
     handleSearch,
     handleStatusToggle,
+    statusFilter,
+    handleStatusFilter,
   } = useVendorAdmin(10);
 
   return (
@@ -34,8 +37,19 @@ function AdminApprovalVendor() {
             allowClear
             loading={status === "loading"}
           />
+          <Select
+            value={statusFilter}
+            onChange={handleStatusFilter}
+            style={{ width: 120, marginLeft: 10 }}
+            disabled={status === "loading"}
+          >
+            <Option value="all">All</Option>
+            <Option value="unactive">Active</Option>
+            <Option value="active">Unactive</Option>
+          </Select>
         </AAVS.SearchWrapper>
       </AAVS.HeaderContainer>
+
       <AAVS.TableContainer>
         <AAVS.Table>
           <thead>

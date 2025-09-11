@@ -116,6 +116,7 @@ export const Summaries = styled.div`
 
 export const SearchWrapper = styled.div`
   width: 300px;
+  display: flex;
 `;
 export const StatusButton = styled.button`
   padding: 6px 12px;
@@ -124,7 +125,7 @@ export const StatusButton = styled.button`
   width: 100px;
   border-radius: 4px;
   cursor: pointer;
-  background: ${(props) => (props.$active ? "#4CAF50" : "#f44336")};
+  background: ${(props) => (props.$active ? "#4096ff" : "#69b1ff")};
   color: white;
 
   &:hover {
