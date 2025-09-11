@@ -14,8 +14,6 @@ import { cartThunk, ordersThunk, productsThunk } from "@/stores/rootThunk";
 import { cartSelector, ordersSelector, productsSelector } from "@/stores/rootSelector";
 
 import i18n from "@/configs/i18n/i18n";
-import { convertCartToTemplateParams } from "@/utils/helpers";
-import { sendEmail } from "@/services/apiEmail";
 
 export default function useOrder() {
   const dispatch = useDispatch();
@@ -91,8 +89,9 @@ export default function useOrder() {
   const handlePayClick = () => setIsModalOpen(true);
 
   const handlePlaceOrder = async () => {
+    const customerInfo = { email: user.email, name: user.name };
     await updateUser({ newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal } });
-    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect })).unwrap();
+    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
     await dispatch(cartThunk.removeAllCart(user.id)).unwrap();
 
     toast.success(t("order.orderPlacedSuccessfully"));

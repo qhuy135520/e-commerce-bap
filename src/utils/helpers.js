@@ -75,46 +75,27 @@ export function parseAddress(addressString) {
   };
 }
 
-export const convertCartToTemplateParams = (cartItems, customerInfo) => {
-  const ordersTable = cartItems
-    .map(
-      (item, index) => `
-        <tr>
-          <td>${index + 1}</td>
-          <td>${item.productName}</td>
-          <td>${item.quantity}</td>
-          <td>$${item.productPrice}</td>
-          <td>$${item.productPrice * item.quantity}</td>
-        </tr>
-      `
-    )
-    .join("");
+export function convertOrderToEmailPayload(data) {
+  const { order, newOrderDetails, customerInfo } = data;
 
-  const totalCost = cartItems.reduce((sum, item) => sum + item.productPrice * item.quantity, 0);
+  const subtotal = newOrderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const shipping = 50000;
+  const total = subtotal + shipping;
+
+  const orders = newOrderDetails.map((item) => ({
+    image_url: item.product.productImage[0].imageUrl || "https://via.placeholder.com/150",
+    name: item.product.name,
+    units: item.quantity,
+    price: formatCurrency(item.price),
+  }));
 
   return {
-    order_id: Date.now(),
-    orders: `
-      <table border="1" cellspacing="0" cellpadding="6" style="border-collapse:collapse; width:100%;">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Sản phẩm</th>
-            <th>Số lượng</th>
-            <th>Giá</th>
-            <th>Thành tiền</th>
-          </tr>
-        </thead>
-        <tbody>
-          ${ordersTable}
-        </tbody>
-      </table>
-    `,
-    image_url: cartItems[0]?.productImage || "https://via.placeholder.com/150",
-    name: customerInfo.name,
-    units: cartItems.reduce((sum, i) => sum + i.quantity, 0),
-    price: "",
-    cost: `$${totalCost}`,
+    order_id: order.id,
+    orders,
+    cost: {
+      shipping: formatCurrency(shipping),
+      total: formatCurrency(total),
+    },
     email: customerInfo.email,
   };
-};
+}
