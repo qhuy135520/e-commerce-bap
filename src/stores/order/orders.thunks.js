@@ -3,11 +3,6 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { COMMISSION } from "@/constants";
 
 import { productsThunk } from "@/stores/rootThunk";
-<<<<<<< HEAD
-import { convertOrderToEmailPayload } from "@/utils/helpers";
-import { sendEmail } from "@/services/apiEmail";
-import { COMMISSION } from "@/constants";
-=======
 import { incrementVendorBalance } from "@/services/apiAuth";
 import {
   createOrderApi,
@@ -18,7 +13,6 @@ import {
 } from "@/services/apiOrder";
 import { sendEmail } from "@/services/apiEmail";
 import { convertOrderToEmailPayload } from "@/utils/helpers";
->>>>>>> 90390b66fac3739ab119c4a6fed272d3cfbbaa46
 
 export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (userId) => {
   try {
@@ -41,10 +35,6 @@ export const createOrder = createAsyncThunk(
           dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
         })
       );
-<<<<<<< HEAD
-=======
-      console.log(data);
->>>>>>> 90390b66fac3739ab119c4a6fed272d3cfbbaa46
 
       await sendEmail(
         convertOrderToEmailPayload({ ...data, customerInfo }),
@@ -57,10 +47,6 @@ export const createOrder = createAsyncThunk(
     }
   }
 );
-<<<<<<< HEAD
-=======
-
->>>>>>> 90390b66fac3739ab119c4a6fed272d3cfbbaa46
 export const fetchAllOrdersAdmin = createAsyncThunk("orders/fetchAllOrdersAdmin", async () => {
   try {
     return await fetchAllOrderApi();
