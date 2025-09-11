@@ -43,7 +43,7 @@ export default function useSearchProducts() {
 
   // phân trang
   const paginatedProducts = useMemo(() => {
-    return filteredProducts.slice((page - 1) * pageSize, page * pageSize);
+    return filteredProducts?.slice((page - 1) * pageSize, page * pageSize);
   }, [filteredProducts, page, pageSize]);
 
   const handlePageChange = (newPage) => {
@@ -81,7 +81,7 @@ export default function useSearchProducts() {
 
   return {
     products: paginatedProducts, // trả ra phân trang
-    totalProducts: filteredProducts.length, // tổng số kết quả
+    totalProducts: filteredProducts?.length, // tổng số kết quả
     status,
     query,
     page,

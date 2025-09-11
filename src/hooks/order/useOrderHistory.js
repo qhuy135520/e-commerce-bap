@@ -10,6 +10,7 @@ export default function useOrderHistory() {
   const { user } = useUser();
   const orders = useSelector(ordersSelector.selectOrders);
   const status = useSelector(ordersSelector.selectOrderStatus);
+  const error = useSelector(ordersSelector.selectOrderError);
 
   useEffect(() => {
     if (status === "idle" && user) {
@@ -19,5 +20,5 @@ export default function useOrderHistory() {
 
   const isLoading = status === "idle" || status === "loading" || !user;
 
-  return { orders, status, isLoading };
+  return { orders, error, status, isLoading };
 }

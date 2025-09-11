@@ -16,6 +16,7 @@ export default function useProducts() {
   const productsVendor = useSelector(productsSelector.selectProductsVendor);
   const allProducts = useSelector(productsSelector.selectProducts);
   const status = useSelector(productsSelector.selectStatus);
+  const isLoading = ["loading", "idle"].includes(status);
   const error = useSelector(productsSelector.selectError);
 
   const products = vendorId ? productsVendor : allProducts;
@@ -88,6 +89,7 @@ export default function useProducts() {
   };
 
   return {
+    isLoading,
     fetchDataProducts,
     vendorId,
     allProducts,
