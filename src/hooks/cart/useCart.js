@@ -23,7 +23,7 @@ export default function useCart() {
   const error = useSelector(cartSelector.selectCartError);
   const productDetail = useSelector(productsSelector.selectProductById);
 
-  const isLoading = status === "idle" || status === "idle";
+  const isLoading = status === "idle" || status === "loading";
 
   const cartTableData = cart.map((item) => ({
     key: item.id,
@@ -97,7 +97,7 @@ export default function useCart() {
             quantity: item.quantity,
             isSelect: true,
           }));
-        await dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
+        dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
         navigate("/order-detail");
         break;
       case "cancelOrder":
@@ -115,7 +115,6 @@ export default function useCart() {
   async function handleAddProductToCart(productId, quantity) {
     let productExistingCart = cart.find((item) => item.productId === productId);
     let totalQuantity = productExistingCart ? quantity + productExistingCart.quantity : quantity;
-    debugger;
     if (productExistingCart && totalQuantity > productDetail.stock) {
       toast.error(t("This product has insufficient stock."));
       return;

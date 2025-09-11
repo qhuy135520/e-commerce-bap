@@ -17,7 +17,10 @@ export default function useAddress(addressEdit = {}) {
   const [editingAddress, setEditingAddress] = useState(null);
   const isEditting = Boolean(addressEdit.id);
 
-  const address = useSelector(addressSelector.selectAddresses);
+  const address = useSelector(addressSelector.selectAddresses)
+    ?.slice()
+    ?.sort((a, b) => Number(b.isDefault) - Number(a.isDefault));
+
   const addressDefault = address.find((item) => item.isDefault);
   const status = useSelector(addressSelector.selectAddressStatus);
   const isLoading = ["loading", "idle"].includes(status);
@@ -97,8 +100,9 @@ export default function useAddress(addressEdit = {}) {
     resetForm();
   }
 
-  async function handleSetDefaultAddress(id) {
-    await dispatch(addressThunk.updateDefaultAddress({ id, userId: user.id }));
+  async function handleSetDefaultAddress(id, onCancel) {
+    dispatch(addressThunk.updateDefaultAddress({ id, userId: user.id }));
+    onCancel();
     handleStatusAddress();
   }
 

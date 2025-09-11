@@ -11,7 +11,7 @@ import useCart from "@/hooks/cart/useCart";
 import { useUser } from "@/hooks/authentication/useUser";
 import { useUpdateUser } from "@/hooks/authentication/useUpdateUser";
 import { cartThunk, ordersThunk, productsThunk } from "@/stores/rootThunk";
-import { ordersSelector, productsSelector } from "@/stores/rootSelector";
+import { cartSelector, ordersSelector, productsSelector } from "@/stores/rootSelector";
 
 import i18n from "@/configs/i18n/i18n";
 
@@ -26,11 +26,13 @@ export default function useOrder() {
   const navigate = useNavigate();
   const errorOrder = useSelector(ordersSelector.selectOrderError);
   const errorProduct = useSelector(productsSelector.selectError);
-  const error = errorOrder || errorProduct;
+  const errorCart = useSelector(cartSelector.selectCartError);
+  const error = errorOrder || errorProduct || errorCart;
 
   const { cartSelect, status: statusCart } = useCart();
+  const statusOrder = useSelector(ordersSelector.selectOrderStatus);
 
-  const isLoading = ["loading", "idle"].includes(statusCart);
+  const isLoading = ["loading", "idle"].includes(statusCart) || ["loading"].includes(statusOrder);
 
   const orders = Object.values(
     cartSelect.reduce((acc, item) => {

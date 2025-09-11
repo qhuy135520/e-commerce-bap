@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import { USER_DEFAULT_BALANCE } from "@/constants";
+import { ROLE_CUSTOMER, USER_DEFAULT_BALANCE } from "@/constants";
 
 import { signup as signupApi } from "@/services/apiAuth";
 
@@ -63,6 +63,7 @@ export function useSignup() {
       birthdate: values.birthdate,
       role,
       moneyBalance: USER_DEFAULT_BALANCE,
+      status: role === ROLE_CUSTOMER ? "active" : "inactive",
     };
 
     await signup({ email, password, newUserInfo });

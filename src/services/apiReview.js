@@ -2,7 +2,6 @@ import supabase from "@/services/supabase";
 
 export async function createReviewApi({ userId, productId, content, rating, orderDetailId }) {
   try {
-    debugger;
     const { data, error } = await supabase
       .from("review")
       .insert([{ content, rating, productId, userId, orderDetailId }])

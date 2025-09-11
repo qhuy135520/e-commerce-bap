@@ -30,7 +30,7 @@ export default function OrderEditAddressDefault({ onCancel }) {
       <Formik
         initialValues={initialValues}
         onSubmit={(values) => {
-          handleSetDefaultAddress(values.addressId);
+          handleSetDefaultAddress(values.addressId, onCancel);
         }}
       >
         {({ values, setFieldValue }) => (
@@ -86,10 +86,14 @@ export default function OrderEditAddressDefault({ onCancel }) {
                 </OS.AddressInfo>
               </OS.RadioGroupAddress>
             </Form.Item>
-            <Button htmlType="submit" type="default" onClick={onCancel}>
+
+            <Button type="default" onClick={onCancel}>
               Hủy
             </Button>
             <Divider type="vertical" />
+            <Button type="primary" htmlType="submit">
+              Cập nhật địa chỉ mặc định
+            </Button>
           </Form>
         )}
       </Formik>

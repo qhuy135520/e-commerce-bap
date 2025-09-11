@@ -3,6 +3,7 @@ import { Typography, Button, Modal, Alert } from "antd";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
 import {
+  EmptyCommon,
   Loading,
   OrderAddressCart,
   OrderEditAddressDefault,
@@ -59,6 +60,8 @@ export default function OrderDetail() {
 
   const { addressDefault, isLoading: isLoadingAddress } = useAddress();
 
+  if (!orders.length) return <EmptyCommon link={"/"} description={"You have no orders yet"} />;
+
   return (
     <Loading isLoading={isLoading || isLoadingAddress} error={error}>
       <OS.Wrapper>
@@ -68,6 +71,7 @@ export default function OrderDetail() {
               <FaMapMarkerAlt /> {t("order.orderDetails.address")}
             </OS.AddressTitle>
           </OS.FlexRow>
+
           {!isEditting &&
             (addressDefault ? (
               <>
