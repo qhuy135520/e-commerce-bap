@@ -95,7 +95,7 @@ export default function FormAddProduct({
                   {fileList.map((file, idx) => (
                     <FAPS.OptionImage key={file.uid}>
                       <Input type="radio" checked={primaryIndex === idx} onChange={() => setPrimaryIndex(idx)} />
-                      {file.name || file.url}
+                      {`ẢNH THỨ ${idx + 1}`}
                     </FAPS.OptionImage>
                   ))}
                 </FAPS.ChooseImage>

@@ -5,8 +5,8 @@ import {
   getProductDetailApi,
   getProductsByVendorApi,
   updateProductDetailApi,
-  updateProductVendorApi,
   getAllProductsApi,
+  updateProductWithImages,
 } from "@/services/apiProduct";
 
 export const fetchAllProducts = createAsyncThunk("products/fetchAll", async () => {
@@ -68,7 +68,7 @@ export const updateProductVendor = createAsyncThunk(
   "products/updateProductVendor",
   async ({ vendorId, productId, dataUpdate }, { dispatch }) => {
     try {
-      await updateProductVendorApi(productId, dataUpdate);
+      await updateProductWithImages(productId, dataUpdate);
       dispatch(fetchProductsByVendor(vendorId));
     } catch (error) {
       throw error;
