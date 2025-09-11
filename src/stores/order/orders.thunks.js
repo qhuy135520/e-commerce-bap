@@ -35,7 +35,6 @@ export const createOrder = createAsyncThunk(
           dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
         })
       );
-      console.log(data);
 
       await sendEmail(
         convertOrderToEmailPayload({ ...data, customerInfo }),
@@ -48,7 +47,6 @@ export const createOrder = createAsyncThunk(
     }
   }
 );
-
 export const fetchAllOrdersAdmin = createAsyncThunk("orders/fetchAllOrdersAdmin", async () => {
   try {
     return await fetchAllOrderApi();
