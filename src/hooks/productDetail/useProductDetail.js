@@ -4,13 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { productsSelector } from "@/stores/rootSelector";
 import { productsThunk } from "@/stores/rootThunk";
 import { useUser } from "@/hooks/authentication/useUser";
+import { useNavigate } from "react-router-dom";
 
 export function useProductDetail(id) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { user } = useUser();
   const productDetail = useSelector((state) => productsSelector.selectProductById(state));
   const error = useSelector((state) => productsSelector.selectError(state));
   const status = useSelector(productsSelector.selectStatus);
+
+  function handleNavigate(link) {
+    navigate(link);
+  }
 
   const [quantity, setQuantity] = useState(1);
   const avgRating = productDetail.reviews.length
@@ -51,5 +57,6 @@ export function useProductDetail(id) {
     isLoadingProduct,
     error,
     avgRating,
+    handleNavigate,
   };
 }

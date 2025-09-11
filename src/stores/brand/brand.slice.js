@@ -22,7 +22,7 @@ const brandSlice = createSlice({
       })
       .addCase(fetchAllBrand.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error;
       });
   },
 });

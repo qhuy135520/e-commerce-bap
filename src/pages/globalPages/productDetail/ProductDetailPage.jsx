@@ -26,6 +26,7 @@ export default function ProductDetail() {
     handleDecrease,
     avgRating,
     error,
+    handleNavigate,
   } = useProductDetail(id);
   const { handleAddProductToCart, isLoading: isLoadingCart } = useCart();
   return (
@@ -49,7 +50,7 @@ export default function ProductDetail() {
             </Col>
           </Row>
         </PDS.ProductDetail>
-        <InfoVendor />
+        <InfoVendor vendorId={productDetail.vendorId} handleNavigate={handleNavigate} />
         <ReviewProduct reviews={productDetail.reviews} avgRating={avgRating} />
       </PDS.ProductPage>
     </Loading>

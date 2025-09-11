@@ -23,7 +23,7 @@ const categorySlice = createSlice({
       })
       .addCase(fetchCategory.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error;
       });
   },
 });

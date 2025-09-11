@@ -4,14 +4,19 @@ import { CiShop } from "react-icons/ci";
 
 import { HeadingStyled, InfoVendorStyled as IS } from "@/components";
 
-export default function InfoVendor() {
+export default function InfoVendor({ handleNavigate, vendorId }) {
   return (
     <IS.InfoVendor>
       <Row gutter={[0, 12]}>
         <IS.ColInfo sm={24} lg={8}>
           <IS.FlexInfo>
             <HeadingStyled as="h3">Apple FlagShip Store</HeadingStyled>
-            <IS.ButtonInfo size="medium" color="blue" variant="outlined">
+            <IS.ButtonInfo
+              size="medium"
+              color="blue"
+              variant="outlined"
+              onClick={() => handleNavigate(`/vendor/${vendorId}`)}
+            >
               <CiShop size="20" /> Xem Shop
             </IS.ButtonInfo>
           </IS.FlexInfo>

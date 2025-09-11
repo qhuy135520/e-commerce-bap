@@ -9,12 +9,12 @@ import { OrderHistoryTableStyled as OHTS, EmptyCommon, OrderVendor, Loading } fr
 import { formatCurrency } from "@/utils/helpers";
 
 export default function OrderHistoryTable() {
-  const { orders, isLoading } = useOrderHistory();
+  const { orders, isLoading, error } = useOrderHistory();
   const { t } = useReview();
 
   if (!orders.length) return <EmptyCommon link="/" description="Chưa có đơn hàng nào" />;
   return (
-    <Loading isLoading={isLoading}>
+    <Loading isLoading={isLoading} error={error}>
       {orders.map((order, index) => (
         <OHTS.OrderWrapper key={index}>
           <OHTS.OrderTitleHeader>

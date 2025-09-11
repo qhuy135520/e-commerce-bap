@@ -18,6 +18,8 @@ export default function ProductInfo({
   isLoadingCart,
 }) {
   const { user } = useUser();
+  console.log(productDetail);
+
   return (
     <ConfigProvider
       theme={{

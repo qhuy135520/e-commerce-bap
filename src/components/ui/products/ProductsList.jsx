@@ -14,8 +14,6 @@ const ProductsList = () => {
   const {
     fetchDataProducts,
     products,
-    status,
-    error,
     sort,
     page,
     pageSize,
@@ -26,10 +24,6 @@ const ProductsList = () => {
     t,
     vendorId,
   } = useProducts();
-
-  useEffect(() => {
-    fetchDataProducts();
-  }, [vendorId]);
 
   const sortOptions = useMemo(
     () => [
@@ -55,29 +49,27 @@ const ProductsList = () => {
           </PLS.SelectSort>
         </PLS.Box>
 
-        <Loading isLoading={status === "loading"} error={error}>
-          <PLS.ProductGrid>
-            {paginatedProducts.map((product) => (
-              <PLS.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
-                <Card>
-                  <PLS.ProductImage src={product.images[0]?.imageUrl || noimage} alt={product.name} />
-                  <p>{product.name}</p>
-                  <p>{formatCurrency(product.price)}</p>
-                  <p>
-                    {t("productCard.sold")}: {product.total_sold || 0}
-                  </p>
-                </Card>
-              </PLS.ProductItem>
-            ))}
-          </PLS.ProductGrid>
-          <Pagination
-            align="center"
-            current={page}
-            pageSize={pageSize}
-            total={products.length}
-            onChange={handlePageChange}
-          />
-        </Loading>
+        <PLS.ProductGrid>
+          {paginatedProducts.map((product) => (
+            <PLS.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
+              <Card>
+                <PLS.ProductImage src={product.images[0]?.imageUrl || noimage} alt={product.name} />
+                <p>{product.name}</p>
+                <p>{formatCurrency(product.price)}</p>
+                <p>
+                  {t("productCard.sold")}: {product.total_sold || 0}
+                </p>
+              </Card>
+            </PLS.ProductItem>
+          ))}
+        </PLS.ProductGrid>
+        <Pagination
+          align="center"
+          current={page}
+          pageSize={pageSize}
+          total={products?.length}
+          onChange={handlePageChange}
+        />
       </PLS.Container>
     </ConfigProvider>
   );
