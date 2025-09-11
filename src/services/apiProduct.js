@@ -57,7 +57,6 @@ export async function createProductVendorApi(vendorId, data) {
     if (error) throw error;
     return dataCreate;
   } catch (error) {
-    console.error("Error creating product:", error.message);
     throw error;
   }
 }
@@ -135,7 +134,6 @@ export async function updateProductWithImages(productId, data) {
       images: uploadedFiles,
     };
   } catch (error) {
-    console.error("Error updating product with images:", error.message);
     throw error;
   }
 }
@@ -181,7 +179,6 @@ export async function getAllProductsApi() {
 
     return data;
   } catch (error) {
-    console.error("Error fetching products:", error.message);
     throw error;
   }
 }

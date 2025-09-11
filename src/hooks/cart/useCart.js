@@ -76,7 +76,7 @@ export default function useCart() {
 
   function handleResetCart() {
     if (cart.length) {
-      dispatch(cartSlice.clearCart());
+      dispatch(cartThunk.removeAllCart(user.id));
     }
   }
 

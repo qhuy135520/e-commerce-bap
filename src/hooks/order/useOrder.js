@@ -83,7 +83,7 @@ export default function useOrder() {
         ward: Yup.string().nullable().required(t("order.validation.wardRequired")),
         detail: Yup.string().trim().required(t("order.validation.detailRequired")),
       }),
-    [i18n.language, t]
+    [t]
   );
 
   const handlePayClick = () => setIsModalOpen(true);

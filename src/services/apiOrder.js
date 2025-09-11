@@ -49,3 +49,29 @@ export async function fetchAllOrderApi() {
     throw error;
   }
 }
+
+export async function getOrderVendorApi(vendorId) {
+  try {
+    const { data, error } = await supabase.rpc("get_orders_by_vendor", { vendoridcurrent: vendorId });
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function updateStatusOrderApi(orderId, nextStatus) {
+  try {
+    const { data, error } = await supabase.from("order").update({ status: nextStatus }).eq("id", orderId).select();
+
+    if (error) throw error;
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
