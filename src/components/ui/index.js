@@ -17,6 +17,7 @@ export * from "@/components/ui/deposit";
 export * from "@/components/ui/formAddProduct";
 export * from "@/components/ui/adminPaymentHistory";
 export * from "@/components/ui/adminApprovalVendor";
+export * from "@/components/ui/vendorManagerOrder";
 
 export { default as Container } from "@/components/ui/Container";
 export { default as DividerTitle } from "@/components/ui/DividerTitle";

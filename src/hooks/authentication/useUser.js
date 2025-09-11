@@ -112,7 +112,6 @@ export function useUser(users = []) {
         await handleUpdate(values);
         setIsUpdateModal(false);
       } catch (error) {
-        console.error(error);
       } finally {
         setSubmitting(false);
       }
