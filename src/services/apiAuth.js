@@ -50,7 +50,6 @@ export async function incrementVendorBalance(vendorId, amount) {
 
     return data;
   } catch (error) {
-    console.error(`Failed to increment balance for vendor ${vendorId}:`, error);
     throw error;
   }
 }

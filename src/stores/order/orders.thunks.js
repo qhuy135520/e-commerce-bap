@@ -1,7 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createOrderApi, fetchAllOrderApi, fetchOrderApi } from "@/services/apiOrder";
-import { incrementVendorBalance } from "@/services/apiAuth";
 import { productsThunk } from "@/stores/rootThunk";
+import { incrementVendorBalance } from "@/services/apiAuth";
+import {
+  createOrderApi,
+  fetchOrderApi,
+  getOrderVendorApi,
+  updateStatusOrderApi,
+  fetchAllOrderApi,
+} from "@/services/apiOrder";
 
 export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (userId) => {
   try {
@@ -35,3 +41,23 @@ export const fetchAllOrdersAdmin = createAsyncThunk("orders/fetchAllOrdersAdmin"
     throw error;
   }
 });
+
+export const getOrderVendor = createAsyncThunk("orders/getOrderVendor", async (vendorId) => {
+  try {
+    return await getOrderVendorApi(vendorId);
+  } catch (error) {
+    throw error;
+  }
+});
+
+export const updateStatusOrder = createAsyncThunk(
+  "orders/updateStatusOrder",
+  async ({ vendorId, orderId, nextStatus }, { dispatch }) => {
+    try {
+      await updateStatusOrderApi(orderId, nextStatus);
+      dispatch(getOrderVendor(vendorId));
+    } catch (error) {
+      throw error;
+    }
+  }
+);

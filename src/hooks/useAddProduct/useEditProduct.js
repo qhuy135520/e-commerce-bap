@@ -126,7 +126,6 @@ export function useEditProduct(productEdit = {}) {
       handleCancel();
     } catch (error) {
       toast.error("Có lỗi khi xử lý sản phẩm");
-      console.error(error);
     }
   }
 

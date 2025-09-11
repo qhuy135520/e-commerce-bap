@@ -121,7 +121,6 @@ export const processDepositResult = createAsyncThunk(
         };
       }
     } catch (error) {
-      console.error("Error:", error);
       return rejectWithValue(error.message || "Có lỗi xảy ra khi xử lý giao dịch");
     }
   }

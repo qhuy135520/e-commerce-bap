@@ -1,9 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { createOrder, fetchAllOrder, fetchAllOrdersAdmin } from "@/stores/order/orders.thunks";
+import {
+  createOrder,
+  fetchAllOrder,
+  fetchAllOrdersAdmin,
+  getOrderVendor,
+  updateStatusOrder,
+} from "@/stores/order/orders.thunks";
 
 const initialState = {
   items: [],
+  orderVendor: [],
   status: "idle",
   error: null,
   allOrders: [],
@@ -45,6 +52,30 @@ const orderSlice = createSlice({
         state.allOrders = action.payload;
       })
       .addCase(fetchAllOrdersAdmin.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+      //GET ORDER VENDOR
+      .addCase(getOrderVendor.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getOrderVendor.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.orderVendor = action.payload;
+      })
+      .addCase(getOrderVendor.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+
+      //UPDATE STATUS ORDER VENDOR
+      .addCase(updateStatusOrder.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(updateStatusOrder.fulfilled, (state, action) => {
+        state.status = "succeeded";
+      })
+      .addCase(updateStatusOrder.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });
