@@ -10,7 +10,6 @@ import { formatCurrency } from "@/utils/helpers";
 export default function OrderItemInfo({ vendorProduct, orderStatus }) {
   const { isModalOpen, selectedProduct, openReviewModal, closeReviewModal, handleSubmitReview, loading, t } =
     useReview();
-  console.log("producttt", vendorProduct);
   return (
     <>
       {vendorProduct.map((product, index) => (

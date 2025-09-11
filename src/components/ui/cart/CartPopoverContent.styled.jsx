@@ -7,6 +7,10 @@ export const ListItem = styled(List.Item)`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
+  &:hover {
+    background: var(--color-grey-200);
+  }
 `;
 
 export const HeaderListItem = styled(ListItem)`
