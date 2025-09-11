@@ -4,6 +4,7 @@ import {
   fetchAllProductsApi,
   getProductDetailApi,
   getProductsByVendorApi,
+  updateProductDetailApi,
   updateProductVendorApi,
   getAllProductsApi,
 } from "@/services/apiProduct";
@@ -41,6 +42,28 @@ export const createProductVendor = createAsyncThunk("products/createProductVendo
     throw error;
   }
 });
+
+export const updateStockProduct = createAsyncThunk(
+  "products/updateStockProduct",
+  async ({ productId, quantity }, { dispatch }) => {
+    try {
+      debugger;
+      const productDetail = await getProductDetailApi(productId);
+
+      if (!productDetail) throw new Error("Product not found!");
+
+      if (productDetail.stock < quantity) {
+        throw new Error("This product is temporarily out of stock!");
+      }
+
+      await updateProductDetailApi(productId, { stock: productDetail.stock - quantity });
+
+      dispatch(fetchAllProducts());
+    } catch (error) {
+      throw error;
+    }
+  }
+);
 
 export const updateProductVendor = createAsyncThunk(
   "products/updateProductVendor",

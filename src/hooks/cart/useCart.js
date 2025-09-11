@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useUser } from "@/hooks/authentication/useUser";
 import { cartSlice } from "@/stores/rootReducer";
-import { cartSelector } from "@/stores/rootSelector";
-import { cartThunk } from "@/stores/rootThunk";
+import { cartSelector, productsSelector } from "@/stores/rootSelector";
+import { cartThunk, productsThunk } from "@/stores/rootThunk";
 
 export default function useCart() {
   const dispatch = useDispatch();
@@ -21,6 +21,7 @@ export default function useCart() {
   const cart = useSelector(cartSelector.selectCartItems);
   const cartSelect = cart.filter((item) => item.isSelect);
   const error = useSelector(cartSelector.selectCartError);
+  const productDetail = useSelector(productsSelector.selectProductById);
 
   const isLoading = status === "idle" || status === "idle";
 
@@ -28,6 +29,7 @@ export default function useCart() {
     key: item.id,
     product: item.productName,
     productImage: item.productImage,
+    productStock: item.productStock,
     unitPrice: item.productPrice,
     quantity: item.quantity,
     totalPrice: item.productPrice * item.quantity,
@@ -111,7 +113,16 @@ export default function useCart() {
   }
 
   async function handleAddProductToCart(productId, quantity) {
+    let productExistingCart = cart.find((item) => item.productId === productId);
+    let totalQuantity = productExistingCart ? quantity + productExistingCart.quantity : quantity;
+    debugger;
+    if (productExistingCart && totalQuantity > productDetail.stock) {
+      toast.error(t("This product has insufficient stock."));
+      return;
+    }
+
     await dispatch(cartThunk.addToCart({ userId: user.id, productId, quantity }));
+
     if (status === "succeeded") {
       toast.success(t("cart.toast.success"));
     }

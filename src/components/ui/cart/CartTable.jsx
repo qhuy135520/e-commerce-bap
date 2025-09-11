@@ -53,7 +53,7 @@ export default function CartTable({ onMountSubmitRef }) {
         render: (_, record) =>
           record.isVendorRow ? null : (
             <Space>
-              <CTS.InputQuantity name={record.key} min={1} />
+              <CTS.InputQuantity name={record.key} min={1} max={record.productStock} />
             </Space>
           ),
       },
