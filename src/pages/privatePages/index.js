@@ -12,7 +12,6 @@ export { default as VendorManagerOrderPage } from "@/pages/privatePages/vendor/V
 export { default as VendorManagerTransactionPage } from "@/pages/privatePages/vendor/VendorManagerTransactionPage";
 
 export { default as AdminPaymentHistoryPage } from "@/pages/privatePages/admin/AdminPaymentHistoryPage";
-<<<<<<< HEAD
-=======
+
+export { default as AdminApprovalVendorPage } from "@/pages/privatePages/admin/AdminApprovalVendorPage";
 export { default as AdminDashboardPage } from "@/pages/privatePages/admin/AdminDashboardPage";
->>>>>>> d3490f9 (2025-10-09-feat: deposit history)

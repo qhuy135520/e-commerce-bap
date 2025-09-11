@@ -34,11 +34,9 @@ export const PRIVATE_ROUTER_PATH = {
   VENDOR_MANAGER_TRANSACTION: { KEY: "VENDOR_MANAGER_TRANSACTION", PATH: "transaction" },
   ADMIN_DASHBOARD: { KEY: "ADMIN_DASHBOARD", PATH: "/admin-dashboard" },
   ADMIN_MANAGER_USER: { KEY: "ADMIN_MANAGER_USER", PATH: "/admin-dashboard/users" },
-<<<<<<< HEAD
   ADMIN_MANAGER_PRODUCT: { KEY: "ADMIN_MANAGER_PRODUCT", PATH: "/admin-dashboard/products" },
-=======
->>>>>>> d3490f9 (2025-10-09-feat: deposit history)
   ADMIN_PAYMENT_HISTORY: { KEY: "ADMIN_PAYMENT_HISTORY", PATH: "/admin-dashboard/payment-history" },
+  ADMIN_APPROVAL_VENDOR: { KEY: "ADMIN_APPROVAL_VENDOR", PATH: "/admin-dashboard/approval-vendor" },
 };
 
 export const ROUTER_PATH = {

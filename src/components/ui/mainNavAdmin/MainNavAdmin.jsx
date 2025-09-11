@@ -1,10 +1,9 @@
 import { Button } from "antd";
 import React from "react";
 import { MdContactEmergency, MdOutlineShoppingBag } from "react-icons/md";
-import { FaProjectDiagram } from "react-icons/fa";
+import { FaFileInvoiceDollar, FaUserCheck, FaProjectDiagram } from "react-icons/fa";
 import { RiContactsLine } from "react-icons/ri";
 import { useLogout } from "@/hooks/authentication/useLogout";
-
 import { MainNavAdminStyled as MAS } from "@/components/ui/mainNavAdmin";
 
 export default function MainNavAdmin() {
@@ -36,12 +35,12 @@ export default function MainNavAdmin() {
         </li>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/payment-history">
-            <MdContactEmergency /> Payment History
+            <FaFileInvoiceDollar /> Payment History
           </MAS.StyledNavLink>
         </li>
         <li>
-          <MAS.StyledNavLink to="/admin-dashboard/payment-history">
-            <FaProjectDiagram /> Projects
+          <MAS.StyledNavLink to="/admin-dashboard/approval-vendor">
+            <FaUserCheck /> Vendor Approval
           </MAS.StyledNavLink>
         </li>
         <li>

@@ -8,6 +8,7 @@ import * as brandSlice from "@/stores/brand/brand.slice";
 import * as categorySlice from "@/stores/category/category.slice";
 import * as userSlice from "@/stores/user/users.slice";
 import * as transactionsSlice from "@/stores/transactions/transactions.slice";
+import * as vendorSlice from "@/stores/vendor/vendor.slice";
 
 export {
   productsSlice,
@@ -20,4 +21,5 @@ export {
   categorySlice,
   userSlice,
   transactionsSlice,
+  vendorSlice,
 };
