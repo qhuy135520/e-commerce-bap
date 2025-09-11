@@ -15,7 +15,6 @@ export async function getTransactionsApi() {
     if (error) throw error;
     return data;
   } catch (error) {
-    console.error("Lỗi khi lấy transactions:", error.message);
     throw error;
   }
 }
