@@ -28,3 +28,13 @@ export async function createOrderApi(cartItems, userId) {
 
   return order;
 }
+
+export async function fetchAllOrderApi() {
+  try {
+    const { data, error } = await supabase.rpc("get_orders_with_total");
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

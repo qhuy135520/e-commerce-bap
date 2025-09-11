@@ -15,7 +15,7 @@ export default function MainNavAdmin() {
         <strong> Main Menu Admin</strong>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/users">
-            <RiContactsLine /> Quản lí users
+            <RiContactsLine /> Quản lí người dùng
           </MAS.StyledNavLink>
         </li>
         <li>

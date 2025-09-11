@@ -178,7 +178,6 @@ export async function getAllProductsApi() {
     const { data, error } = await supabase.from("product").select("*");
 
     if (error) throw error;
-    console.log("Fetched products:", data);
 
     return data;
   } catch (error) {

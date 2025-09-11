@@ -9,7 +9,6 @@ import { SidebarStyled as SS, MainNavVendor, MainNavAdmin } from "@/components";
 
 export default function Sidebar() {
   const { user } = useUser();
-  console.log(user);
   const [open, setOpen] = useState(true);
   const toggleSidebar = () => setOpen((prev) => !prev);
   const closeSidebar = () => setOpen(false);
