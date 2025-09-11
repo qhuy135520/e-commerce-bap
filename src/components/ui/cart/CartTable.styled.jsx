@@ -3,140 +3,208 @@ import { InputNumber } from "formik-antd";
 import styled from "styled-components";
 
 export const CartWrapper = styled.div`
-  padding: 16px;
+  padding: 20px;
+  background: var(--color-grey-50);
+
+  .ant-table {
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-grey-200);
+    overflow: hidden;
+    color: var(--color-grey-800);
+    background: var(--color-grey-0);
+  }
+
   .ant-table-thead > tr > th {
-    background-color: var(--color-grey-300);
+    background-color: var(--color-grey-100);
     color: var(--color-grey-900);
-    font-weight: bold;
-    text-align: left;
+    font-weight: 600;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid var(--color-grey-200);
+    padding: 12px;
   }
 
   .ant-table-tbody > tr > td {
-    background-color: var(--color-grey-50);
+    background-color: var(--color-grey-0);
     color: var(--color-grey-800);
+    font-size: 14px;
+    vertical-align: middle;
+    padding: 14px;
   }
 
   .ant-table-tbody > tr:hover > td {
-    background-color: var(--color-grey-200) !important;
+    background-color: var(--color-grey-100) !important;
   }
 
-  .ant-table-tbody > tr.ant-table-row-selected > td {
-    background-color: var(--color-grey-200) !important;
-    color: var(--color-grey-900);
-  }
-
-  strong {
-    font-size: 16px;
-  }
-
-  .quantity-input {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .quantity-input .ant-input-number {
-    text-align: center;
+  /* Vendor row (Shop name) */
+  .ant-table-row.vendor-row td {
+    background-color: var(--color-blue-50);
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--color-blue-700);
   }
 `;
 
 export const CardCartTable = styled(Card)`
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 100%;
-  margin-top: 16px;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-grey-200);
+  margin-top: 20px;
   overflow: hidden;
 
   .ant-card-head {
-    background: var(--color-blue-4);
-    color: #ffffff;
-    font-size: 18px;
+    background: var(--color-grey-100);
+    color: var(--color-grey-900);
+    font-size: 16px;
     font-weight: 600;
-    padding: 12px 24px;
-    border-bottom: none;
-    text-align: center;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--color-grey-200);
   }
 
   .ant-card-body {
     padding: 20px;
-    background: var(--color-grey-100);
+    background: var(--color-grey-0);
+    color: var(--color-grey-800);
   }
 
   p {
     margin: 8px 0;
-    font-size: 16px;
-    color: var(--color-grey-800);
+    font-size: 15px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    color: var(--color-grey-800);
   }
 
   p strong {
-    color: var(--color-grey-800);
     font-weight: 600;
+    color: var(--color-grey-900);
   }
 
   p:last-of-type {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
-    color: #1890ff;
-    border-top: 1px solid #e8e8e8;
-    padding-top: 12px;
-    margin-top: 12px;
-  }
-
-  @media (max-width: 768px) {
-    max-width: 100%;
-    margin: 16px auto;
-
-    .ant-card-head {
-      font-size: 16px;
-      padding: 10px 16px;
-    }
-
-    .ant-card-body {
-      padding: 16px;
-    }
+    color: var(--color-red-700);
+    border-top: 1px dashed var(--color-grey-300);
+    padding-top: 10px;
+    margin-top: 10px;
   }
 `;
 
 export const InputQuantity = styled(InputNumber)`
-  width: 80px;
+  width: 90px;
+  border-radius: var(--border-radius-sm) !important;
+  border: 1px solid var(--color-grey-300);
+  background: var(--color-grey-0);
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+
+  .ant-input-number-input-wrap {
+    flex: 1;
+  }
+
+  .ant-input-number-input {
+    text-align: center;
+    color: var(--color-grey-900);
+    background: var(--color-grey-0);
+  }
+
+  .ant-input-number-handler-wrap {
+    width: 28px;
+    border-left: 1px solid var(--color-grey-300);
+    display: flex;
+    flex-direction: column;
+
+    .ant-input-number-handler {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 14px;
+      color: var(--color-grey-600);
+      transition: all 0.2s ease;
+    }
+
+    .ant-input-number-handler-up {
+      border-bottom: 1px solid var(--color-grey-300);
+      background: var(--color-grey-100);
+      border-top-right-radius: var(--border-radius-sm);
+
+      &:hover {
+        background: var(--color-blue-50);
+        color: var(--color-blue-600);
+      }
+    }
+
+    .ant-input-number-handler-down {
+      background: var(--color-grey-100);
+      border-bottom-right-radius: var(--border-radius-sm);
+
+      &:hover {
+        background: var(--color-red-50);
+        color: var(--color-red-600);
+      }
+    }
+  }
+
+  &:hover {
+    border-color: var(--color-blue-500);
+  }
+
+  &:focus-within {
+    border-color: var(--color-blue-600);
+    box-shadow: 0 0 0 2px var(--color-blue-100);
+  }
 `;
 
 export const ButtonWrapper = styled.div`
-  text-align: right;
-`;
-
-export const ButtonCartSubmit = styled.button`
-  /* display: none; */
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
 `;
 
 export const ButtonCart = styled(Button)`
-  width: fit-content;
-  margin-top: 16px;
-  margin-left: 20px;
-  padding: 10px;
-  font-size: 16px;
+  min-width: 150px;
+  padding: 12px 22px;
+  font-size: 15px;
   font-weight: 600;
-  background: var(--color-blue-5);
+  border-radius: var(--border-radius-md);
+  height: 46px;
   border: none;
-  border-radius: 8px;
-  color: #fff;
-  height: 48px;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm);
 
-  &:hover {
-    background: var(--color-blue-8);
+  &.reset-btn {
+    background: var(--color-grey-0);
+    color: var(--color-blue-600);
+    border: 1px solid var(--color-blue-500);
+
+    &:hover {
+      background: var(--color-blue-50);
+      color: var(--color-blue-700);
+      border-color: var(--color-blue-600);
+    }
+  }
+
+  &.buy-btn {
+    background: var(--color-red-600);
+    color: var(--color-grey-0);
+    font-weight: 700;
+    box-shadow: 0 4px 12px var(--shadow-red);
+
+    &:hover {
+      background: var(--color-red-700);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px var(--shadow-red-strong);
+    }
   }
 
   &:disabled {
-    background: #d9d9d9;
-    color: #999;
+    background: var(--color-grey-300) !important;
+    color: var(--color-grey-600) !important;
+    border: none;
     cursor: not-allowed;
+    box-shadow: none;
     transform: none;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 14px;
-    height: 40px;
   }
 `;

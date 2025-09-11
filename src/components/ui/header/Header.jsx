@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, ConfigProvider, Popover } from "antd";
-import { FaUser, FaShoppingCart, FaHeadphones, FaLaptop, FaTabletAlt } from "react-icons/fa";
+import { FaUser, FaShoppingCart, FaHeadphones, FaLaptop, FaTabletAlt, FaSignOutAlt, FaMoneyBill } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { SlScreenDesktop } from "react-icons/sl";
@@ -122,14 +122,23 @@ export default function Header() {
                         title=""
                         content={
                           <HeaderStyled.ContentPopover>
-                            <NavLink to="update-user">{t("header.profile")}</NavLink>
-                            <NavLink to={`order-history`}>{t("header.order")}</NavLink>
-                            <NavLink to="deposit">{formatCurrency(user.moneyBalance)}</NavLink>
+                            <NavLink to="update-user">
+                              <FaUser /> {t("header.profile")}
+                            </NavLink>
+                            <NavLink to="order-history">
+                              <FaShoppingCart /> {t("header.order")}
+                            </NavLink>
+                            <NavLink to="deposit">
+                              <FaMoneyBill /> {t("header.deposit")}
+                              <span className="popover-badge">{formatCurrency(user?.moneyBalance)}</span>
+                            </NavLink>
                             <hr />
-                            <NavLink onClick={() => logout()}>{t("header.logout")}</NavLink>
+                            <NavLink onClick={() => logout()}>
+                              <FaSignOutAlt /> {t("header.logout")}
+                            </NavLink>
                           </HeaderStyled.ContentPopover>
                         }
-                        trigger={user?.role === "customer" ? "hover" : "none"}
+                        trigger="hover"
                       >
                         <Button size="large">
                           <FaUser />
