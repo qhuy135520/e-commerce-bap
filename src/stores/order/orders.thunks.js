@@ -1,4 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
+import { COMMISSION } from "@/constants";
+
 import { productsThunk } from "@/stores/rootThunk";
 import { incrementVendorBalance } from "@/services/apiAuth";
 import {
@@ -8,6 +11,8 @@ import {
   updateStatusOrderApi,
   fetchAllOrderApi,
 } from "@/services/apiOrder";
+import { sendEmail } from "@/services/apiEmail";
+import { convertOrderToEmailPayload } from "@/utils/helpers";
 
 export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (userId) => {
   try {
@@ -17,23 +22,32 @@ export const fetchAllOrder = createAsyncThunk("orders/fetchAllOrder", async (use
   }
 });
 
-export const createOrder = createAsyncThunk("orders/createOrder", async ({ userId, cartItems }, { dispatch }) => {
-  try {
-    await createOrderApi(cartItems, userId);
+export const createOrder = createAsyncThunk(
+  "orders/createOrder",
+  async ({ userId, cartItems, customerInfo }, { dispatch }) => {
+    try {
+      const data = await createOrderApi(cartItems, userId);
 
-    await Promise.all(
-      cartItems.map((item) => {
-        const vendorEarnings = item.productPrice * 0.85 * item.quantity;
-        incrementVendorBalance(item.vendorId, vendorEarnings);
-        dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
-      })
-    );
+      await Promise.all(
+        cartItems.map((item) => {
+          const vendorEarnings = item.productPrice * COMMISSION * item.quantity;
+          incrementVendorBalance(item.vendorId, vendorEarnings);
+          dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
+        })
+      );
 
-    return dispatch(fetchAllOrder(userId));
-  } catch (error) {
-    throw error;
+      await sendEmail(
+        convertOrderToEmailPayload({ ...data, customerInfo }),
+        import.meta.env.VITE_TEMPLATE_ORDER_CONFIRM_ID
+      );
+
+      return dispatch(fetchAllOrder(userId));
+    } catch (error) {
+      throw error;
+    }
   }
-});
+);
+
 export const fetchAllOrdersAdmin = createAsyncThunk("orders/fetchAllOrdersAdmin", async () => {
   try {
     return await fetchAllOrderApi();

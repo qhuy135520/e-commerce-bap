@@ -12,7 +12,6 @@ export async function fetchOrderApi(userId) {
 
 export async function createOrderApi(cartItems, userId) {
   const { data: order, error: orderError } = await supabase.from("order").insert([{ userId }]).select().single();
-
   if (orderError) throw orderError;
 
   const orderDetails = cartItems.map((item) => ({
@@ -22,11 +21,23 @@ export async function createOrderApi(cartItems, userId) {
     price: item.productPrice,
   }));
 
-  const { error: detailError } = await supabase.from("orderDetail").insert(orderDetails);
+  const { data: newOrderDetails, error: detailError } = await supabase
+    .from("orderDetail")
+    .insert(orderDetails)
+    .select(
+      `
+    *,
+    product (
+      *,
+      productImage!inner(*)
+    )
+  `
+    )
+    .eq("product.productImage.isPrimary", true);
 
   if (detailError) throw detailError;
 
-  return order;
+  return { order, newOrderDetails };
 }
 
 export async function fetchAllOrderApi() {

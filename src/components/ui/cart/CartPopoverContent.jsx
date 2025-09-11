@@ -26,7 +26,7 @@ export default function CartPopoverContent({ cart, t }) {
       },
       ...cart,
     ],
-    [i18n.language]
+    [t, cart]
   );
 
   const handleNavigate = (id) => {
