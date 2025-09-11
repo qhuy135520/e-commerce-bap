@@ -1,26 +1,25 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { transactionsThunk } from "@/stores/rootThunk";
-import { transactionsSelector } from "@/stores/rootSelector";
-import { useUser } from "@/hooks/authentication/useUser";
-
+import { fetchAllTransactions } from "@/stores/transactions/transactions.thunks";
+import {
+  selectTransactions,
+  selectTransactionsStatus,
+  selectTransactionsError,
+} from "@/stores/transactions/transactions.selectors";
 import { formatCurrency } from "@/utils/helpers";
 
 export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
-  const { user } = useUser();
   const dispatch = useDispatch();
-  const transactions = useSelector(transactionsSelector.selectTransactions);
-  const status = useSelector(transactionsSelector.selectTransactionsStatus);
-  const isLoading = ["loading", "idle"].includes(status);
-  const error = useSelector(transactionsSelector.selectTransactionsError);
-  const transaction = user && useSelector((state) => transactionsSelector.selectTransactionById(state, user.id));
+  const transactions = useSelector(selectTransactions);
+  const status = useSelector(selectTransactionsStatus);
+  const error = useSelector(selectTransactionsError);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     if (status === "idle") {
-      dispatch(transactionsThunk.fetchAllTransactions());
+      dispatch(fetchAllTransactions());
     }
   }, [status, dispatch]);
 
@@ -49,8 +48,6 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
   };
 
   return {
-    isLoading,
-    transaction,
     transactions: currentData,
     totalTransactions,
     totalAmount: formatCurrency(totalAmount),

@@ -61,6 +61,21 @@ const AdminPaymentHistoryPage = React.lazy(() =>
     default: module.AdminPaymentHistoryPage,
   }))
 );
+const AdminDashboardPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.AdminDashboardPage,
+  }))
+);
+const AdminApprovalVendorPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.AdminApprovalVendorPage,
+  }))
+);
+const AdminManagerUserPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/AdminManagerUserPage").then((module) => ({
+    default: module.default,
+  }))
+);
 
 const DepositPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
@@ -71,11 +86,6 @@ const DepositPage = React.lazy(() =>
 const DepositResultPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
     default: module.DepositResultPage,
-  }))
-);
-const AdminManagerUserPage = React.lazy(() =>
-  import("@/pages/privatePages/admin/AdminManagerUserPage").then((module) => ({
-    default: module.default,
   }))
 );
 
@@ -127,6 +137,7 @@ const PrivateRoutes = (
         <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH}>
           <Route index element={<Navigate to={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} replace />} />
           <Route path={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} element={<AdminPaymentHistoryPage />} />
+          <Route path={ROUTER_PATH.ADMIN_APPROVAL_VENDOR.PATH} element={<AdminApprovalVendorPage />} />
         </Route>
         <Route path={ROUTER_PATH.ADMIN_MANAGER_PRODUCT.PATH} element={<AdminManagerProductPage />} />
       </Route>

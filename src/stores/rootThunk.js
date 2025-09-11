@@ -8,6 +8,7 @@ import * as brandThunk from "@/stores/brand/brand.thunks";
 import * as categoryThunk from "@/stores/category/category.thunks";
 import * as userThunk from "@/stores/user/users.thunks";
 import * as transactionsThunk from "@/stores/transactions/transactions.thunks";
+import * as vendorThunk from "@/stores/vendor/vendor.thunks";
 
 export {
   productsThunk,
@@ -20,4 +21,5 @@ export {
   categoryThunk,
   userThunk,
   transactionsThunk,
+  vendorThunk,
 };
