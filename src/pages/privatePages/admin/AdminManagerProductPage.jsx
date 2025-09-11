@@ -8,7 +8,6 @@ import AdminManagerProductHeader from "@/components/ui/admin/AdminManagerProduct
 export default function AdminManagerProductPage() {
   const dispatch = useDispatch();
   const products = useSelector(productsSelector.selectAllProducts);
-  console.log(products);
   useEffect(() => {
     dispatch(getAllProducts());
   }, [dispatch]);

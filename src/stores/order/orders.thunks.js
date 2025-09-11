@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createOrderApi, fetchOrderApi } from "@/services/apiOrder";
+import { createOrderApi, fetchAllOrderApi, fetchOrderApi } from "@/services/apiOrder";
 import { incrementVendorBalance } from "@/services/apiAuth";
 import { productsThunk } from "@/stores/rootThunk";
 
@@ -24,6 +24,13 @@ export const createOrder = createAsyncThunk("orders/createOrder", async ({ userI
     );
 
     return dispatch(fetchAllOrder(userId));
+  } catch (error) {
+    throw error;
+  }
+});
+export const fetchAllOrdersAdmin = createAsyncThunk("orders/fetchAllOrdersAdmin", async () => {
+  try {
+    return await fetchAllOrderApi();
   } catch (error) {
     throw error;
   }

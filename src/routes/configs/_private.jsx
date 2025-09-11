@@ -8,7 +8,6 @@ import AuthLayout from "@/layouts/global/AuthLayout";
 import PrivateLayout from "@/layouts/private/PrivateLayout";
 import DashboardLayout from "@/layouts/private/DashboardLayout";
 import { ProtectedRoleRoutes } from "@/routes/guards/ProtectedRoleRoutes";
-import AdminManagerProductPage from "@/pages/privatePages/admin/AdminManagerProductPage";
 
 const UpdatePasswordPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
@@ -71,11 +70,6 @@ const AdminApprovalVendorPage = React.lazy(() =>
     default: module.AdminApprovalVendorPage,
   }))
 );
-const AdminManagerUserPage = React.lazy(() =>
-  import("@/pages/privatePages/admin/AdminManagerUserPage").then((module) => ({
-    default: module.default,
-  }))
-);
 
 const DepositPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
@@ -86,6 +80,21 @@ const DepositPage = React.lazy(() =>
 const DepositResultPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
     default: module.DepositResultPage,
+  }))
+);
+const AdminManagerUserPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/AdminManagerUserPage").then((module) => ({
+    default: module.default,
+  }))
+);
+const AdminManagerProductPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/AdminManagerProductPage").then((module) => ({
+    default: module.default,
+  }))
+);
+const AdminManagerOrderPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/AdminManagerOrderPage").then((module) => ({
+    default: module.default,
   }))
 );
 
@@ -140,6 +149,7 @@ const PrivateRoutes = (
           <Route path={ROUTER_PATH.ADMIN_APPROVAL_VENDOR.PATH} element={<AdminApprovalVendorPage />} />
         </Route>
         <Route path={ROUTER_PATH.ADMIN_MANAGER_PRODUCT.PATH} element={<AdminManagerProductPage />} />
+        <Route path={ROUTER_PATH.ADMIN_MANAGER_ORDER.PATH} element={<AdminManagerOrderPage />} />
       </Route>
     </Route>
   </>

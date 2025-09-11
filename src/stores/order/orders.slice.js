@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { createOrder, fetchAllOrder } from "@/stores/order/orders.thunks";
+import { createOrder, fetchAllOrder, fetchAllOrdersAdmin } from "@/stores/order/orders.thunks";
 
 const initialState = {
   items: [],
   status: "idle",
   error: null,
+  allOrders: [],
 };
 
 const orderSlice = createSlice({
@@ -33,6 +34,17 @@ const orderSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(createOrder.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+      .addCase(fetchAllOrdersAdmin.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(fetchAllOrdersAdmin.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.allOrders = action.payload;
+      })
+      .addCase(fetchAllOrdersAdmin.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });
