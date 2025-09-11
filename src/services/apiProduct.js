@@ -77,25 +77,67 @@ export async function updateProductVendorApi(productId, dataUpdate) {
 }
 
 export async function uploadImage(file, isPrimary) {
+  if (file.url) {
+    return { imageUrl: file.url, isPrimary };
+  }
+
   const realFile = file.originFileObj || file;
-  const { data, error } = await supabase.storage
-    .from("ProductImage")
-    .upload(`${Date.now()}_${realFile.name}`, realFile);
+  const fileName = realFile.name || `${Date.now()}.jpg`;
+
+  const { data, error } = await supabase.storage.from("ProductImage").upload(`${Date.now()}_${fileName}`, realFile);
+
   if (error) throw error;
 
   const { data: urlData } = supabase.storage.from("ProductImage").getPublicUrl(data.path);
+
   return { imageUrl: urlData.publicUrl, isPrimary };
 }
 
 export async function uploadProductImages(fileList, primaryIndex) {
-  if (!fileList || !fileList.length) return [];
-
   const uploadedFiles = [];
   for (let i = 0; i < fileList.length; i++) {
     const result = await uploadImage(fileList[i], i === primaryIndex);
     uploadedFiles.push(result);
   }
   return uploadedFiles;
+}
+
+export async function updateProductWithImages(productId, data) {
+  try {
+    const { fileList, primaryIndex, ...values } = data;
+
+    let updatedProduct = null;
+    if (Object.keys(values).length > 0) {
+      updatedProduct = await updateProductVendorApi(productId, values);
+    }
+
+    let uploadedFiles = [];
+    if (fileList && fileList.length > 0) {
+      await supabase.from("productImage").delete().eq("productId", productId);
+
+      uploadedFiles = await Promise.all(
+        fileList.map(async (file, idx) => {
+          const result = await uploadImage(file, idx === primaryIndex);
+          return result;
+        })
+      );
+
+      const imagesData = uploadedFiles.map((f) => ({
+        ...f,
+        productId,
+      }));
+
+      await apiCreateProductImages(imagesData);
+    }
+
+    return {
+      product: updatedProduct,
+      images: uploadedFiles,
+    };
+  } catch (error) {
+    console.error("Error updating product with images:", error.message);
+    throw error;
+  }
 }
 
 export async function apiCreateProductImages(imagesData) {

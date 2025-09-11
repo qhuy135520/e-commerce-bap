@@ -25,12 +25,13 @@ export default function VendorManagerProductTable({ products }) {
       dataIndex: "images",
       key: "images",
       width: "10%",
-      render: (images) =>
-        images && images.length > 0 ? (
-          <Avatar shape="square" size={80} src={images[0].imageUrl} />
-        ) : (
-          <Avatar shape="square" size={80} icon="📷" />
-        ),
+      render: (images) => {
+        if (images && images.length > 0) {
+          const primaryImage = images.find((img) => img.isPrimary) || images[0];
+          return <Avatar shape="square" size={80} src={primaryImage.imageUrl} />;
+        }
+        return <Avatar shape="square" size={80} icon="📷" />;
+      },
     },
     {
       title: "Nhãn hiệu",
@@ -78,7 +79,6 @@ export default function VendorManagerProductTable({ products }) {
       render: (record) => (
         <Space size="middle">
           <Button onClick={() => openUpdateModal(record)}>Cập nhật</Button>
-          <Button>Xóa</Button>
         </Space>
       ),
     },

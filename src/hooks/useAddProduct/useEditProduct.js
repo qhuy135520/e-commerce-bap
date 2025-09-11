@@ -15,7 +15,6 @@ export function useEditProduct(productEdit = {}) {
   const { id: productEditId, images, ...data } = productEdit;
   const isEditSession = Boolean(productEditId);
   const dispatch = useDispatch();
-
   const categorys = useSelector(categorySelector.selectCategoryItems);
   const statusCate = useSelector(categorySelector.selectCategoryStatus);
   const brands = useSelector(brandSelector.selectBrandItems);
@@ -40,9 +39,10 @@ export function useEditProduct(productEdit = {}) {
     if (productEdit?.images?.length > 0) {
       const newFileList = productEdit.images.map((img, index) => ({
         uid: img.id || index,
-        name: img.name || `image-${index}`,
+        name: `ẢNH THỨ ${index + 1}`,
         status: "done",
         url: img.imageUrl,
+        isPrimary: img.isPrimary,
       }));
       setFileList(newFileList);
 
@@ -52,7 +52,7 @@ export function useEditProduct(productEdit = {}) {
       setFileList([]);
       setPrimaryIndex(null);
     }
-  }, [productEdit]);
+  }, [images]);
 
   const validationSchema = useMemo(
     () =>
@@ -106,7 +106,7 @@ export function useEditProduct(productEdit = {}) {
           updateProductVendor({
             vendorId: user.id,
             productId: productEditId,
-            dataUpdate: { ...values },
+            dataUpdate: { ...values, fileList, primaryIndex },
           })
         ).unwrap();
         toast.success("Cập nhật sản phẩm thành công!");
@@ -114,7 +114,7 @@ export function useEditProduct(productEdit = {}) {
         await dispatch(
           createProductVendor({
             vendorId: user.id,
-            data: { ...values, images: fileList, primaryIndex },
+            data: { ...values, fileList, primaryIndex },
           })
         ).unwrap();
         toast.success("Gửi xét duyệt sản phẩm thành công!");
