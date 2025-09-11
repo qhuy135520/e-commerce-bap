@@ -74,3 +74,28 @@ export function parseAddress(addressString) {
     detail,
   };
 }
+
+export function convertOrderToEmailPayload(data) {
+  const { order, newOrderDetails, customerInfo } = data;
+
+  const subtotal = newOrderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const shipping = 50000;
+  const total = subtotal + shipping;
+
+  const orders = newOrderDetails.map((item) => ({
+    image_url: item.product.productImage[0].imageUrl || "https://via.placeholder.com/150",
+    name: item.product.name,
+    units: item.quantity,
+    price: formatCurrency(item.price),
+  }));
+
+  return {
+    order_id: order.id,
+    orders,
+    cost: {
+      shipping: formatCurrency(shipping),
+      total: formatCurrency(total),
+    },
+    email: customerInfo.email,
+  };
+}

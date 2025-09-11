@@ -66,7 +66,7 @@ export default function ProductInfo({
             variant="outlined"
             color="red"
             onClick={() => handleAddProductToCart(productDetail.id, quantity)}
-            disabled={isLoadingCart || user?.role === "vendor"}
+            disabled={isLoadingCart || user?.role !== "customer"}
           >
             <FaCartPlus />
             Thêm vào giỏ hàng

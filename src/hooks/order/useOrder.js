@@ -10,7 +10,7 @@ import { PHONE_REGEX } from "@/constants/regex";
 import useCart from "@/hooks/cart/useCart";
 import { useUser } from "@/hooks/authentication/useUser";
 import { useUpdateUser } from "@/hooks/authentication/useUpdateUser";
-import { cartThunk, ordersThunk, productsThunk } from "@/stores/rootThunk";
+import { cartThunk, ordersThunk } from "@/stores/rootThunk";
 import { cartSelector, ordersSelector, productsSelector } from "@/stores/rootSelector";
 
 import i18n from "@/configs/i18n/i18n";
@@ -89,8 +89,9 @@ export default function useOrder() {
   const handlePayClick = () => setIsModalOpen(true);
 
   const handlePlaceOrder = async () => {
+    const customerInfo = { email: user.email, name: user.name };
     await updateUser({ newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal } });
-    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect })).unwrap();
+    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
     await dispatch(cartThunk.removeAllCart(user.id)).unwrap();
 
     toast.success(t("order.orderPlacedSuccessfully"));
