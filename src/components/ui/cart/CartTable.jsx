@@ -27,54 +27,6 @@ export default function CartTable({ onMountSubmitRef }) {
     t,
   } = useCart();
 
-  const columns = useMemo(
-    () => [
-      {
-        title: t("cart.product"),
-        dataIndex: "product",
-        render: (_, record) =>
-          record.isVendorRow ? (
-            <strong>{record.vendorName}</strong>
-          ) : (
-            <Space>
-              <Avatar shape="square" size={100} src={record.productImage || NoImage} />
-              {record.product}
-            </Space>
-          ),
-      },
-      {
-        title: t("cart.unitPrice"),
-        dataIndex: "unitPrice",
-        render: (value, record) => (record.isVendorRow ? null : formatCurrency(value)),
-      },
-      {
-        title: t("cart.quantity"),
-        dataIndex: "quantity",
-        render: (_, record) =>
-          record.isVendorRow ? null : (
-            <Space>
-              <CTS.InputQuantity name={record.key} min={1} max={record.productStock} />
-            </Space>
-          ),
-      },
-      {
-        title: t("cart.totalPrice"),
-        dataIndex: "totalPrice",
-        render: (value, record) => (record.isVendorRow ? null : formatCurrency(value)),
-      },
-      {
-        title: t("cart.actions"),
-        render: (record) =>
-          record.isVendorRow ? null : (
-            <Button danger onClick={() => handleDeleteCartItem(record.key)}>
-              {t("cart.delete")}
-            </Button>
-          ),
-      },
-    ],
-    [i18n.language]
-  );
-
   return (
     <Loading isLoading={isLoading} error={error}>
       <CTS.CartWrapper>
@@ -87,6 +39,59 @@ export default function CartTable({ onMountSubmitRef }) {
             if (onMountSubmitRef) {
               onMountSubmitRef.current = submitForm;
             }
+
+            const columns = useMemo(
+              () => [
+                {
+                  title: t("cart.product"),
+                  dataIndex: "product",
+                  render: (_, record) =>
+                    record.isVendorRow ? (
+                      <strong>{record.vendorName}</strong>
+                    ) : (
+                      <Space>
+                        <Avatar shape="square" size={100} src={record.productImage || NoImage} />
+                        {record.product}
+                      </Space>
+                    ),
+                },
+                {
+                  title: t("cart.unitPrice"),
+                  dataIndex: "unitPrice",
+                  render: (value, record) => (record.isVendorRow ? null : formatCurrency(value)),
+                },
+                {
+                  title: t("cart.quantity"),
+                  dataIndex: "quantity",
+                  render: (_, record) =>
+                    record.isVendorRow ? null : (
+                      <Space>
+                        <CTS.InputQuantity name={record.key} min={1} max={record.productStock} />
+                      </Space>
+                    ),
+                },
+                {
+                  title: t("cart.totalPrice"),
+                  dataIndex: "totalPrice",
+                  render: (_, record) => {
+                    if (record.isVendorRow) return null;
+
+                    const qty = values?.[record.key] ?? record.quantity ?? 0;
+                    return formatCurrency(qty * record.unitPrice);
+                  },
+                },
+                {
+                  title: t("cart.actions"),
+                  render: (record) =>
+                    record.isVendorRow ? null : (
+                      <Button danger onClick={() => handleDeleteCartItem(record.key)}>
+                        {t("cart.delete")}
+                      </Button>
+                    ),
+                },
+              ],
+              [i18n.language, values]
+            );
 
             return (
               <Form>

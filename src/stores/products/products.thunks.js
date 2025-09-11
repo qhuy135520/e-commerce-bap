@@ -47,7 +47,6 @@ export const updateStockProduct = createAsyncThunk(
   "products/updateStockProduct",
   async ({ productId, quantity }, { dispatch }) => {
     try {
-      debugger;
       const productDetail = await getProductDetailApi(productId);
 
       if (!productDetail) throw new Error("Product not found!");

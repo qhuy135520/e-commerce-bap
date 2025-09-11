@@ -12,7 +12,7 @@ export default function OrderHistoryTable() {
   const { orders, isLoading, error } = useOrderHistory();
   const { t } = useReview();
 
-  if (!orders.length) return <EmptyCommon link="/" description="Chưa có đơn hàng nào" />;
+  if (!orders.length && !isLoading) return <EmptyCommon link="/" description="Chưa có đơn hàng nào" />;
   return (
     <Loading isLoading={isLoading} error={error}>
       {orders.map((order, index) => (

@@ -6,6 +6,7 @@ import { Loading } from "@/components/common";
 
 import * as Styled from "@/components/ui/Products/ProductsList.styled";
 import noimage from "@/assets/images/noImage/noimage.jpg";
+import { formatCurrency } from "@/utils/helpers";
 
 export default function SearchResult() {
   const { products, totalProducts, status, query, page, pageSize, handleNavigate, handlePageChange, t } =
@@ -21,7 +22,7 @@ export default function SearchResult() {
             <Card>
               <Styled.ProductImage src={product.images[0]?.imageUrl || noimage} alt={product.name} />
               <p>{product.name}</p>
-              <p>${product.price}</p>
+              <p>{formatCurrency(product.price)}</p>
               <p>
                 {t("productCard.sold")}: {product.total_sold}
               </p>
