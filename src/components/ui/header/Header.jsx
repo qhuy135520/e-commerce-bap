@@ -14,6 +14,7 @@ import useCart from "@/hooks/cart/useCart";
 
 import logo from "@/assets/images/logo.png";
 import { formatCurrency } from "@/utils/helpers";
+import { AiFillDashboard } from "react-icons/ai";
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick, handleNavigateToHome, handleNavigateToCart } = useHeader();
@@ -101,39 +102,49 @@ export default function Header() {
             <HeaderStyled.Img src={logo} alt="logo-web" onClick={handleNavigateToHome} />
             <SearchBar placeholder={t("header.searchPlaceholder")} />
             <HeaderStyled.ButtonHeader>
-              <Popover
-                placement="bottomRight"
-                title={t("header.cartTitle")}
-                content={<CartPopoverContent cart={cart} t={t} />}
-                trigger={user?.role === "customer" ? "hover" : "none"}
-              >
-                <Button size="large" type="primary" onClick={handleNavigateToCart}>
-                  <FaShoppingCart />
-                </Button>
-              </Popover>
               {!!user ? (
-                <>
-                  <Popover
-                    placement="bottom"
-                    title=""
-                    content={
-                      <HeaderStyled.ContentPopover>
-                        <NavLink to="update-user">{t("header.profile")}</NavLink>
-                        <NavLink to={`order-history`}>{t("header.order")}</NavLink>
-                        <NavLink to="deposit">{formatCurrency(user.moneyBalance)}</NavLink>
-                        <hr />
-                        <NavLink onClick={() => logout()}>{t("header.logout")}</NavLink>
-                      </HeaderStyled.ContentPopover>
-                    }
-                    trigger={user?.role === "customer" ? "hover" : "none"}
-                  >
-                    <Button size="large">
-                      <FaUser />
-                    </Button>
-                  </Popover>
-                </>
+                user.role === "customer" ? (
+                  <>
+                    <Popover
+                      placement="bottomRight"
+                      title={t("header.cartTitle")}
+                      content={<CartPopoverContent cart={cart} t={t} />}
+                      trigger={user?.role === "customer" ? "hover" : "none"}
+                    >
+                      <Button size="large" type="primary" onClick={handleNavigateToCart}>
+                        <FaShoppingCart />
+                      </Button>
+                    </Popover>
+
+                    <>
+                      <Popover
+                        placement="bottom"
+                        title=""
+                        content={
+                          <HeaderStyled.ContentPopover>
+                            <NavLink to="update-user">{t("header.profile")}</NavLink>
+                            <NavLink to={`order-history`}>{t("header.order")}</NavLink>
+                            <NavLink to="deposit">{formatCurrency(user.moneyBalance)}</NavLink>
+                            <hr />
+                            <NavLink onClick={() => logout()}>{t("header.logout")}</NavLink>
+                          </HeaderStyled.ContentPopover>
+                        }
+                        trigger={user?.role === "customer" ? "hover" : "none"}
+                      >
+                        <Button size="large">
+                          <FaUser />
+                        </Button>
+                      </Popover>
+                    </>
+                  </>
+                ) : (
+                  <Button size="large" onClick={() => navigate(`/${user.role}-dashboard`)}>
+                    <AiFillDashboard />
+                    To Dashboard
+                  </Button>
+                )
               ) : (
-                <Button size="large" onClick={() => navigate("/login")}>
+                <Button color="primary" variant="filled" size="large" onClick={() => navigate("/login")}>
                   <FaUser />
                 </Button>
               )}
