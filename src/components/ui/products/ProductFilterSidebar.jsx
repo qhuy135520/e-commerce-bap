@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Input } from "antd";
+import { Checkbox, Input, Rate } from "antd";
 import { ProductListStyled as PLS } from "@/components";
 
 const ProductFilterSidebar = ({
-  brandList,
-  categoryList,
+  brandList = [],
+  categoryList = [],
   brand,
   category,
   priceMin,
   priceMax,
   stock,
   bestSeller,
+  minReview,
   onFilterChange,
 }) => {
   const [localPriceMin, setLocalPriceMin] = useState(priceMin || "");
@@ -55,7 +56,7 @@ const ProductFilterSidebar = ({
           type="number"
           value={localPriceMin}
           onChange={(e) => setLocalPriceMin(e.target.value)}
-          onBlur={() => onFilterChange({ priceMin: Number(localPriceMin) })}
+          onBlur={() => onFilterChange({ priceMin: Number(localPriceMin) || 0 })}
           style={{ marginBottom: 8 }}
         />
         <Input
@@ -63,7 +64,7 @@ const ProductFilterSidebar = ({
           type="number"
           value={localPriceMax}
           onChange={(e) => setLocalPriceMax(e.target.value)}
-          onBlur={() => onFilterChange({ priceMax: Number(localPriceMax) })}
+          onBlur={() => onFilterChange({ priceMax: Number(localPriceMax) || 0 })}
         />
       </PLS.FilterGroup>
 
@@ -75,6 +76,21 @@ const ProductFilterSidebar = ({
         <Checkbox checked={bestSeller} onChange={() => onFilterChange({ bestSeller: !bestSeller })}>
           Bán chạy
         </Checkbox>
+      </PLS.FilterGroup>
+
+      <PLS.FilterGroup>
+        <PLS.SidebarTitle>Đánh giá (tối thiểu)</PLS.SidebarTitle>
+        {[5, 4, 3, 2, 1].map((r) => (
+          <PLS.FilterItem key={r}>
+            <Checkbox
+              checked={Number(minReview) === r}
+              onChange={() => onFilterChange({ minReview: Number(minReview) === r ? 0 : r })}
+            >
+              <Rate disabled defaultValue={r} />
+              <span style={{ marginLeft: 8 }}>{r} sao</span>
+            </Checkbox>
+          </PLS.FilterItem>
+        ))}
       </PLS.FilterGroup>
     </PLS.Sidebar>
   );

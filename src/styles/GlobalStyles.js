@@ -154,7 +154,7 @@ body {
   min-height: 100vh;
   line-height: 1.5;
   font-size: 1.6rem;
-  background-color: var(--color-grey-0);
+  background-color: var(--color-grey-50);
 }
 
 input,

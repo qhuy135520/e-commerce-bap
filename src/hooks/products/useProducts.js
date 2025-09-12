@@ -14,7 +14,6 @@ export default function useProducts() {
 
   const productsVendor = useSelector(productsSelector.selectProductsVendor);
   const allProducts = useSelector(productsSelector.selectProducts);
-
   const status = useSelector(productsSelector.selectStatus);
   const isLoading = ["loading", "idle"].includes(status);
 
@@ -30,66 +29,105 @@ export default function useProducts() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const page = parseInt(searchParams.get("page") || 1, 10);
+  const page = parseInt(searchParams.get("page") || "1", 10);
   const sort = searchParams.get("sort") || "";
   const brand = searchParams.get("brand") || "";
   const category = searchParams.get("category") || "";
-  const priceMin = parseInt(searchParams.get("priceMin") || 0, 10);
-  const priceMax = parseInt(searchParams.get("priceMax") || 0, 10);
+  const priceMin = parseFloat(searchParams.get("priceMin") || "0");
+  const priceMax = parseFloat(searchParams.get("priceMax") || "0");
   const stock = searchParams.get("stock") || "";
   const bestSeller = searchParams.get("bestSeller") === "true";
-  const bestSellerProducts = useMemo(() => {
-    if (!Array.isArray(products)) return [];
-    return products.filter((p) => p.total_sold >= 1);
-  }, [products]);
+  const minReview = parseFloat(searchParams.get("minReview") || "0");
+
+  const buildParams = (overrides = {}) => {
+    const paramsObj = Object.fromEntries([...searchParams]);
+    Object.assign(paramsObj, overrides);
+    const cleaned = {};
+    Object.entries(paramsObj).forEach(([k, v]) => {
+      if (v === undefined || v === null) return;
+      const str = typeof v === "string" ? v : String(v);
+      if (str !== "" && str !== "undefined") cleaned[k] = str;
+    });
+    return cleaned;
+  };
 
   const handleFilterChange = (filterObj) => {
-    setSearchParams({
-      page: 1,
-      sort,
-      brand,
-      category,
-      priceMin,
-      priceMax,
-      stock,
-      bestSeller,
-      ...filterObj,
-    });
+    const next = buildParams({ page: "1", ...filterObj });
+    setSearchParams(next);
   };
 
   const handleSortChange = (value) => handleFilterChange({ sort: value });
-  const handlePageChange = (page) => setSearchParams({ ...Object.fromEntries([...searchParams]), page });
+  const handlePageChange = (newPage) => {
+    const next = buildParams({ page: String(newPage) });
+    setSearchParams(next);
+  };
 
   const pageSize = PAGE_SIZE.PRODUCT_LIST;
 
-  const filteredProducts = useMemo(() => {
+  const enrichedProducts = useMemo(() => {
     if (!Array.isArray(products)) return [];
+    return products.map((p) => {
+      let reviews = p.reviews;
+      if (!Array.isArray(reviews) && typeof reviews === "string") {
+        try {
+          reviews = JSON.parse(reviews);
+        } catch (e) {
+          reviews = [];
+        }
+      }
+      if (!Array.isArray(reviews)) reviews = [];
 
-    return products.filter((p) => {
+      const reviewCount = reviews.length;
+      const avgReviewRaw =
+        reviewCount > 0 ? reviews.reduce((sum, r) => sum + (Number(r.rating) || 0), 0) / reviewCount : 0;
+      const avgReview = Math.round(avgReviewRaw * 10) / 10;
+
+      return {
+        ...p,
+        reviews,
+        reviewCount,
+        avgReview,
+      };
+    });
+  }, [products]);
+
+  const bestSellerProducts = useMemo(() => {
+    if (!Array.isArray(enrichedProducts)) return [];
+    return [...enrichedProducts].sort((a, b) => (b.total_sold || 0) - (a.total_sold || 0)).slice(0, 8);
+  }, [enrichedProducts]);
+
+  const filteredProducts = useMemo(() => {
+    if (!Array.isArray(enrichedProducts)) return [];
+
+    return enrichedProducts.filter((p) => {
       if (brand && p.brandId !== brand) return false;
       if (category && p.categoryId !== category) return false;
       if (priceMin && p.price < priceMin) return false;
-      if (priceMax && p.price > priceMax) return false;
-      if (stock === "low" && p.stock >= 5) return false;
-      if (bestSeller && p.total_sold < 10) return false;
+      if (priceMax && priceMax > 0 && p.price > priceMax) return false;
+      if (stock === "low" && (p.stock === undefined || p.stock >= 5)) return false;
+      if (bestSeller && (p.total_sold === undefined || p.total_sold < 10)) return false;
+      if (minReview && (p.avgReview || 0) < minReview) return false;
       return true;
     });
-  }, [products, brand, category, priceMin, priceMax, stock, bestSeller]);
+  }, [enrichedProducts, brand, category, priceMin, priceMax, stock, bestSeller, minReview]);
 
   const paginatedProducts = useMemo(() => {
-    let sorted = [...filteredProducts];
+    const sorted = [...filteredProducts];
     switch (sort) {
       case "price-asc":
-        sorted.sort((a, b) => a.price - b.price);
+        sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
         break;
       case "price-desc":
-        sorted.sort((a, b) => b.price - a.price);
+        sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
         break;
       case "sales-asc":
-        sorted.sort((a, b) => a.total_sold - b.total_sold);
+        sorted.sort((a, b) => (a.total_sold || 0) - (b.total_sold || 0));
         break;
       case "sales-desc":
-        sorted.sort((a, b) => b.total_sold - a.total_sold);
+        sorted.sort((a, b) => (b.total_sold || 0) - (a.total_sold || 0));
+        break;
+      case "review-desc":
+        sorted.sort((a, b) => (b.avgReview || 0) - (a.avgReview || 0));
         break;
       default:
         break;
@@ -98,22 +136,25 @@ export default function useProducts() {
   }, [filteredProducts, sort, page, pageSize]);
 
   const handleNavigate = (id) => navigate(`/product/${id}`);
+
   const totalProducts = useMemo(() => filteredProducts.length, [filteredProducts]);
 
-  const brandList = useMemo(
-    () => [...new Map(products.map((p) => [p.brandId, { id: p.brandId, name: p.brandName }])).values()],
-    [products]
-  );
+  const brandList = useMemo(() => {
+    if (!Array.isArray(enrichedProducts)) return [];
+    return [...new Map(enrichedProducts.map((p) => [p.brandId, { id: p.brandId, name: p.brandName }])).values()];
+  }, [enrichedProducts]);
 
-  const categoryList = useMemo(
-    () => [...new Map(products.map((p) => [p.categoryId, { id: p.categoryId, name: p.categoryName }])).values()],
-    [products]
-  );
+  const categoryList = useMemo(() => {
+    if (!Array.isArray(enrichedProducts)) return [];
+    return [
+      ...new Map(enrichedProducts.map((p) => [p.categoryId, { id: p.categoryId, name: p.categoryName }])).values(),
+    ];
+  }, [enrichedProducts]);
 
   const settings = {
     dots: true,
     infinite: true,
-    speed: 800,
+    speed: 700,
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
@@ -147,7 +188,9 @@ export default function useProducts() {
     categoryList,
     handleNavigate,
     t,
-    bestSellerProducts,
     totalProducts,
+    minReview,
+    bestSellerProducts,
+    settings,
   };
 }
