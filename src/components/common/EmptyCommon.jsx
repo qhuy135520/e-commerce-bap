@@ -23,12 +23,13 @@ const CreateButton = styled(Button)`
   margin-top: 20px;
 `;
 
-export default function EmptyCommon({ link, description }) {
+export default function EmptyCommon({ link, description, buttonText = "Tạo đơn hàng mới" }) {
   return (
     <Container>
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<Description>{description}</Description>} />
+
       <NavLink to={link}>
-        <CreateButton type="primary">Tạo đơn hàng mới</CreateButton>
+        <CreateButton type="primary">{buttonText}</CreateButton>
       </NavLink>
     </Container>
   );

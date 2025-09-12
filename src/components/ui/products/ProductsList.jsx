@@ -1,75 +1,107 @@
-import React, { useCallback, useEffect, useMemo } from "react";
-import { Card, Select, Pagination, ConfigProvider, Typography } from "antd";
-import { Loading, ProductListStyled as PLS } from "@/components";
-
+import React, { useEffect } from "react";
+import { Select, Pagination, ConfigProvider } from "antd";
+import { Loading, ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
 import useProducts from "@/hooks/products/useProducts";
 import { formatCurrency } from "@/utils/helpers";
-
 import noimage from "@/assets/images/noImage/noimage.jpg";
 
 const { Option } = Select;
-const { Title } = Typography;
 
 const ProductsList = () => {
   const {
     fetchDataProducts,
-    products,
-    sort,
-    page,
-    pageSize,
+    paginatedProducts,
     handleSortChange,
     handlePageChange,
-    paginatedProducts,
+    handleFilterChange,
+    page,
+    pageSize,
+    sort,
+    brand,
+    category,
+    priceMin,
+    priceMax,
+    stock,
+    bestSeller,
+    brandList,
+    categoryList,
     handleNavigate,
     t,
-    vendorId,
   } = useProducts();
 
-  const sortOptions = useMemo(
-    () => [
-      { value: "price-asc", label: t("productList.filter.priceAsc") },
-      { value: "price-desc", label: t("productList.filter.priceDesc") },
-      { value: "sales-asc", label: t("productList.filter.salesAsc") },
-      { value: "sales-desc", label: t("productList.filter.salesDesc") },
-    ],
-    [t]
-  );
+  useEffect(() => {
+    fetchDataProducts();
+  }, [fetchDataProducts]);
 
   return (
     <ConfigProvider>
       <PLS.Container>
-        <PLS.Box>
-          <Title level={2}>{t("productList.title")}</Title>
-          <PLS.SelectSort value={sort || t("productList.filter.placeholder")} onChange={handleSortChange}>
-            {sortOptions.map((opt) => (
-              <Option key={opt.value} value={opt.value}>
-                {opt.label}
-              </Option>
-            ))}
-          </PLS.SelectSort>
-        </PLS.Box>
-
-        <PLS.ProductGrid>
-          {paginatedProducts.map((product) => (
-            <PLS.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
-              <Card>
-                <PLS.ProductImage src={product.images[0]?.imageUrl || noimage} alt={product.name} />
-                <p>{product.name}</p>
-                <p>{formatCurrency(product.price)}</p>
-                <p>
-                  {t("productCard.sold")}: {product.total_sold || 0}
-                </p>
-              </Card>
-            </PLS.ProductItem>
-          ))}
-        </PLS.ProductGrid>
-        <Pagination
-          align="center"
-          current={page}
-          pageSize={pageSize}
-          total={products?.length}
-          onChange={handlePageChange}
+        <ProductFilterSidebar
+          brandList={brandList}
+          categoryList={categoryList}
+          brand={brand}
+          category={category}
+          priceMin={priceMin}
+          priceMax={priceMax}
+          stock={stock}
+          bestSeller={bestSeller}
+          onFilterChange={handleFilterChange}
         />
+
+        <PLS.Box>
+          <PLS.TitleWrapper>
+            <span className="title-text">{t("productList.title")}</span>
+            <div className="divider"></div>
+          </PLS.TitleWrapper>
+
+          <Select value={sort} style={{ width: 200, marginBottom: 16 }} onChange={handleSortChange}>
+            <Option value="">Mặc định</Option>
+            <Option value="price-asc">Giá tăng dần</Option>
+            <Option value="price-desc">Giá giảm dần</Option>
+            <Option value="sales-asc">Bán ít nhất</Option>
+            <Option value="sales-desc">Bán chạy nhất</Option>
+          </Select>
+
+          {paginatedProducts.length === 0 && <p>Không có sản phẩm nào.</p>}
+
+          <PLS.ProductGrid>
+            {paginatedProducts.map((product) => (
+              <PLS.ProductItem key={product.id}>
+                <div className="product-card" onClick={() => handleNavigate(product.id)}>
+                  <div className="image-wrapper">
+                    <img src={product.images[0]?.imageUrl || noimage} alt={product.name} />
+                  </div>
+
+                  <div className="product-info">
+                    {product.total_sold > 10 && <span className="badge">Bán chạy</span>}
+                    {product.stock < 5 && <span className="badge badge-stock">Sắp hết hàng</span>}
+
+                    <div>
+                      <p className="brand">{product.brandname}</p>
+                      <p className="name">{product.name}</p>
+                      <p className="description">{product.description}</p>
+                    </div>
+
+                    <div>
+                      <p className="price">{formatCurrency(product.price)}</p>
+                      <p className="sold-stock">
+                        Đã bán: {product.total_sold || 0} | Còn lại: {product.stock || 0}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </PLS.ProductItem>
+            ))}
+          </PLS.ProductGrid>
+
+          <Pagination
+            align="center"
+            current={page}
+            pageSize={pageSize}
+            total={paginatedProducts.length}
+            onChange={handlePageChange}
+          />
+        </PLS.Box>
       </PLS.Container>
     </ConfigProvider>
   );

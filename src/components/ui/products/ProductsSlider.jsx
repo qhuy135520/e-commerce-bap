@@ -1,34 +1,60 @@
-import React from "react";
-import { Card } from "antd";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-
-import { ProductListStyled as PLS } from "@/components";
-
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Pagination, Navigation } from "swiper/modules"; // ✅ Swiper 10+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 import useProducts from "@/hooks/products/useProducts";
+import noimage from "@/assets/images/NoImage/noimage.jpg";
+import { ProductListStyled as PLS } from "@/components/ui/products";
+import { formatCurrency } from "@/utils/helpers";
 
-import noimage from "@/assets/images/noImage/noimage.jpg";
-
-const ProductsSlider = () => {
-  const { handleNavigate, settings, topProducts, t } = useProducts();
+export default function ProductsSlider() {
+  const { handleNavigate, bestSellerProducts, t } = useProducts();
 
   return (
-    <Slider {...settings}>
-      {topProducts.map((product) => (
-        <PLS.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
-          <Card>
-            <PLS.ProductImage src={product.image || noimage} alt={product.name} />
-            <p>{product.name}</p>
-            <p>{product.price}</p>
-            <p>
-              {t("productCard.sold")}: {product.total_sold}
-            </p>
-          </Card>
-        </PLS.ProductItem>
-      ))}
-    </Slider>
-  );
-};
+    <PLS.SwiperSlideWrap>
+      <Swiper
+        modules={[Autoplay]}
+        spaceBetween={16}
+        slidesPerView={5}
+        loop={true}
+        autoplay={{ delay: 2000, disableOnInteraction: false }}
+        breakpoints={{
+          1200: { slidesPerView: 4 },
+          768: { slidesPerView: 2 },
+          480: { slidesPerView: 1 },
+        }}
+      >
+        {bestSellerProducts.map((product) => (
+          <SwiperSlide key={product.id}>
+            <PLS.ProductItem key={product.id}>
+              <div className="product-card" onClick={() => handleNavigate(product.id)}>
+                <div className="image-wrapper">
+                  <img src={product.images[0]?.imageUrl || noimage} alt={product.name} />
+                </div>
 
-export default ProductsSlider;
+                <div className="product-info">
+                  {product.total_sold > 10 && <span className="badge">Bán chạy</span>}
+                  {product.stock < 5 && <span className="badge badge-stock">Sắp hết hàng</span>}
+
+                  <div>
+                    <p className="brand">{product.brandname}</p>
+                    <p className="name">{product.name}</p>
+                    <p className="description">{product.description}</p>
+                  </div>
+
+                  <div>
+                    <p className="price">{formatCurrency(product.price)}</p>
+                    <p className="sold-stock">
+                      Đã bán: {product.total_sold || 0} | Còn lại: {product.stock || 0}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </PLS.ProductItem>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </PLS.SwiperSlideWrap>
+  );
+}
