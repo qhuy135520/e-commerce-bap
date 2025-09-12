@@ -36,7 +36,6 @@ export const CartWrapper = styled.div`
     background-color: var(--color-grey-100) !important;
   }
 
-  /* Vendor row (Shop name) */
   .ant-table-row.vendor-row td {
     background-color: var(--color-blue-50);
     font-weight: 600;

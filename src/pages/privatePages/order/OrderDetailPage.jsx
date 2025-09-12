@@ -8,6 +8,7 @@ import {
   OrderAddressCart,
   OrderEditAddressDefault,
   OrderEditAddressForm,
+  OrderHeader,
   OrderItem,
   OrderStyled as OS,
 } from "@/components";
@@ -35,7 +36,7 @@ export default function OrderDetail() {
     vnpayBalance,
     isInsufficientBalance,
     handleCancel,
-
+    handleBackToCart,
     isLoading,
   } = useOrder();
 
@@ -60,94 +61,98 @@ export default function OrderDetail() {
 
   const { addressDefault, isLoading: isLoadingAddress } = useAddress();
 
-  if (!orders.length) return <EmptyCommon link={"/"} description={"You have no orders yet"} />;
+  if (!orders.length && !isLoading && !isLoadingAddress)
+    return <EmptyCommon link={"/"} description={"You have no orders yet"} />;
 
   return (
-    <Loading isLoading={isLoading || isLoadingAddress} error={error}>
-      <OS.Wrapper>
-        <OS.Section>
-          <OS.FlexRow>
-            <OS.AddressTitle level={3}>
-              <FaMapMarkerAlt /> {t("order.orderDetails.address")}
-            </OS.AddressTitle>
-          </OS.FlexRow>
+    <>
+      <OrderHeader onBackToCart={handleBackToCart} />
+      <Loading isLoading={isLoading || isLoadingAddress} error={error}>
+        <OS.Wrapper>
+          <OS.Section>
+            <OS.FlexRow>
+              <OS.AddressTitle level={3}>
+                <FaMapMarkerAlt /> {t("order.orderDetails.address")}
+              </OS.AddressTitle>
+            </OS.FlexRow>
 
-          {!isEditting &&
-            (addressDefault ? (
-              <>
-                <OrderAddressCart addressDefault={addressDefault} onSetEditting={handleSetEditting} />
-              </>
-            ) : (
-              <OS.EmptyAddressCardWrapper>
-                <FaMapMarkerAlt size={24} />
-                <Text type="secondary">Chưa có địa chỉ giao hàng</Text>
-                <Button type="dashed" onClick={() => handleSetEditting("addAddress")}>
-                  + Thêm địa chỉ
-                </Button>
-              </OS.EmptyAddressCardWrapper>
-            ))}
-          {isEditting === "addAddress" && (
-            <OrderEditAddressForm onCancel={handleCancel} validateSchema={validateSchema} />
-          )}
+            {!isEditting &&
+              (addressDefault ? (
+                <>
+                  <OrderAddressCart addressDefault={addressDefault} onSetEditting={handleSetEditting} />
+                </>
+              ) : (
+                <OS.EmptyAddressCardWrapper>
+                  <FaMapMarkerAlt size={24} />
+                  <Text type="secondary">Chưa có địa chỉ giao hàng</Text>
+                  <Button type="dashed" onClick={() => handleSetEditting("addAddress")}>
+                    + Thêm địa chỉ
+                  </Button>
+                </OS.EmptyAddressCardWrapper>
+              ))}
+            {isEditting === "addAddress" && (
+              <OrderEditAddressForm onCancel={handleCancel} validateSchema={validateSchema} />
+            )}
 
-          {isEditting === "changeAddressDefault" && <OrderEditAddressDefault onCancel={handleCancel} />}
-        </OS.Section>
+            {isEditting === "changeAddressDefault" && <OrderEditAddressDefault onCancel={handleCancel} />}
+          </OS.Section>
 
-        {orders.map((order, idx) => (
-          <OrderItem
-            key={idx}
-            order={order}
-            t={t}
-            onMountSubmitRef={(submitForm) => {
-              submitRefs.current[idx] = submitForm;
-            }}
-          />
-        ))}
+          {orders.map((order, idx) => (
+            <OrderItem
+              key={idx}
+              order={order}
+              t={t}
+              onMountSubmitRef={(submitForm) => {
+                submitRefs.current[idx] = submitForm;
+              }}
+            />
+          ))}
 
-        <OS.Section>
-          <OS.FlexRow>
-            <Text strong>{t("order.grandTotal")}:</Text>
-            <OS.GrandTotalText>{formatCurrency(grandTotal)}</OS.GrandTotalText>
-          </OS.FlexRow>
+          <OS.Section>
+            <OS.FlexRow>
+              <Text strong>{t("order.grandTotal")}:</Text>
+              <OS.GrandTotalText>{formatCurrency(grandTotal)}</OS.GrandTotalText>
+            </OS.FlexRow>
 
-          <OS.StyledButton type="primary" size="middle" onClick={handlePayClick} disabled={!Number(grandTotal)}>
-            {t("order.pay")}
-          </OS.StyledButton>
-        </OS.Section>
+            <OS.StyledButton type="primary" size="middle" onClick={handlePayClick} disabled={!Number(grandTotal)}>
+              {t("order.pay")}
+            </OS.StyledButton>
+          </OS.Section>
 
-        <Modal
-          title={<OS.ModalTitle>{t("order.confirmPayment")}</OS.ModalTitle>}
-          open={isModalOpen}
-          onCancel={() => setIsModalOpen(false)}
-          footer={null}
-        >
-          <OS.PaymentMethodWrapper>
-            <Text strong>{t("order.paymentMethod")}:</Text>
+          <Modal
+            title={<OS.ModalTitle>{t("order.confirmPayment")}</OS.ModalTitle>}
+            open={isModalOpen}
+            onCancel={() => setIsModalOpen(false)}
+            footer={null}
+          >
             <OS.PaymentMethodWrapper>
-              <Text>{t("order.paymentMethods.vnpay")}</Text>
-              <OS.BalanceText type="secondary">
-                {t("order.balance")}: <strong>{formatCurrency(vnpayBalance)}</strong>
-              </OS.BalanceText>
+              <Text strong>{t("order.paymentMethod")}:</Text>
+              <OS.PaymentMethodWrapper>
+                <Text>{t("order.paymentMethods.vnpay")}</Text>
+                <OS.BalanceText type="secondary">
+                  {t("order.balance")}: <strong>{formatCurrency(vnpayBalance)}</strong>
+                </OS.BalanceText>
+              </OS.PaymentMethodWrapper>
             </OS.PaymentMethodWrapper>
-          </OS.PaymentMethodWrapper>
 
-          <OS.PaymentDetailWrapper>
-            <Text strong>
-              {t("order.paymentDetail")}: {formatCurrency(grandTotal)}
-            </Text>
-          </OS.PaymentDetailWrapper>
+            <OS.PaymentDetailWrapper>
+              <Text strong>
+                {t("order.paymentDetail")}: {formatCurrency(grandTotal)}
+              </Text>
+            </OS.PaymentDetailWrapper>
 
-          {isInsufficientBalance && (
-            <OS.AlertWrapper>
-              <Alert message={t("order.insufficientBalance")} type="error" showIcon />
-            </OS.AlertWrapper>
-          )}
+            {isInsufficientBalance && (
+              <OS.AlertWrapper>
+                <Alert message={t("order.insufficientBalance")} type="error" showIcon />
+              </OS.AlertWrapper>
+            )}
 
-          <OS.PlaceOrderButton type="primary" onClick={handlePlaceOrder} disabled={isInsufficientBalance}>
-            {t("order.placeOrder")}
-          </OS.PlaceOrderButton>
-        </Modal>
-      </OS.Wrapper>
-    </Loading>
+            <OS.PlaceOrderButton type="primary" onClick={handlePlaceOrder} disabled={isInsufficientBalance}>
+              {t("order.placeOrder")}
+            </OS.PlaceOrderButton>
+          </Modal>
+        </OS.Wrapper>
+      </Loading>
+    </>
   );
 }

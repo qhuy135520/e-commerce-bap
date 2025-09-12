@@ -1,14 +1,9 @@
-import { Loading, UpdateUserForm } from "@/components";
-
-import { useTransactions } from "@/hooks/transactions/useTransactions";
+import { UpdateUserForm, UpdateUserHeader } from "@/components";
 
 export default function UpdateUserPage() {
-  const { transaction, isLoading, error } = useTransactions();
-  console.log(transaction);
-
   return (
-    <Loading isLoading={isLoading} error={error}>
+    <>
       <UpdateUserForm />;
-    </Loading>
+    </>
   );
 }

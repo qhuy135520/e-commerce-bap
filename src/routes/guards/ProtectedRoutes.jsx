@@ -14,5 +14,5 @@ export default function ProtectedRoute({ children }) {
       navigate("/login", { replace: true });
     }
   }, [user, isPending, navigate]);
-  return <Loading isLoading={isPending || !user}>{children}</Loading>;
+  return <Loading isLoading={isPending || !user}>{user && children}</Loading>;
 }

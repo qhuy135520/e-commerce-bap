@@ -13,8 +13,6 @@ import { useUpdateUser } from "@/hooks/authentication/useUpdateUser";
 import { cartThunk, ordersThunk } from "@/stores/rootThunk";
 import { cartSelector, ordersSelector, productsSelector } from "@/stores/rootSelector";
 
-import i18n from "@/configs/i18n/i18n";
-
 export default function useOrder() {
   const dispatch = useDispatch();
   const [isEditting, setisEditting] = useState("");
@@ -105,10 +103,15 @@ export default function useOrder() {
 
   const handleCancel = () => setisEditting("");
 
+  const handleBackToCart = () => {
+    navigate("/cart");
+  };
+
   const vnpayBalance = user.moneyBalance;
   const isInsufficientBalance = grandTotal > vnpayBalance;
 
   return {
+    statusOrder,
     error,
     isEditting,
     handleSetEditting,
@@ -120,6 +123,7 @@ export default function useOrder() {
     handlePayClick,
     handleCancel,
     handlePlaceOrder,
+    handleBackToCart,
     getOrderTotals,
     grandTotal,
     vnpayBalance,
