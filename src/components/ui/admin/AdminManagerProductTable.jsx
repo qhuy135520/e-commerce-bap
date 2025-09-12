@@ -43,7 +43,7 @@ export default function AdminManagerProductTable({ products, loading }) {
       ),
     },
     {
-      title: "Action",
+      title: "Hành động",
       key: "action",
       width: "25%",
       render: (_, record) => (
@@ -70,10 +70,23 @@ export default function AdminManagerProductTable({ products, loading }) {
           Table: {
             headerBg: "var(--color-grey-200)",
             headerColor: "var(--color-grey-800)",
+            headerSplitColor: "var(--color-grey-500)",
             rowHoverBg: "var(--color-grey-200)",
           },
+          Select: {
+            optionSelectedBg: "var(--color-grey-200)",
+            selectorBg: "var(--color-grey-100)",
+          },
         },
-        token: { colorBgContainer: "var(--color-grey-100)", colorText: "var(--color-grey-800)" },
+        token: {
+          colorTextPlaceholder: "var(--color-grey-400)",
+          colorBgContainer: "var(--color-grey-100)",
+          colorText: "var(--color-grey-800)",
+          colorTextHeading: "var(--color-grey-800)",
+          colorBgElevated: "var(--color-grey-100)",
+          colorTextDisabled: "var(--color-grey-400)",
+          colorOption: "var(--color-blue-800)",
+        },
       }}
     >
       {/* Search + Filter */}
@@ -99,7 +112,7 @@ export default function AdminManagerProductTable({ products, loading }) {
         columns={columns}
         dataSource={filteredProducts}
         loading={loading}
-        pagination={{ pageSize: 10, showSizeChanger: false }}
+        pagination={{ pageSize: 10, showSizeChanger: false, position: ["bottomCenter"] }}
       />
 
       <Modal

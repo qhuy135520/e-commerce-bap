@@ -6,6 +6,7 @@ export const FlexHeader = styled(Flex)`
 `;
 
 export const ButtonPosition = styled.div`
+  margin-bottom: 16px;
   width: 100%;
   display: flex;
   justify-content: flex-end;

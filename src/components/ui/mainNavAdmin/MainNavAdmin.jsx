@@ -1,18 +1,20 @@
+// MainNavAdmin.jsx
 import { Button } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { MdContactEmergency, MdOutlineShoppingBag } from "react-icons/md";
 import { FaFileInvoiceDollar, FaUserCheck, FaProjectDiagram } from "react-icons/fa";
 import { RiContactsLine } from "react-icons/ri";
 import { useLogout } from "@/hooks/authentication/useLogout";
-import { MainNavAdminStyled as MAS } from "@/components/ui/mainNavAdmin";
+import * as MAS from "@/components/ui/mainNavAdmin/MainNavAdmin.styled";
 
 export default function MainNavAdmin() {
   const { logout } = useLogout();
+  const [openStatistics, setOpenStatistics] = useState(false);
 
   return (
     <nav>
       <MAS.NavList>
-        <strong> Main Menu Admin</strong>
+        <strong>Main Menu Admin</strong>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/users">
             <RiContactsLine /> Quản lí người dùng
@@ -28,11 +30,24 @@ export default function MainNavAdmin() {
             <MdOutlineShoppingBag /> Quản lí đơn hàng
           </MAS.StyledNavLink>
         </li>
+
+        {/* Thống kê */}
         <li>
-          <MAS.StyledNavLink to="/dashboard/statistics">
+          <MAS.StatisticsToggle onClick={() => setOpenStatistics((prev) => !prev)}>
             <FaProjectDiagram /> Thống kê
-          </MAS.StyledNavLink>
+          </MAS.StatisticsToggle>
+          {openStatistics && (
+            <MAS.SubMenu>
+              <li>
+                <MAS.StyledNavLink to="/admin-dashboard/statistics-order">📊 Thống kê đơn hàng</MAS.StyledNavLink>
+              </li>
+              <li>
+                <MAS.StyledNavLink to="/admin-dashboard/statistics-product">📈 Thống kê sản phẩm</MAS.StyledNavLink>
+              </li>
+            </MAS.SubMenu>
+          )}
         </li>
+
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/payment-history">
             <FaFileInvoiceDollar /> Payment History
@@ -44,12 +59,12 @@ export default function MainNavAdmin() {
           </MAS.StyledNavLink>
         </li>
         <li>
-          <MAS.StyledNavLink to="/admin-dashboard/payment-history">
+          <MAS.StyledNavLink to="/admin-dashboard/contact">
             <RiContactsLine /> Contact
           </MAS.StyledNavLink>
         </li>
 
-        <strong> Settings</strong>
+        <strong>Settings</strong>
         <li>
           <Button block onClick={() => logout()}>
             <span>Logout</span>
