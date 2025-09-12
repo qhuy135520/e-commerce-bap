@@ -4,9 +4,11 @@ import * as Yup from "yup";
 
 import { deposit } from "@/stores/deposit/deposit.thunk";
 import { clearError } from "@/stores/deposit/deposit.slice";
+import { useNavigate } from "react-router-dom";
 
 export function useDeposit() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const loading = useSelector((state) => state.deposit.loading);
   const errorMsg = useSelector((state) => state.deposit.errorMsg);
 
@@ -28,11 +30,16 @@ export function useDeposit() {
     resetForm?.();
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   return {
     handleDeposit,
     depositSchema,
     loading,
     errorMsg,
     setErrorMsg: (msg) => dispatch({ type: "payment/setError", payload: msg }),
+    handleBackToHome,
   };
 }

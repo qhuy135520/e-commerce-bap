@@ -7,6 +7,7 @@ import AuthSideImage from "@/components/ui/auth/AuthSideImage";
 import Header from "@/components/ui/header/Header";
 import Footer from "@/components/ui/footer/Footer";
 import AuthLayoutStyled from "@/layouts/global/AuthLayout.styled";
+import { UpdateUserHeader } from "@/components";
 
 const FormStyled = styled.div`
   padding: 2rem 5rem;
@@ -17,6 +18,7 @@ export default function AuthLayout() {
     <>
       <Header />
       <Container>
+        <UpdateUserHeader />
         <AuthLayoutStyled>
           <Flex justify="center" align="center">
             <Col md={12} xs={0}>

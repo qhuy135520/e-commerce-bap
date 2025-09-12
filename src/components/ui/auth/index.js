@@ -7,6 +7,7 @@ export { default as UpdateUserForm } from "@/components/ui/auth/updateUser/Updat
 export { default as AuthSideImage } from "@/components/ui/auth/AuthSideImage";
 export { default as DividerForgotPassword } from "@/components/ui/auth/DividerForgotPassword";
 export { default as SocialAuth } from "@/components/ui/auth/SocialAuth";
+export { default as UpdateUserHeader } from "@/components/ui/auth/UpdateUser/UpdateUserHeader";
 
 export { default as NavlinkStyled } from "@/components/ui/auth/Navlink.styled";
 export * as RoleCardStyled from "@/components/ui/auth/roleSignUp/RoleCard.styled";

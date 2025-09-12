@@ -84,42 +84,47 @@ export default function OrderHistoryTable() {
           />
         </Space>
       </div>
+      {visibleOrders.length === 0 ? (
+        <EmptyCommon description="Không tìm thấy đơn hàng nào phù hợp với bộ lọc" />
+      ) : (
+        <>
+          {visibleOrders.map((order, index) => (
+            <OHTS.OrderWrapper key={index}>
+              <OHTS.OrderTitleHeader>
+                <Tag
+                  color={order.orderstatus === "completed" ? "green" : "orange"}
+                  style={{ fontSize: "1.2rem", padding: "0.2rem 1rem" }}
+                >
+                  {order.orderstatus === "completed" ? t("order.status.completed") : t("order.status.processing")}
+                </Tag>
+                <span style={{ fontSize: "1.3rem", color: "var(--color-grey-600)" }}>
+                  {format(new Date(order.ordercreatedat), "dd/MM/yyyy")}
+                </span>
+              </OHTS.OrderTitleHeader>
 
-      {visibleOrders.map((order, index) => (
-        <OHTS.OrderWrapper key={index}>
-          <OHTS.OrderTitleHeader>
-            <Tag
-              color={order.orderstatus === "completed" ? "green" : "orange"}
-              style={{ fontSize: "1.2rem", padding: "0.2rem 1rem" }}
-            >
-              {order.orderstatus === "completed" ? t("order.status.completed") : t("order.status.processing")}
-            </Tag>
-            <span style={{ fontSize: "1.3rem", color: "var(--color-grey-600)" }}>
-              {format(new Date(order.ordercreatedat), "dd/MM/yyyy")}
-            </span>
-          </OHTS.OrderTitleHeader>
+              <OHTS.DividerLine />
 
-          <OHTS.DividerLine />
+              <OrderVendor productByVendor={order.productsbyvendor} orderStatus={order.orderstatus} />
 
-          <OrderVendor productByVendor={order.productsbyvendor} orderStatus={order.orderstatus} />
+              <OHTS.DividerLine />
 
-          <OHTS.DividerLine />
+              <OHTS.ActionButton>
+                <div className="price">
+                  {t("order.totalPrice")}: <OHTS.PriceTotal>{formatCurrency(order.totalorder)}</OHTS.PriceTotal>
+                </div>
+                <Button type="primary" danger onClick={() => handleClickBuyAgain(order)}>
+                  {t("order.buyAgain")}
+                </Button>
+              </OHTS.ActionButton>
+            </OHTS.OrderWrapper>
+          ))}
 
-          <OHTS.ActionButton>
-            <div className="price">
-              {t("order.totalPrice")}: <OHTS.PriceTotal>{formatCurrency(order.totalorder)}</OHTS.PriceTotal>
+          {canLoadMore && (
+            <div style={{ textAlign: "center", marginTop: "1rem" }}>
+              <Button onClick={handleLoadMore}>Xem thêm</Button>
             </div>
-            <Button type="primary" danger onClick={() => handleClickBuyAgain(order)}>
-              {t("order.buyAgain")}
-            </Button>
-          </OHTS.ActionButton>
-        </OHTS.OrderWrapper>
-      ))}
-
-      {canLoadMore && (
-        <div style={{ textAlign: "center", marginTop: "1rem" }}>
-          <Button onClick={handleLoadMore}>Xem thêm</Button>
-        </div>
+          )}
+        </>
       )}
     </Loading>
   );

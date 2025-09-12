@@ -1,5 +1,12 @@
-import { DepositFrom } from "@/components";
+import { DepositFrom, DepositHeader } from "@/components";
+import { useDeposit } from "@/hooks/deposit/useDeposit";
 
 export default function DepositPage() {
-  return <DepositFrom />;
+  const { handleBackToHome } = useDeposit();
+  return (
+    <>
+      <DepositHeader onBackToHome={handleBackToHome} />
+      <DepositFrom />
+    </>
+  );
 }

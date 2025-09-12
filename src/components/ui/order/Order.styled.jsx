@@ -49,7 +49,6 @@ export const Price = styled.p`
 `;
 export const Wrapper = styled.div`
   max-width: 1100px;
-  margin: 100px auto;
   padding: 24px;
   display: flex;
   flex-direction: column;

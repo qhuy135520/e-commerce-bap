@@ -1,25 +1,27 @@
-import { Flex, Spin } from "antd";
 import styled from "styled-components";
+import { Spin } from "antd";
 
-import { Error } from "@/components";
-
-const FlexStyled = styled(Flex)`
-  min-height: 100vh;
+const Wrapper = styled.div`
+  position: relative;
 `;
 
-function Loading({ children, isLoading, error = null }) {
-  if (isLoading) {
-    return (
-      <FlexStyled align="center" justify="center">
+const Overlay = styled.div`
+  display: ${(props) => (props.isLoading ? "flex" : "none")};
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.6);
+  z-index: 10;
+`;
+
+export default function Loading({ children, isLoading }) {
+  return (
+    <Wrapper>
+      {children}
+      <Overlay isLoading={isLoading}>
         <Spin />
-      </FlexStyled>
-    );
-  }
-
-  if (error) {
-    return <Error message={error.message} />;
-  }
-
-  return children;
+      </Overlay>
+    </Wrapper>
+  );
 }
-export default Loading;
