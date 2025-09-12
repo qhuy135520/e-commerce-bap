@@ -12,9 +12,6 @@ const { Text } = Typography;
 
 export default function CartPopoverContent({ cart, t }) {
   const navigate = useNavigate();
-  if (!cart || cart.length === 0) {
-    return <Text>{t("header.cartEmpty")}</Text>;
-  }
 
   const dataWithHeader = useMemo(
     () => [
@@ -32,6 +29,10 @@ export default function CartPopoverContent({ cart, t }) {
   const handleNavigate = (id) => {
     navigate(`/product/${id}`);
   };
+
+  if (!cart || cart.length === 0) {
+    return <Text>{t("header.cartEmpty")}</Text>;
+  }
 
   return (
     <List

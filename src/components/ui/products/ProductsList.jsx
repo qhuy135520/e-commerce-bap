@@ -89,9 +89,7 @@ const ProductsList = () => {
 
                     <div className="bottom-info">
                       <p className="price">{formatCurrency(product.price)}</p>
-                      <p className="sold-stock">
-                        Đã bán: {product.total_sold || 0} | Còn lại: {product.stock || 0}
-                      </p>
+                      <p className="sold-stock">Đã bán: {product.total_sold || 0}</p>
                     </div>
                     <Rate disabled allowHalf value={product.avgReview || 0} />
                   </div>

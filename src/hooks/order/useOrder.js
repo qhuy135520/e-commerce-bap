@@ -38,7 +38,7 @@ export default function useOrder() {
         acc[item.vendorId] = {
           shop: { name: item.vendorName },
           products: [],
-          shippingFee: 0,
+          shippingFee: 50000,
           shippingMethod: null,
         };
       }

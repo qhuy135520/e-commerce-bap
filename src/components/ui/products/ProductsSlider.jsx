@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules"; // ✅ Swiper 10+
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -7,6 +7,7 @@ import useProducts from "@/hooks/products/useProducts";
 import noimage from "@/assets/images/NoImage/noimage.jpg";
 import { ProductListStyled as PLS } from "@/components/ui/products";
 import { formatCurrency } from "@/utils/helpers";
+import { Rate } from "antd";
 
 export default function ProductsSlider() {
   const { handleNavigate, bestSellerProducts, t } = useProducts();
@@ -20,8 +21,8 @@ export default function ProductsSlider() {
         loop={true}
         autoplay={{ delay: 2000, disableOnInteraction: false }}
         breakpoints={{
-          1200: { slidesPerView: 4 },
-          768: { slidesPerView: 2 },
+          1200: { slidesPerView: 5 },
+          768: { slidesPerView: 3 },
           480: { slidesPerView: 1 },
         }}
       >
@@ -30,7 +31,7 @@ export default function ProductsSlider() {
             <PLS.ProductItem key={product.id}>
               <div className="product-card" onClick={() => handleNavigate(product.id)}>
                 <div className="image-wrapper">
-                  <img src={product.images[0]?.imageUrl || noimage} alt={product.name} />
+                  <img src={product.images?.[0]?.imageUrl || noimage} alt={product.name} />
                 </div>
 
                 <div className="product-info">
@@ -38,17 +39,16 @@ export default function ProductsSlider() {
                   {product.stock < 5 && <span className="badge badge-stock">Sắp hết hàng</span>}
 
                   <div>
-                    <p className="brand">{product.brandname}</p>
+                    <p className="brand">{product.brandName}</p>
                     <p className="name">{product.name}</p>
                     <p className="description">{product.description}</p>
                   </div>
 
-                  <div>
+                  <div className="bottom-info">
                     <p className="price">{formatCurrency(product.price)}</p>
-                    <p className="sold-stock">
-                      Đã bán: {product.total_sold || 0} | Còn lại: {product.stock || 0}
-                    </p>
+                    <p className="sold-stock">Đã bán: {product.total_sold || 0} </p>
                   </div>
+                  <Rate disabled allowHalf value={product.avgReview || 0} />
                 </div>
               </div>
             </PLS.ProductItem>
