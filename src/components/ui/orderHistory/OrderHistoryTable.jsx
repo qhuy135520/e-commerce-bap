@@ -84,7 +84,6 @@ export default function OrderHistoryTable() {
           />
         </Space>
       </div>
-
       {visibleOrders.length === 0 ? (
         <EmptyCommon description="Không tìm thấy đơn hàng nào phù hợp với bộ lọc" />
       ) : (
