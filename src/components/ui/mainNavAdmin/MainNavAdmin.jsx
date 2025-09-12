@@ -14,7 +14,10 @@ export default function MainNavAdmin() {
   return (
     <nav>
       <MAS.NavList>
-        <strong>Main Menu Admin</strong>
+        <MAS.StyledNavLink to="/admin-dashboard">
+          <strong>Dashboard Admin</strong>
+        </MAS.StyledNavLink>
+
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/users">
             <RiContactsLine /> Quản lí người dùng
@@ -50,17 +53,12 @@ export default function MainNavAdmin() {
 
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/payment-history">
-            <FaFileInvoiceDollar /> Payment History
+            <FaFileInvoiceDollar /> Lịch sử giao dịch
           </MAS.StyledNavLink>
         </li>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/approval-vendor">
-            <FaUserCheck /> Vendor Approval
-          </MAS.StyledNavLink>
-        </li>
-        <li>
-          <MAS.StyledNavLink to="/admin-dashboard/contact">
-            <RiContactsLine /> Contact
+            <FaUserCheck /> Phê duyệt nhà cung cấp
           </MAS.StyledNavLink>
         </li>
 

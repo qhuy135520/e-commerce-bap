@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 
 import { fetchAllVendor, updateVendor } from "@/stores/vendor/vendor.thunks";
-import { selectVendorError, selectVendorStatus } from "@/stores/vendor/vendor.selectors";
+import { selectVendorStatus } from "@/stores/vendor/vendor.selectors";
 
 export function useVendorAdmin(itemsPerPage = 10) {
   const [vendors, setVendors] = useState([]);
@@ -13,7 +13,6 @@ export function useVendorAdmin(itemsPerPage = 10) {
   const dispatch = useDispatch();
   const vendorData = useSelector((state) => state.vendor.data);
   const status = useSelector(selectVendorStatus);
-  const error = useSelector(selectVendorError);
 
   useEffect(() => {
     dispatch(fetchAllVendor());
@@ -76,7 +75,6 @@ export function useVendorAdmin(itemsPerPage = 10) {
     itemsPerPage,
     searchTerm,
     status,
-    error,
     handlePageChange,
     handleSearch,
     handleStatusToggle,

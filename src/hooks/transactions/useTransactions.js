@@ -3,20 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { transactionsThunk } from "@/stores/rootThunk";
 import { transactionsSelector } from "@/stores/rootSelector";
-import { useUser } from "@/hooks/authentication/useUser";
 
 import { formatCurrency } from "@/utils/helpers";
 
 export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
-  const { user } = useUser();
   const dispatch = useDispatch();
   const transactions = useSelector(transactionsSelector.selectTransactions);
   const status = useSelector(transactionsSelector.selectTransactionsStatus);
-  const isLoading = ["loading", "idle"].includes(status);
   const error = useSelector(transactionsSelector.selectTransactionsError);
-  const transaction = user && useSelector((state) => transactionsSelector.selectTransactionById(state, user.id));
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   useEffect(() => {
     if (status === "idle") {
@@ -26,8 +23,9 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
 
   const filteredTransactions = transactions.filter(
     (item) =>
-      item.txn_ref?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.userInfo?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      (item.txn_ref?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.userInfo?.name?.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (statusFilter === "all" || item.status === statusFilter)
   );
 
   const totalTransactions = filteredTransactions.length;
@@ -48,9 +46,12 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
     setCurrentPage(1);
   };
 
+  const handleStatusFilter = (value) => {
+    setStatusFilter(value);
+    setCurrentPage(1);
+  };
+
   return {
-    isLoading,
-    transaction,
     transactions: currentData,
     totalTransactions,
     totalAmount: formatCurrency(totalAmount),
@@ -59,7 +60,9 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
     currentPage,
     itemsPerPage,
     searchTerm,
+    statusFilter,
     handlePageChange,
     handleSearch,
+    handleStatusFilter,
   };
 };
