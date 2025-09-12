@@ -97,6 +97,16 @@ const AdminManagerOrderPage = React.lazy(() =>
     default: module.default,
   }))
 );
+const AdminStatisticsProductPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/statistical/AdminStatisticsProductPage").then((module) => ({
+    default: module.default,
+  }))
+);
+const AdminStatisticsOrderPage = React.lazy(() =>
+  import("@/pages/privatePages/admin/statistical/AdminStatisticsOrderPage").then((module) => ({
+    default: module.default,
+  }))
+);
 
 const PrivateRoutes = (
   <>
@@ -150,6 +160,8 @@ const PrivateRoutes = (
         </Route>
         <Route path={ROUTER_PATH.ADMIN_MANAGER_PRODUCT.PATH} element={<AdminManagerProductPage />} />
         <Route path={ROUTER_PATH.ADMIN_MANAGER_ORDER.PATH} element={<AdminManagerOrderPage />} />
+        <Route path={ROUTER_PATH.ADMIN_STATISTICS_PRODUCT.PATH} element={<AdminStatisticsProductPage />} />
+        <Route path={ROUTER_PATH.ADMIN_STATISTICS_ORDER.PATH} element={<AdminStatisticsOrderPage />} />
       </Route>
     </Route>
   </>

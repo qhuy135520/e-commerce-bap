@@ -36,6 +36,9 @@ export const PRIVATE_ROUTER_PATH = {
   ADMIN_MANAGER_USER: { KEY: "ADMIN_MANAGER_USER", PATH: "/admin-dashboard/users" },
   ADMIN_MANAGER_PRODUCT: { KEY: "ADMIN_MANAGER_PRODUCT", PATH: "/admin-dashboard/products" },
   ADMIN_MANAGER_ORDER: { KEY: "ADMIN_MANAGER_ORDER", PATH: "/admin-dashboard/orders" },
+  ADMIN_STATISTICS_PRODUCT: { KEY: "ADMIN_STATISTICS_PRODUCT", PATH: "/admin-dashboard/statistics-product" },
+  ADMIN_STATISTICS_ORDER: { KEY: "ADMIN_STATISTICS_ORDER", PATH: "/admin-dashboard/statistics-order" },
+
   ADMIN_PAYMENT_HISTORY: { KEY: "ADMIN_PAYMENT_HISTORY", PATH: "/admin-dashboard/payment-history" },
   ADMIN_APPROVAL_VENDOR: { KEY: "ADMIN_APPROVAL_VENDOR", PATH: "/admin-dashboard/approval-vendor" },
 };

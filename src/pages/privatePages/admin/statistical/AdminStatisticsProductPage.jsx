@@ -1,0 +1,113 @@
+import React, { useEffect } from "react";
+import { Table, ConfigProvider } from "antd";
+import { PieChart, Pie, Cell, Tooltip as ReTooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from "recharts";
+import { useSelector, useDispatch } from "react-redux";
+
+import { formatNumberCurrency } from "@/utils/helpers";
+import { productsSelector } from "@/stores/rootSelector";
+import { getAllProducts } from "@/stores/products/products.thunks";
+import useProductAdmin from "@/hooks/products/useProductAdmin";
+import * as ASP from "@/pages/privatePages/admin/statistical/AdminStatistical.styled";
+
+export default function AdminStatisticsProductPage() {
+  const dispatch = useDispatch();
+  const productsFromStore = useSelector(productsSelector.selectAllProducts);
+  const products = productsFromStore ?? [];
+  const loading = useSelector((state) => state.products?.status === "loading");
+
+  useEffect(() => {
+    if (!products || products.length === 0) {
+      dispatch(getAllProducts());
+    }
+  }, [products, dispatch]);
+
+  const { filteredProducts, statusData, topStock } = useProductAdmin(products);
+
+  const columns = [
+    {
+      title: "Mã sản phẩm",
+      dataIndex: "id",
+      key: "id",
+      width: "10%",
+      render: (text) => <span>{text?.substring(0, 6)}</span>,
+    },
+    {
+      title: "Tên sản phẩm",
+      dataIndex: "name",
+      key: "name",
+      width: "30%",
+      render: (text) => <b>{text}</b>,
+    },
+    {
+      title: "Giá",
+      dataIndex: "price",
+      key: "price",
+      width: "15%",
+      render: (price) => (
+        <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(price || 0))}</span>
+      ),
+    },
+    { title: "Tồn kho", dataIndex: "stock", key: "stock", width: "15%" },
+  ];
+
+  const COLORS = ["#00C49F", "#ff4242"];
+
+  return (
+    <ConfigProvider
+      theme={{
+        components: {
+          Table: {
+            headerBg: "var(--color-grey-200)",
+            headerColor: "var(--color-grey-800)",
+            headerSplitColor: "var(--color-grey-500)",
+            rowHoverBg: "var(--color-grey-200)",
+          },
+        },
+      }}
+    >
+      {/* Charts */}
+      <ASP.ChartsWrapper>
+        {/* Pie Chart: Status */}
+        <ASP.ChartContainer>
+          <h3>Trạng thái sản phẩm</h3>
+          <ResponsiveContainer>
+            <PieChart>
+              <Pie data={statusData} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
+                {statusData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <ReTooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </ASP.ChartContainer>
+
+        {/* Bar Chart: Top tồn kho */}
+        <ASP.ChartContainer>
+          <h3>Top 5 sản phẩm tồn kho</h3>
+          <ResponsiveContainer>
+            <BarChart data={topStock} layout="vertical" margin={{ left: 50, top: 20 }}>
+              <XAxis type="number" />
+              <YAxis dataKey="name" type="category" width={150} />
+              <Bar dataKey="stock" fill="#18e4ff" />
+              <ReTooltip />
+            </BarChart>
+          </ResponsiveContainer>
+        </ASP.ChartContainer>
+      </ASP.ChartsWrapper>
+
+      {/* Table */}
+      <Table
+        rowKey="id"
+        columns={columns}
+        dataSource={filteredProducts}
+        loading={!!loading}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: false,
+          position: ["bottomCenter"],
+        }}
+      />
+    </ConfigProvider>
+  );
+}

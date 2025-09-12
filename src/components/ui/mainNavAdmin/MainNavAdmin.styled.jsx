@@ -1,4 +1,5 @@
-import { NavLink } from 'react-router-dom';
+// mainNavAdmin.js
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 export const NavList = styled.ul`
@@ -43,4 +44,42 @@ export const StyledNavLink = styled(NavLink)`
   &.active:visited svg {
     color: var(--color-brand-600);
   }
+`;
+
+export const StatisticsToggle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  cursor: pointer;
+
+  color: var(--color-grey-600);
+  font-size: 1.6rem;
+  font-weight: 500;
+  padding: 1.2rem 2.4rem;
+  transition: all 0.3s;
+  border-radius: var(--border-radius-sm);
+
+  &:hover {
+    background-color: var(--color-cyan-4);
+    color: var(--color-grey-800);
+  }
+
+  & svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    color: var(--color-grey-400);
+    transition: all 0.3s;
+  }
+
+  &:hover svg {
+    color: var(--color-brand-600);
+  }
+`;
+
+export const SubMenu = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding-left: 3rem;
+  margin-top: 0.4rem;
 `;

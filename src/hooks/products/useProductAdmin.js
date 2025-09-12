@@ -1,3 +1,4 @@
+// useProductAdmin.js
 import { useState, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import supabase from "@/services/supabase";
@@ -7,7 +8,7 @@ import toast from "react-hot-toast";
 export default function useProductAdmin(products) {
   const dispatch = useDispatch();
 
-  const [localProducts, setLocalProducts] = useState(products);
+  const [localProducts, setLocalProducts] = useState(products ?? []);
   const [modal, setModal] = useState({ type: null, visible: false, product: null });
   const [searchInput, setSearchInput] = useState("");
   const [searchKey, setSearchKey] = useState(""); // key thực sự dùng để lọc
@@ -15,7 +16,7 @@ export default function useProductAdmin(products) {
 
   // Sync khi props products thay đổi
   useEffect(() => {
-    setLocalProducts(products);
+    setLocalProducts(products ?? []);
   }, [products]);
 
   // Modal actions
@@ -26,7 +27,6 @@ export default function useProductAdmin(products) {
     if (!modal.product) return;
 
     if (modal.type === "approve") {
-      // Update status trên supabase hoặc backend
       await dispatch(
         updateProductVendor({
           vendorId: modal.product.vendorId,
@@ -34,13 +34,10 @@ export default function useProductAdmin(products) {
           dataUpdate: { status: true },
         })
       );
-      // Cập nhật localProducts để render ngay
       setLocalProducts((prev) => prev.map((p) => (p.id === modal.product.id ? { ...p, status: true } : p)));
       toast.success("Duyệt sản phẩm thành công");
     } else if (modal.type === "delete") {
-      // Xóa trên supabase
       await supabase.from("product").delete().eq("id", modal.product.id);
-      // Xóa khỏi localProducts để render ngay
       setLocalProducts((prev) => prev.filter((p) => p.id !== modal.product.id));
       toast.success("Xóa sản phẩm thành công");
     }
@@ -66,9 +63,29 @@ export default function useProductAdmin(products) {
     });
   }, [localProducts, searchKey, statusFilter]);
 
+  // Pie data: approved vs pending
+  const statusData = useMemo(() => {
+    const approved = filteredProducts.filter((p) => p.status === true).length;
+    const pending = filteredProducts.filter((p) => p.status === false).length;
+    return [
+      { name: "Đã duyệt", value: approved },
+      { name: "Chưa duyệt", value: pending },
+    ];
+  }, [filteredProducts]);
+
+  // Top 5 tồn kho
+  const topStock = useMemo(() => {
+    return [...filteredProducts]
+      .sort((a, b) => (b.stock || 0) - (a.stock || 0))
+      .slice(0, 5)
+      .map((p) => ({ name: p.name || p.id, stock: p.stock || 0 }));
+  }, [filteredProducts]);
+
   return {
     localProducts,
     filteredProducts,
+    statusData,
+    topStock,
     modal,
     searchInput,
     setSearchInput,

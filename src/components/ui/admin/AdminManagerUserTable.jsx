@@ -50,7 +50,7 @@ const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
     render: (date) => (date ? new Date(date).toLocaleDateString("vi-VN") : "—"),
   },
   {
-    title: "Action",
+    title: "Hành động",
     key: "action",
     width: "14%",
     render: (_, record) => (
@@ -105,8 +105,20 @@ export default function AdminManagerUserTable({ users, loading }) {
             headerSplitColor: "var(--color-grey-500)",
             rowHoverBg: "var(--color-grey-200)",
           },
+          Select: {
+            optionSelectedBg: "var(--color-grey-200)",
+            selectorBg: "var(--color-grey-100)",
+          },
         },
-        token: { colorBgContainer: "var(--color-grey-100)", colorText: "var(--color-grey-800)" },
+        token: {
+          colorTextPlaceholder: "var(--color-grey-400)",
+          colorBgContainer: "var(--color-grey-100)",
+          colorText: "var(--color-grey-800)",
+          colorTextHeading: "var(--color-grey-800)",
+          colorBgElevated: "var(--color-grey-100)",
+          colorTextDisabled: "var(--color-grey-400)",
+          colorOption: "var(--color-blue-800)",
+        },
       }}
     >
       {/* Search */}
@@ -127,7 +139,7 @@ export default function AdminManagerUserTable({ users, loading }) {
         columns={columns(handleDeleteConfirm, handleUpdateConfirm)}
         dataSource={filteredUsers}
         loading={loading}
-        pagination={{ pageSize: 10, showSizeChanger: false }}
+        pagination={{ pageSize: 10, showSizeChanger: false, position: ["bottomCenter"] }}
       />
 
       {/* Modal xác nhận xóa */}
