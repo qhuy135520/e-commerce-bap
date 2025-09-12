@@ -1,13 +1,14 @@
 import { DividerTitle, HeadingStyled, CartHeaderStyled as CHS } from "@/components";
 import { Breadcrumb, Button } from "antd";
-import { ShoppingOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { BiShoppingBag } from "react-icons/bi";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 export default function OrderHeader({ onBackToCart }) {
   return (
     <CHS.FlexCartHeader justify="space-between" align="center">
       <div>
         <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <ShoppingOutlined style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
+          <BiShoppingBag style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
           <span>Đặt hàng</span>
           <DividerTitle type="vertical" />
         </HeadingStyled>
@@ -20,7 +21,7 @@ export default function OrderHeader({ onBackToCart }) {
 
       <Button
         type="default"
-        icon={<ArrowLeftOutlined />}
+        icon={<BsArrowReturnLeft />}
         onClick={onBackToCart}
         style={{
           borderRadius: "6px",

@@ -1,7 +1,8 @@
 import { DividerTitle, HeadingStyled } from "@/components";
 import { Breadcrumb, Button, Row } from "antd";
-import { UserOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import { FaUser } from "react-icons/fa";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 export const FlexUserHeader = styled(Row)`
   margin: 1.4rem 0;
@@ -15,7 +16,7 @@ export default function UpdateUserHeader({ onBackToUserList }) {
     <FlexUserHeader justify="space-between" align="center">
       <div>
         <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <UserOutlined style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
+          <FaUser style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
           <span>Người dùng</span>
           <DividerTitle type="vertical" />
         </HeadingStyled>
@@ -28,7 +29,7 @@ export default function UpdateUserHeader({ onBackToUserList }) {
 
       <Button
         type="default"
-        icon={<ArrowLeftOutlined />}
+        icon={<BsArrowReturnLeft />}
         onClick={onBackToUserList}
         style={{
           borderRadius: "6px",

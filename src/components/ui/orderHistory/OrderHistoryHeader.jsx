@@ -1,14 +1,15 @@
 import { DividerTitle, HeadingStyled, OrderHistoryHeaderStyled as OHHS } from "@/components";
 import { Breadcrumb, Button } from "antd";
-import { HistoryOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { BsArrowReturnLeft } from "react-icons/bs";
 import React from "react";
+import { BiHistory } from "react-icons/bi";
 
 export default function OrderHistoryHeader({ onBackToHome }) {
   return (
     <OHHS.FlexOrderHeader justify="space-between" align="center">
       <div>
         <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <HistoryOutlined style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
+          <BiHistory style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
           <span>Lịch sử đặt hàng</span>
           <DividerTitle type="vertical" />
         </HeadingStyled>
@@ -21,7 +22,7 @@ export default function OrderHistoryHeader({ onBackToHome }) {
 
       <Button
         type="default"
-        icon={<ArrowLeftOutlined />}
+        icon={<BsArrowReturnLeft />}
         onClick={onBackToHome}
         style={{
           borderRadius: "6px",

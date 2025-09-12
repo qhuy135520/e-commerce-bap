@@ -1,13 +1,14 @@
 import { DividerTitle, HeadingStyled, CartHeaderStyled as CHS } from "@/components";
 import { Breadcrumb, Button, Badge } from "antd";
-import { ShoppingCartOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { CiShoppingCart } from "react-icons/ci";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 export default function CartHeader({ itemCount = 0, onBackToShop }) {
   return (
     <CHS.FlexCartHeader justify="space-between" align="center">
       <div>
         <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <ShoppingCartOutlined style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
+          <CiShoppingCart style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
           <span>
             Giỏ hàng{" "}
             <Badge
@@ -29,7 +30,7 @@ export default function CartHeader({ itemCount = 0, onBackToShop }) {
 
       <Button
         type="default"
-        icon={<ArrowLeftOutlined />}
+        icon={<bi />}
         onClick={onBackToShop}
         style={{
           borderRadius: "6px",
