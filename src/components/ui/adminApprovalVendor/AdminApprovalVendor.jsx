@@ -44,7 +44,7 @@ function AdminApprovalVendor() {
             disabled={status === "loading"}
           >
             <Option value="all">All</Option>
-            <Option value="unactive">Active</Option>
+            <Option value="inactive">Active</Option>
             <Option value="active">Unactive</Option>
           </Select>
         </AAVS.SearchWrapper>
@@ -74,7 +74,7 @@ function AdminApprovalVendor() {
                     onClick={() => handleStatusToggle(vendor.id, vendor.status)}
                     disabled={status === "loading"}
                   >
-                    {vendor.status === "active" ? "Unactive" : "Active"}
+                    {vendor.status === "active" ? "Inactive" : "Active"}
                   </AAVS.StatusButton>
                 </AAVS.Td>
               </AAVS.Tr>

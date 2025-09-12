@@ -36,7 +36,7 @@ export function useVendorAdmin(itemsPerPage = 10) {
   }, [vendorData, searchTerm, statusFilter]);
 
   const handleStatusToggle = async (userId, currentStatus) => {
-    const newStatus = currentStatus === "active" ? "unactive" : "active";
+    const newStatus = currentStatus === "active" ? "inactive" : "active";
     const vendor = vendors.find((v) => v.id === userId);
     const vendorName = vendor ? vendor.name : userId;
     setVendors((prevVendors) =>
