@@ -44,7 +44,9 @@
     },
     "status": {
       "completed": "Hoàn thành",
-      "processing": "Đang xử lý"
+      "processing": "Đang xử lý",
+      "shipped": "Đang giao",
+      "canceled": "Đã bị hủy"
     },
     "review": {
       "title": "Đánh giá sản phẩm: {{name}}",

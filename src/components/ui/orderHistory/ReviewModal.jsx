@@ -16,7 +16,7 @@ export default function ReviewModal({ visible, onCancel, onSubmit, product, load
   };
 
   return (
-    <Modal title={null} open={visible} onCancel={onCancel} footer={null} centered width={600} destroyOnClose>
+    <Modal title={null} open={visible} onCancel={onCancel} footer={null} centered width={600} destroyOnHidden>
       <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
         <Title level={4} style={{ marginBottom: "0.5rem" }}>
           Viết đánh giá của bạn
@@ -32,21 +32,23 @@ export default function ReviewModal({ visible, onCancel, onSubmit, product, load
             src={product.productImg}
             alt={product.productName}
             style={{
-              width: 60,
-              height: 60,
+              width: 80,
+              height: 80,
               objectFit: "cover",
               borderRadius: 8,
               border: "1px solid #f0f0f0",
             }}
           />
           <div>
-            <Text strong>{product.productName}</Text>
+            <Text style={{ fontSize: "1.8rem" }} strong>
+              {product.productName}
+            </Text>
             <br />
-            <Text type="secondary" style={{ fontSize: "0.9rem" }}>
+            <Text type="secondary" style={{ fontSize: "1.5rem" }}>
               Số lượng: x{product.quantity}
             </Text>
             <br />
-            <Text type="secondary" style={{ fontSize: "0.9rem" }}>
+            <Text type="secondary" style={{ fontSize: "1.5rem" }}>
               Giá: {formatCurrency(product.price)}
             </Text>
           </div>

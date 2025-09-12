@@ -3,8 +3,7 @@ import { Button } from "antd";
 import useReview from "@/hooks/order/useReview";
 import { OrderHistoryTableStyled as OHTS, ReviewModal } from "@/components";
 import { formatCurrency } from "@/utils/helpers";
-
-const FALLBACK_IMG = "/images/no-image.png";
+import NoImage from "@/assets/images/NoImage/noimage.jpg";
 
 export default function OrderItemInfo({ vendorProduct, orderStatus }) {
   const { isModalOpen, selectedProduct, openReviewModal, closeReviewModal, handleSubmitReview, loading, t } =
@@ -15,7 +14,7 @@ export default function OrderItemInfo({ vendorProduct, orderStatus }) {
       {vendorProduct.map((product) => (
         <OHTS.ProductRow key={product.orderDetailId}>
           <OHTS.ItemLeft>
-            <OHTS.Image src={product.productImg || FALLBACK_IMG} alt={product.productName} />
+            <OHTS.Image src={product.productImg || NoImage} alt={product.productName} />
             <OHTS.InfoItem>
               <strong>{product.productName}</strong>
               <OHTS.SmallMuted>Số lượng: x{product.quantity}</OHTS.SmallMuted>

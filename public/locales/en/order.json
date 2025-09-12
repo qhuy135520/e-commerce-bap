@@ -44,7 +44,9 @@
     },
     "status": {
       "completed": "Completed",
-      "processing": "Processing"
+      "processing": "Processing",
+      "shipped": "shipping",
+      "canceled": "canceled"
     },
     "review": {
       "title": "Review product: {{name}}",

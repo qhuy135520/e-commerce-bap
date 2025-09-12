@@ -2,11 +2,13 @@ import { formatCurrency } from "@/utils/helpers";
 
 import { OrderStyled as OS } from "@/components/ui/order";
 
+import NoImage from "@/assets/images/NoImage/noimage.jpg";
+
 export default function OrderProductCard({ product }) {
   return (
     <OS.WrapperCard>
       <OS.ProductRow>
-        <OS.ProductImage src={product.image} alt={product.name} />
+        <OS.ProductImage src={product.image || NoImage} alt={product.name} />
         <OS.ProductInfo>
           <OS.ProductName>{product.name}</OS.ProductName>
           <OS.ProductQuantity>x{product.quantity}</OS.ProductQuantity>
