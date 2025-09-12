@@ -1,5 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 const GlobalStyles = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wdth,wght@0,75..100,100..900;1,75..100,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 :root {
 --color-yellow-500: #d3c631ff ;
 --color-green-500: #30dc00ff ;
@@ -147,7 +149,7 @@ html {
 }
 
 body {
-  font-family: "Inter", "Roboto", "Roboto Mono", "Rubik", sans-serif;
+  font-family: 'Open Sans', 'Roboto', 'Roboto Mono', 'Rubik', sans-serif;
   color: var(--color-grey-700);
 
   transition: color 0s, background-color 0s ;
