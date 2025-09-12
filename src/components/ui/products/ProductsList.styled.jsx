@@ -27,7 +27,7 @@ export const Sidebar = styled.div`
   padding: 16px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   position: sticky;
-  top: 24px;
+  top: 100px;
   height: fit-content;
 `;
 

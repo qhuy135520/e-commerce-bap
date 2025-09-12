@@ -1,5 +1,3 @@
-import React, { useEffect } from "react";
-
 import {
   Loading,
   ProductsBanner,
@@ -7,10 +5,10 @@ import {
   ProductsFeatureInLogo,
   ProductsList,
   ProductsPromo,
-  ProductsRandom,
   ProductsSlider,
 } from "@/components";
 import useProducts from "@/hooks/products/useProducts";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const { error, fetchDataProducts, vendorId, isLoading } = useProducts();
@@ -18,17 +16,15 @@ export default function HomePage() {
   useEffect(() => {
     fetchDataProducts();
   }, [vendorId]);
+
   return (
     <Loading isLoading={isLoading} error={error}>
-      {/* <ProductsHeader /> */}
-
       <ProductsBanner />
       <ProductsFeatureInLogo />
       <ProductsPromo />
       <ProductsCategories />
       <ProductsSlider />
       <ProductsList />
-      {/* <ProductsRandom /> */}
     </Loading>
   );
 }

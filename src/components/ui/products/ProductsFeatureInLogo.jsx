@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 const features = [
   { icon: "🚚", title: "Giao hàng nhanh", desc: "Nhanh chóng và an toàn" },
@@ -47,14 +48,16 @@ const Icon = styled.div`
 
 export default function ProductsFeatureInLogo() {
   return (
-    <FeaturesWrapper>
-      {features.map((feature, idx) => (
-        <FeatureCard key={idx}>
-          <Icon>{feature.icon}</Icon>
-          <h3>{feature.title}</h3>
-          <p>{feature.desc}</p>
-        </FeatureCard>
-      ))}
-    </FeaturesWrapper>
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <FeaturesWrapper>
+        {features.map((feature, idx) => (
+          <FeatureCard key={idx}>
+            <Icon>{feature.icon}</Icon>
+            <h3>{feature.title}</h3>
+            <p>{feature.desc}</p>
+          </FeatureCard>
+        ))}
+      </FeaturesWrapper>
+    </motion.div>
   );
 }

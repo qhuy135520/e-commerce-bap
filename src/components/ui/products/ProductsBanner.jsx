@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 const BannerWrapper = styled.section`
   display: flex;
@@ -58,12 +59,14 @@ const BannerContent = styled.div`
 
 export default function ProductBanner() {
   return (
-    <BannerWrapper>
-      <BannerContent>
-        <h1>Mua sắm thông minh – Ưu đãi mỗi ngày</h1>
-        <p>Khám phá các sản phẩm hot, giảm giá cực sốc chỉ hôm nay!</p>
-        <button>Shop Ngay</button>
-      </BannerContent>
-    </BannerWrapper>
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <BannerWrapper>
+        <BannerContent>
+          <h1>Mua sắm thông minh – Ưu đãi mỗi ngày</h1>
+          <p>Khám phá các sản phẩm hot, giảm giá cực sốc chỉ hôm nay!</p>
+          <button>Shop Ngay</button>
+        </BannerContent>
+      </BannerWrapper>
+    </motion.div>
   );
 }

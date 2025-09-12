@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import { FaShoppingCart } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const promos = [
   {
@@ -142,38 +143,40 @@ const PromoContent = styled.div`
 
 export default function ProductsPromo() {
   return (
-    <SliderWrapper>
-      <Swiper
-        modules={[Autoplay]}
-        slidesPerView={3.2}
-        spaceBetween={20}
-        loop={true}
-        freeMode={true}
-        speed={4000}
-        autoplay={{ delay: 0, disableOnInteraction: false }}
-        breakpoints={{
-          0: { slidesPerView: 1.2 },
-          768: { slidesPerView: 2.2 },
-          1024: { slidesPerView: 3.2 },
-        }}
-        grabCursor={true}
-      >
-        {promos.map((promo, idx) => (
-          <SwiperSlide key={idx}>
-            <PromoCard>
-              <PromoImage src={promo.img} alt={promo.title} />
-              <PromoOverlay gradient={gradients[idx % gradients.length]} />
-              <PromoContent>
-                <h3>{promo.title}</h3>
-                <p>{promo.desc}</p>
-                <button>
-                  <FaShoppingCart /> Mua ngay
-                </button>
-              </PromoContent>
-            </PromoCard>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </SliderWrapper>
+    <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <SliderWrapper>
+        <Swiper
+          modules={[Autoplay]}
+          slidesPerView={3.2}
+          spaceBetween={20}
+          loop={true}
+          freeMode={true}
+          speed={4000}
+          autoplay={{ delay: 0, disableOnInteraction: false }}
+          breakpoints={{
+            0: { slidesPerView: 1.2 },
+            768: { slidesPerView: 2.2 },
+            1024: { slidesPerView: 3.2 },
+          }}
+          grabCursor={true}
+        >
+          {promos.map((promo, idx) => (
+            <SwiperSlide key={idx}>
+              <PromoCard>
+                <PromoImage src={promo.img} alt={promo.title} />
+                <PromoOverlay gradient={gradients[idx % gradients.length]} />
+                <PromoContent>
+                  <h3>{promo.title}</h3>
+                  <p>{promo.desc}</p>
+                  <button>
+                    <FaShoppingCart /> Mua ngay
+                  </button>
+                </PromoContent>
+              </PromoCard>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </SliderWrapper>
+    </motion.div>
   );
 }
