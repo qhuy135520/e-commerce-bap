@@ -12,10 +12,10 @@ export default function HomePage() {
   }, [vendorId]);
   return (
     <Loading isLoading={isLoading} error={error}>
-      <ProductsHeader />
+      {/* <ProductsHeader /> */}
       <ProductsSlider />
       <ProductsList />
-      <ProductsRandom />
+      {/* <ProductsRandom /> */}
     </Loading>
   );
 }

@@ -18,15 +18,30 @@ export default function SearchResult() {
     <Loading isLoading={status === "loading"}>
       <Styled.ProductGrid>
         {products.map((product) => (
-          <Styled.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
-            <Card>
-              <Styled.ProductImage src={product.images[0]?.imageUrl || noimage} alt={product.name} />
-              <p>{product.name}</p>
-              <p>{formatCurrency(product.price)}</p>
-              <p>
-                {t("productCard.sold")}: {product.total_sold}
-              </p>
-            </Card>
+          <Styled.ProductItem key={product.id}>
+            <div className="product-card" onClick={() => handleNavigate(product.id)}>
+              <div className="image-wrapper">
+                <img src={product.images[0]?.imageUrl || noimage} alt={product.name} />
+              </div>
+
+              <div className="product-info">
+                {product.total_sold > 10 && <span className="badge">Bán chạy</span>}
+                {product.stock < 5 && <span className="badge badge-stock">Sắp hết hàng</span>}
+
+                <div>
+                  <p className="brand">{product.brandname}</p>
+                  <p className="name">{product.name}</p>
+                  <p className="description">{product.description}</p>
+                </div>
+
+                <div>
+                  <p className="price">{formatCurrency(product.price)}</p>
+                  <p className="sold-stock">
+                    Đã bán: {product.total_sold || 0} | Còn lại: {product.stock || 0}
+                  </p>
+                </div>
+              </div>
+            </div>
           </Styled.ProductItem>
         ))}
       </Styled.ProductGrid>

@@ -2,7 +2,6 @@ import { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
 import { productsThunk } from "@/stores/rootThunk";
 import { productsSelector } from "@/stores/rootSelector";
 import { PAGE_SIZE } from "@/constants";
@@ -15,9 +14,9 @@ export default function useProducts() {
 
   const productsVendor = useSelector(productsSelector.selectProductsVendor);
   const allProducts = useSelector(productsSelector.selectProducts);
+
   const status = useSelector(productsSelector.selectStatus);
   const isLoading = ["loading", "idle"].includes(status);
-  const error = useSelector(productsSelector.selectError);
 
   const products = vendorId ? productsVendor : allProducts;
 
@@ -30,22 +29,55 @@ export default function useProducts() {
   }, [dispatch, vendorId]);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const sort = searchParams.get("sort") || "";
+
   const page = parseInt(searchParams.get("page") || 1, 10);
+  const sort = searchParams.get("sort") || "";
+  const brand = searchParams.get("brand") || "";
+  const category = searchParams.get("category") || "";
+  const priceMin = parseInt(searchParams.get("priceMin") || 0, 10);
+  const priceMax = parseInt(searchParams.get("priceMax") || 0, 10);
+  const stock = searchParams.get("stock") || "";
+  const bestSeller = searchParams.get("bestSeller") === "true";
+  const bestSellerProducts = useMemo(() => {
+    if (!Array.isArray(products)) return [];
+    return products.filter((p) => p.total_sold >= 1);
+  }, [products]);
 
-  const handleSortChange = (value) => {
-    setSearchParams({ sort: value, page: 1 });
+  const handleFilterChange = (filterObj) => {
+    setSearchParams({
+      page: 1,
+      sort,
+      brand,
+      category,
+      priceMin,
+      priceMax,
+      stock,
+      bestSeller,
+      ...filterObj,
+    });
   };
 
-  const handlePageChange = (page) => {
-    setSearchParams({ sort, page });
-  };
+  const handleSortChange = (value) => handleFilterChange({ sort: value });
+  const handlePageChange = (page) => setSearchParams({ ...Object.fromEntries([...searchParams]), page });
 
   const pageSize = PAGE_SIZE.PRODUCT_LIST;
 
-  const paginatedProducts = useMemo(() => {
+  const filteredProducts = useMemo(() => {
     if (!Array.isArray(products)) return [];
-    let sorted = [...products];
+
+    return products.filter((p) => {
+      if (brand && p.brandId !== brand) return false;
+      if (category && p.categoryId !== category) return false;
+      if (priceMin && p.price < priceMin) return false;
+      if (priceMax && p.price > priceMax) return false;
+      if (stock === "low" && p.stock >= 5) return false;
+      if (bestSeller && p.total_sold < 10) return false;
+      return true;
+    });
+  }, [products, brand, category, priceMin, priceMax, stock, bestSeller]);
+
+  const paginatedProducts = useMemo(() => {
+    let sorted = [...filteredProducts];
     switch (sort) {
       case "price-asc":
         sorted.sort((a, b) => a.price - b.price);
@@ -63,50 +95,57 @@ export default function useProducts() {
         break;
     }
     return sorted.slice((page - 1) * pageSize, page * pageSize);
-  }, [products, sort, page, pageSize]);
+  }, [filteredProducts, sort, page, pageSize]);
 
-  const randomProducts = useMemo(
-    () => (Array.isArray(allProducts) ? [...allProducts].sort(() => Math.random() - 0.5).slice(0, 5) : []),
-    [allProducts]
+  const handleNavigate = (id) => navigate(`/product/${id}`);
+
+  const brandList = useMemo(
+    () => [...new Map(products.map((p) => [p.brandId, { id: p.brandId, name: p.brandName }])).values()],
+    [products]
   );
 
-  const topProducts = useMemo(
-    () => (Array.isArray(allProducts) ? [...allProducts].sort((a, b) => b.total_sold - a.total_sold).slice(0, 12) : []),
-    [allProducts]
+  const categoryList = useMemo(
+    () => [...new Map(products.map((p) => [p.categoryId, { id: p.categoryId, name: p.categoryName }])).values()],
+    [products]
   );
-
-  const handleNavigate = (id) => {
-    navigate(`/product/${id}`);
-  };
 
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 800,
     slidesToShow: 4,
-    slidesToScroll: 4,
-    arrows: true,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    cssEase: "ease-in-out",
+    pauseOnHover: true,
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
+    ],
   };
 
   return {
     isLoading,
     fetchDataProducts,
-    vendorId,
-    allProducts,
-    productsVendor,
-    products,
-    status,
-    error,
-    sort,
-    page,
-    pageSize,
+    paginatedProducts,
     handleSortChange,
     handlePageChange,
-    paginatedProducts,
-    randomProducts,
+    handleFilterChange,
+    page,
+    pageSize,
+    sort,
+    brand,
+    category,
+    priceMin,
+    priceMax,
+    stock,
+    bestSeller,
+    brandList,
+    categoryList,
     handleNavigate,
-    topProducts,
-    settings,
     t,
+    bestSellerProducts,
   };
 }

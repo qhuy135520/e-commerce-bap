@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { Button, Space, Table, Avatar } from "antd";
 import { Formik, Form } from "formik";
 
-import { CartTableStyled as CTS, InputQuantity, Loading } from "@/components";
+import { CartTableStyled as CTS, EmptyCommon, InputQuantity, Loading } from "@/components";
 
 import useCart from "@/hooks/cart/useCart";
 
@@ -100,6 +100,15 @@ export default function CartTable({ onMountSubmitRef }) {
                   columns={columns}
                   dataSource={cartTableWithVendors}
                   pagination={false}
+                  locale={{
+                    emptyText: (
+                      <EmptyCommon
+                        link={"/"}
+                        description={"Chưa có sản phẩm trong giỏ hàng"}
+                        buttonText="Quay lại chọn sản phẩm"
+                      />
+                    ),
+                  }}
                 />
 
                 <CTS.CardCartTable title={t("cart.totalSummary")}>
