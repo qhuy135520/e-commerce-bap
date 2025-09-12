@@ -31,6 +31,8 @@ export const ErrorText = styled.div`
 
 export const SpaceStyled = styled(Space)`
   margin-bottom: 16px;
+  width: 100%;
+  display: flex;
   justify-content: flex-end;
 `;
 
