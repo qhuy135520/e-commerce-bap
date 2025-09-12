@@ -1,6 +1,15 @@
 import React, { useEffect } from "react";
 
-import { Loading, ProductsBanner, ProductsList, ProductsRandom, ProductsSlider } from "@/components";
+import {
+  Loading,
+  ProductsBanner,
+  ProductsCategories,
+  ProductsFeatureInLogo,
+  ProductsList,
+  ProductsPromo,
+  ProductsRandom,
+  ProductsSlider,
+} from "@/components";
 import useProducts from "@/hooks/products/useProducts";
 
 export default function HomePage() {
@@ -12,7 +21,11 @@ export default function HomePage() {
   return (
     <Loading isLoading={isLoading} error={error}>
       {/* <ProductsHeader /> */}
+
       <ProductsBanner />
+      <ProductsFeatureInLogo />
+      <ProductsPromo />
+      <ProductsCategories />
       <ProductsSlider />
       <ProductsList />
       {/* <ProductsRandom /> */}

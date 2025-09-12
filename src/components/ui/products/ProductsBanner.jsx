@@ -1,34 +1,44 @@
 import styled from "styled-components";
-// Styled Components
+
 const BannerWrapper = styled.section`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
   border-radius: 20px;
   overflow: hidden;
-  background: linear-gradient(135deg, #ffe5d4, #ffb8a8);
-  padding: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 50px 20px;
+  background-image: url("https://ouoglhhwclawqhftzrif.supabase.co/storage/v1/object/public/ProductImage/banner.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  color: #fff;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+  }
   @media (max-width: 768px) {
     flex-direction: column;
     text-align: center;
+    padding: 30px 20px;
+    height: auto;
   }
 `;
 
 const BannerContent = styled.div`
-  flex: 1;
-  padding: 20px;
+  position: relative;
+  max-width: 600px;
   h1 {
     font-size: 2.8rem;
     margin-bottom: 15px;
-    color: #333;
   }
   p {
     font-size: 1.2rem;
     margin-bottom: 20px;
-    color: #555;
   }
   button {
     padding: 14px 35px;
@@ -46,18 +56,6 @@ const BannerContent = styled.div`
   }
 `;
 
-const BannerImage = styled.div`
-  flex: 1;
-  img {
-    width: 100%;
-    max-height: 350px;
-    object-fit: contain;
-  }
-  @media (max-width: 768px) {
-    margin-top: 20px;
-  }
-`;
-
 export default function ProductBanner() {
   return (
     <BannerWrapper>
@@ -66,12 +64,6 @@ export default function ProductBanner() {
         <p>Khám phá các sản phẩm hot, giảm giá cực sốc chỉ hôm nay!</p>
         <button>Shop Ngay</button>
       </BannerContent>
-      <BannerImage>
-        <img
-          src="https://ouoglhhwclawqhftzrif.supabase.co/storage/v1/object/public/ProductImage/banner.png"
-          alt="banner ecommerce"
-        />
-      </BannerImage>
     </BannerWrapper>
   );
 }
