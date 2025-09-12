@@ -5,11 +5,11 @@ import PrivateRoutes from "@/routes/configs/_private";
 import GlobalRoutes from "@/routes/configs/_global";
 import PublicRoutes from "@/routes/configs/_public";
 
-import { Loading } from "@/components";
+import { Spin } from "antd";
 
 const RootRouter = () => {
   return (
-    <Suspense fallback={<Loading isLoading={true} />}>
+    <Suspense fallback={<Spin fullscreen />}>
       <Routes>
         {PrivateRoutes}
         {GlobalRoutes}

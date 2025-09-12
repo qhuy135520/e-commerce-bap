@@ -6,7 +6,7 @@ const Wrapper = styled.div`
 `;
 
 const Overlay = styled.div`
-  display: ${(props) => (props.isLoading ? "flex" : "none")};
+  display: ${(props) => (props.$isLoading ? "flex" : "none")};
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -19,7 +19,7 @@ export default function Loading({ children, isLoading }) {
   return (
     <Wrapper>
       {children}
-      <Overlay isLoading={isLoading}>
+      <Overlay $isLoading={isLoading}>
         <Spin />
       </Overlay>
     </Wrapper>

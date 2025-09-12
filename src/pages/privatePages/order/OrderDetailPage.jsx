@@ -37,7 +37,6 @@ export default function OrderDetail() {
     vnpayBalance,
     isInsufficientBalance,
     handleCancel,
-    handleBackToCart,
     isLoading,
   } = useOrder();
 
@@ -65,7 +64,7 @@ export default function OrderDetail() {
   return (
     <>
       <OrderHeader onBackToCart={handleBackToCart} />
-      {!orders.lengt ? (
+      {!orders.length && !isLoading && !isLoadingAddress ? (
         <EmptyCommon link={"/"} description={"You have no orders yet"} />
       ) : (
         <Loading isLoading={isLoading || isLoadingAddress} error={error}>
