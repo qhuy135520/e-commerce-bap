@@ -127,4 +127,5 @@ export const Summaries = styled.div`
 
 export const SearchWrapper = styled.div`
   width: 300px;
+  display: flex;
 `;

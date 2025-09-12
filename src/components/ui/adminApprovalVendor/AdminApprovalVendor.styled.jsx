@@ -122,7 +122,7 @@ export const StatusButton = styled.button`
   padding: 6px 12px;
   border: none;
   text-transform: capitalize;
-  width: 100px;
+  width: 120px;
   border-radius: 4px;
   cursor: pointer;
   background: ${(props) => (props.$active ? "#4096ff" : "#69b1ff")};

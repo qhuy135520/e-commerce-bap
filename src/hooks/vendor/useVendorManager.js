@@ -1,8 +1,9 @@
-import { useUser } from "@/hooks/authentication/useUser";
-import { productsSelector } from "@/stores/rootSelector";
-import { productsThunk } from "@/stores/rootThunk";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useUser } from "@/hooks/authentication/useUser";
+
+import { productsSelector } from "@/stores/rootSelector";
+import { productsThunk } from "@/stores/rootThunk";
 
 export default function useVendorManager() {
   const { user } = useUser();

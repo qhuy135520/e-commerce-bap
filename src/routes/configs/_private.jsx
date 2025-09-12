@@ -152,12 +152,10 @@ const PrivateRoutes = (
       </Route>
 
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_ADMIN]} />}>
+        <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH} element={<AdminDashboardPage />} />
         <Route path={ROUTER_PATH.ADMIN_MANAGER_USER.PATH} element={<AdminManagerUserPage />} />
-        <Route path={ROUTER_PATH.ADMIN_DASHBOARD.PATH}>
-          <Route index element={<Navigate to={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} replace />} />
-          <Route path={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} element={<AdminPaymentHistoryPage />} />
-          <Route path={ROUTER_PATH.ADMIN_APPROVAL_VENDOR.PATH} element={<AdminApprovalVendorPage />} />
-        </Route>
+        <Route path={ROUTER_PATH.ADMIN_PAYMENT_HISTORY.PATH} element={<AdminPaymentHistoryPage />} />
+        <Route path={ROUTER_PATH.ADMIN_APPROVAL_VENDOR.PATH} element={<AdminApprovalVendorPage />} />
         <Route path={ROUTER_PATH.ADMIN_MANAGER_PRODUCT.PATH} element={<AdminManagerProductPage />} />
         <Route path={ROUTER_PATH.ADMIN_MANAGER_ORDER.PATH} element={<AdminManagerOrderPage />} />
         <Route path={ROUTER_PATH.ADMIN_STATISTICS_PRODUCT.PATH} element={<AdminStatisticsProductPage />} />

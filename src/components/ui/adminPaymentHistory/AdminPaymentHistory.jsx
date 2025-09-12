@@ -1,8 +1,10 @@
-import { Input, Pagination } from "antd";
+import { Input, Pagination, Select } from "antd";
 import { AdminPaymentHistoryStyled as APHS, Loading } from "@/components";
 import { useTransactions } from "@/hooks/transactions/useTransactions";
+import { formatCurrency } from "@/utils/helpers";
 
 const { Search } = Input;
+const { Option } = Select;
 
 export default function AdminPaymentHistory() {
   const {
@@ -14,27 +16,40 @@ export default function AdminPaymentHistory() {
     currentPage,
     itemsPerPage,
     searchTerm,
+    statusFilter,
     handlePageChange,
     handleSearch,
+    handleStatusFilter,
   } = useTransactions({ itemsPerPage: 20 });
 
   return (
     <Loading isLoading={status === "loading"} error={error}>
       <APHS.Container>
-        <APHS.Title>Transaction History</APHS.Title>
+        <APHS.Title>Lịch sử giao dịch</APHS.Title>
         <APHS.HeaderContainer>
           <APHS.Summaries>
-            <APHS.Summary>Total Transactions: {totalTransactions}</APHS.Summary>
-            <APHS.Summary>Total Amount: {totalAmount}</APHS.Summary>
+            <APHS.Summary>Tổng số giao dịch: {totalTransactions}</APHS.Summary>
+            <APHS.Summary>Tổng số tiền: {totalAmount}</APHS.Summary>
           </APHS.Summaries>
           <APHS.SearchWrapper>
             <Search
-              placeholder="Search by Transaction ID or Name"
+              placeholder="Tìm theo ID hoặc Tên"
               onSearch={handleSearch}
               onChange={(e) => handleSearch(e.target.value)}
               value={searchTerm}
               allowClear
+              style={{ marginRight: "16px" }}
             />
+            <Select
+              value={statusFilter}
+              onChange={handleStatusFilter}
+              style={{ width: 150 }}
+              placeholder="Lọc theo trạng thái"
+            >
+              <Option value="all">Tất cả</Option>
+              <Option value="success">Thành công</Option>
+              <Option value="failed">Thất bại</Option>
+            </Select>
           </APHS.SearchWrapper>
         </APHS.HeaderContainer>
         <APHS.TableContainer>
@@ -42,12 +57,12 @@ export default function AdminPaymentHistory() {
             <thead>
               <APHS.Tr>
                 <APHS.Th>#</APHS.Th>
-                <APHS.Th>Transaction ID</APHS.Th>
-                <APHS.Th>Name</APHS.Th>
-                <APHS.Th>Amount</APHS.Th>
-                <APHS.Th>Status</APHS.Th>
-                <APHS.Th>Type</APHS.Th>
-                <APHS.Th>Created At</APHS.Th>
+                <APHS.Th>ID</APHS.Th>
+                <APHS.Th>Họ Tên</APHS.Th>
+                <APHS.Th>Số Tiền</APHS.Th>
+                <APHS.Th>Trạng Thái</APHS.Th>
+                <APHS.Th>Kiểu</APHS.Th>
+                <APHS.Th>Thời Gian</APHS.Th>
               </APHS.Tr>
             </thead>
             <tbody>
@@ -56,7 +71,7 @@ export default function AdminPaymentHistory() {
                   <APHS.Td>{(currentPage - 1) * itemsPerPage + index + 1}</APHS.Td>
                   <APHS.Td>{item.txn_ref}</APHS.Td>
                   <APHS.Td>{item.userInfo?.name}</APHS.Td>
-                  <APHS.Td>{item.amount}</APHS.Td>
+                  <APHS.Td>{formatCurrency(item.amount)}</APHS.Td>
                   <APHS.Td>{item.status}</APHS.Td>
                   <APHS.Td>{item.type}</APHS.Td>
                   <APHS.Td>{new Date(item.created_at).toLocaleString("vi-VN")}</APHS.Td>
