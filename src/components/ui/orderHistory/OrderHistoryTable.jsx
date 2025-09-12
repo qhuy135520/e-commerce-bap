@@ -53,7 +53,9 @@ export default function OrderHistoryTable() {
             options={[
               { label: "Tất cả", value: "all" },
               { label: t("order.status.processing"), value: "pending" },
+              { label: t("order.status.shipped"), value: "shipped" },
               { label: t("order.status.completed"), value: "completed" },
+              { label: t("order.status.canceled"), value: "canceled" },
             ]}
           />
         </Space>
@@ -92,10 +94,16 @@ export default function OrderHistoryTable() {
             <OHTS.OrderWrapper key={index}>
               <OHTS.OrderTitleHeader>
                 <Tag
-                  color={order.orderstatus === "completed" ? "green" : "orange"}
-                  style={{ fontSize: "1.2rem", padding: "0.2rem 1rem" }}
+                  color={
+                    order.orderstatus === "pending" ? "orange" : order.orderstatus === "shipped" ? "yellow" : "green"
+                  }
+                  style={{ fontSize: "1.5rem", padding: "0.2rem 1rem" }}
                 >
-                  {order.orderstatus === "completed" ? t("order.status.completed") : t("order.status.processing")}
+                  {order.orderstatus === "pending"
+                    ? t("order.status.processing")
+                    : order.orderstatus === "shipped"
+                    ? t("order.status.shipped")
+                    : t("order.status.completed")}
                 </Tag>
                 <span style={{ fontSize: "1.3rem", color: "var(--color-grey-600)" }}>
                   {format(new Date(order.ordercreatedat), "dd/MM/yyyy")}

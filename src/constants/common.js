@@ -3,4 +3,4 @@ export const PAGE_SIZE = {
   PRODUCT_LIST: 15,
   TOP_PRODUCTS: 9,
 };
-export const COMMISSION = 0.15;
+export const COMMISSION = 0.85;

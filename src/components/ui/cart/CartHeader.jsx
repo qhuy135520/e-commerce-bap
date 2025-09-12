@@ -30,7 +30,7 @@ export default function CartHeader({ itemCount = 0, onBackToShop }) {
 
       <Button
         type="default"
-        icon={<bi />}
+        icon={<BsArrowReturnLeft />}
         onClick={onBackToShop}
         style={{
           borderRadius: "6px",

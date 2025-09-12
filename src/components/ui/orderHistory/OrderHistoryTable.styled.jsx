@@ -60,7 +60,7 @@ export const OrderVendor = styled.div`
 /* Old StatusOrder kept if needed elsewhere */
 export const StatusOrder = styled.div`
   font-weight: 700;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   color: ${({ $status }) => ($status === "completed" ? "var(--color-green-600)" : "var(--color-orange-600)")};
 `;
 
@@ -107,7 +107,7 @@ export const ItemInfo = styled.div`
 
 /* Price label for each item */
 export const Price = styled.span`
-  font-size: 1.4rem;
+  font-size: 1.8rem;
   color: var(--color-red-600);
   font-weight: 700;
 `;
@@ -121,7 +121,7 @@ export const ActionButton = styled.div`
   gap: 1rem;
 
   .price {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     color: var(--color-grey-700);
     display: flex;
     align-items: center;
@@ -197,7 +197,7 @@ export const SubmitButton = styled(Button)`
 
 /* small helpers */
 export const SmallMuted = styled.span`
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: var(--color-grey-500);
 `;
 
