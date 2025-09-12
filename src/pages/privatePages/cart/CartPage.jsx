@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 
 import { CartHeader, CartTable } from "@/components";
+import useCart from "@/hooks/cart/useCart";
 
 export default function CartPage() {
   const submitRef = useRef(null);
@@ -22,9 +23,11 @@ export default function CartPage() {
     };
   }, []);
 
+  const { cart, handleBackToHome } = useCart();
+
   return (
     <>
-      <CartHeader />
+      <CartHeader itemCount={cart.length} onBackToShop={handleBackToHome} />
       <CartTable onMountSubmitRef={submitRef} />
     </>
   );

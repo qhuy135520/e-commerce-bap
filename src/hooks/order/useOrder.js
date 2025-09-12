@@ -105,6 +105,10 @@ export default function useOrder() {
 
   const handleCancel = () => setisEditting("");
 
+  const handleBackToCart = () => {
+    navigate("/cart");
+  };
+
   const vnpayBalance = user.moneyBalance;
   const isInsufficientBalance = grandTotal > vnpayBalance;
 
@@ -120,6 +124,7 @@ export default function useOrder() {
     handlePayClick,
     handleCancel,
     handlePlaceOrder,
+    handleBackToCart,
     getOrderTotals,
     grandTotal,
     vnpayBalance,

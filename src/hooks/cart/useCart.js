@@ -128,6 +128,10 @@ export default function useCart() {
     if (status === "failed") toast.error(t("cart.toast.error"));
   }
 
+  function handleBackToHome() {
+    navigate("/");
+  }
+
   return {
     dispatch,
     status,
@@ -147,6 +151,7 @@ export default function useCart() {
     handleDeleteCartItem,
     handleResetCart,
     handleUpdateCartSelect,
+    handleBackToHome,
     t,
   };
 }

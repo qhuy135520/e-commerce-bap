@@ -4,5 +4,6 @@ export { default as OrderEditAddressForm } from "@/components/ui/order/OrderEdit
 export { default as OrderAddressCart } from "@/components/ui/order/OrderAddressCard";
 export { default as OrderEditAddressDefault } from "@/components/ui/order/OrderEditAddressDefault";
 export { default as OrderUpdateAddressModal } from "@/components/ui/order/OrderUpdateAddressModal";
+export { default as OrderHeader } from "@/components/ui/order/OrderHeader";
 
 export * as OrderStyled from "@/components/ui/order/Order.styled";
