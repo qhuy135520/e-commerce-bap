@@ -98,6 +98,7 @@ export default function useProducts() {
   }, [filteredProducts, sort, page, pageSize]);
 
   const handleNavigate = (id) => navigate(`/product/${id}`);
+  const totalProducts = useMemo(() => filteredProducts.length, [filteredProducts]);
 
   const brandList = useMemo(
     () => [...new Map(products.map((p) => [p.brandId, { id: p.brandId, name: p.brandName }])).values()],
@@ -147,5 +148,6 @@ export default function useProducts() {
     handleNavigate,
     t,
     bestSellerProducts,
+    totalProducts,
   };
 }

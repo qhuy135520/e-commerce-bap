@@ -27,6 +27,7 @@ const ProductsList = () => {
     categoryList,
     handleNavigate,
     t,
+    totalProducts,
   } = useProducts();
 
   useEffect(() => {
@@ -98,7 +99,7 @@ const ProductsList = () => {
             align="center"
             current={page}
             pageSize={pageSize}
-            total={paginatedProducts.length}
+            total={totalProducts}
             onChange={handlePageChange}
           />
         </PLS.Box>
