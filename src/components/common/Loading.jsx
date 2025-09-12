@@ -8,6 +8,7 @@ const Wrapper = styled.div`
 const Overlay = styled.div`
   display: ${(props) => (props.$isLoading ? "flex" : "none")};
   align-items: center;
+  min-height: 65vh;
   justify-content: center;
   position: absolute;
   inset: 0;

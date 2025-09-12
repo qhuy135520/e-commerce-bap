@@ -1,7 +1,8 @@
 import { DividerTitle, HeadingStyled } from "@/components";
 import { Breadcrumb, Button, Row } from "antd";
-import { WalletOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import { BiWalletAlt } from "react-icons/bi";
+import { BsArrowReturnLeft } from "react-icons/bs";
 
 export const FlexDepositHeader = styled(Row)`
   margin: 1.4rem 0;
@@ -15,7 +16,7 @@ export default function DepositHeader({ onBackToHome }) {
     <FlexDepositHeader justify="space-between" align="center">
       <div>
         <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <WalletOutlined style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
+          <BiWalletAlt style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
           <span>Nạp tiền</span>
           <DividerTitle type="vertical" />
         </HeadingStyled>
@@ -28,7 +29,7 @@ export default function DepositHeader({ onBackToHome }) {
 
       <Button
         type="default"
-        icon={<ArrowLeftOutlined />}
+        icon={<BsArrowReturnLeft />}
         onClick={onBackToHome}
         style={{
           borderRadius: "6px",
