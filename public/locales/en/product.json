@@ -3,10 +3,12 @@
     "title": "Product List",
     "filter": {
       "placeholder": "Sort",
+      "default": "Default",
       "salesDesc": "Best Sellers",
       "salesAsc": "Least Sold",
       "priceDesc": "Price High → Low",
-      "priceAsc": "Price Low → High"
+      "priceAsc": "Price Low → High",
+      "reviewDesc": "Top Rated"
     }
   },
 
@@ -17,6 +19,8 @@
   "productCard": {
     "price": "Price",
     "noDescription": "No description available",
-    "sold": "Sold"
+    "sold": "Sold",
+    "bestSeller": "Best Seller",
+    "lowStock": "Low Stock"
   }
 }

@@ -60,13 +60,18 @@ const ProductsList = () => {
               <div className="divider"></div>
             </PLS.TitleWrapper>
 
-            <Select value={sort} style={{ width: 200, marginBottom: 16 }} onChange={handleSortChange}>
-              <Option value="">Mặc định</Option>
-              <Option value="price-asc">Giá tăng dần</Option>
-              <Option value="price-desc">Giá giảm dần</Option>
-              <Option value="sales-asc">Bán ít nhất</Option>
-              <Option value="sales-desc">Bán chạy nhất</Option>
-              <Option value="review-desc">Đánh giá cao nhất</Option>
+            <Select
+              value={sort}
+              style={{ width: 200, marginBottom: 16 }}
+              onChange={handleSortChange}
+              placeholder={t("productList.filter.placeholder")}
+            >
+              <Option value="">{t("productList.filter.default")}</Option>
+              <Option value="price-asc">{t("productList.filter.priceAsc")}</Option>
+              <Option value="price-desc">{t("productList.filter.priceDesc")}</Option>
+              <Option value="sales-asc">{t("productList.filter.salesAsc")}</Option>
+              <Option value="sales-desc">{t("productList.filter.salesDesc")}</Option>
+              <Option value="review-desc">{t("productList.filter.reviewDesc")}</Option>
             </Select>
 
             {isLoading ? <p>Đang tải...</p> : paginatedProducts.length === 0 ? <p>Không có sản phẩm nào.</p> : null}
@@ -80,8 +85,8 @@ const ProductsList = () => {
                     </div>
 
                     <div className="product-info">
-                      {product.total_sold > 10 && <span className="badge">Bán chạy</span>}
-                      {product.stock < 5 && <span className="badge badge-stock">Sắp hết hàng</span>}
+                      {product.total_sold > 10 && <span className="badge">{t("productCard.bestSeller")}</span>}
+                      {product.stock < 5 && <span className="badge badge-stock">{t("productCard.lowStock")}</span>}
 
                       <div>
                         <p className="brand">{product.brandName}</p>
@@ -91,7 +96,9 @@ const ProductsList = () => {
 
                       <div className="bottom-info">
                         <p className="price">{formatCurrency(product.price)}</p>
-                        <p className="sold-stock">Đã bán: {product.total_sold || 0}</p>
+                        <p className="sold-stock">
+                          {t("productCard.sold")}: {product.total_sold || 0}
+                        </p>
                       </div>
                       <Rate disabled allowHalf value={product.avgReview || 0} />
                     </div>
@@ -100,7 +107,7 @@ const ProductsList = () => {
               ))}
             </PLS.ProductGrid>
 
-            <Pagination
+            <PLS.StyledPagination
               align="center"
               current={page}
               pageSize={pageSize}

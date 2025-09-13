@@ -1,11 +1,11 @@
 import React from "react";
-import { Card, Typography } from "antd";
-
-import { ProductListStyled as PLS } from "@/components/ui/products";
+import { Typography, Rate } from "antd";
 
 import useProducts from "@/hooks/products/useProducts";
-
 import noimage from "@/assets/images/noImage/noimage.jpg";
+
+import * as S from "./ProductsRandom.styled";
+import { formatCurrency } from "@/utils/helpers";
 
 const { Title } = Typography;
 
@@ -13,22 +13,25 @@ export default function ProductsRandom() {
   const { randomProducts, handleNavigate, t } = useProducts();
 
   return (
-    <>
+    <S.Container>
       <Title level={2}>{t("productSuggest.title")}</Title>
-      <PLS.RandomProductGrid>
+      <S.RandomProductGrid>
         {randomProducts.map((product) => (
-          <PLS.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
-            <Card>
-              <PLS.ProductImage src={product.image || noimage} alt={product.name} />
-              <p>{product.name}</p>
-              <p>${product.price}</p>
-              <p>
+          <S.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>
+            <S.ProductImage src={product.images?.[0]?.imageUrl || noimage} alt={product.name} />
+            <S.RateWrapper>
+              <Rate disabled allowHalf value={product.avgReview || 0} />
+            </S.RateWrapper>
+            <S.Overlay>
+              <p className="name">{product.name}</p>
+              <p className="price">{formatCurrency(product.price)}</p>
+              <p className="sold">
                 {t("productCard.sold")}: {product.total_sold}
               </p>
-            </Card>
-          </PLS.ProductItem>
+            </S.Overlay>
+          </S.ProductItem>
         ))}
-      </PLS.RandomProductGrid>
-    </>
+      </S.RandomProductGrid>
+    </S.Container>
   );
 }

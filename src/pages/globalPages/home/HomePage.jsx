@@ -5,6 +5,7 @@ import {
   ProductsFeatureInLogo,
   ProductsList,
   ProductsPromo,
+  ProductsRandom,
   ProductsSlider,
 } from "@/components";
 import useProducts from "@/hooks/products/useProducts";
@@ -25,6 +26,7 @@ export default function HomePage() {
       <ProductsCategories />
       <ProductsSlider />
       <ProductsList />
+      <ProductsRandom />
     </Loading>
   );
 }
