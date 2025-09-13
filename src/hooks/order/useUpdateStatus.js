@@ -5,48 +5,58 @@ import { useUser } from "@/hooks/authentication/useUser";
 import { ordersThunk } from "@/stores/rootThunk";
 import { ordersSelector } from "@/stores/rootSelector";
 
-function getNextStatus(current) {
-  if (current === "pending") return "shipped";
-  if (current === "shipped") return "completed";
-  return "completed";
+export function getNextStatusOptions(currentStatus) {
+  switch (currentStatus) {
+    case "pending":
+      return ["canceled", "shipped"];
+    case "shipped":
+      return ["completed"];
+    default:
+      return [];
+  }
 }
 
 export default function useUpdateStatus() {
   const dispatch = useDispatch();
   const { user } = useUser();
-  const orders = useSelector(ordersSelector.selectOrderVendor);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectOrder, setSelectOrder] = useState({});
+  const orders = useSelector(ordersSelector.selectFilteredOrderVendor);
 
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectOrder, setSelectOrder] = useState(null);
+
+  const handleCancel = () => setIsModalOpen(false);
 
   function openUpdateModal(order) {
-    setIsModalOpen(true);
-    setSelectOrder(order);
+    const options = getNextStatusOptions(order.status);
+    if (options.length === 0) return;
+    if (options.length === 1) {
+      updateOrderStatus(order, options[0]);
+    } else {
+      setSelectOrder(order);
+      setIsModalOpen(true);
+    }
   }
-  const updateOrderStatus = async (order) => {
-    if (order.status === "completed") return;
+
+  const updateOrderStatus = async (order, nextStatus) => {
+    if (!nextStatus) return;
 
     await dispatch(
       ordersThunk.updateStatusOrder({
         vendorId: user.id,
         orderId: order.orderid,
-        nextStatus: getNextStatus(order.status),
+        nextStatus,
       })
     );
     setIsModalOpen(false);
+    setSelectOrder(null);
   };
 
   return {
     orders,
     selectOrder,
     isModalOpen,
-    updateOrderStatus,
+    openUpdateModal,
     handleCancel,
-    openUpdateModal,
-    setIsModalOpen,
-    openUpdateModal,
+    updateOrderStatus,
   };
 }
