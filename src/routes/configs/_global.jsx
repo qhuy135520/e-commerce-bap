@@ -4,6 +4,7 @@ import { Route } from "react-router-dom";
 import { ROUTER_PATH } from "@/constants";
 
 import PublicLayout from "@/layouts/public/PublicLayout";
+import SearchLayout from "@/layouts/public/SearchLayout";
 
 const HomePage = React.lazy(() =>
   import("@/pages/globalPages").then((module) => ({
@@ -46,8 +47,10 @@ const GlobalRoutes = (
       <Route path={ROUTER_PATH.HOME_PAGE.PATH} element={<HomePage />} />
       <Route path={ROUTER_PATH.ABOUT.PATH} element={<AboutPage />} />
       <Route path={ROUTER_PATH.PRODUCT_DETAIL.PATH} element={<ProductDetailPage />} />
-      <Route path={ROUTER_PATH.SEARCH.PATH} element={<SearchResult />} />
       <Route path={ROUTER_PATH.PRODUCT_VENDOR_PAGE.PATH} element={<ProductVendorPage />} />
+    </Route>
+    <Route element={<SearchLayout />}>
+      <Route path={ROUTER_PATH.SEARCH.PATH} element={<SearchResult />} />
     </Route>
     <Route path="*" element={<NotFoundPage />} />
   </>

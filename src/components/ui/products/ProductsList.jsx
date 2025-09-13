@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Select, Pagination, ConfigProvider, Rate } from "antd";
-import { ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
+import { EmptyCommon, ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
 import useProducts from "@/hooks/products/useProducts";
 import { formatCurrency } from "@/utils/helpers";
 import noimage from "@/assets/images/noImage/noimage.jpg";
@@ -74,7 +74,11 @@ const ProductsList = () => {
               <Option value="review-desc">{t("productList.filter.reviewDesc")}</Option>
             </Select>
 
-            {isLoading ? <p>Đang tải...</p> : paginatedProducts.length === 0 ? <p>Không có sản phẩm nào.</p> : null}
+            {isLoading ? (
+              <p>Đang tải...</p>
+            ) : paginatedProducts.length === 0 ? (
+              <EmptyCommon description={<p>Không có sản phẩm nào.</p>} buttonText={null} />
+            ) : null}
 
             <PLS.ProductGrid>
               {paginatedProducts.map((product) => (

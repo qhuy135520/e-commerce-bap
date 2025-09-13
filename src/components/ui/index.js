@@ -21,6 +21,7 @@ export * from "@/components/ui/vendorManagerOrder";
 export * from "@/components/ui/adminDashboard";
 
 export { default as Container } from "@/components/ui/Container";
+export { default as ContainerSearch } from "@/components/ui/ContainerSearch";
 export { default as DividerTitle } from "@/components/ui/DividerTitle";
 export { default as SocialGroup } from "@/components/ui/SocialGroup";
 export { default as HeadingStyled } from "@/components/ui/Heading.styled";

@@ -28,9 +28,7 @@ export default function EmptyCommon({ link, description, buttonText = "Tạo đ�
     <Container>
       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={<Description>{description}</Description>} />
 
-      <NavLink to={link}>
-        <CreateButton type="primary">{buttonText}</CreateButton>
-      </NavLink>
+      <NavLink to={link}>{buttonText && <CreateButton type="primary">{buttonText}</CreateButton>}</NavLink>
     </Container>
   );
 }

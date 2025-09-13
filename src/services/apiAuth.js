@@ -65,6 +65,12 @@ export async function login(email, password) {
     const dataUserInfo = await getUserInfo(dataUser.user.id);
 
     const data = { id: dataUser.user.id, email: dataUser.user.email, ...dataUserInfo };
+
+    if (dataUserInfo.status !== "active") {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+    }
+
     return data;
   } catch (error) {
     throw error;
