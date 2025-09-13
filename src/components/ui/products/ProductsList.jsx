@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Select, Pagination, ConfigProvider, Rate } from "antd";
 import { EmptyCommon, ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
 import useProducts from "@/hooks/products/useProducts";
@@ -37,6 +37,18 @@ const ProductsList = () => {
     fetchDataProducts();
   }, [fetchDataProducts]);
 
+  const productListRef = useRef(null);
+  const onPageChange = (page, pageSize) => {
+    handlePageChange(page, pageSize);
+    if (productListRef.current) {
+      const top = productListRef.current.getBoundingClientRect().top + window.scrollY - 200;
+      window.scrollTo({
+        top,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
       <ConfigProvider>
@@ -54,7 +66,7 @@ const ProductsList = () => {
             onFilterChange={handleFilterChange}
           />
 
-          <PLS.Box>
+          <PLS.Box ref={productListRef}>
             <PLS.TitleWrapper>
               <span className="title-text">{t("productList.title")}</span>
               <div className="divider"></div>
@@ -116,7 +128,7 @@ const ProductsList = () => {
               current={page}
               pageSize={pageSize}
               total={totalProducts}
-              onChange={handlePageChange}
+              onChange={onPageChange}
             />
           </PLS.Box>
         </PLS.Container>
