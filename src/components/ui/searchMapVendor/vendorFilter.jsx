@@ -62,14 +62,14 @@ const ButtonGroup = styled.div`
   }
 `;
 
-export default function VendorFilter({ vendors, onFilter, currentPosition }) {
+export default function VendorFilter({ vendors, onFilter, currentPosition, radius, setRadius }) {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("all");
   const [hasAddress, setHasAddress] = useState(false);
   const [minProducts, setMinProducts] = useState(0);
   const [minSales, setMinSales] = useState(0);
   const [minRating, setMinRating] = useState(0);
-  const [radius, setRadius] = useState(0);
+  const [radiusFilter, setRadiusFilter] = useState(0);
 
   const handleFilter = () => {
     let filtered = [...vendors];
@@ -81,14 +81,15 @@ export default function VendorFilter({ vendors, onFilter, currentPosition }) {
     if (minSales > 0) filtered = filtered.filter((v) => v.totalSales >= minSales);
     if (minRating > 0) filtered = filtered.filter((v) => v.avgRating >= minRating);
 
-    if (radius > 0 && currentPosition) {
+    if (radiusFilter > 0 && currentPosition) {
       filtered = filtered.filter((v) => {
         return v.addressesWithCoords?.some((addr) => {
           if (!addr.lat || !addr.lon) return false;
           const distance = getDistanceFromLatLonInKm(currentPosition.lat, currentPosition.lng, addr.lat, addr.lon);
-          return distance <= radius;
+          return distance <= radiusFilter;
         });
       });
+      setRadius(radiusFilter);
     }
 
     onFilter(filtered);
@@ -101,6 +102,7 @@ export default function VendorFilter({ vendors, onFilter, currentPosition }) {
     setMinProducts(0);
     setMinSales(0);
     setMinRating(0);
+    setRadiusFilter(0);
     setRadius(0);
     onFilter(vendors);
   };
@@ -118,8 +120,8 @@ export default function VendorFilter({ vendors, onFilter, currentPosition }) {
             type="number"
             min={0}
             max={500}
-            value={radius}
-            onChange={(e) => setRadius(Number(e.target.value))}
+            value={radiusFilter}
+            onChange={(e) => setRadiusFilter(Number(e.target.value))}
           />
         </Field>
         <Field>
