@@ -43,12 +43,24 @@ function normalize(str = "") {
     .trim();
 }
 
-export function normalizeAddress(fullAddress) {
-  return fullAddress
-    .replace(/\d{5,}/g, "") // bỏ zip code dài
-    .replace(/\b(District|Ward)\b/gi, "") // bỏ từ tiếng Anh
-    .replace(/\s+/g, " ") // gom khoảng trắng thừa
-    .trim();
+export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+}
+
+export function simplifyAddress(fullAddress) {
+  if (!fullAddress) return "";
+  const parts = fullAddress.split(",").map((p) => p.trim());
+  const provinceKeywords = ["Thành phố", "Tỉnh", "City", "Province"];
+  let provinceIndex = parts.findIndex((p) => provinceKeywords.some((k) => p.includes(k)));
+  if (provinceIndex === -1) provinceIndex = parts.length - 1;
+  return parts.slice(0, provinceIndex + 1).join(", ");
 }
 
 function matchAddressPart(part, fullName) {

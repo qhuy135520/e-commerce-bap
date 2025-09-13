@@ -1,4 +1,3 @@
-// src/components/ui/searchMapVendor/VendorList.styled.js
 import styled from "styled-components";
 
 export const vendorListStyled = {

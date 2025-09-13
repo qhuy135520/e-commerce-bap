@@ -3,26 +3,29 @@ import useSearchMapVendor from "@/hooks/searchMapVendor/useSearchMapVendor";
 import { Col, Row } from "antd";
 import { Loading } from "@/components";
 import { useState, useEffect } from "react";
+import { useGeolocation } from "@/hooks/useGeolocation/useGeolocation";
 
 export default function SearchMapVendorPage() {
-  const { isLoading, error, vendors } = useSearchMapVendor();
+  const { isLoading, error, vendorsWithCoords } = useSearchMapVendor();
   const [filteredVendors, setFilteredVendors] = useState([]);
+  const { position, getPosition } = useGeolocation({ lat: 16.0544, lng: 108.2022 });
 
   useEffect(() => {
-    setFilteredVendors(vendors);
-  }, [vendors]);
+    setFilteredVendors(vendorsWithCoords);
+    getPosition();
+  }, [vendorsWithCoords]);
 
   return (
-    <Loading isLoading={isLoading} error={error}>
-      <Row>
-        <Col md={12}>
-          <VendorFilter vendors={vendors} onFilter={setFilteredVendors} />
+    <Row>
+      <Col md={12}>
+        <Loading isLoading={isLoading} error={error}>
+          <VendorFilter vendors={vendorsWithCoords} onFilter={setFilteredVendors} currentPosition={position} />
           <VendorList vendors={filteredVendors} />
-        </Col>
-        <Col md={12}>
-          <SearchMap vendors={filteredVendors} />
-        </Col>
-      </Row>
-    </Loading>
+        </Loading>
+      </Col>
+      <Col md={12}>
+        <SearchMap vendors={filteredVendors} position={position} />
+      </Col>
+    </Row>
   );
 }

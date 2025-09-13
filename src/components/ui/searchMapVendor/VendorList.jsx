@@ -11,7 +11,6 @@ const VendorGrid = styled.div`
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 16px;
   padding: 30px;
-  min-height: 67.2vh;
   background-color: #f8fafc;
 `;
 
@@ -111,6 +110,31 @@ const PanelHeader = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+
+  svg {
+    color: #3b82f6;
+  }
+`;
+
+const PaginationWrapper = styled.div`
+  text-align: center;
+  margin-top: 16px;
+
+  .ant-pagination-item-link,
+  .ant-pagination-item {
+    border-radius: 6px;
+  }
+
+  .ant-pagination-item-active a {
+    color: #3b82f6;
+  }
+`;
+
+const RateWrapper = styled(Rate)`
+  .ant-rate-star {
+    font-size: 12px;
+    color: #f59e0b;
+  }
 `;
 
 export default function VendorList({ vendors, pageSize = 9 }) {
@@ -151,12 +175,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
               </span>
               {vendor.totalReviews > 0 ? (
                 <Tooltip title={`${vendor.totalReviews} reviews`}>
-                  <Rate
-                    disabled
-                    allowHalf
-                    defaultValue={vendor.avgRating || 0}
-                    style={{ color: "#f59e0b", fontSize: 12 }}
-                  />
+                  <RateWrapper disabled allowHalf value={vendor.avgRating || 0} />
                 </Tooltip>
               ) : (
                 <span>No ratings</span>
@@ -170,11 +189,11 @@ export default function VendorList({ vendors, pageSize = 9 }) {
               <StyledBadge count={vendor.totalSales || 0} bgcolor="#f59e0b" />
             </InfoRow>
 
-            <StyledCollapse ghost style={{ marginTop: "12px" }}>
+            <StyledCollapse ghost>
               <Panel
                 header={
                   <PanelHeader>
-                    <MdLocationOn style={{ color: "#3b82f6" }} />
+                    <MdLocationOn />
                     Addresses ({vendor.addresses?.length || 0})
                   </PanelHeader>
                 }
@@ -201,7 +220,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
       </VendorGrid>
 
       {vendors.length > pageSize && (
-        <div style={{ textAlign: "center", marginTop: 16 }}>
+        <PaginationWrapper>
           <Pagination
             current={currentPage}
             pageSize={pageSize}
@@ -209,7 +228,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
             onChange={(page) => setCurrentPage(page)}
             showSizeChanger={false}
           />
-        </div>
+        </PaginationWrapper>
       )}
     </div>
   );

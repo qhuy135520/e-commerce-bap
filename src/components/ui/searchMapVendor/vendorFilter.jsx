@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Input, Checkbox, Select, Slider, Button, Rate } from "antd";
+import { getDistanceFromLatLonInKm } from "@/utils/helpers";
 
 const { Option } = Select;
 
@@ -61,13 +62,14 @@ const ButtonGroup = styled.div`
   }
 `;
 
-export default function VendorFilter({ vendors, onFilter }) {
+export default function VendorFilter({ vendors, onFilter, currentPosition }) {
   const [name, setName] = useState("");
   const [status, setStatus] = useState("all");
   const [hasAddress, setHasAddress] = useState(false);
   const [minProducts, setMinProducts] = useState(0);
   const [minSales, setMinSales] = useState(0);
   const [minRating, setMinRating] = useState(0);
+  const [radius, setRadius] = useState(0);
 
   const handleFilter = () => {
     let filtered = [...vendors];
@@ -79,6 +81,16 @@ export default function VendorFilter({ vendors, onFilter }) {
     if (minSales > 0) filtered = filtered.filter((v) => v.totalSales >= minSales);
     if (minRating > 0) filtered = filtered.filter((v) => v.avgRating >= minRating);
 
+    if (radius > 0 && currentPosition) {
+      filtered = filtered.filter((v) => {
+        return v.addressesWithCoords?.some((addr) => {
+          if (!addr.lat || !addr.lon) return false;
+          const distance = getDistanceFromLatLonInKm(currentPosition.lat, currentPosition.lng, addr.lat, addr.lon);
+          return distance <= radius;
+        });
+      });
+    }
+
     onFilter(filtered);
   };
 
@@ -89,6 +101,7 @@ export default function VendorFilter({ vendors, onFilter }) {
     setMinProducts(0);
     setMinSales(0);
     setMinRating(0);
+    setRadius(0);
     onFilter(vendors);
   };
 
@@ -99,7 +112,16 @@ export default function VendorFilter({ vendors, onFilter }) {
           <label>Name</label>
           <StyledInput placeholder="Search by name" value={name} onChange={(e) => setName(e.target.value)} />
         </Field>
-
+        <Field>
+          <label>Radius (km): {radius}</label>
+          <StyledInput
+            type="number"
+            min={0}
+            max={500}
+            value={radius}
+            onChange={(e) => setRadius(Number(e.target.value))}
+          />
+        </Field>
         <Field>
           <label>Status</label>
           <StyledSelect value={status} onChange={setStatus}>
