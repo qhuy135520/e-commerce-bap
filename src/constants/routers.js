@@ -22,6 +22,7 @@ export const PUBLIC_ROUTER_PATH = {
 
 export const GLOBAL_ROUTER_PATH = {
   NOT_FOUND: { KEY: "NOT_FOUND", PATH: "*" },
+  SEARCH_MAP_VENDOR: { KEY: "SEARCH_MAP_VENDOR", PATH: "/search-map-vendor" },
 };
 
 export const PRIVATE_ROUTER_PATH = {

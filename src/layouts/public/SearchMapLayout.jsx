@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 
 import { Header, Footer, ContainerSearch } from "@/components";
 
-export default function SearchLayout() {
+export default function SearchMapLayout() {
   return (
     <>
       <Header />

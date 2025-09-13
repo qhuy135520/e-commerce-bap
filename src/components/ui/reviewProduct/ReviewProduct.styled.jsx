@@ -69,7 +69,7 @@ export const BreakdownItem = styled.div`
   gap: 1rem;
   padding: 8px 12px;
   border-radius: 8px;
-  background: ${({ active }) => (active ? "rgba(250,173,20,0.08)" : "transparent")};
+  background: ${({ $active }) => ($active ? "rgba(250,173,20,0.08)" : "transparent")};
   font-size: 1.6rem;
 
   &:hover {
@@ -98,7 +98,7 @@ export const ProgressBar = styled.div`
 `;
 
 export const ProgressFill = styled.div`
-  width: ${({ percent }) => percent}%;
+  width: ${({ $percent }) => $percent}%;
   height: 100%;
   background: #faad14;
 `;

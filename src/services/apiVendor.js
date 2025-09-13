@@ -2,7 +2,7 @@ import supabase from "@/services/supabase";
 
 export async function getVendorApi() {
   try {
-    const { data, error } = await supabase.from("userInfo").select("*").eq("role", "vendor");
+    const { data, error } = await supabase.from("vendor_info").select("*");
     if (error) throw error;
     return data;
   } catch (error) {
@@ -11,6 +11,7 @@ export async function getVendorApi() {
 }
 
 export async function updateVendorStatus(userId, newStatus) {
+  debugger;
   try {
     const { data, error } = await supabase
       .from("userInfo")
