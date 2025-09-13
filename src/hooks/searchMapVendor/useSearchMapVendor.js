@@ -9,7 +9,6 @@ export default function useSearchMapVendor() {
   const isLoading = ["loading", "idle"].includes(status);
   const vendors = useSelector(vendorSelector.selectVendor);
   const error = useSelector(vendorSelector.selectVendorError);
-  console.log(vendors);
 
   useEffect(() => {
     if (status === "idle") {

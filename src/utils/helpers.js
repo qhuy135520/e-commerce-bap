@@ -43,6 +43,14 @@ function normalize(str = "") {
     .trim();
 }
 
+export function normalizeAddress(fullAddress) {
+  return fullAddress
+    .replace(/\d{5,}/g, "") // bỏ zip code dài
+    .replace(/\b(District|Ward)\b/gi, "") // bỏ từ tiếng Anh
+    .replace(/\s+/g, " ") // gom khoảng trắng thừa
+    .trim();
+}
+
 function matchAddressPart(part, fullName) {
   const n1 = normalize(part);
   const n2 = normalize(fullName);
@@ -79,11 +87,11 @@ export function convertOrderToEmailPayload(data) {
   const { order, newOrderDetails, customerInfo } = data;
 
   const subtotal = newOrderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 50000;
+  const shipping = 0;
   const total = subtotal + shipping;
 
   const orders = newOrderDetails.map((item) => ({
-    image_url: item.product.productImage[0].imageUrl || "https://via.placeholder.com/150",
+    image_url: item.product?.productImage[0]?.imageUrl || "https://via.placeholder.com/150",
     name: item.product.name,
     units: item.quantity,
     price: formatCurrency(item.price),
