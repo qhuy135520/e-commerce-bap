@@ -1,3 +1,4 @@
+import { Pagination } from "antd";
 import styled from "styled-components";
 
 export const SwiperSlideWrap = styled.div`
@@ -115,14 +116,17 @@ export const ProductItem = styled.div`
         position: absolute;
         top: 12px;
         right: 12px;
-        background: #ff4d4f;
         color: #fff;
         font-size: 12px;
         padding: 2px 6px;
         border-radius: 4px;
+        background: linear-gradient(270deg, #ff4d4f, #bae0ff, #69b1ff);
+        background-size: 400% 400%;
+        animation: badgeGradient 3s ease infinite;
 
         &.badge-stock {
           background: #faad14;
+          animation: none;
         }
       }
 
@@ -168,4 +172,9 @@ export const ProductItem = styled.div`
       }
     }
   }
+`;
+
+export const StyledPagination = styled(Pagination)`
+  margin-top: 24px;
+  text-align: center;
 `;

@@ -37,8 +37,8 @@ export default function ProductsSlider() {
                   </div>
 
                   <div className="product-info">
-                    {product.total_sold > 10 && <span className="badge">Bán chạy</span>}
-                    {product.stock < 5 && <span className="badge badge-stock">Sắp hết hàng</span>}
+                    {product.total_sold > 10 && <span className="badge">{t("productCard.bestSeller")}</span>}
+                    {product.stock < 5 && <span className="badge badge-stock">{t("productCard.lowStock")}</span>}
 
                     <div>
                       <p className="brand">{product.brandName}</p>
@@ -48,7 +48,9 @@ export default function ProductsSlider() {
 
                     <div className="bottom-info">
                       <p className="price">{formatCurrency(product.price)}</p>
-                      <p className="sold-stock">Đã bán: {product.total_sold || 0} </p>
+                      <p className="sold-stock">
+                        {t("productCard.sold")}: {product.total_sold || 0}{" "}
+                      </p>
                     </div>
                     <Rate disabled allowHalf value={product.avgReview || 0} />
                   </div>

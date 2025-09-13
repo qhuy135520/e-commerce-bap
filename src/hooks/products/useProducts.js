@@ -168,6 +168,16 @@ export default function useProducts() {
     ],
   };
 
+  const getRandomProducts = (list, count = 5) => {
+    if (!Array.isArray(list)) return [];
+    const shuffled = [...list].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, count);
+  };
+
+  const randomProducts = useMemo(() => {
+    return getRandomProducts(enrichedProducts, 5);
+  }, [enrichedProducts]);
+
   return {
     isLoading,
     fetchDataProducts,
@@ -192,5 +202,6 @@ export default function useProducts() {
     minReview,
     bestSellerProducts,
     settings,
+    randomProducts,
   };
 }

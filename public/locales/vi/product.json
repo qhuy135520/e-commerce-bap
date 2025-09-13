@@ -3,10 +3,12 @@
     "title": "Danh sách sản phẩm",
     "filter": {
       "placeholder": "Sắp xếp",
-      "salesDesc": "Bán nhiều nhất",
+      "default": "Mặc định",
+      "salesDesc": "Bán chạy nhất",
       "salesAsc": "Bán ít nhất",
       "priceDesc": "Giá cao → thấp",
-      "priceAsc": "Giá thấp → cao"
+      "priceAsc": "Giá thấp → cao",
+      "reviewDesc": "Đánh giá cao nhất"
     }
   },
 
@@ -17,6 +19,8 @@
   "productCard": {
     "price": "Giá",
     "noDescription": "Không có mô tả",
-    "sold": "Đã bán"
+    "sold": "Đã bán",
+    "bestSeller": "Bán chạy",
+    "lowStock": "Sắp hết hàng"
   }
 }
