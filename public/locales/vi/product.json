@@ -13,7 +13,8 @@
   },
 
   "productSuggest": {
-    "title": "Sản phẩm gợi ý"
+    "title": "Sản phẩm gợi ý",
+    "desription": "Gợi ý sản phẩm cho bạn trong ngày hôm nay"
   },
 
   "productCard": {

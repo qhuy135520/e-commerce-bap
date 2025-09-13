@@ -14,7 +14,10 @@ export default function ProductsRandom() {
 
   return (
     <S.Container>
-      <Title level={2}>{t("productSuggest.title")}</Title>
+      <S.Header>
+        <h2>{t("productSuggest.title")}</h2>
+        <p>{t("productSuggest.description")}</p>
+      </S.Header>
       <S.RandomProductGrid>
         {randomProducts.map((product) => (
           <S.ProductItem onClick={() => handleNavigate(product.id)} key={product.id}>

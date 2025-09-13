@@ -4,6 +4,21 @@ export const Container = styled.div`
   margin-top: 30px;
 `;
 
+export const Header = styled.div`
+  text-align: center;
+  margin-bottom: 60px;
+  h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    color: #333;
+    margin-bottom: 15px;
+  }
+  p {
+    font-size: 1.5rem;
+    color: #555;
+  }
+`;
+
 export const RandomProductGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

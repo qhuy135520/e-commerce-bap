@@ -13,7 +13,8 @@
   },
 
   "productSuggest": {
-    "title": "Product Suggest"
+    "title": "Product suggest",
+    "description": "Product suggestions for you today"
   },
 
   "productCard": {
