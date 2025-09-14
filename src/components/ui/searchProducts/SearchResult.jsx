@@ -14,7 +14,6 @@ export default function SearchResult() {
 
   if (status === "succeeded" && !products.length)
     <EmptyCommon description={<p>No results for {query}</p>} buttonText={null} />;
-  console.log(products);
 
   return (
     <Loading isLoading={status === "loading"}>

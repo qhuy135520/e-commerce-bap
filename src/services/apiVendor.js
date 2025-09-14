@@ -11,7 +11,6 @@ export async function getVendorApi() {
 }
 
 export async function updateVendorStatus(userId, newStatus) {
-  debugger;
   try {
     const { data, error } = await supabase
       .from("userInfo")

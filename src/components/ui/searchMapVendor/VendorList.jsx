@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Card, Collapse, Rate, Badge, Tooltip, Pagination } from "antd";
+import { Card, Collapse, Rate, Badge, Tooltip, Pagination, Button } from "antd";
 import { MdLocationOn, MdPhone, MdStar } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 const { Panel } = Collapse;
 
@@ -33,6 +34,9 @@ const StyledCard = styled(Card)`
 
   .ant-card-body {
     padding: 12px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 `;
 
@@ -137,6 +141,21 @@ const RateWrapper = styled(Rate)`
   }
 `;
 
+const VendorButton = styled(Button)`
+  margin-top: auto;
+  background-color: #3b82f6;
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  width: 100%;
+
+  &:hover,
+  &:focus {
+    background-color: #2563eb;
+    color: white;
+  }
+`;
+
 export default function VendorList({ vendors, pageSize = 9 }) {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -215,6 +234,10 @@ export default function VendorList({ vendors, pageSize = 9 }) {
                 )}
               </Panel>
             </StyledCollapse>
+
+            <NavLink to={`/vendor/${vendor.vendorId}`} passHref>
+              <VendorButton>View Vendor</VendorButton>
+            </NavLink>
           </StyledCard>
         ))}
       </VendorGrid>
