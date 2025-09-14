@@ -74,3 +74,19 @@ export async function updateStatusOrderApi(orderId, nextStatus) {
     throw error;
   }
 }
+
+export async function cancelOrderApi(orderId) {
+  try {
+    const { data, error } = await supabase
+      .from("order")
+      .update({ status: "cancelled" })
+      .eq("id", orderId)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}

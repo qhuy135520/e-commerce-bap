@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
 import { subtractVendorBalance } from "@/stores/vendor/vendor.thunks";
-import { updateStatusOrder } from "@/stores/order/orders.thunks";
+import { fetchAllOrdersAdmin, updateStatusOrder } from "@/stores/order/orders.thunks";
 
 export default function useOrderAdmin(orders) {
   const dispatch = useDispatch();
@@ -29,13 +29,17 @@ export default function useOrderAdmin(orders) {
     if (!modal.order) return;
 
     try {
-      if (modal.type === "approve") {
-        await supabase.from("order").update({ status: "completed" }).eq("id", modal.order.id);
-        setLocalOrders((prev) => prev.map((o) => (o.id === modal.order.id ? { ...o, status: "completed" } : o)));
-        toast.success("Đã duyệt đơn hàng thành công");
-      } else if (modal.type === "cancel") {
-        await supabase.from("order").update({ status: "cancelled" }).eq("id", modal.order.id);
-        setLocalOrders((prev) => prev.map((o) => (o.id === modal.order.id ? { ...o, status: "cancelled" } : o)));
+      if (modal.type === "cancel") {
+        // Cập nhật trạng thái đơn hàng
+        await dispatch(
+          updateStatusOrder({ vendorId: modal.order.vendor_id, orderId: modal.order.order_id, nextStatus: "canceled" })
+        ).unwrap();
+        setLocalOrders((prev) =>
+          prev.map((o) => (o.order_id === modal.order.order_id ? { ...o, status: "canceled" } : o))
+        );
+        // Cập nhật lại danh sách đơn hàng
+        await dispatch(fetchAllOrdersAdmin());
+
         toast.success("Đã hủy đơn hàng");
       }
     } catch (err) {
