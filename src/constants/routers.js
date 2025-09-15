@@ -22,7 +22,6 @@ export const PUBLIC_ROUTER_PATH = {
 
 export const GLOBAL_ROUTER_PATH = {
   NOT_FOUND: { KEY: "NOT_FOUND", PATH: "*" },
-  SEARCH_MAP_VENDOR: { KEY: "SEARCH_MAP_VENDOR", PATH: "/search-map-vendor" },
 };
 
 export const PRIVATE_ROUTER_PATH = {
@@ -32,6 +31,7 @@ export const PRIVATE_ROUTER_PATH = {
   VENDOR_DASHBOARD: { KEY: "VENDOR_DASHBOARD", PATH: "/vendor-dashboard" },
   VENDOR_MANAGER_PRODUCT: { KEY: "VENDOR_MANAGER_PRODUCT", PATH: "products" },
   VENDOR_MANAGER_ORDER: { KEY: "VENDOR_MANAGER_ORDER", PATH: "orders" },
+  VENDOR_MANAGER_TRANSACTION: { KEY: "VENDOR_MANAGER_TRANSACTION", PATH: "transaction" },
   ADMIN_DASHBOARD: { KEY: "ADMIN_DASHBOARD", PATH: "/admin-dashboard" },
   ADMIN_MANAGER_USER: { KEY: "ADMIN_MANAGER_USER", PATH: "/admin-dashboard/users" },
   ADMIN_MANAGER_PRODUCT: { KEY: "ADMIN_MANAGER_PRODUCT", PATH: "/admin-dashboard/products" },

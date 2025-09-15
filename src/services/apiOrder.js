@@ -13,6 +13,7 @@ export async function fetchOrderApi(userId) {
 export async function createOrderApi(cartItems, userId) {
   const { data: order, error: orderError } = await supabase.from("order").insert([{ userId }]).select().single();
   if (orderError) throw orderError;
+
   const orderDetails = cartItems.map((item) => ({
     orderId: order.id,
     productId: item.productId,
@@ -28,7 +29,7 @@ export async function createOrderApi(cartItems, userId) {
     *,
     product (
       *,
-      productImage!left(*)
+      productImage!inner(*)
     )
   `
     )

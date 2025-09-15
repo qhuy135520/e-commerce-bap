@@ -1,28 +1,20 @@
 import React from "react";
 import { Button } from "antd";
 import { AiFillProduct } from "react-icons/ai";
-import { FaListCheck } from "react-icons/fa6";
-import { MdLogout } from "react-icons/md";
+import { FaListCheck, FaWarehouse } from "react-icons/fa6";
+import { MdOutlinePayments, MdLogout } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 
 import { MainNavVendorStyled as MNVS } from "@/components";
 
-import { formatCurrency } from "@/utils/helpers";
-import { useUser } from "@/hooks/authentication/useUser";
-
 export default function MainNavVendor() {
   const { logout } = useLogout();
-  const { user } = useUser();
-
   return (
     <nav>
       <MNVS.NavList>
         <strong> Main Menu Vendor</strong>
-        <hr />
-        <b>Số tiền chưa thanh toán: {formatCurrency(user.moneyBalance)}</b>
-        <hr />
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/products">
             <AiFillProduct /> Quản lý sản phẩm
@@ -31,6 +23,11 @@ export default function MainNavVendor() {
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/orders">
             <FaListCheck /> Quản lý đơn hàng
+          </MNVS.StyledNavLink>
+        </li>
+        <li>
+          <MNVS.StyledNavLink to="/vendor-dashboard/transaction">
+            <MdOutlinePayments /> Quản lý thanh toán
           </MNVS.StyledNavLink>
         </li>
         <strong> Settings</strong>

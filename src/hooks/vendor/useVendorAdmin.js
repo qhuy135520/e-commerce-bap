@@ -1,101 +1,91 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import emailjs from "@emailjs/browser";
-
 import { fetchAllVendor, updateVendor } from "@/stores/vendor/vendor.thunks";
-import { selectVendorStatus } from "@/stores/vendor/vendor.selectors";
-import supabase from "@/services/supabase";
+import { selectVendor, selectVendorStatus } from "@/stores/vendor/vendor.selectors";
+import { sendEmail } from "@/services/apiEmail";
 
 export function useVendorAdmin(itemsPerPage = 10) {
-  const [vendors, setVendors] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+
   const dispatch = useDispatch();
-  const vendorData = useSelector((state) => state.vendor.data);
+  const vendorData = useSelector(selectVendor);
   const status = useSelector(selectVendorStatus);
 
   useEffect(() => {
     dispatch(fetchAllVendor());
   }, [dispatch]);
 
-  useEffect(() => {
-    if (vendorData) {
-      let filteredVendors = vendorData;
-      if (searchTerm) {
-        filteredVendors = filteredVendors.filter((v) =>
-          v.name.trim().toLowerCase().includes(searchTerm.toLowerCase().trim())
-        );
-      }
-      if (statusFilter !== "all") {
-        filteredVendors = filteredVendors.filter((v) => v.status === statusFilter);
-      }
-      setVendors(filteredVendors);
-      setCurrentPage(1);
+  const filteredVendors = useMemo(() => {
+    if (!vendorData) return [];
+    let result = vendorData;
+
+    if (searchTerm) {
+      result = result.filter((v) => v.vendorName.trim().toLowerCase().includes(searchTerm.toLowerCase().trim()));
     }
+
+    if (statusFilter !== "all") {
+      result = result.filter((v) => v.status === statusFilter);
+    }
+
+    return result;
   }, [vendorData, searchTerm, statusFilter]);
 
-  const handleStatusToggle = async (userId, currentStatus) => {
+  const totalItems = filteredVendors.length;
+
+  const currentVendors = useMemo(() => {
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    return filteredVendors.slice(indexOfFirstItem, indexOfLastItem);
+  }, [filteredVendors, currentPage, itemsPerPage]);
+
+  const handleStatusToggle = async (vendorId, currentStatus) => {
     const newStatus = currentStatus === "active" ? "inactive" : "active";
-    const vendor = vendors.find((v) => v.id === userId);
-    const vendorName = vendor ? vendor.name : userId;
+    const vendor = vendorData.find((v) => v.vendorId === vendorId);
 
-    const { data: vendorData, error: fetchError } = await supabase
-      .from("userInfo")
-      .select("email")
-      .eq("id", userId)
-      .single();
-
-    if (fetchError) {
-      toast.error(`Không thể lấy email vendor ${vendorName}: ${fetchError.message}`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
+    if (!vendor) {
+      toast.error(`Không tìm thấy vendor với ID ${vendorId}`);
       return;
     }
 
-    setVendors((prevVendors) =>
-      prevVendors.map((vendor) => (vendor.id === userId ? { ...vendor, status: newStatus } : vendor))
-    );
+    const vendorName = vendor.vendorName;
+    const vendorEmail = vendor.email;
+    console.log("vendorEmail", vendorEmail);
 
     try {
-      await dispatch(updateVendor({ userId, newStatus })).unwrap();
+      await dispatch(updateVendor({ vendorId, newStatus })).unwrap();
 
-      const templateId =
-        newStatus === "active" ? import.meta.env.VITE_TEMPLATE_APPROVE_ID : import.meta.env.VITE_TEMPLATE_REJECT_ID;
-      const formData = {
-        to_email: vendorData.email,
-        vendor_name: vendorName,
-        status: newStatus === "active" ? "Đã duyệt" : "Chưa duyệt",
-      };
+      if (newStatus === "active" && vendorEmail) {
+        await sendEmail(
+          {
+            user_name: vendorName,
+            email: vendorEmail,
+            status: newStatus,
+          },
+          import.meta.env.VITE_TEMPLATE_VENDER_ID
+        );
+        toast.success(`Đã gửi email xác nhận cho ${vendorName}`);
+      }
 
-      await emailjs.send(import.meta.env.VITE_SERVICE_ID, templateId, formData, import.meta.env.VITE_PUBLIC_KEY);
-
-      toast.success(`Vendor ${vendorName} đã được cập nhật trạng thái thành ${newStatus} và email đã được gửi`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.success(`Vendor ${vendorName} đã được cập nhật trạng thái thành ${newStatus}`);
     } catch (err) {
-      setVendors((prevVendors) =>
-        prevVendors.map((vendor) => (vendor.id === userId ? { ...vendor, status: currentStatus } : vendor))
-      );
-      toast.error(`Không thể cập nhật trạng thái vendor ${vendorName} hoặc gửi email: ${err.message || err}`, {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      throw err;
+      const errorMsg = err?.message || err?.error || (typeof err === "string" ? err : JSON.stringify(err));
+
+      toast.error(`Không thể cập nhật trạng thái vendor ${vendorName}: ${errorMsg}`);
     }
   };
 
   const handlePageChange = (page) => setCurrentPage(page);
-  const handleSearch = (value) => setSearchTerm(value);
-  const handleStatusFilter = (value) => setStatusFilter(value);
-
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentVendors = vendors.slice(indexOfFirstItem, indexOfLastItem);
-  const totalItems = vendors.length;
+  const handleSearch = (value) => {
+    setSearchTerm(value);
+    setCurrentPage(1);
+  };
+  const handleStatusFilter = (value) => {
+    setStatusFilter(value);
+    setCurrentPage(1);
+  };
 
   return {
     vendors: currentVendors,

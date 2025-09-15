@@ -1,42 +1,33 @@
 import React from "react";
 import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Select } from "antd";
 
-import useOrderAdmin from "@/hooks/order/useOrderAdmin";
-import * as AMOD from "@/components/ui/admin/AdminManagerUser.styled";
+import { formatNumberCurrency } from "@/utils/helpers";
 
-import { COMMISSION } from "@/constants";
-import { formatCurrency, formatNumberCurrency } from "@/utils/helpers";
+import useOrderAdmin from "@/hooks/order/useOrderAdmin";
+
+import * as AMOD from "@/components/ui/admin/AdminManagerUser.styled";
 
 export default function AdminManagerOrderTable({ orders, loading }) {
   const {
     filteredOrders,
     modal,
-    handleAction,
-    handleConfirm,
-    handleCancel,
-    payModal,
-    openPayModal,
-    closePayModal,
-    handlePayVendor,
     searchInput,
     setSearchInput,
     handleSearch,
     statusFilter,
     setStatusFilter,
+    handleAction,
+    handleConfirm,
+    handleCancel,
   } = useOrderAdmin(orders);
 
   const columns = [
-    {
-      title: "Order ID",
-      dataIndex: "order_id",
-      key: "order_id",
-      render: (id) => <span>order_{id?.slice(0, 6)}</span>,
-    },
+    { title: "Order ID", dataIndex: "order_id", key: "order_id", render: (id) => <span>order_{id?.slice(0, 6)}</span> },
     {
       title: "Tên người đặt",
       dataIndex: "user_name",
       key: "userId",
-      render: (name) => <span>{name}</span>,
+      render: (id) => <span>{id}</span>,
     },
     {
       title: "Tổng tiền",
@@ -68,7 +59,6 @@ export default function AdminManagerOrderTable({ orders, loading }) {
           >
             Hủy
           </Button>
-          {record.status === "completed" && <Button onClick={() => openPayModal(record)}>Thanh toán</Button>}
         </Space>
       ),
     },
@@ -112,6 +102,7 @@ export default function AdminManagerOrderTable({ orders, loading }) {
           onSearch={handleSearch}
         />
         <AMOD.SelectStyled value={statusFilter} onChange={setStatusFilter} size="large">
+          <Select.Option disabled>Trạng thái</Select.Option>
           <Select.Option value="all">Tất cả </Select.Option>
           <Select.Option value="pending">Đang xử lí</Select.Option>
           <Select.Option value="shipped">Đang giao hàng</Select.Option>
@@ -128,7 +119,6 @@ export default function AdminManagerOrderTable({ orders, loading }) {
         pagination={{ pageSize: 10, showSizeChanger: false, position: ["bottomCenter"] }}
       />
 
-      {/* Modal hủy đơn */}
       <Modal
         title="Xác nhận hủy đơn hàng"
         open={modal.visible}
@@ -141,15 +131,6 @@ export default function AdminManagerOrderTable({ orders, loading }) {
         <p>
           Bạn có chắc chắn muốn hủy đơn hàng <b>{modal.order?.order_id}</b> không?
         </p>
-      </Modal>
-
-      {/* Modal thanh toán */}
-      <Modal title="Xác nhận thanh toán" open={payModal.visible} onOk={handlePayVendor} onCancel={closePayModal}>
-        <b>
-          Xác nhận thanh toán cho đơn hàng {payModal.order?.order_id?.slice(0, 5)} với tổng tiền
-          <span style={{ color: "red" }}> {formatCurrency(payModal.order?.total_amount * COMMISSION || 0)}</span> cho
-          Vendor <span style={{ color: "green" }}>{payModal.order?.vendor_name}</span>
-        </b>
       </Modal>
     </ConfigProvider>
   );

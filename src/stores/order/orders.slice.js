@@ -14,17 +14,12 @@ const initialState = {
   status: "idle",
   error: null,
   allOrders: [],
-  filterStatus: "all",
 };
 
 const orderSlice = createSlice({
   name: "orders",
   initialState,
-  reducers: {
-    setStatusFilter: (state, action) => {
-      state.filterStatus = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
       //FETCH ORDER
@@ -87,5 +82,4 @@ const orderSlice = createSlice({
   },
 });
 
-export const { setStatusFilter } = orderSlice.actions;
 export default orderSlice.reducer;

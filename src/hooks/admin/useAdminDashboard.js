@@ -38,9 +38,9 @@ export const useAdminDashboard = () => {
   useEffect(() => {
     if (users.length > 0) {
       const active = users.filter((u) => u.role === "customer" && u.status === "active").length;
-      const unactive = users.filter((u) => u.role === "customer" && u.status === "unactive").length;
+      const inactive = users.filter((u) => u.role === "customer" && u.status === "inactive").length;
       setPieUser([
-        { name: "Bị khóa", value: unactive },
+        { name: "Bị khóa", value: inactive },
         { name: "Đang hoạt động", value: active },
       ]);
     }

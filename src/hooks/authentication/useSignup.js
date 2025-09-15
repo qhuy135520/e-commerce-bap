@@ -52,9 +52,6 @@ export function useSignup() {
       toast.success(t("signup.toast.success"));
       navigate("/login");
     },
-    onError: (error) => {
-      toast.error(error.message);
-    },
   });
 
   const handleSubmit = async (values, { resetForm }) => {

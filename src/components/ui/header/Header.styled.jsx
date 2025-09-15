@@ -6,7 +6,7 @@ export const HeaderBg = styled.header`
   top: 0;
   right: 0;
   left: 0;
-  z-index: 1001;
+  z-index: 1000;
 `;
 export const HeaderTop = styled.div`
   background: var(--grad-blue-1);

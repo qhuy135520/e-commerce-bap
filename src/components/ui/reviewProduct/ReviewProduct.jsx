@@ -49,14 +49,14 @@ export default function ReviewProduct(props) {
               const count = counts[s] || 0;
               const ratePercent = totalReviews ? Math.round((count / totalReviews) * 100) : 0;
               return (
-                <RPS.BreakdownItem key={s} $active={filter === String(s)} onClick={() => setFilter(String(s))}>
+                <RPS.BreakdownItem key={s} active={filter === String(s)} onClick={() => setFilter(String(s))}>
                   <RPS.BreakdownStar>
                     <span>{s}</span>
                     <Rate value={s} disabled style={{ fontSize: 12 }} />
                   </RPS.BreakdownStar>
                   <RPS.BreakdownBar>
                     <RPS.ProgressBar>
-                      <RPS.ProgressFill $percent={ratePercent} />
+                      <RPS.ProgressFill percent={ratePercent} />
                     </RPS.ProgressBar>
                     <RPS.BreakdownText>
                       {count} ({ratePercent}%)
