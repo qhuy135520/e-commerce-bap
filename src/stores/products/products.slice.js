@@ -12,8 +12,8 @@ import {
 const productSlice = createSlice({
   name: "products",
   initialState: {
-    allProducts: [],
-    products: [],
+    allProducts: [], // dùng cho admin
+    products: [], // danh sách gốc (không filter)
     product: {
       images: [],
       reviews: [],
@@ -21,14 +21,10 @@ const productSlice = createSlice({
     productsVendor: [],
     status: "idle",
     error: null,
-    searchTerm: "",
     filterCategory: "all",
     filterBrand: "all",
   },
   reducers: {
-    setSearchTerm: (state, action) => {
-      state.searchTerm = action.payload;
-    },
     setFilterCategory: (state, action) => {
       state.filterCategory = action.payload;
     },
@@ -47,14 +43,14 @@ const productSlice = createSlice({
       })
       .addCase(fetchAllProducts.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.products = action.payload;
+        state.products = action.payload; // lưu toàn bộ data gốc
       })
       .addCase(fetchAllProducts.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       })
 
-      //GET ONE PRODUCT DETAIL
+      // GET ONE PRODUCT DETAIL
       .addCase(getProduct.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -66,8 +62,8 @@ const productSlice = createSlice({
       .addCase(getProduct.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
-        state.error = action.error;
       })
+
       .addCase(fetchProductsByVendor.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -81,7 +77,7 @@ const productSlice = createSlice({
         state.error = action.error;
       })
 
-      //CREATE PRODUCT
+      // CREATE PRODUCT
       .addCase(createProductVendor.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -93,6 +89,7 @@ const productSlice = createSlice({
         state.status = "failed";
         state.error = action.error;
       })
+
       .addCase(updateStockProduct.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -105,7 +102,7 @@ const productSlice = createSlice({
         state.error = action.error;
       })
 
-      //UPDATE PRODUCT VENDOR
+      // UPDATE PRODUCT VENDOR
       .addCase(updateProductVendor.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -117,6 +114,7 @@ const productSlice = createSlice({
         state.status = "failed";
         state.error = action.error;
       })
+
       .addCase(getAllProducts.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -132,6 +130,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setSearchTerm, setFilterCategory, setFilterBrand } = productSlice.actions;
-
+export const { setFilterCategory, setFilterBrand } = productSlice.actions;
 export default productSlice.reducer;
