@@ -63,7 +63,7 @@ const ButtonGroup = styled.div`
 
 const initialState = {
   name: "",
-  status: "all",
+  status: "active",
   hasAddress: false,
   minProducts: 0,
   minSales: 0,
@@ -85,18 +85,16 @@ function reducer(state, action) {
 export default function VendorFilter({ vendors, onFilter, currentPosition, radius, setRadius }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const { name, status, hasAddress, minProducts, minSales, minRating, radiusFilter } = state;
+  const { name, hasAddress, minProducts, minSales, minRating, radiusFilter } = state;
 
   const handleFilter = () => {
     let filtered = [...vendors];
 
     if (name.trim()) filtered = filtered.filter((v) => v.vendorName.toLowerCase().includes(name.toLowerCase()));
-    if (status !== "all") filtered = filtered.filter((v) => v.status === status);
     if (hasAddress) filtered = filtered.filter((v) => v.addresses?.length > 0);
     if (minProducts > 0) filtered = filtered.filter((v) => v.totalProducts >= minProducts);
     if (minSales > 0) filtered = filtered.filter((v) => v.totalSales >= minSales);
     if (minRating > 0) filtered = filtered.filter((v) => v.avgRating >= minRating);
-
     if (radiusFilter > 0 && currentPosition) {
       filtered = filtered.filter((v) => {
         return v.addressesWithCoords?.some((addr) => {
@@ -138,15 +136,6 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
             value={radiusFilter}
             onChange={(e) => dispatch({ type: "SET_FIELD", field: "radiusFilter", value: Number(e.target.value) })}
           />
-        </Field>
-
-        <Field>
-          <label>Status</label>
-          <StyledSelect value={status} onChange={(val) => dispatch({ type: "SET_FIELD", field: "status", value: val })}>
-            <Option value="all">All Status</Option>
-            <Option value="active">Active</Option>
-            <Option value="inactive">Inactive</Option>
-          </StyledSelect>
         </Field>
 
         <Field style={{ alignSelf: "center" }}>
