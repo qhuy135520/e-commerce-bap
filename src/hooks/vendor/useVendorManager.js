@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { useUser } from "@/hooks/authentication/useUser";
-
 import { ordersSelector, productsSelector } from "@/stores/rootSelector";
 import { ordersThunk, productsThunk } from "@/stores/rootThunk";
 
 export default function useVendorManager() {
   const { user } = useUser();
+  const { t } = useTranslation(["vendor"]);
   const dispatch = useDispatch();
 
   const products = useSelector(productsSelector.selectFilteredProductsVendor);
@@ -16,16 +17,16 @@ export default function useVendorManager() {
   const productEmptyStock = products.filter((p) => p.stock === 0);
 
   const [piePayment, setPiePayment] = useState([
-    { name: "Chưa thanh toán", value: 0 },
-    { name: "Đã thanh toán", value: 0 },
+    { name: t("chart.piePayment.unpaid"), value: 0 },
+    { name: t("chart.piePayment.paid"), value: 0 },
   ]);
 
   const [pieOrder, setPieOrder] = useState([
-    { name: "Chưa xử lý", value: 0 },
-    { name: "Đang vận chuyển", value: 0 },
-    { name: "Hoàn thành", value: 0 },
-    { name: "Hủy đơn", value: 0 },
-    { name: "Đã thanh toán", value: 0 },
+    { name: t("chart.pieOrder.pending"), value: 0 },
+    { name: t("chart.pieOrder.shipped"), value: 0 },
+    { name: t("chart.pieOrder.completed"), value: 0 },
+    { name: t("chart.pieOrder.canceled"), value: 0 },
+    { name: t("chart.pieOrder.paid"), value: 0 },
   ]);
 
   useEffect(() => {
@@ -42,11 +43,11 @@ export default function useVendorManager() {
       const unpaidValue = orders.filter((o) => o.status !== "paid").reduce((sum, o) => sum + (o.totalorder || 0), 0);
 
       setPiePayment([
-        { name: "Chưa thanh toán", value: unpaidValue },
-        { name: "Đã thanh toán", value: paidValue },
+        { name: t("chart.piePayment.unpaid"), value: unpaidValue },
+        { name: t("chart.piePayment.paid"), value: paidValue },
       ]);
     }
-  }, [orders]);
+  }, [orders, t]);
 
   useEffect(() => {
     if (orders.length > 0) {
@@ -57,14 +58,14 @@ export default function useVendorManager() {
       const paid = orders.filter((o) => o.status === "paid").length;
 
       setPieOrder([
-        { name: "Chưa xử lý", value: pending },
-        { name: "Đang vận chuyển", value: shipped },
-        { name: "Hoàn thành", value: completed },
-        { name: "Hủy đơn", value: canceled },
-        { name: "Đã thanh toán", value: paid },
+        { name: t("chart.pieOrder.pending"), value: pending },
+        { name: t("chart.pieOrder.shipped"), value: shipped },
+        { name: t("chart.pieOrder.completed"), value: completed },
+        { name: t("chart.pieOrder.canceled"), value: canceled },
+        { name: t("chart.pieOrder.paid"), value: paid },
       ]);
     }
-  }, [orders]);
+  }, [orders, t]);
 
   const productSalestData = useMemo(() => {
     const productMap = {};
@@ -110,5 +111,6 @@ export default function useVendorManager() {
     pieOrder,
     productSalestData,
     lineOrderData,
+    t,
   };
 }

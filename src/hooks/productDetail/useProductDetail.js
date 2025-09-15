@@ -10,7 +10,6 @@ import { vendorThunk } from "@/stores/rootThunk";
 export function useProductDetail(id) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user } = useUser();
   const [dataVendor, setDataVendor] = useState({});
   const productDetail = useSelector((state) => productsSelector.selectProductById(state));
   const error = useSelector((state) => productsSelector.selectError(state));
@@ -42,6 +41,7 @@ export function useProductDetail(id) {
   }, [id, dispatch]);
 
   useEffect(() => {
+    if (!productDetail) return;
     async function fetchVendorInfo() {
       const data = await dispatch(vendorThunk.getVendorInfo(productDetail?.vendorId)).unwrap();
       setDataVendor(data);

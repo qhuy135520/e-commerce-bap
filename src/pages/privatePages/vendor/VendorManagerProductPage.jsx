@@ -6,6 +6,7 @@ import { VendorManagerProductHeader, VendorManagerProductTable } from "@/compone
 
 export default function VendorManagerProductPage() {
   const { products } = useVendorManager();
+
   return (
     <>
       <VendorManagerProductHeader />

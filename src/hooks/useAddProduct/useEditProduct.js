@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 import toast from "react-hot-toast";
 
 import { useUser } from "@/hooks/authentication/useUser";
@@ -11,10 +12,12 @@ import { createProductVendor, updateProductVendor } from "@/stores/products/prod
 import { selectStatus } from "@/stores/products/products.selectors";
 
 export function useEditProduct(productEdit = {}) {
+  const { t } = useTranslation(["vendor"]);
   const { user } = useUser();
   const { id: productEditId, images, ...data } = productEdit;
   const isEditSession = Boolean(productEditId);
   const dispatch = useDispatch();
+
   const categorys = useSelector(categorySelector.selectCategoryItems);
   const statusCate = useSelector(categorySelector.selectCategoryStatus);
   const brands = useSelector(brandSelector.selectBrandItems);
@@ -137,6 +140,7 @@ export function useEditProduct(productEdit = {}) {
   }, [statusCate, statusBrand, dispatch]);
 
   return {
+    t,
     initialValues,
     validationSchema,
     categorys,
