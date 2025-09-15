@@ -2,10 +2,10 @@ import supabase from "@/services/supabase";
 
 export async function getTransactionsApi() {
   try {
-    debugger;
     const { data, error } = await supabase.from("transactions").select(`
         *,
         userInfo (
+          userId,
           name,
           role,
           moneyBalance,
