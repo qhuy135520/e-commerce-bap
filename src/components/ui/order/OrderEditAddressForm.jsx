@@ -11,7 +11,7 @@ import { parseAddress } from "@/utils/helpers";
 import useOrder from "@/hooks/order/useOrder";
 
 export default function OrderEditAddressForm({ onCancel, address = {} }) {
-  const { initialValues, handleSubmitAddress } = useAddress(address);
+  const { initialValues, handleSubmitAddress, user } = useAddress(address);
   const { isLoading: isLoadingGeolocation, error, getPosition } = useGeolocation();
   const { validateSchema, t } = useOrder();
 
@@ -27,11 +27,13 @@ export default function OrderEditAddressForm({ onCancel, address = {} }) {
       >
         {({ values, errors, touched, setFieldValue }) => (
           <Form>
-            <OS.FormGroup>
-              <OS.Label>{t("order.recipientName")}</OS.Label>
-              <Field name="name">{({ field }) => <OS.InputField {...field} />}</Field>
-              {touched.name && errors.name && <OS.ErrorText>{errors.name}</OS.ErrorText>}
-            </OS.FormGroup>
+            {user.role === "customer" && (
+              <OS.FormGroup>
+                <OS.Label>{t("order.recipientName")}</OS.Label>
+                <Field name="name">{({ field }) => <OS.InputField {...field} />}</Field>
+                {touched.name && errors.name && <OS.ErrorText>{errors.name}</OS.ErrorText>}
+              </OS.FormGroup>
+            )}
 
             <OS.FormGroup>
               <OS.Label>{t("order.phone")}</OS.Label>

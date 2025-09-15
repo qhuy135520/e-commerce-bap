@@ -87,7 +87,7 @@ export default function useAddress(addressEdit = {}) {
 
     const newAddress = {
       userId: user.id,
-      name: values.name,
+      name: values.name || "",
       phone: values.phone,
       fullAddress,
     };
@@ -112,6 +112,7 @@ export default function useAddress(addressEdit = {}) {
   }
 
   return {
+    user,
     initialValues,
     openModal,
     setOpenModal,
