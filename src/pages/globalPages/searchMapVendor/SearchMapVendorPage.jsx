@@ -1,8 +1,9 @@
-import { SearchMap, VendorList, VendorFilter } from "@/components";
-import useSearchMapVendor from "@/hooks/searchMapVendor/useSearchMapVendor";
-import { Col, Row } from "antd";
-import { Loading } from "@/components";
 import { useState, useEffect } from "react";
+import { Col, Row } from "antd";
+
+import { SearchMap, VendorList, VendorFilter, Loading } from "@/components";
+
+import useSearchMapVendor from "@/hooks/searchMapVendor/useSearchMapVendor";
 import { useGeolocation } from "@/hooks/useGeolocation/useGeolocation";
 
 export default function SearchMapVendorPage() {

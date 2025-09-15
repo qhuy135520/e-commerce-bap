@@ -1,4 +1,4 @@
-import { AdminApprovalVendor } from "@/components/ui/adminApprovalVendor";
+import { AdminApprovalVendor } from "@/components";
 
 export default function AdminApprovalVendorPage() {
   return <AdminApprovalVendor />;

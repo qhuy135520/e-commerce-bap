@@ -1,21 +1,22 @@
-import AdminManageOrderrHeader from "@/components/ui/admin/AdminManagerOrderHeader";
-import { ordersSelector } from "@/stores/rootSelector";
-import { fetchAllOrdersAdmin } from "@/stores/order/orders.thunks";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AdminManagerOrderTable from "@/components/ui/admin/AdminManagerOrderTable";
+
+import { AdminManagerOrderHeader, AdminManagerOrderTable } from "@/components";
+
+import { ordersSelector } from "@/stores/rootSelector";
+import { ordersThunk } from "@/stores/rootThunk";
 
 export default function AdminManagerOrderPage() {
   const dispatch = useDispatch();
   const order = useSelector(ordersSelector.selectAllOrdersAdmin);
 
   useEffect(() => {
-    dispatch(fetchAllOrdersAdmin());
+    dispatch(ordersThunk.fetchAllOrdersAdmin());
   }, [dispatch]);
 
   return (
     <>
-      <AdminManageOrderrHeader />
+      <AdminManagerOrderHeader />
       <AdminManagerOrderTable orders={order} />
     </>
   );

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import {
   Loading,
   ProductsBanner,
@@ -8,8 +10,8 @@ import {
   ProductsRandom,
   ProductsSlider,
 } from "@/components";
+
 import useProducts from "@/hooks/products/useProducts";
-import { useEffect } from "react";
 
 export default function HomePage() {
   const { error, fetchDataProducts, vendorId, isLoading } = useProducts();
