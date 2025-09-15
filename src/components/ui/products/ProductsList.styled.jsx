@@ -53,7 +53,7 @@ export const Sidebar = styled.div`
   @media (max-width: 768px) {
     position: fixed;
     top: 0;
-    left: ${(props) => (props.isopen ? "0" : "-100%")};
+    left: ${(props) => (props.$isOpen ? "0" : "-100%")};
     height: 100%;
     width: 250px;
     transition: left 0.3s ease;
@@ -85,14 +85,14 @@ export const filterBox = styled.div`
 `;
 
 export const Overlay = styled.div`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
+  display: ${(props) => (props.$isOpen ? "block" : "none")};
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 998;
+  z-index: 10000;
 `;
 
 export const FilterGroup = styled.div`

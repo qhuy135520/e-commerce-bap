@@ -31,8 +31,8 @@ const ProductFilterSidebar = ({
 
   return (
     <>
-      <PLS.Overlay isOpen={isOpen} onClick={toggleSidebar} />
-      <PLS.Sidebar isopen={isOpen}>
+      <PLS.Overlay $isOpen={isOpen} onClick={toggleSidebar} />
+      <PLS.Sidebar $isOpen={isOpen}>
         <PLS.FilterGroup>
           <PLS.SidebarTitle>Thương hiệu</PLS.SidebarTitle>
           {brandList.map((b) => (
