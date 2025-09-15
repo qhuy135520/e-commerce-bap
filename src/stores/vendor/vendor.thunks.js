@@ -10,10 +10,10 @@ export const fetchAllVendor = createAsyncThunk("vendor/fetchAll", async () => {
   }
 });
 
-export const updateVendor = createAsyncThunk("vendor/update", async ({ userId, newStatus }) => {
+export const updateVendor = createAsyncThunk("vendor/update", async ({ vendorId, newStatus }) => {
   try {
-    await updateVendorStatus(userId, newStatus);
-    return { userId, newStatus };
+    await updateVendorStatus(vendorId, newStatus);
+    return { vendorId, newStatus };
   } catch (error) {
     throw error;
   }

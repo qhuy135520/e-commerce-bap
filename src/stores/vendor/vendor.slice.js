@@ -22,8 +22,10 @@ const vendorSlice = createSlice({
       })
       .addCase(updateVendor.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const { userId, newStatus } = action.payload;
-        state.data = state.data.map((vendor) => (vendor.id === userId ? { ...vendor, status: newStatus } : vendor));
+        const { vendorId, newStatus } = action.payload;
+        state.data = state.data.map((vendor) =>
+          vendor.vendorId === vendorId ? { ...vendor, status: newStatus } : vendor
+        );
       })
       .addCase(updateVendor.rejected, (state, action) => {
         state.status = "failed";
