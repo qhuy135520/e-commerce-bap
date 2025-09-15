@@ -22,7 +22,7 @@ export * from "@/components/ui/adminDashboard";
 export * from "@/components/ui/searchProducts";
 export * from "@/components/ui/searchMapVendor";
 export * from "@/components/ui/admin";
-
+export * from "@/components/ui/vendorUpdateInfo";
 
 export { default as Container } from "@/components/ui/Container";
 export { default as ContainerSearch } from "@/components/ui/ContainerSearch";

@@ -35,13 +35,13 @@ export default function VendorManagerProductTable({ products }) {
     },
     {
       title: "Nhãn hiệu",
-      dataIndex: "brandname",
+      dataIndex: "brandName",
       key: "brandname",
       width: "10%",
     },
     {
       title: "Danh mục",
-      dataIndex: "categoryname",
+      dataIndex: "categoryName",
       key: "categoryname",
       width: "10%",
     },
@@ -101,7 +101,6 @@ export default function VendorManagerProductTable({ products }) {
     setPrimaryIndex,
     setIsModalOpen,
   } = useEditProduct(productEdit);
-
   const openCreateModal = () => {
     setProductEdit({});
     setIsModalOpen(true);

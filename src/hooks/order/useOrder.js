@@ -72,7 +72,10 @@ export default function useOrder() {
   const validateSchema = useMemo(
     () =>
       Yup.object({
-        name: Yup.string().trim().required(t("order.validation.nameRequired")),
+        name:
+          user.role === "vendor"
+            ? Yup.string().nullable() 
+            : Yup.string().trim().required(t("order.validation.nameRequired")),
         phone: Yup.string()
           .matches(PHONE_REGEX, t("order.validation.phoneInvalid"))
           .required(t("order.validation.phoneRequired")),

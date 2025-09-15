@@ -3,7 +3,8 @@ import { Button } from "antd";
 import { AiFillProduct } from "react-icons/ai";
 import { FaListCheck } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaHome } from "react-icons/fa";
+import { NavLink } from "react-router-dom";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 
@@ -35,9 +36,18 @@ export default function MainNavVendor() {
         </li>
         <strong> Settings</strong>
         <li>
-          <Button block>
-            <FaRegUserCircle /> Cập nhật thông tin
-          </Button>
+          <NavLink to="/vendor-dashboard/update-info">
+            <Button block>
+              <FaRegUserCircle /> Cập nhật thông tin
+            </Button>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/">
+            <Button block>
+              <FaHome /> Về trang chủ
+            </Button>
+          </NavLink>
         </li>
         <li>
           <Button block onClick={() => logout()}>
