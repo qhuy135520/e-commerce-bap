@@ -115,17 +115,32 @@ export const Summary = styled.div`
 
 export const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  gap: 12px;
   margin-bottom: 16px;
+`;
+
+export const SearchWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+`;
+
+export const FilterRow = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+`;
+
+export const FilterSearch = styled.div`
+  display: flex;
+  gap: 16px;
 `;
 
 export const Summaries = styled.div`
   display: flex;
   gap: 16px;
-`;
-
-export const SearchWrapper = styled.div`
-  width: 300px;
-  display: flex;
 `;
