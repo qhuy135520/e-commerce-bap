@@ -32,8 +32,10 @@ export default function useProducts() {
 
   useEffect(() => {
     async function fetchVendorInfo() {
-      const data = await dispatch(vendorThunk.getVendorInfo(vendorId)).unwrap();
-      setDataVendor(data);
+      if (vendorId) {
+        const data = await dispatch(vendorThunk.getVendorInfo(vendorId)).unwrap();
+        setDataVendor(data);
+      }
     }
     fetchVendorInfo();
   }, [vendorId]);

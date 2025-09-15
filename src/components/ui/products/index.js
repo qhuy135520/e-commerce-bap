@@ -10,3 +10,4 @@ export { default as ProductsCategories } from "@/components/ui/products/Products
 
 export * as ProductListStyled from "@/components/ui/products/ProductsList.styled";
 export * as ProductsSliderStyled from "@/components/ui/products/ProductsSlider.styled";
+export * as ProductsRandomstyled from "@/components/ui/products/ProductsRandom.styled";
