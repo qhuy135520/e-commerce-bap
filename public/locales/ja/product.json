@@ -1,0 +1,75 @@
+{
+  "productList": {
+    "title": "商品一覧",
+    "filter": {
+      "placeholder": "並び替え",
+      "default": "デフォルト",
+      "salesDesc": "売れ筋商品",
+      "salesAsc": "販売数が少ない",
+      "priceDesc": "価格 高い → 低い",
+      "priceAsc": "価格 低い → 高い",
+      "reviewDesc": "評価が高い順"
+    }
+  },
+  "productSlider": {
+    "title": "人気商品",
+    "description": "最も売れている商品"
+  },
+
+  "productSuggest": {
+    "title": "おすすめ商品",
+    "description": "今日のあなたへの商品提案"
+  },
+
+  "productCard": {
+    "price": "価格",
+    "noDescription": "説明はありません",
+    "sold": "販売数",
+    "bestSeller": "ベストセラー",
+    "lowStock": "在庫わずか"
+  },
+  "banner": {
+    "title": "スマートショッピング – 本日の特価",
+    "description": "本日限定の人気商品とお得な割引をチェック！",
+    "button": "今すぐ購入"
+  },
+  "features": {
+    "fastDelivery": {
+      "icon": "🚚",
+      "title": "迅速な配送",
+      "desc": "早くて安全"
+    },
+    "securePayment": {
+      "icon": "💳",
+      "title": "安全な支払い",
+      "desc": "完全に保護されています"
+    },
+    "qualityProducts": {
+      "icon": "⭐",
+      "title": "高品質商品",
+      "desc": "満足保証"
+    },
+    "support247": {
+      "icon": "📞",
+      "title": "24時間365日サポート",
+      "desc": "いつでもサポートします"
+    }
+  },
+  "categories": {
+    "title": "商品カテゴリーを探す",
+    "subtitle": "お気に入りのカテゴリーを選んで素早く商品を見つけましょう",
+    "defaultIcon": "アクセサリー"
+  },
+  "filter": {
+    "brand": "ブランド",
+    "category": "カテゴリー",
+    "priceRange": "価格帯",
+    "minPrice": "最低価格",
+    "maxPrice": "最高価格",
+    "status": "ステータス",
+    "lowStock": "在庫わずか",
+    "bestSeller": "ベストセラー",
+    "minReview": "最低評価",
+    "stars": "{{count}} 星"
+  }
+}

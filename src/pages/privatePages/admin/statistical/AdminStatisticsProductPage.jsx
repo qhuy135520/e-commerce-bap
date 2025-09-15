@@ -2,14 +2,17 @@ import React, { useEffect } from "react";
 import { Table, ConfigProvider } from "antd";
 import { PieChart, Pie, Cell, Tooltip as ReTooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from "recharts";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
-import { formatNumberCurrency } from "@/utils/helpers";
 import { productsSelector } from "@/stores/rootSelector";
-import { getAllProducts } from "@/stores/products/products.thunks";
+import { productsThunk } from "@/stores/rootThunk";
 import useProductAdmin from "@/hooks/products/useProductAdmin";
+
 import * as ASP from "@/pages/privatePages/admin/statistical/AdminStatistical.styled";
+import { formatNumberCurrency } from "@/utils/helpers";
 
 export default function AdminStatisticsProductPage() {
+  const { t } = useTranslation(["admin"]);
   const dispatch = useDispatch();
   const productsFromStore = useSelector(productsSelector.selectAllProducts);
   const products = productsFromStore ?? [];
@@ -17,7 +20,7 @@ export default function AdminStatisticsProductPage() {
 
   useEffect(() => {
     if (!products || products.length === 0) {
-      dispatch(getAllProducts());
+      dispatch(productsThunk.getAllProducts());
     }
   }, [products, dispatch]);
 
@@ -25,21 +28,21 @@ export default function AdminStatisticsProductPage() {
 
   const columns = [
     {
-      title: "Mã sản phẩm",
+      title: t("statisticProduct.productId"),
       dataIndex: "id",
       key: "id",
       width: "10%",
       render: (text) => <span>{text?.substring(0, 6)}</span>,
     },
     {
-      title: "Tên sản phẩm",
+      title: t("statisticProduct.productName"),
       dataIndex: "name",
       key: "name",
       width: "30%",
-      render: (text) => <b>{text}</b>,
+      render: (text) => <b>{text || t("statisticProduct.noData")}</b>,
     },
     {
-      title: "Giá",
+      title: t("statisticProduct.price"),
       dataIndex: "price",
       key: "price",
       width: "15%",
@@ -47,7 +50,12 @@ export default function AdminStatisticsProductPage() {
         <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(price || 0))}</span>
       ),
     },
-    { title: "Tồn kho", dataIndex: "stock", key: "stock", width: "15%" },
+    {
+      title: t("statisticProduct.stock"),
+      dataIndex: "stock",
+      key: "stock",
+      width: "15%",
+    },
   ];
 
   const COLORS = ["#00C49F", "#ff4242"];
@@ -65,11 +73,9 @@ export default function AdminStatisticsProductPage() {
         },
       }}
     >
-      {/* Charts */}
       <ASP.ChartsWrapper>
-        {/* Pie Chart: Status */}
         <ASP.ChartContainer>
-          <h3>Trạng thái sản phẩm</h3>
+          <h3>{t("statisticProduct.statusChartTitle")}</h3>
           <ResponsiveContainer>
             <PieChart>
               <Pie data={statusData} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
@@ -82,9 +88,8 @@ export default function AdminStatisticsProductPage() {
           </ResponsiveContainer>
         </ASP.ChartContainer>
 
-        {/* Bar Chart: Top tồn kho */}
         <ASP.ChartContainer>
-          <h3>Top 5 sản phẩm tồn kho</h3>
+          <h3>{t("statisticProduct.topStockChartTitle")}</h3>
           <ResponsiveContainer>
             <BarChart data={topStock} layout="vertical" margin={{ left: 50, top: 20 }}>
               <XAxis type="number" />
@@ -96,7 +101,6 @@ export default function AdminStatisticsProductPage() {
         </ASP.ChartContainer>
       </ASP.ChartsWrapper>
 
-      {/* Table */}
       <Table
         rowKey="id"
         columns={columns}

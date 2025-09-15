@@ -1,0 +1,25 @@
+{
+  "cart": {
+    "product": "商品",
+    "unitPrice": "単価",
+    "quantity": "数量",
+    "totalPrice": "合計金額",
+    "actions": "操作",
+    "delete": "削除",
+    "totalSummary": "カート概要",
+    "totalQuantity": "合計数量",
+    "totalAmount": "合計金額",
+    "resetCart": "カートをリセット",
+    "buy": "購入",
+    "toast": {
+      "success": "商品をカートに追加しました",
+      "error": "商品をカートに追加できませんでした"
+    }
+  },
+  "header": {
+    "title": "ショッピングカート",
+    "home": "ホーム",
+    "cart": "カート",
+    "back": "買い物に戻る"
+  }
+}
