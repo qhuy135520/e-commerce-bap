@@ -1,7 +1,7 @@
 import { Input, Pagination, Select, Modal, ConfigProvider } from "antd";
 import { useVendorAdmin } from "@/hooks/vendor/useVendorAdmin";
 import useVendorModal from "@/hooks/vendor/useVendorModal";
-import { AdminApprovalVendorStyled as AAVS, Loading } from "@/components";
+import { AdminApprovalVendorStyled as AAVS } from "@/components";
 
 const { Search } = Input;
 const { Option } = Select;
@@ -23,7 +23,6 @@ function AdminApprovalVendor() {
 
   const { isModalVisible, showConfirmModal, handleModalOk, handleModalCancel, getModalContent } =
     useVendorModal(handleStatusToggle);
-  console.log(vendors);
 
   return (
     <ConfigProvider>
