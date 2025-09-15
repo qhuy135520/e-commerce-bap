@@ -111,28 +111,43 @@ export default function CartTable({ onMountSubmitRef }) {
                   }}
                 />
 
-                <CTS.CardCartTable title={t("cart.totalSummary")}>
-                  <div>
-                    <p>
-                      <strong>{t("cart.totalQuantity")}:</strong> {totalQuantity}
-                    </p>
-                    <p>
-                      <strong>{t("cart.totalAmount")}:</strong> {formatCurrency(totalPrice)}
-                    </p>
-                  </div>
-                  <CTS.ButtonWrapper>
-                    <CTS.ButtonCart onClick={handleResetCart} disabled={!cart.length}>
-                      {t("cart.resetCart")}
-                    </CTS.ButtonCart>
-                    <CTS.ButtonCart
-                      type="primary"
-                      onClick={() => handleUpdateCartSelect({ values, type: "buy" })}
-                      disabled={!totalQuantity}
-                    >
-                      {t("cart.buy")}
-                    </CTS.ButtonCart>
-                  </CTS.ButtonWrapper>
-                </CTS.CardCartTable>
+                {(() => {
+                  let qty = 0;
+                  let price = 0;
+
+                  cartTableWithVendors.forEach((item) => {
+                    if (!item.isVendorRow && selectedRowKeys.includes(item.key)) {
+                      const currentQty = values?.[item.key] ?? item.quantity ?? 0;
+                      qty += currentQty;
+                      price += currentQty * item.unitPrice;
+                    }
+                  });
+
+                  return (
+                    <CTS.CardCartTable title={t("cart.totalSummary")}>
+                      <div>
+                        <p>
+                          <strong>{t("cart.totalQuantity")}:</strong> {qty}
+                        </p>
+                        <p>
+                          <strong>{t("cart.totalAmount")}:</strong> {formatCurrency(price)}
+                        </p>
+                      </div>
+                      <CTS.ButtonWrapper>
+                        <CTS.ButtonCart onClick={handleResetCart} disabled={!cart.length}>
+                          {t("cart.resetCart")}
+                        </CTS.ButtonCart>
+                        <CTS.ButtonCart
+                          type="primary"
+                          onClick={() => handleUpdateCartSelect({ values, type: "buy" })}
+                          disabled={!qty}
+                        >
+                          {t("cart.buy")}
+                        </CTS.ButtonCart>
+                      </CTS.ButtonWrapper>
+                    </CTS.CardCartTable>
+                  );
+                })()}
               </Form>
             );
           }}

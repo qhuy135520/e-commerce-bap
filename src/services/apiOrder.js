@@ -1,3 +1,4 @@
+import { fetchAddressUserDefaultApi } from "@/services/apiAddress";
 import supabase from "@/services/supabase";
 
 export async function fetchOrderApi(userId) {
@@ -11,32 +12,42 @@ export async function fetchOrderApi(userId) {
 }
 
 export async function createOrderApi(cartItems, userId) {
-  const { data: order, error: orderError } = await supabase.from("order").insert([{ userId }]).select().single();
-  if (orderError) throw orderError;
-  const orderDetails = cartItems.map((item) => ({
-    orderId: order.id,
-    productId: item.productId,
-    quantity: item.quantity,
-    price: item.productPrice,
-  }));
+  try {
+    const address = await fetchAddressUserDefaultApi(userId);
 
-  const { data: newOrderDetails, error: detailError } = await supabase
-    .from("orderDetail")
-    .insert(orderDetails)
-    .select(
-      `
+    const { data: order, error: orderError } = await supabase
+      .from("order")
+      .insert([{ userId, addressId: address.id }])
+      .select()
+      .single();
+    if (orderError) throw orderError;
+    const orderDetails = cartItems.map((item) => ({
+      orderId: order.id,
+      productId: item.productId,
+      quantity: item.quantity,
+      price: item.productPrice,
+    }));
+
+    const { data: newOrderDetails, error: detailError } = await supabase
+      .from("orderDetail")
+      .insert(orderDetails)
+      .select(
+        `
     *,
     product (
       *,
       productImage!left(*)
     )
   `
-    )
-    .eq("product.productImage.isPrimary", true);
+      )
+      .eq("product.productImage.isPrimary", true);
 
-  if (detailError) throw detailError;
+    if (detailError) throw detailError;
 
-  return { order, newOrderDetails };
+    return { order, newOrderDetails };
+  } catch (error) {
+    throw error;
+  }
 }
 
 export async function fetchAllOrderApi() {

@@ -208,34 +208,37 @@ export default function VendorList({ vendors, pageSize = 9 }) {
               <StyledBadge count={vendor.totalSales || 0} bgcolor="#f59e0b" />
             </InfoRow>
 
-            <StyledCollapse ghost>
-              <Panel
-                header={
-                  <PanelHeader>
-                    <MdLocationOn />
-                    Addresses ({vendor.addresses?.length || 0})
-                  </PanelHeader>
-                }
-                key="1"
-              >
-                {vendor.addresses && vendor.addresses.length > 0 ? (
-                  vendor.addresses.map((addr) => (
-                    <StyledPanelContent key={addr.addressId}>
-                      <div>
-                        <strong>Address:</strong> {addr.fullAddress || "N/A"}
-                      </div>
-                      <div>
-                        <strong>Phone:</strong> {addr.phone || "N/A"}
-                      </div>
-                    </StyledPanelContent>
-                  ))
-                ) : (
-                  <StyledPanelContent>No addresses</StyledPanelContent>
-                )}
-              </Panel>
-            </StyledCollapse>
+            <StyledCollapse
+              ghost
+              items={[
+                {
+                  key: "1",
+                  label: (
+                    <PanelHeader>
+                      <MdLocationOn />
+                      Addresses ({vendor.addresses?.length || 0})
+                    </PanelHeader>
+                  ),
+                  children:
+                    vendor.addresses && vendor.addresses.length > 0 ? (
+                      vendor.addresses.map((addr) => (
+                        <StyledPanelContent key={addr.addressId}>
+                          <div>
+                            <strong>Address:</strong> {addr.fullAddress || "N/A"}
+                          </div>
+                          <div>
+                            <strong>Phone:</strong> {addr.phone || "N/A"}
+                          </div>
+                        </StyledPanelContent>
+                      ))
+                    ) : (
+                      <StyledPanelContent>No addresses</StyledPanelContent>
+                    ),
+                },
+              ]}
+            />
 
-            <NavLink to={`/vendor/${vendor.vendorId}`} passHref>
+            <NavLink to={`/vendor/${vendor.vendorId}`}>
               <VendorButton>View Vendor</VendorButton>
             </NavLink>
           </StyledCard>

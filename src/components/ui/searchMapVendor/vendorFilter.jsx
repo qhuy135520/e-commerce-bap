@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useReducer } from "react";
 import styled from "styled-components";
 import { Input, Checkbox, Select, Slider, Button, Rate } from "antd";
 import { getDistanceFromLatLonInKm } from "@/utils/helpers";
 
 const { Option } = Select;
 
-// Container full-width
 const FilterWrapper = styled.div`
   width: 100%;
   background: #ffffff;
@@ -62,14 +61,31 @@ const ButtonGroup = styled.div`
   }
 `;
 
+const initialState = {
+  name: "",
+  status: "all",
+  hasAddress: false,
+  minProducts: 0,
+  minSales: 0,
+  minRating: 0,
+  radiusFilter: 0,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "SET_FIELD":
+      return { ...state, [action.field]: action.value };
+    case "RESET":
+      return initialState;
+    default:
+      return state;
+  }
+}
+
 export default function VendorFilter({ vendors, onFilter, currentPosition, radius, setRadius }) {
-  const [name, setName] = useState("");
-  const [status, setStatus] = useState("all");
-  const [hasAddress, setHasAddress] = useState(false);
-  const [minProducts, setMinProducts] = useState(0);
-  const [minSales, setMinSales] = useState(0);
-  const [minRating, setMinRating] = useState(0);
-  const [radiusFilter, setRadiusFilter] = useState(0);
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const { name, status, hasAddress, minProducts, minSales, minRating, radiusFilter } = state;
 
   const handleFilter = () => {
     let filtered = [...vendors];
@@ -96,13 +112,7 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
   };
 
   const handleReset = () => {
-    setName("");
-    setStatus("all");
-    setHasAddress(false);
-    setMinProducts(0);
-    setMinSales(0);
-    setMinRating(0);
-    setRadiusFilter(0);
+    dispatch({ type: "RESET" });
     setRadius(0);
     onFilter(vendors);
   };
@@ -112,8 +122,13 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
       <FieldsGrid>
         <Field>
           <label>Name</label>
-          <StyledInput placeholder="Search by name" value={name} onChange={(e) => setName(e.target.value)} />
+          <StyledInput
+            placeholder="Search by name"
+            value={name}
+            onChange={(e) => dispatch({ type: "SET_FIELD", field: "name", value: e.target.value })}
+          />
         </Field>
+
         <Field>
           <label>Radius (km): {radius}</label>
           <StyledInput
@@ -121,12 +136,13 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
             min={0}
             max={500}
             value={radiusFilter}
-            onChange={(e) => setRadiusFilter(Number(e.target.value))}
+            onChange={(e) => dispatch({ type: "SET_FIELD", field: "radiusFilter", value: Number(e.target.value) })}
           />
         </Field>
+
         <Field>
           <label>Status</label>
-          <StyledSelect value={status} onChange={setStatus}>
+          <StyledSelect value={status} onChange={(val) => dispatch({ type: "SET_FIELD", field: "status", value: val })}>
             <Option value="all">All Status</Option>
             <Option value="active">Active</Option>
             <Option value="inactive">Inactive</Option>
@@ -134,24 +150,41 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
         </Field>
 
         <Field style={{ alignSelf: "center" }}>
-          <StyledCheckbox checked={hasAddress} onChange={(e) => setHasAddress(e.target.checked)}>
+          <StyledCheckbox
+            checked={hasAddress}
+            onChange={(e) => dispatch({ type: "SET_FIELD", field: "hasAddress", value: e.target.checked })}
+          >
             Has Address
           </StyledCheckbox>
         </Field>
 
         <Field>
           <label>Min Products: {minProducts}</label>
-          <StyledSlider min={0} max={100} value={minProducts} onChange={setMinProducts} />
+          <StyledSlider
+            min={0}
+            max={100}
+            value={minProducts}
+            onChange={(val) => dispatch({ type: "SET_FIELD", field: "minProducts", value: val })}
+          />
         </Field>
 
         <Field>
           <label>Min Sales: {minSales}</label>
-          <StyledSlider min={0} max={100} value={minSales} onChange={setMinSales} />
+          <StyledSlider
+            min={0}
+            max={100}
+            value={minSales}
+            onChange={(val) => dispatch({ type: "SET_FIELD", field: "minSales", value: val })}
+          />
         </Field>
 
         <Field>
           <label>Min Rating</label>
-          <Rate allowHalf value={minRating} onChange={setMinRating} />
+          <Rate
+            allowHalf
+            value={minRating}
+            onChange={(val) => dispatch({ type: "SET_FIELD", field: "minRating", value: val })}
+          />
         </Field>
       </FieldsGrid>
 

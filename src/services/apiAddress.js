@@ -14,6 +14,25 @@ export async function fetchAddressUserApi(userId) {
   }
 }
 
+export async function fetchAddressUserDefaultApi(userId) {
+  try {
+    const { data: address, error } = await supabase
+      .from("address")
+      .select("*")
+      .eq("userId", userId)
+      .eq("isDefault", true)
+      .single();
+
+    if (error) {
+      throw error;
+    }
+
+    return address;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function fetchAddressLocation(lat, lng) {
   try {
     const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`);

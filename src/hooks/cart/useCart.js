@@ -20,6 +20,7 @@ export default function useCart() {
   const status = useSelector(cartSelector.selectCartStatus);
   const cart = useSelector(cartSelector.selectCartItems);
   const cartSelect = cart.filter((item) => item.isSelect);
+
   const error = useSelector(cartSelector.selectCartError);
   const productDetail = useSelector(productsSelector.selectProductById);
 
