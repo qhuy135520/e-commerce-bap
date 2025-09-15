@@ -1,0 +1,49 @@
+{
+  "roles": {
+    "customer": "顧客",
+    "vendor": "販売者"
+  },
+  "header": {
+    "phone": "携帯電話",
+    "laptop": "ノートパソコン",
+    "tablet": "タブレット",
+    "accessory": "アクセサリー",
+    "screen": "モニター",
+    "searchPlaceholder": "商品を検索...",
+    "cartTitle": "カート",
+    "cartEmpty": "商品がありません",
+    "profile": "ユーザープロフィール",
+    "order": "注文履歴",
+    "deposit": "入金",
+    "logout": "ログアウト",
+    "personalInfo": "個人情報",
+    "menuTitle": "E-BAP",
+    "product": "商品",
+    "quantity": "数量",
+    "price": "価格",
+    "yourLocation": "現在地"
+  },
+  "footer": {
+    "supportHotline": "サポートホットライン",
+    "buy": "販売",
+    "complaint": "苦情",
+    "aboutCompany": "会社について",
+    "introCompany": "会社紹介",
+    "groupWebsite": "グループウェブサイト",
+    "contact": "お問い合わせ"
+  },
+  "about": {
+    "title1": "E-BAPシステムの紹介",
+    "desc1": "E-BAPシステムは、フエ市リー・トゥオン・キエット通り11番地SHBビルに最初のスーパーマーケットを開店しました。現在、システムは全国63の主要な省と都市に2965店舗を展開し、10,000人以上の従業員を擁しています。",
+    "title2": "非常に豊富で多様な商品",
+    "desc2": "E-BAPスーパーマーケットの商品は非常に多様で、テレビ、冷蔵庫、洗濯機、エアコンなどの主要カテゴリーから、炊飯器、ガスコンロ、IHコンロなどの家庭用品まで揃っています。さらに携帯電話、タブレット、ノートパソコン、アクセサリーなどの商品も販売しています。"
+  },
+  "form": {
+    "province": "都道府県",
+    "provincePlaceholder": "都道府県を選択",
+    "district": "区・市",
+    "districtPlaceholder": "区・市を選択",
+    "ward": "町・村",
+    "wardPlaceholder": "町・村を選択"
+  }
+}
