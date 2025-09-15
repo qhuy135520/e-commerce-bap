@@ -4,18 +4,18 @@ import { CiShop } from "react-icons/ci";
 
 import { HeadingStyled, InfoVendorStyled as IS } from "@/components";
 
-export default function InfoVendor({ handleNavigate, vendorId }) {
+export default function InfoVendor({ handleNavigate, dataVendor }) {
   return (
     <IS.InfoVendor>
       <Row gutter={[0, 12]}>
         <IS.ColInfo sm={24} lg={8}>
           <IS.FlexInfo>
-            <HeadingStyled as="h3">Apple FlagShip Store</HeadingStyled>
+            <HeadingStyled as="h3">{dataVendor.vendorName}</HeadingStyled>
             <IS.ButtonInfo
               size="medium"
               color="blue"
               variant="outlined"
-              onClick={() => handleNavigate(`/vendor/${vendorId}`)}
+              onClick={() => handleNavigate(`/vendor/${dataVendor.vendorId}`)}
             >
               <CiShop size="20" /> Xem Shop
             </IS.ButtonInfo>
@@ -24,15 +24,15 @@ export default function InfoVendor({ handleNavigate, vendorId }) {
         <IS.ColInfo sm={24} lg={16}>
           <IS.Grid>
             <IS.GridItem>
-              <strong>4.8/5</strong>
-              <p>Tham gia</p>
+              <strong>{dataVendor?.avgRating}/5</strong>
+              <p>Đánh giá</p>
             </IS.GridItem>
             <IS.GridItem>
-              <strong>120</strong>
+              <strong>{dataVendor?.totalProducts}</strong>
               <p>Sản phẩm</p>
             </IS.GridItem>
             <IS.GridItem>
-              <strong>3.5k</strong>
+              <strong>{dataVendor?.totalSales}</strong>
               <p>Lượt bán</p>
             </IS.GridItem>
           </IS.Grid>

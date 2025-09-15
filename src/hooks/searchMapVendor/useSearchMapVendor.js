@@ -10,7 +10,6 @@ export default function useSearchMapVendor() {
   const status = useSelector(vendorSelector.selectVendorStatus);
   const vendors = useSelector(vendorSelector.selectVendor);
   const error = useSelector(vendorSelector.selectVendorError);
-
   const [vendorsWithCoords, setVendorsWithCoords] = useState([]);
   const [coordsLoading, setCoordsLoading] = useState(false);
 

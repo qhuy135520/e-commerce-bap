@@ -1,8 +1,8 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { productsThunk } from "@/stores/rootThunk";
+import { productsThunk, vendorThunk } from "@/stores/rootThunk";
 import { productsSelector } from "@/stores/rootSelector";
 import { PAGE_SIZE } from "@/constants";
 
@@ -28,6 +28,15 @@ export default function useProducts() {
     }
   }, [dispatch, vendorId]);
 
+  const [dataVendor, setDataVendor] = useState({});
+
+  useEffect(() => {
+    async function fetchVendorInfo() {
+      const data = await dispatch(vendorThunk.getVendorInfo(vendorId)).unwrap();
+      setDataVendor(data);
+    }
+    fetchVendorInfo();
+  }, [vendorId]);
   const page = parseInt(searchParams.get("page") || "1", 10);
   const sort = searchParams.get("sort") || "";
   const brand = searchParams.get("brand") || "";
@@ -202,5 +211,6 @@ export default function useProducts() {
     bestSellerProducts,
     settings,
     randomProducts,
+    dataVendor,
   };
 }
