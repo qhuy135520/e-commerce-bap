@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Spin } from "antd";
 import { Formik, Form, Field } from "formik";
-import { useTranslation } from "react-i18next";
 
 import { ProvinceSelect, DistrictSelect, WardSelect, OrderStyled as OS } from "@/components";
 

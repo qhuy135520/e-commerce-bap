@@ -6,10 +6,9 @@ import { MdLogout } from "react-icons/md";
 import { FaRegUserCircle, FaHome } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
-import { useLogout } from "@/hooks/authentication/useLogout";
-
 import { MainNavVendorStyled as MNVS } from "@/components";
 
+import { useLogout } from "@/hooks/authentication/useLogout";
 import { formatCurrency } from "@/utils/helpers";
 import { useUser } from "@/hooks/authentication/useUser";
 

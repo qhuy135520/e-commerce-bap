@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Form, Button, Table, Tabs, Tag, Select, DatePicker, Row, Col } from "antd";
+import { parseISO, format, isAfter, isBefore, endOfDay } from "date-fns";
+
 import { DepositFormStyled as DFS } from "@/components";
-import { formatNumberCurrency, parseNumberCurrency } from "@/utils/helpers";
+
 import { useDeposit } from "@/hooks/deposit/useDeposit";
 import { useTransactions } from "@/hooks/transactions/useTransactions";
-import { parseISO, format, isAfter, isBefore, endOfDay } from "date-fns";
+
+import { formatNumberCurrency, parseNumberCurrency } from "@/utils/helpers";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;

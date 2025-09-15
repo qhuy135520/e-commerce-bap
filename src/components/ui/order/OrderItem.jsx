@@ -1,4 +1,5 @@
 import { Divider, Typography } from "antd";
+import { Formik } from "formik";
 
 import { OrderProductCard } from "@/components/ui/order";
 import { OrderStyled as OS } from "@/components/ui/order";
@@ -6,7 +7,6 @@ import { OrderStyled as OS } from "@/components/ui/order";
 import useOrder from "@/hooks/order/useOrder";
 
 import { formatCurrency } from "@/utils/helpers";
-import { Formik } from "formik";
 import useCart from "@/hooks/cart/useCart";
 
 const { Text } = Typography;

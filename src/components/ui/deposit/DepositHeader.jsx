@@ -1,8 +1,9 @@
-import { DividerTitle, HeadingStyled } from "@/components";
 import { Breadcrumb, Button, Row } from "antd";
+import { BsArrowReturnLeft } from "react-icons/bs";
 import styled from "styled-components";
 import { BiWalletAlt } from "react-icons/bi";
-import { BsArrowReturnLeft } from "react-icons/bs";
+
+import { DividerTitle, HeadingStyled } from "@/components";
 
 export const FlexDepositHeader = styled(Row)`
   margin: 1.4rem 0;

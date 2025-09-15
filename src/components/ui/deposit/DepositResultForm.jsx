@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
+import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { Typography, Button, Divider } from "antd";
+
 import { DepositResultFormStyled as DRFS } from "@/components";
+
 import LoadingDeposit from "@/components/common/LoadingDeposit";
+
 import { useDepositResult } from "@/hooks/deposit/useDepositResult";
 import { useUser } from "@/hooks/authentication/useUser";
-import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 
 const { Text } = Typography;
 
