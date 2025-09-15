@@ -28,8 +28,8 @@
     "balance": "Balance",
     "insufficientBalance": "Insufficient balance, please choose another payment method.",
     "toast": {
-      "success": "Order updated successfully",
-      "error": "Failed to update order",
+      "success": "Order pay successfully",
+      "error": "Failed to pay order",
       "orderSuccess": "Your order has been placed successfully!",
       "orderFailed": "Failed to place the order, please try again."
     },

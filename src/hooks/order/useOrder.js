@@ -74,7 +74,7 @@ export default function useOrder() {
       Yup.object({
         name:
           user.role === "vendor"
-            ? Yup.string().nullable() 
+            ? Yup.string().nullable()
             : Yup.string().trim().required(t("order.validation.nameRequired")),
         phone: Yup.string()
           .matches(PHONE_REGEX, t("order.validation.phoneInvalid"))
@@ -91,16 +91,18 @@ export default function useOrder() {
 
   const handlePlaceOrder = async () => {
     const customerInfo = { email: user.email, name: user.name };
-    await updateUser({ newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal } });
+    await updateUser({
+      newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal },
+      silent: true, // 🚀 Không show toast ở đây
+    });
     await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
     Promise.all(
       cartSelect.map((item) => {
-        debugger;
         dispatch(cartThunk.removeFromCart({ cartId: item.id, userId: user.id }));
       })
     );
 
-    toast.success(t("order.orderPlacedSuccessfully"));
+    toast.success(t("order.toast.success"));
     setIsModalOpen(false);
     navigate("/order-history");
   };
