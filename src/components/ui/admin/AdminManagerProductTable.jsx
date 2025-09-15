@@ -1,13 +1,15 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Select } from "antd";
 
-import { AdminManagerUserStyled as AMOD } from "@/components";
-
 import useProductAdmin from "@/hooks/products/useProductAdmin";
+
+import { AdminManagerUserStyled as AMOD } from "@/components";
 
 import { formatNumberCurrency } from "@/utils/helpers";
 
 export default function AdminManagerProductTable({ products, loading }) {
+  const { t } = useTranslation(["admin"]);
   const {
     filteredProducts,
     modal,
@@ -22,10 +24,16 @@ export default function AdminManagerProductTable({ products, loading }) {
   } = useProductAdmin(products);
 
   const columns = [
-    { title: "ID", dataIndex: "id", key: "id", width: "10%", render: (text) => <span>{text?.substring(0, 6)}</span> },
-    { title: "Tên sản phẩm", dataIndex: "name", key: "name", width: "25%", render: (text) => <b>{text}</b> },
     {
-      title: "Giá",
+      title: t("product.id"),
+      dataIndex: "id",
+      key: "id",
+      width: "10%",
+      render: (text) => <span>{text?.substring(0, 6)}</span>,
+    },
+    { title: t("product.name"), dataIndex: "name", key: "name", width: "25%", render: (text) => <b>{text}</b> },
+    {
+      title: t("product.price"),
       dataIndex: "price",
       key: "price",
       width: "15%",
@@ -33,20 +41,20 @@ export default function AdminManagerProductTable({ products, loading }) {
         <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(price || 0))}</span>
       ),
     },
-    { title: "Tồn kho", dataIndex: "stock", key: "stock", width: "10%" },
+    { title: t("product.stock"), dataIndex: "stock", key: "stock", width: "10%" },
     {
-      title: "Trạng thái",
+      title: t("product.status"),
       dataIndex: "status",
       key: "status",
       width: "15%",
       render: (status) => (
-        <Tooltip title={status ? "Đã duyệt" : "Chưa duyệt"}>
-          <span>{status ? "Active" : "Pending"}</span>
+        <Tooltip title={status ? t("product.statusApproved") : t("product.statusPending")}>
+          <span>{status ? t("product.statusApproved") : t("product.statusPending")}</span>
         </Tooltip>
       ),
     },
     {
-      title: "Hành động",
+      title: t("product.actions"),
       key: "action",
       width: "25%",
       render: (_, record) => (
@@ -56,10 +64,10 @@ export default function AdminManagerProductTable({ products, loading }) {
             disabled={record.status || modal.visible}
             onClick={() => !record.status && handleAction("approve", record)}
           >
-            Duyệt
+            {t("product.approve")}
           </Button>
           <Button danger disabled={modal.visible} onClick={() => handleAction("delete", record)}>
-            Xóa
+            {t("product.delete")}
           </Button>
         </Space>
       ),
@@ -76,10 +84,7 @@ export default function AdminManagerProductTable({ products, loading }) {
             headerSplitColor: "var(--color-grey-500)",
             rowHoverBg: "var(--color-grey-200)",
           },
-          Select: {
-            optionSelectedBg: "var(--color-grey-200)",
-            selectorBg: "var(--color-grey-100)",
-          },
+          Select: { optionSelectedBg: "var(--color-grey-200)", selectorBg: "var(--color-grey-100)" },
         },
         token: {
           colorTextPlaceholder: "var(--color-grey-400)",
@@ -92,21 +97,20 @@ export default function AdminManagerProductTable({ products, loading }) {
         },
       }}
     >
-      {/* Search + Filter */}
       <AMOD.SpaceStyled>
         <AMOD.SearchInput
-          placeholder="Tìm kiếm theo tên hoặc ID..."
+          placeholder={t("product.searchPlaceholder")}
           allowClear
-          enterButton="Tìm kiếm"
+          enterButton={t("product.approve")}
           size="large"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           onSearch={handleSearch}
         />
         <AMOD.SelectStyled value={statusFilter} onChange={setStatusFilter} size="large">
-          <Select.Option value="all">Tất cả</Select.Option>
-          <Select.Option value="approved">Đã duyệt</Select.Option>
-          <Select.Option value="pending">Chưa duyệt</Select.Option>
+          <Select.Option value="all">{t("product.filterAll")}</Select.Option>
+          <Select.Option value="approved">{t("product.filterApproved")}</Select.Option>
+          <Select.Option value="pending">{t("product.filterPending")}</Select.Option>
         </AMOD.SelectStyled>
       </AMOD.SpaceStyled>
 
@@ -119,18 +123,22 @@ export default function AdminManagerProductTable({ products, loading }) {
       />
 
       <Modal
-        title={modal.type === "approve" ? "Xác nhận duyệt sản phẩm" : "Xác nhận xóa sản phẩm"}
+        title={modal.type === "approve" ? t("product.modalApproveTitle") : t("product.modalDeleteTitle")}
         open={modal.visible}
         onOk={handleConfirm}
         onCancel={handleCancel}
-        okText={modal.type === "approve" ? "Duyệt" : "Xóa"}
-        cancelText="Hủy"
+        okText={modal.type === "approve" ? t("product.modalApproveOk") : t("product.modalDeleteOk")}
+        cancelText={t("product.modalCancel")}
         okButtonProps={{ danger: modal.type === "delete" }}
       >
-        <p>
-          Bạn có chắc chắn muốn {modal.type === "approve" ? "duyệt" : "xóa"} sản phẩm{" "}
-          <b>{modal.product?.name || modal.product?.id}</b> không?
-        </p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("product.modalText", {
+              action: modal.type === "approve" ? t("product.approve").toLowerCase() : t("product.delete").toLowerCase(),
+              name: modal.product?.name || modal.product?.id,
+            }),
+          }}
+        />
       </Modal>
     </ConfigProvider>
   );

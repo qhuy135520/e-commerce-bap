@@ -1,51 +1,59 @@
-import { Button } from "antd";
 import React, { useState } from "react";
+import { Button } from "antd";
 import { MdContactEmergency, MdOutlineShoppingBag } from "react-icons/md";
 import { FaFileInvoiceDollar, FaUserCheck, FaProjectDiagram } from "react-icons/fa";
 import { RiContactsLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 
-import { MainNavAdminStyled as MAS } from "@/components";
+import { LanguageSwitcher, MainNavAdminStyled as MAS } from "@/components";
 
 export default function MainNavAdmin() {
   const { logout } = useLogout();
+  const { t } = useTranslation(["admin"]);
   const [openStatistics, setOpenStatistics] = useState(false);
 
   return (
     <nav>
       <MAS.NavList>
+        <LanguageSwitcher />
+        <hr />
         <MAS.StyledNavLink to="/admin-dashboard">
-          <strong>Dashboard Admin</strong>
+          <strong>{t("nav.dashboard")}</strong>
         </MAS.StyledNavLink>
 
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/users">
-            <RiContactsLine /> Quản lí người dùng
+            <RiContactsLine /> {t("nav.users")}
           </MAS.StyledNavLink>
         </li>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/products">
-            <MdContactEmergency /> Quản lí sản phẩm
+            <MdContactEmergency /> {t("nav.products")}
           </MAS.StyledNavLink>
         </li>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/orders">
-            <MdOutlineShoppingBag /> Quản lí đơn hàng
+            <MdOutlineShoppingBag /> {t("nav.orders")}
           </MAS.StyledNavLink>
         </li>
 
         <li>
           <MAS.StatisticsToggle onClick={() => setOpenStatistics((prev) => !prev)}>
-            <FaProjectDiagram /> Thống kê
+            <FaProjectDiagram /> {t("nav.statistics")}
           </MAS.StatisticsToggle>
           {openStatistics && (
             <MAS.SubMenu>
               <li>
-                <MAS.StyledNavLink to="/admin-dashboard/statistics-order">📊 Thống kê đơn hàng</MAS.StyledNavLink>
+                <MAS.StyledNavLink to="/admin-dashboard/statistics-order">
+                  {t("nav.statisticsOrders")}
+                </MAS.StyledNavLink>
               </li>
               <li>
-                <MAS.StyledNavLink to="/admin-dashboard/statistics-product">📈 Thống kê sản phẩm</MAS.StyledNavLink>
+                <MAS.StyledNavLink to="/admin-dashboard/statistics-product">
+                  {t("nav.statisticsProducts")}
+                </MAS.StyledNavLink>
               </li>
             </MAS.SubMenu>
           )}
@@ -53,19 +61,19 @@ export default function MainNavAdmin() {
 
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/payment-history">
-            <FaFileInvoiceDollar /> Lịch sử giao dịch
+            <FaFileInvoiceDollar /> {t("nav.paymentHistory")}
           </MAS.StyledNavLink>
         </li>
         <li>
           <MAS.StyledNavLink to="/admin-dashboard/approval-vendor">
-            <FaUserCheck /> Phê duyệt nhà cung cấp
+            <FaUserCheck /> {t("nav.approvalVendor")}
           </MAS.StyledNavLink>
         </li>
 
-        <strong>Settings</strong>
+        <strong>{t("nav.settings")}</strong>
         <li>
           <Button block onClick={() => logout()}>
-            <span>Logout</span>
+            <span>{t("nav.logout")}</span>
           </Button>
         </li>
       </MAS.NavList>

@@ -20,7 +20,7 @@ export function useProductDetail(id) {
   }
 
   const [quantity, setQuantity] = useState(1);
-  const avgRating = productDetail.reviews.length
+  const avgRating = productDetail?.reviews?.length
     ? parseFloat(
         (productDetail.reviews.reduce((sum, r) => sum + r.rating, 0) / productDetail.reviews.length).toFixed(1)
       )
@@ -41,13 +41,13 @@ export function useProductDetail(id) {
   }, [id, dispatch]);
 
   useEffect(() => {
-    if (!productDetail) return;
+    if (!productDetail?.vendorId) return;
     async function fetchVendorInfo() {
       const data = await dispatch(vendorThunk.getVendorInfo(productDetail?.vendorId)).unwrap();
       setDataVendor(data);
     }
     fetchVendorInfo();
-  }, [productDetail?.vendorId]);
+  }, [productDetail?.vendorId, dispatch]);
 
   function handleIncrease() {
     setQuantity(() => quantity + 1);
