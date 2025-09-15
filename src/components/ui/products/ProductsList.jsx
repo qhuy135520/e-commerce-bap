@@ -125,6 +125,7 @@ const ProductsList = () => {
 
             <PLS.StyledPagination
               align="center"
+              showSizeChanger={false}
               current={page}
               pageSize={pageSize}
               total={totalProducts}
