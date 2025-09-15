@@ -49,6 +49,12 @@ const VendorManagerOrderPage = React.lazy(() =>
   }))
 );
 
+const VendorManagerTransactionPage = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.VendorManagerTransactionPage,
+  }))
+);
+
 const AdminPaymentHistoryPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
     default: module.AdminPaymentHistoryPage,
@@ -141,6 +147,7 @@ const PrivateRoutes = (
           <Route index element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
           <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
           <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
+          <Route path={ROUTER_PATH.VENDOR_MANAGER_TRANSACTION.PATH} element={<VendorManagerTransactionPage />} />
         </Route>
       </Route>
 

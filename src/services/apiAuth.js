@@ -13,14 +13,9 @@ export async function signup(email, password, newUserInfo) {
 
     const { error: errorUserInfo } = await supabase
       .from("userInfo")
-      .insert([{ ...newUserInfo, email, userId: dataUser.user.id }]);
+      .insert([{ ...newUserInfo, userId: dataUser.user.id }]);
 
-    if (errorUserInfo) {
-      if (errorUserInfo.code === "23503") {
-        throw new Error("User already exists in the system, please select another email");
-      }
-      throw errorUserInfo;
-    }
+    if (errorUserInfo) throw errorUserInfo;
   } catch (error) {
     throw error;
   }

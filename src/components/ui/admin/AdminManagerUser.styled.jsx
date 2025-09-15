@@ -1,5 +1,4 @@
 import { Flex, Input, Select, Space } from "antd";
-import { ErrorMessage, Form } from "formik";
 import styled from "styled-components";
 
 export const FlexHeader = styled(Flex)`
@@ -43,13 +42,4 @@ export const SelectStyled = styled(Select)`
 
 export const SelectFormStyled = styled(Select)`
   width: 100%;
-`;
-
-export const ErrorMessageStyled = styled(ErrorMessage)`
-  color: red;
-`;
-export const FormStyled = styled(Form)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 `;

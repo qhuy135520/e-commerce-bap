@@ -93,6 +93,10 @@ const CategoryCard = styled(motion.div)`
 export default function ProductsCategories() {
   const { category } = useCategories();
 
+  useEffect(() => {
+    console.log(category);
+  }, [category]);
+
   return (
     <CategoriesWrapper>
       <Header>

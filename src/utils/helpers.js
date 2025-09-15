@@ -43,26 +43,6 @@ function normalize(str = "") {
     .trim();
 }
 
-export function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = ((lat2 - lat1) * Math.PI) / 180;
-  const dLon = ((lon2 - lon1) * Math.PI) / 180;
-  const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
-}
-
-export function simplifyAddress(fullAddress) {
-  if (!fullAddress) return "";
-  const parts = fullAddress.split(",").map((p) => p.trim());
-  const provinceKeywords = ["Thành phố", "Tỉnh", "City", "Province"];
-  let provinceIndex = parts.findIndex((p) => provinceKeywords.some((k) => p.includes(k)));
-  if (provinceIndex === -1) provinceIndex = parts.length - 1;
-  return parts.slice(0, provinceIndex + 1).join(", ");
-}
-
 function matchAddressPart(part, fullName) {
   const n1 = normalize(part);
   const n2 = normalize(fullName);
@@ -99,11 +79,11 @@ export function convertOrderToEmailPayload(data) {
   const { order, newOrderDetails, customerInfo } = data;
 
   const subtotal = newOrderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = 0;
+  const shipping = 50000;
   const total = subtotal + shipping;
 
   const orders = newOrderDetails.map((item) => ({
-    image_url: item.product?.productImage[0]?.imageUrl || "https://via.placeholder.com/150",
+    image_url: item.product.productImage[0].imageUrl || "https://via.placeholder.com/150",
     name: item.product.name,
     units: item.quantity,
     price: formatCurrency(item.price),
