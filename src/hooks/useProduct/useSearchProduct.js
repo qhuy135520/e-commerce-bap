@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 
 import { productsSelector } from "@/stores/rootSelector";
 import { productsThunk } from "@/stores/rootThunk";
-import { productsSlice } from "@/stores/rootReducer";
 import { PAGE_SIZE } from "@/constants";
 
 export default function useSearchProducts() {
@@ -16,8 +15,9 @@ export default function useSearchProducts() {
   const page = parseInt(searchParams.get("page") || 1, 10);
   const { t } = useTranslation("product");
 
-  const products = useSelector(productsSelector.selectFilteredProducts);
+  const allProducts = useSelector(productsSelector.selectProducts); // lấy danh sách gốc
   const status = useSelector(productsSelector.selectStatus);
+
   const [value, setValue] = useState(query);
 
   // fetch products khi status = idle
@@ -27,19 +27,18 @@ export default function useSearchProducts() {
     }
   }, [status, dispatch]);
 
-  // đồng bộ searchTerm
+  // đồng bộ value với query trên URL
   useEffect(() => {
-    dispatch(productsSlice.setSearchTerm(query));
     setValue(query);
-  }, [query, dispatch]);
+  }, [query]);
 
   const pageSize = PAGE_SIZE.PRODUCT_LIST;
 
   // lọc theo query
   const filteredProducts = useMemo(() => {
-    if (!query) return products;
-    return products.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
-  }, [products, query]);
+    if (!query) return allProducts;
+    return allProducts.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()));
+  }, [allProducts, query]);
 
   // phân trang
   const paginatedProducts = useMemo(() => {
@@ -54,11 +53,9 @@ export default function useSearchProducts() {
   };
 
   // autocomplete
-  // autocomplete
   const options = useMemo(() => {
     if (!value) return [];
-    // luôn filter từ tất cả products, không phụ thuộc query cũ
-    return products
+    return allProducts
       .filter((p) => p.name.toLowerCase().includes(value.toLowerCase()))
       .slice(0, 8)
       .map((p, idx) => ({
@@ -66,22 +63,20 @@ export default function useSearchProducts() {
         label: p.name,
         key: p.id || `${p.name}-${idx}`,
       }));
-  }, [value, products]);
+  }, [value, allProducts]);
 
   const handleSearch = (val) => setValue(val);
   const handleSelect = (val) => {
-    dispatch(productsSlice.setSearchTerm(val));
     navigate(`/search?query=${encodeURIComponent(val)}`);
   };
   const handleSubmit = () => {
     if (!value.trim()) return;
-    dispatch(productsSlice.setSearchTerm(value));
     navigate(`/search?query=${encodeURIComponent(value)}`);
   };
 
   return {
-    products: paginatedProducts, // trả ra phân trang
-    totalProducts: filteredProducts?.length, // tổng số kết quả
+    products: paginatedProducts,
+    totalProducts: filteredProducts?.length,
     status,
     query,
     page,
