@@ -16,7 +16,7 @@ export default function OrderEditAddressForm({ onCancel, address = {} }) {
 
   return (
     <>
-      <OS.HeadingEditAddress as="h3">Thêm Địa Chỉ</OS.HeadingEditAddress>
+      <OS.HeadingEditAddress as="h3">{t("order.addAddressTitle")}</OS.HeadingEditAddress>
 
       <Formik
         initialValues={initialValues}
@@ -54,7 +54,7 @@ export default function OrderEditAddressForm({ onCancel, address = {} }) {
                   }
                 }}
               >
-                {isLoadingGeolocation ? <Spin size="small" /> : "Sử dụng vị trí hiện tại"}
+                {isLoadingGeolocation ? <Spin size="small" /> : t("order.useMyLocation")}
               </Button>
 
               {error && <OS.ErrorText>{error.message}</OS.ErrorText>}

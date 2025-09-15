@@ -1,5 +1,7 @@
 {
   "order": {
+    "products": "products",
+    "quantity": "Quantity",
     "addAddress": "Add address",
     "changeAddressDefault": "Change address default",
     "cancel": "Cancel",
@@ -10,6 +12,8 @@
     "shipping": "Shipping Method",
     "shippingFee": "Shipping Fee",
     "total": "Total",
+    "addAddressTitle": "Add New Address",
+    "useMyLocation": "Use my current location",
     "recipientName": "Recipient Name",
     "phone": "Phone Number",
     "addressDetail": "Detailed Address",
@@ -60,6 +64,35 @@
       }
     },
     "buyAgain": "Buy Again",
-    "totalPrice": "Total Price"
+    "totalPrice": "Total Price",
+    "editDefault": {
+      "changeDefaultAddress": "Change default address",
+      "chooseDefaultAddress": "Choose default address",
+      "phoneNumber": "Phone number",
+      "delete": "Delete",
+      "cancel": "Cancel",
+      "update": "Update address",
+      "updateDefault": "Update default address"
+    },
+    "history": {
+      "title": "Order History",
+      "breadcrumb": {
+        "home": "Home",
+        "orderHistory": "Order History"
+      },
+      "backButton": "Back to Home"
+    },
+    "filter": {
+      "status": "Status:",
+      "time": "Time:",
+      "all": "All",
+      "7d": "Last 7 days",
+      "30d": "Last 30 days",
+      "6m": "Last 6 months",
+      "1y": "Last 1 year",
+      "noOrders": "No orders yet",
+      "noResults": "No matching orders found",
+      "loadMore": "Load more"
+    }
   }
 }

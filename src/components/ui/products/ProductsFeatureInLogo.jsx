@@ -1,12 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-
-const features = [
-  { icon: "🚚", title: "Giao hàng nhanh", desc: "Nhanh chóng và an toàn" },
-  { icon: "💳", title: "Thanh toán an toàn", desc: "Bảo mật tuyệt đối" },
-  { icon: "⭐", title: "Sản phẩm chất lượng", desc: "Đảm bảo hài lòng" },
-  { icon: "📞", title: "Hỗ trợ 24/7", desc: "Luôn sẵn sàng phục vụ" },
-];
+import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 
 const FeaturesWrapper = styled.div`
   display: flex;
@@ -47,6 +42,18 @@ const Icon = styled.div`
 `;
 
 export default function ProductsFeatureInLogo() {
+  const { t } = useTranslation(["product"]);
+
+  const features = useMemo(
+    () => [
+      { icon: "🚚", title: t("features.fastDelivery.title"), desc: t("features.fastDelivery.desc") },
+      { icon: "💳", title: t("features.securePayment.title"), desc: t("features.securePayment.desc") },
+      { icon: "⭐", title: t("features.qualityProducts.title"), desc: t("features.qualityProducts.desc") },
+      { icon: "📞", title: t("features.support247.title"), desc: t("features.support247.desc") },
+    ],
+    [t]
+  );
+
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
       <FeaturesWrapper>

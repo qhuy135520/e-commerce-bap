@@ -1,6 +1,7 @@
 import styled, { keyframes } from "styled-components";
 import { FaMobileAlt, FaLaptop, FaHeadphones, FaTv } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 import useCategories from "@/hooks/products/useCategories";
 
@@ -92,12 +93,13 @@ const CategoryCard = styled(motion.div)`
 
 export default function ProductsCategories() {
   const { category } = useCategories();
+  const { t } = useTranslation(["product"]);
 
   return (
     <CategoriesWrapper>
       <Header>
-        <h2>Khám phá danh mục sản phẩm</h2>
-        <p>Chọn danh mục bạn yêu thích để tìm sản phẩm cực nhanh</p>
+        <h2>{t("categories.title")}</h2>
+        <p>{t("categories.subtitle")}</p>
       </Header>
       <CategoryGrid>
         {category &&

@@ -15,5 +15,11 @@
       "success": "Add Item to Cart succeeded",
       "error": "Add Item to Cart failed"
     }
+  },
+  "header": {
+    "title": "Shopping Cart",
+    "home": "Home",
+    "cart": "Cart",
+    "back": "Back to Shopping"
   }
 }

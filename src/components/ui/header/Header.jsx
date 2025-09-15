@@ -159,7 +159,7 @@ export default function Header() {
                 <Tooltip title="Xem vị trí cửa hàng gần đây">
                   <HeaderStyled.LocationButton>
                     <IoLocation />
-                    <span>Vị trí hiện tại</span>
+                    <span>{t("header.yourLocation")}</span>
                   </HeaderStyled.LocationButton>
                 </Tooltip>
               </NavLink>

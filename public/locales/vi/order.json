@@ -1,5 +1,7 @@
 {
   "order": {
+    "products": "Sản phẩm",
+    "quantity": "Số lượng",
     "addAddress": "Thêm Địa Chỉ",
     "changeAddressDefault": "Thay đổi địa chỉ mặc định",
     "cancel": "Hủy",
@@ -10,6 +12,8 @@
     "shipping": "Phương thức vận chuyển",
     "shippingFee": "Phí vận chuyển",
     "total": "Tổng cộng",
+    "addAddressTitle": "Thêm địa chỉ mới",
+    "useMyLocation": "Sử dụng vị trí hiện tại",
     "recipientName": "Tên người nhận",
     "phone": "Số điện thoại",
     "addressDetail": "Địa chỉ chi tiết",
@@ -60,6 +64,35 @@
       }
     },
     "buyAgain": "Mua lại",
-    "totalPrice": "Tổng tiền"
+    "totalPrice": "Tổng tiền",
+    "editDefault": {
+      "changeDefaultAddress": "Thay đổi địa chỉ mặc định",
+      "chooseDefaultAddress": "Chọn địa chỉ mặc định",
+      "phoneNumber": "Số điện thoại",
+      "delete": "Xóa",
+      "cancel": "Hủy",
+      "update": "Cập nhật địa chỉ",
+      "updateDefault": "Cập nhật địa chỉ mặc định"
+    },
+    "history": {
+      "title": "Lịch sử đặt hàng",
+      "breadcrumb": {
+        "home": "Trang chủ",
+        "orderHistory": "Lịch sử đặt hàng"
+      },
+      "backButton": "Quay lại trang chủ"
+    },
+    "filter": {
+      "status": "Status:",
+      "time": "Time:",
+      "all": "All",
+      "7d": "Last 7 days",
+      "30d": "Last 30 days",
+      "6m": "Last 6 months",
+      "1y": "Last 1 year",
+      "noOrders": "No orders yet",
+      "noResults": "No matching orders found",
+      "loadMore": "Load more"
+    }
   }
 }

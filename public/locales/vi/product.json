@@ -11,6 +11,10 @@
       "reviewDesc": "Đánh giá cao nhất"
     }
   },
+  "productSlider": {
+    "title": "Sản phẩm phổ biến",
+    "description": "Sản phẩm được bán nhiều nhất"
+  },
 
   "productSuggest": {
     "title": "Sản phẩm gợi ý",
@@ -23,5 +27,49 @@
     "sold": "Đã bán",
     "bestSeller": "Bán chạy",
     "lowStock": "Sắp hết hàng"
+  },
+  "banner": {
+    "title": "Mua sắm thông minh – Ưu đãi mỗi ngày",
+    "description": "Khám phá các sản phẩm hot, giảm giá cực sốc chỉ hôm nay!",
+    "button": "Shop ngay"
+  },
+  "features": {
+    "fastDelivery": {
+      "icon": "🚚",
+      "title": "Giao hàng nhanh",
+      "desc": "Nhanh chóng và an toàn"
+    },
+    "securePayment": {
+      "icon": "💳",
+      "title": "Thanh toán an toàn",
+      "desc": "Bảo mật tuyệt đối"
+    },
+    "qualityProducts": {
+      "icon": "⭐",
+      "title": "Sản phẩm chất lượng",
+      "desc": "Đảm bảo hài lòng"
+    },
+    "support247": {
+      "icon": "📞",
+      "title": "Hỗ trợ 24/7",
+      "desc": "Luôn sẵn sàng phục vụ"
+    }
+  },
+  "categories": {
+    "title": "Khám phá danh mục sản phẩm",
+    "subtitle": "Chọn danh mục bạn yêu thích để tìm sản phẩm cực nhanh",
+    "defaultIcon": "Phụ kiện"
+  },
+  "filter": {
+    "brand": "Thương hiệu",
+    "category": "Danh mục",
+    "priceRange": "Khoảng giá",
+    "minPrice": "Giá min",
+    "maxPrice": "Giá max",
+    "status": "Trạng thái",
+    "lowStock": "Sắp hết hàng",
+    "bestSeller": "Bán chạy",
+    "minReview": "Đánh giá (tối thiểu)",
+    "stars": "{{count}} sao"
   }
 }

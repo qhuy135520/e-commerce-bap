@@ -32,6 +32,7 @@ export const createOrder = createAsyncThunk(
         cartItems.map((item) => {
           const vendorEarnings = item.productPrice * COMMISSION * item.quantity;
           incrementVendorBalance(item.vendorId, vendorEarnings);
+          debugger;
           dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
         })
       );

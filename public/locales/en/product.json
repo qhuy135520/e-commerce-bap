@@ -11,6 +11,10 @@
       "reviewDesc": "Top Rated"
     }
   },
+  "productSlider": {
+    "title": "Popular Products",
+    "description": "Most sold products"
+  },
 
   "productSuggest": {
     "title": "Product suggest",
@@ -23,5 +27,49 @@
     "sold": "Sold",
     "bestSeller": "Best Seller",
     "lowStock": "Low Stock"
+  },
+  "banner": {
+    "title": "Smart Shopping – Daily Deals",
+    "description": "Discover hot products, crazy discounts just for today!",
+    "button": "Shop Now"
+  },
+  "features": {
+    "fastDelivery": {
+      "icon": "🚚",
+      "title": "Fast Delivery",
+      "desc": "Quick and safe"
+    },
+    "securePayment": {
+      "icon": "💳",
+      "title": "Secure Payment",
+      "desc": "Fully protected"
+    },
+    "qualityProducts": {
+      "icon": "⭐",
+      "title": "Quality Products",
+      "desc": "Satisfaction guaranteed"
+    },
+    "support247": {
+      "icon": "📞",
+      "title": "24/7 Support",
+      "desc": "Always ready to help"
+    }
+  },
+  "categories": {
+    "title": "Explore Product Categories",
+    "subtitle": "Choose your favorite category to find products quickly",
+    "defaultIcon": "Accessories"
+  },
+  "filter": {
+    "brand": "Brand",
+    "category": "Category",
+    "priceRange": "Price range",
+    "minPrice": "Min price",
+    "maxPrice": "Max price",
+    "status": "Status",
+    "lowStock": "Low stock",
+    "bestSeller": "Best seller",
+    "minReview": "Minimum rating",
+    "stars": "{{count}} stars"
   }
 }

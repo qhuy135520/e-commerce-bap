@@ -1,0 +1,40 @@
+{
+  "filter": {
+    "title": "Vendor Filter",
+    "name": "Name",
+    "namePlaceholder": "Search by vendor name",
+    "radius": "Radius (km)",
+    "hasAddress": "Has Address",
+    "minProducts": "Minimum Products",
+    "minSales": "Minimum Sales",
+    "minRating": "Minimum Rating",
+    "apply": "Apply",
+    "reset": "Reset"
+  },
+  "map": {
+    "yourLocation": "Your Location",
+    "vendorLocation": "Vendor Location",
+    "noVendors": "No vendors found in this area",
+    "distance": "{{distance}} km away"
+  },
+  "vendor": {
+    "products": "Products",
+    "reviews": "Reviews",
+    "noRatings": "No ratings",
+    "contact": "Contact",
+    "address": "Address",
+    "viewDetail": "View Detail"
+  },
+  "productList": {
+    "products": "Products",
+    "reviews": "Reviews",
+    "reviewCount": "{{count}} reviews",
+    "noRatings": "No ratings",
+    "totalSales": "Total Sales",
+    "addresses": "Addresses ({{count}})",
+    "address": "Address",
+    "phone": "Phone",
+    "noAddresses": "No addresses",
+    "viewVendor": "View Vendor"
+  }
+}
