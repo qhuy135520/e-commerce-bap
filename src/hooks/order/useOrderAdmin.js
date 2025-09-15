@@ -86,7 +86,7 @@ export default function useOrderAdmin(orders) {
       const matchesSearch =
         !searchKey ||
         o.id?.toLowerCase().includes(searchKey.toLowerCase()) ||
-        o.userId?.toLowerCase().includes(searchKey.toLowerCase());
+        o.user_name?.toLowerCase().includes(searchKey.toLowerCase());
 
       const matchesStatus =
         statusFilter === "all" ||

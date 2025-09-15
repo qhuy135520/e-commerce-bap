@@ -116,7 +116,7 @@ export default function AdminManagerOrderTable({ orders, loading }) {
           <Select.Option value="pending">Đang xử lí</Select.Option>
           <Select.Option value="shipped">Đang giao hàng</Select.Option>
           <Select.Option value="completed">Hoàn thành</Select.Option>
-          <Select.Option value="cancelled">Đơn hủy</Select.Option>
+          <Select.Option value="canceled">Đơn hủy</Select.Option>
         </AMOD.SelectStyled>
       </AMOD.SpaceStyled>
 
