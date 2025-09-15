@@ -38,9 +38,9 @@ export const useAdminDashboard = () => {
   useEffect(() => {
     if (users.length > 0) {
       const active = users.filter((u) => u.role === "customer" && u.status === "active").length;
-      const unactive = users.filter((u) => u.role === "customer" && u.status === "unactive").length;
+      const inactive = users.filter((u) => u.role === "customer" && u.status === "inactive").length;
       setPieUser([
-        { name: "Bị khóa", value: unactive },
+        { name: "Bị khóa", value: inactive },
         { name: "Đang hoạt động", value: active },
       ]);
     }
@@ -62,14 +62,12 @@ export const useAdminDashboard = () => {
       const shipped = orders.filter((o) => o.status === "shipped").length;
       const pending = orders.filter((o) => o.status === "pending").length;
       const completed = orders.filter((o) => o.status === "completed").length;
-      const cancelled = orders.filter((o) => o.status === "canceled").length;
-      const paid = orders.filter((o) => o.status === "paid").length;
+      const cancelled = orders.filter((o) => o.status === "cancelled").length;
       setPieOrder([
         { name: "Đang vận chuyển", value: shipped },
         { name: "Đang xử lý", value: pending },
         { name: "Hoàn thành", value: completed },
         { name: "Hủy đơn", value: cancelled },
-        { name: "Đã thanh toán cho vendor", value: paid },
       ]);
 
       const monthlyData = orders.reduce((acc, order) => {

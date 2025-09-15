@@ -10,12 +10,12 @@ export async function getVendorApi() {
   }
 }
 
-export async function updateVendorStatus(userId, newStatus) {
+export async function updateVendorStatus(vendorId, newStatus) {
   try {
     const { data, error } = await supabase
       .from("userInfo")
       .update({ status: newStatus })
-      .eq("id", userId)
+      .eq("userId", vendorId)
       .order("created_at", { ascending: false });
     if (error) throw error;
     return data;
