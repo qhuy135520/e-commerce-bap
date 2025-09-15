@@ -102,7 +102,7 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
         )}
 
         {markers.map((m) => {
-          if (!m.lat && !m.lon)
+          if (m.lat && m.lon)
             return (
               <Marker key={`${m.vendorId}-${m.addressId}`} position={[m.lat, m.lon]} icon={vendorIcon}>
                 <Popup>
