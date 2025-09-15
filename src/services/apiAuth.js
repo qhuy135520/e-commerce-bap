@@ -87,7 +87,7 @@ export async function signInWithGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: "http://localhost:5173/",
+        redirectTo: import.meta.env.VITE_URL,
       },
     });
     if (error) throw error;
@@ -173,7 +173,7 @@ export async function getCurrentUser() {
 export async function resetPassword(email) {
   try {
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:5173/update-password/",
+      redirectTo: import.meta.env.VITE_URL + "update-password/",
     });
 
     if (error) {

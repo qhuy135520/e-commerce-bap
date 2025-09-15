@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Avatar, Button, ConfigProvider, Space, Table, Tooltip, Modal } from "antd";
 
-import { VendorManagerProductTableStyled as VMPTS, FormAddProduct } from "@/components";
-
+import { VendorManagerProductTableStyled as VMPTS, FormAddProduct, VendorProductOperation } from "@/components";
 import { useEditProduct } from "@/hooks/useAddProduct/useEditProduct";
 
 export default function VendorManagerProductTable({ products }) {
@@ -133,11 +132,14 @@ export default function VendorManagerProductTable({ products }) {
         },
       }}
     >
-      <VMPTS.ButtonPosition>
-        <Button size="large" color="blue" variant="solid" onClick={openCreateModal}>
-          + Thêm sản phẩm
-        </Button>
-      </VMPTS.ButtonPosition>
+      <VMPTS.Operation>
+        <VendorProductOperation />
+        <VMPTS.ButtonPosition>
+          <Button size="large" color="blue" variant="solid" onClick={openCreateModal}>
+            + Thêm sản phẩm
+          </Button>
+        </VMPTS.ButtonPosition>
+      </VMPTS.Operation>
       <Table columns={columns} dataSource={products} rowKey="id" />
       <Modal
         title={isEditSession ? "Cập nhật sản phẩm" : "Thêm sản phẩm mới"}

@@ -37,6 +37,12 @@ const OrderHistoryPage = React.lazy(() =>
   }))
 );
 
+const VendorDashboardChart = React.lazy(() =>
+  import("@/pages/privatePages").then((module) => ({
+    default: module.VendorDashboardChart,
+  }))
+);
+
 const VendorManagerProductPage = React.lazy(() =>
   import("@/pages/privatePages").then((module) => ({
     default: module.VendorManagerProductPage,
@@ -144,7 +150,8 @@ const PrivateRoutes = (
     >
       <Route element={<ProtectedRoleRoutes allowedRoles={[ROLE_VENDOR]} />}>
         <Route path={ROUTER_PATH.VENDOR_DASHBOARD.PATH}>
-          <Route index element={<Navigate to={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} replace />} />
+          <Route index element={<Navigate to={ROUTER_PATH.VENDOR_DASHBOARD_CHART.PATH} replace />} />
+          <Route path={ROUTER_PATH.VENDOR_DASHBOARD_CHART.PATH} element={<VendorDashboardChart />} />
           <Route path={ROUTER_PATH.VENDOR_MANAGER_PRODUCT.PATH} element={<VendorManagerProductPage />} />
           <Route path={ROUTER_PATH.VENDOR_MANAGER_ORDER.PATH} element={<VendorManagerOrderPage />} />
           <Route path={ROUTER_PATH.VENDOR_UPDATE_INFO.PATH} element={<VendorUpdateInfo />} />

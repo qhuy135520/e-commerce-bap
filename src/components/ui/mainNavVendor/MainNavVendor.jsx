@@ -4,14 +4,14 @@ import { AiFillProduct } from "react-icons/ai";
 import { FaListCheck } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { FaRegUserCircle, FaHome } from "react-icons/fa";
+import { AiFillDashboard } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
-
-import { MainNavVendorStyled as MNVS } from "@/components";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 import { formatCurrency } from "@/utils/helpers";
 import { useUser } from "@/hooks/authentication/useUser";
 
+import { LanguageSwitcher, MainNavVendorStyled as MNVS } from "@/components";
 export default function MainNavVendor() {
   const { logout } = useLogout();
   const { user } = useUser();
@@ -19,10 +19,15 @@ export default function MainNavVendor() {
   return (
     <nav>
       <MNVS.NavList>
-        <strong> Main Menu Vendor</strong>
+        <LanguageSwitcher />
         <hr />
         <b>Số tiền chưa thanh toán: {formatCurrency(user.moneyBalance)}</b>
         <hr />
+        <li>
+          <MNVS.StyledNavLink to="/vendor-dashboard/dashboard">
+            <AiFillDashboard /> Dashboard
+          </MNVS.StyledNavLink>
+        </li>
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/products">
             <AiFillProduct /> Quản lý sản phẩm
