@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllVendor, updateVendor } from "@/stores/vendor/vendor.thunks";
+import { fetchAllVendor, subtractVendorBalance, updateVendor } from "@/stores/vendor/vendor.thunks";
 
 const vendorSlice = createSlice({
   name: "vendor",
@@ -22,12 +22,21 @@ const vendorSlice = createSlice({
       })
       .addCase(updateVendor.fulfilled, (state, action) => {
         state.status = "succeeded";
-        const { vendorId, newStatus } = action.payload;
-        state.data = state.data.map((vendor) =>
-          vendor.vendorId === vendorId ? { ...vendor, status: newStatus } : vendor
-        );
+        const { userId, newStatus } = action.payload;
+        state.data = state.data.map((vendor) => (vendor.id === userId ? { ...vendor, status: newStatus } : vendor));
       })
       .addCase(updateVendor.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+
+      .addCase(subtractVendorBalance.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(subtractVendorBalance.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(subtractVendorBalance.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });

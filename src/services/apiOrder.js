@@ -13,7 +13,6 @@ export async function fetchOrderApi(userId) {
 export async function createOrderApi(cartItems, userId) {
   const { data: order, error: orderError } = await supabase.from("order").insert([{ userId }]).select().single();
   if (orderError) throw orderError;
-
   const orderDetails = cartItems.map((item) => ({
     orderId: order.id,
     productId: item.productId,
@@ -29,7 +28,7 @@ export async function createOrderApi(cartItems, userId) {
     *,
     product (
       *,
-      productImage!inner(*)
+      productImage!left(*)
     )
   `
     )
@@ -70,6 +69,22 @@ export async function updateStatusOrderApi(orderId, nextStatus) {
 
     if (error) throw error;
 
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function cancelOrderApi(orderId) {
+  try {
+    const { data, error } = await supabase
+      .from("order")
+      .update({ status: "cancelled" })
+      .eq("id", orderId)
+      .select()
+      .single();
+
+    if (error) throw error;
     return data;
   } catch (error) {
     throw error;

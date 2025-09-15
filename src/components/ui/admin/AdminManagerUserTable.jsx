@@ -1,8 +1,10 @@
 import React from "react";
-import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Input, Select, InputNumber } from "antd";
-import { useUser } from "@/hooks/authentication/useUser";
-import * as AMUS from "@/components/ui/admin/AdminManagerUser.styled";
 import { Formik, Form, ErrorMessage } from "formik";
+import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Input, Select, InputNumber } from "antd";
+
+import { useUser } from "@/hooks/authentication/useUser";
+
+import { AdminManagerUserStyled as AMUS } from "@/components";
 import { formatNumberCurrency } from "@/utils/helpers";
 import styled from "styled-components";
 
@@ -65,15 +67,6 @@ const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
     ),
   },
 ];
-
-const ErrorMessageStyled = styled(ErrorMessage)`
-  color: red;
-`;
-const FormStyled = styled(Form)`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
 
 export default function AdminManagerUserTable({ users, loading }) {
   const {
@@ -176,24 +169,24 @@ export default function AdminManagerUserTable({ users, loading }) {
           onSubmit={handleSubmitUpdate(handleUpdate, setIsUpdateModal)}
         >
           {({ values, handleChange, setFieldValue }) => (
-            <FormStyled id="updateUserForm">
+            <AMUS.FormStyled id="updateUserForm">
               <label>Tên người dùng</label>
               <Input name="name" value={values.name} onChange={handleChange} placeholder="Nhập tên người dùng" />
-              <ErrorMessageStyled name="name" component="div" />
+              <AMUSErrorMessageStyled name="name" component="div" />
 
               <label>Vai trò</label>
               <AMUS.SelectFormStyled value={values.role} onChange={(val) => setFieldValue("role", val)}>
                 <Select.Option value="admin">Admin</Select.Option>
                 <Select.Option value="customer">Customer</Select.Option>
               </AMUS.SelectFormStyled>
-              <ErrorMessageStyled name="role" component="div" />
+              <AMUSErrorMessageStyled name="role" component="div" />
 
               <label>Trạng thái</label>
               <AMUS.SelectFormStyled value={values.status} onChange={(val) => setFieldValue("status", val)}>
                 <Select.Option value="active">Active</Select.Option>
                 <Select.Option value="inactive">Inactive</Select.Option>
               </AMUS.SelectFormStyled>
-              <ErrorMessageStyled name="status" component="div" />
+              <AMUSErrorMessageStyled name="status" component="div" />
 
               <label>Số dư (VNĐ)</label>
               <InputNumber
@@ -202,8 +195,8 @@ export default function AdminManagerUserTable({ users, loading }) {
                 value={values.moneyBalance}
                 onChange={(val) => setFieldValue("moneyBalance", val)}
               />
-              <ErrorMessageStyled name="moneyBalance" component="div" />
-            </FormStyled>
+              <AMUSErrorMessageStyled name="moneyBalance" component="div" />
+            </AMUS.FormStyled>
           )}
         </Formik>
       </Modal>

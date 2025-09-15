@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import { ROUTER_PATH } from "@/constants";
 
 import PublicLayout from "@/layouts/public/PublicLayout";
-import SearchLayout from "@/layouts/public/SearchLayout";
+import SearchMapLayout from "@/layouts/public/SearchMapLayout";
 
 const HomePage = React.lazy(() =>
   import("@/pages/globalPages").then((module) => ({
@@ -30,13 +30,20 @@ const ProductVendorPage = React.lazy(() =>
   }))
 );
 
-const NotFoundPage = React.lazy(() =>
-  import("@/pages/NotFound").then((module) => ({
-    default: module.default,
+const SearchResultPage = React.lazy(() =>
+  import("@/pages/globalPages").then((module) => ({
+    default: module.SearchResultPage,
   }))
 );
-const SearchResult = React.lazy(() =>
-  import("../../components/ui/Products/SearchResult").then((module) => ({
+
+const SearchMapVendorPage = React.lazy(() =>
+  import("@/pages/globalPages").then((module) => ({
+    default: module.SearchMapVendorPage,
+  }))
+);
+
+const NotFoundPage = React.lazy(() =>
+  import("@/pages/NotFound").then((module) => ({
     default: module.default,
   }))
 );
@@ -48,9 +55,10 @@ const GlobalRoutes = (
       <Route path={ROUTER_PATH.ABOUT.PATH} element={<AboutPage />} />
       <Route path={ROUTER_PATH.PRODUCT_DETAIL.PATH} element={<ProductDetailPage />} />
       <Route path={ROUTER_PATH.PRODUCT_VENDOR_PAGE.PATH} element={<ProductVendorPage />} />
+      <Route path={ROUTER_PATH.SEARCH.PATH} element={<SearchResultPage />} />
     </Route>
-    <Route element={<SearchLayout />}>
-      <Route path={ROUTER_PATH.SEARCH.PATH} element={<SearchResult />} />
+    <Route element={<SearchMapLayout />}>
+      <Route path={ROUTER_PATH.SEARCH_MAP_VENDOR.PATH} element={<SearchMapVendorPage />} />
     </Route>
     <Route path="*" element={<NotFoundPage />} />
   </>

@@ -48,7 +48,7 @@ function AdminApprovalVendor() {
               disabled={status === "loading"}
             >
               <Option value="all">Tất cả</Option>
-              <Option value="inactive">Chưa duyệt</Option>
+              <Option value="unactive">Chưa duyệt</Option>
               <Option value="active">Đã duyệt</Option>
             </Select>
           </AAVS.SearchWrapper>

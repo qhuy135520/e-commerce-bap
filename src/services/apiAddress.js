@@ -34,6 +34,24 @@ export async function fetchAddressLocation(lat, lng) {
   }
 }
 
+export async function geocodeAddress(address) {
+  const query = encodeURIComponent(address);
+  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data && data.length > 0) {
+      return {
+        lat: parseFloat(data[0].lat),
+        lon: parseFloat(data[0].lon),
+      };
+    }
+  } catch (err) {
+    throw err;
+  }
+  return null;
+}
+
 export async function addAddressApi({ userId, fullAddress, phone, name, isDefault }) {
   try {
     const { data, error } = await supabase

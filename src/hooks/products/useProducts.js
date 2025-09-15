@@ -11,6 +11,7 @@ export default function useProducts() {
   const { vendorId } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const productsVendor = useSelector(productsSelector.selectProductsVendor);
   const allProducts = useSelector(productsSelector.selectProducts);
@@ -26,8 +27,6 @@ export default function useProducts() {
       dispatch(productsThunk.fetchAllProducts());
     }
   }, [dispatch, vendorId]);
-
-  const [searchParams, setSearchParams] = useSearchParams();
 
   const page = parseInt(searchParams.get("page") || "1", 10);
   const sort = searchParams.get("sort") || "";

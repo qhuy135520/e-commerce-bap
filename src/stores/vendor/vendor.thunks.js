@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getVendorApi, updateVendorStatus } from "@/services/apiVendor";
+import { getVendorApi, subtractVendorBalanceApi, updateVendorStatus } from "@/services/apiVendor";
 
 export const fetchAllVendor = createAsyncThunk("vendor/fetchAll", async () => {
   try {
@@ -10,10 +10,18 @@ export const fetchAllVendor = createAsyncThunk("vendor/fetchAll", async () => {
   }
 });
 
-export const updateVendor = createAsyncThunk("vendor/update", async ({ vendorId, newStatus }) => {
+export const updateVendor = createAsyncThunk("vendor/update", async ({ userId, newStatus }) => {
   try {
-    await updateVendorStatus(vendorId, newStatus);
-    return { vendorId, newStatus };
+    await updateVendorStatus(userId, newStatus);
+    return { userId, newStatus };
+  } catch (error) {
+    throw error;
+  }
+});
+
+export const subtractVendorBalance = createAsyncThunk("vendor/subtract", async ({ vendorId, amount }) => {
+  try {
+    return await subtractVendorBalanceApi(vendorId, amount);
   } catch (error) {
     throw error;
   }

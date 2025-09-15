@@ -1,38 +1,80 @@
-// useOrderAdmin.js
+import { COMMISSION } from "@/constants";
 import { useState, useEffect, useMemo } from "react";
 import supabase from "@/services/supabase";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+
+import { subtractVendorBalance } from "@/stores/vendor/vendor.thunks";
+import { fetchAllOrdersAdmin, updateStatusOrder } from "@/stores/order/orders.thunks";
 
 export default function useOrderAdmin(orders) {
+  const dispatch = useDispatch();
   const [localOrders, setLocalOrders] = useState(orders ?? []);
   const [modal, setModal] = useState({ type: null, visible: false, order: null });
   const [searchInput, setSearchInput] = useState("");
   const [searchKey, setSearchKey] = useState("");
-  const [statusFilter, setStatusFilter] = useState("all"); // all | pending | completed | cancelled | shipped
+  const [statusFilter, setStatusFilter] = useState("all");
 
-  // Sync props orders → state
+  const [payModal, setPayModal] = useState({ visible: false, order: null });
+
   useEffect(() => {
     setLocalOrders(orders ?? []);
   }, [orders]);
 
-  // Modal actions
+  // --- Modal hủy/duyệt đơn ---
   const handleAction = (type, order) => setModal({ type, visible: true, order });
   const handleCancel = () => setModal({ type: null, visible: false, order: null });
 
   const handleConfirm = async () => {
     if (!modal.order) return;
 
-    if (modal.type === "approve") {
-      await supabase.from("order").update({ status: "completed" }).eq("id", modal.order.id);
-      setLocalOrders((prev) => prev.map((o) => (o.id === modal.order.id ? { ...o, status: "completed" } : o)));
-      toast.success("Đã duyệt đơn hàng thành công");
-    } else if (modal.type === "cancel") {
-      await supabase.from("order").update({ status: "cancelled" }).eq("id", modal.order.id);
-      setLocalOrders((prev) => prev.map((o) => (o.id === modal.order.id ? { ...o, status: "cancelled" } : o)));
-      toast.success("Đã hủy đơn hàng");
+    try {
+      if (modal.type === "cancel") {
+        // Cập nhật trạng thái đơn hàng
+        await dispatch(
+          updateStatusOrder({ vendorId: modal.order.vendor_id, orderId: modal.order.order_id, nextStatus: "canceled" })
+        ).unwrap();
+        setLocalOrders((prev) =>
+          prev.map((o) => (o.order_id === modal.order.order_id ? { ...o, status: "canceled" } : o))
+        );
+        // Cập nhật lại danh sách đơn hàng
+        await dispatch(fetchAllOrdersAdmin());
+
+        toast.success("Đã hủy đơn hàng");
+      }
+    } catch (err) {
+      toast.error("Có lỗi khi cập nhật đơn hàng");
     }
 
     setModal({ type: null, visible: false, order: null });
+  };
+
+  // --- Thanh toán vendor ---
+  const openPayModal = (order) => setPayModal({ visible: true, order });
+  const closePayModal = () => setPayModal({ visible: false, order: null });
+
+  const handlePayVendor = async () => {
+    if (!payModal.order) return;
+
+    try {
+      await dispatch(
+        subtractVendorBalance({ vendorId: payModal.order.vendor_id, amount: payModal.order.total_amount * COMMISSION })
+      ).unwrap();
+
+      await dispatch(
+        updateStatusOrder({ vendorId: payModal.order.vendor_id, orderId: payModal.order.order_id, nextStatus: "paid" })
+      ).unwrap();
+
+      setLocalOrders((prev) =>
+        prev.map((o) => (o.order_id === payModal.order.order_id ? { ...o, status: "paid" } : o))
+      );
+
+      toast.success("Thanh toán thành công!");
+    } catch (err) {
+      toast.error("Thanh toán thất bại");
+    }
+
+    closePayModal();
   };
 
   // Search
@@ -90,14 +132,17 @@ export default function useOrderAdmin(orders) {
     statusData,
     topCustomers,
     modal,
+    handleAction,
+    handleConfirm,
+    handleCancel,
+    payModal,
+    openPayModal,
+    closePayModal,
+    handlePayVendor,
     searchInput,
     setSearchInput,
     handleSearch,
     statusFilter,
     setStatusFilter,
-    handleAction,
-    handleConfirm,
-    handleCancel,
-    setLocalOrders,
   };
 }

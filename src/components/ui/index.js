@@ -19,6 +19,10 @@ export * from "@/components/ui/adminPaymentHistory";
 export * from "@/components/ui/adminApprovalVendor";
 export * from "@/components/ui/vendorManagerOrder";
 export * from "@/components/ui/adminDashboard";
+export * from "@/components/ui/searchProducts";
+export * from "@/components/ui/searchMapVendor";
+export * from "@/components/ui/admin";
+
 
 export { default as Container } from "@/components/ui/Container";
 export { default as ContainerSearch } from "@/components/ui/ContainerSearch";

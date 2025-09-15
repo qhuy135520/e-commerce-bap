@@ -15,6 +15,10 @@ export default function ProductsSlider() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <PLS.Header>
+        <h2>Sản phẩm bán chạy</h2>
+        <p>Những sản phẩm bán chạy nhất shop</p>
+      </PLS.Header>
       <PLS.SwiperSlideWrap>
         <Swiper
           modules={[Autoplay]}
