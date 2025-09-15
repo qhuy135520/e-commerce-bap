@@ -5,7 +5,7 @@ import useSearchProducts from "@/hooks/useProduct/useSearchProduct";
 import { EmptyCommon, Loading } from "@/components/common";
 
 import * as Styled from "@/components/ui/Products/ProductsList.styled";
-import noimage from "@/assets/images/noImage/noimage.jpg";
+import noimage from "@/assets/images/NoImage/noimage.jpg";
 import { formatCurrency } from "@/utils/helpers";
 
 export default function SearchResult() {

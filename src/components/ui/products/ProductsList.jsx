@@ -3,7 +3,7 @@ import { Select, Pagination, ConfigProvider, Rate } from "antd";
 import { EmptyCommon, ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
 import useProducts from "@/hooks/products/useProducts";
 import { formatCurrency } from "@/utils/helpers";
-import noimage from "@/assets/images/noImage/noimage.jpg";
+import noimage from "@/assets/images/NoImage/noimage.jpg";
 import { motion } from "framer-motion";
 
 const { Option } = Select;
