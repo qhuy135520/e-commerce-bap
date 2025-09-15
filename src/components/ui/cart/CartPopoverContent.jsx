@@ -1,12 +1,11 @@
+import { useNavigate } from "react-router-dom";
 import { useMemo } from "react";
 import { List, Typography } from "antd";
 
 import { CartPopoverContentStyled as CPS } from "@/components";
 
-import NoImage from "@/assets/images/NoImage/noimage.jpg";
-import i18n from "@/configs/i18n/i18n";
 import { formatCurrency } from "@/utils/helpers";
-import { useNavigate } from "react-router-dom";
+import NoImage from "@/assets/images/NoImage/noimage.jpg";
 
 const { Text } = Typography;
 

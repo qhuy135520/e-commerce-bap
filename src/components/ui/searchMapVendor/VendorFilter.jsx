@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import styled from "styled-components";
 import { Input, Checkbox, Select, Slider, Button, Rate } from "antd";
+
 import { getDistanceFromLatLonInKm } from "@/utils/helpers";
 
 const { Option } = Select;

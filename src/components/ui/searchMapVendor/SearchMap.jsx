@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from "react-leaflet";
 import L from "leaflet";
-import styled from "styled-components";
 import "leaflet/dist/leaflet.css";
+import styled from "styled-components";
 
 const vendorIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",

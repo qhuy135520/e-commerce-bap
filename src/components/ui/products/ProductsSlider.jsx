@@ -1,14 +1,16 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
+import { Rate } from "antd";
+import { motion } from "framer-motion";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import useProducts from "@/hooks/products/useProducts";
-import noimage from "@/assets/images/NoImage/noimage.jpg";
+
 import { ProductListStyled as PLS } from "@/components/ui/products";
+
+import useProducts from "@/hooks/products/useProducts";
 import { formatCurrency } from "@/utils/helpers";
-import { Rate } from "antd";
-import { motion } from "framer-motion";
+import noimage from "@/assets/images/NoImage/noimage.jpg";
 
 export default function ProductsSlider() {
   const { handleNavigate, bestSellerProducts, t } = useProducts();

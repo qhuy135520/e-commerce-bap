@@ -1,6 +1,5 @@
 import React from "react";
-import { DividerTitle, HeadingStyled } from "@/components";
-import * as AMUS from "@/components/ui/admin/AdminManagerUser.styled";
+import { DividerTitle, HeadingStyled, AdminManagerUserStyled as AMUS } from "@/components";
 
 export default function AdminManagerUserHeader() {
   return (

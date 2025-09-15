@@ -3,9 +3,9 @@ import { useState } from "react";
 import { FaArrowCircleLeft } from "react-icons/fa";
 import { IoMdMenu } from "react-icons/io";
 
-import { useUser } from "@/hooks/authentication/useUser";
-
 import { SidebarStyled as SS, MainNavVendor, MainNavAdmin } from "@/components";
+
+import { useUser } from "@/hooks/authentication/useUser";
 
 export default function Sidebar() {
   const { user } = useUser();

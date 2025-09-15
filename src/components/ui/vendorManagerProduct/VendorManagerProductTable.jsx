@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Avatar, Button, ConfigProvider, Space, Table, Tooltip, Modal } from "antd";
 
 import { VendorManagerProductTableStyled as VMPTS, FormAddProduct } from "@/components";
+
 import { useEditProduct } from "@/hooks/useAddProduct/useEditProduct";
 
 export default function VendorManagerProductTable({ products }) {

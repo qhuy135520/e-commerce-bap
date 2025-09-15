@@ -6,7 +6,7 @@ import { RiContactsLine } from "react-icons/ri";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 
-import * as MAS from "@/components/ui/mainNavAdmin/MainNavAdmin.styled";
+import { MainNavAdmin as MAS } from "@/components";
 
 export default function MainNavAdmin() {
   const { logout } = useLogout();

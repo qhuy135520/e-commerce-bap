@@ -1,7 +1,9 @@
 import React from "react";
-import { Rate, Empty, Avatar, Typography, Radio } from "antd";
+import { Rate, Empty, Avatar, Typography } from "antd";
 import { format } from "date-fns";
+
 import { HeadingStyled, ReviewProductStyled as RPS } from "@/components";
+
 import useProductReview from "@/hooks/productDetail/useProductReview";
 
 const { Text } = Typography;

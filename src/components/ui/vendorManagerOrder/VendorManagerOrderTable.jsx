@@ -2,12 +2,13 @@ import React from "react";
 import { FaCheck } from "react-icons/fa";
 import { Button, ConfigProvider, Modal, Table, Tag } from "antd";
 
-import useUpdateStatus from "@/hooks/order/useUpdateStatus";
+import { COMMISSION } from "@/constants";
 
 import { ListProductOrder, ChangeStatus, VendorOrderOperation } from "@/components";
 
+import useUpdateStatus from "@/hooks/order/useUpdateStatus";
+
 import { formatCurrency } from "@/utils/helpers";
-import { COMMISSION } from "@/constants";
 
 export default function VendorManagerOrderTable() {
   const { orders, selectOrder, isModalOpen, updateOrderStatus, handleCancel, openUpdateModal } = useUpdateStatus();

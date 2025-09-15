@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
 
+import { VendorManagerOrderTableStyled as VMOTS } from "@/components";
+
 import { ordersSelector } from "@/stores/rootSelector";
 import { ordersSlice } from "@/stores/rootReducer";
-
-import { VendorManagerOrderTableStyled as VMOTS } from "@/components";
 
 export default function VendorOrderOperation({ options }) {
   const dispatch = useDispatch();

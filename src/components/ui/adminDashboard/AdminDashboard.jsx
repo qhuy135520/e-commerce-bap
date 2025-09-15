@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
-import * as ADS from "@/components/ui/adminDashboard/AdminDashboard.styled.jsx";
+
+import { AdminDashboardStyled as ADS } from "@/components";
+
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
