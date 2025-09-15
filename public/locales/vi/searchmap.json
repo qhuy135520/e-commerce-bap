@@ -1,0 +1,40 @@
+{
+  "filter": {
+    "title": "Bộ lọc nhà cung cấp",
+    "name": "Tên",
+    "namePlaceholder": "Tìm theo tên nhà cung cấp",
+    "radius": "Bán kính (km)",
+    "hasAddress": "Có địa chỉ",
+    "minProducts": "Số sản phẩm tối thiểu",
+    "minSales": "Số đơn hàng tối thiểu",
+    "minRating": "Đánh giá tối thiểu",
+    "apply": "Áp dụng",
+    "reset": "Đặt lại"
+  },
+  "map": {
+    "yourLocation": "Vị trí của bạn",
+    "vendorLocation": "Vị trí nhà cung cấp",
+    "noVendors": "Không tìm thấy nhà cung cấp nào trong khu vực này",
+    "distance": "Cách {{distance}} km"
+  },
+  "vendor": {
+    "products": "Sản phẩm",
+    "reviews": "Đánh giá",
+    "noRatings": "Chưa có đánh giá",
+    "contact": "Liên hệ",
+    "address": "Địa chỉ",
+    "viewDetail": "Xem chi tiết"
+  },
+  "productList": {
+    "products": "Sản phẩm",
+    "reviews": "Đánh giá",
+    "reviewCount": "{{count}} đánh giá",
+    "noRatings": "Chưa có đánh giá",
+    "totalSales": "Tổng số đơn",
+    "addresses": "Địa chỉ ({{count}})",
+    "address": "Địa chỉ",
+    "phone": "Số điện thoại",
+    "noAddresses": "Không có địa chỉ",
+    "viewVendor": "Xem Nhà cung cấp"
+  }
+}

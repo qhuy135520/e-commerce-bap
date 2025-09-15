@@ -3,6 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from "react-le
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 
 const vendorIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
@@ -54,6 +55,7 @@ function RecenterMap({ center }) {
 }
 
 export default function SearchMap({ vendors, position, radius = 0 }) {
+  const { t } = useTranslation(["searchmap"]);
   const center = position || { lat: 16.0544, lng: 108.2022 };
 
   const markers = vendors.flatMap(
@@ -83,7 +85,7 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
           <>
             <Marker position={[position.lat, position.lng]} icon={currentLocationIcon}>
               <Popup>
-                <strong>Your Location</strong>
+                <strong>{t("map.yourLocation")}</strong>
                 <br />
                 {position.lat.toFixed(5)}, {position.lng.toFixed(5)}
               </Popup>

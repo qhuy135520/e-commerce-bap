@@ -1,46 +1,30 @@
-import { Breadcrumb, Button, Badge } from "antd";
 import { CiShoppingCart } from "react-icons/ci";
 import { BsArrowReturnLeft } from "react-icons/bs";
 
-import { DividerTitle, HeadingStyled, CartHeaderStyled as CHS } from "@/components";
+import { CartHeaderStyled as CHS, DividerTitle } from "@/components";
+import { useTranslation } from "react-i18next";
 
 export default function CartHeader({ itemCount = 0, onBackToShop }) {
+  const { t } = useTranslation(["cart"]);
   return (
-    <CHS.FlexCartHeader justify="space-between" align="center">
+    <CHS.FlexCartHeader>
       <div>
-        <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <CiShoppingCart style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
+        <CHS.HeadingWrapper as="h2">
+          <CHS.CartIconWrapper>
+            <CiShoppingCart />
+          </CHS.CartIconWrapper>
           <span>
-            Giỏ hàng{" "}
-            <Badge
-              count={itemCount}
-              style={{
-                backgroundColor: "var(--color-red-700)",
-                marginLeft: 8,
-              }}
-            />
+            {t("header.title")}
+            <CHS.CartBadge count={itemCount} />
           </span>
           <DividerTitle type="vertical" />
-        </HeadingStyled>
-
-        <Breadcrumb
-          items={[{ title: "Trang chủ" }, { title: "Giỏ hàng" }]}
-          style={{ marginTop: 4, fontSize: 13, color: "var(--color-grey-500)" }}
-        />
+        </CHS.HeadingWrapper>
+        <CHS.CartBreadcrumb items={[{ title: t("header.home") }, { title: t("header.cart") }]} />
       </div>
 
-      <Button
-        type="default"
-        icon={<BsArrowReturnLeft />}
-        onClick={onBackToShop}
-        style={{
-          borderRadius: "6px",
-          borderColor: "var(--color-grey-300)",
-          color: "var(--color-grey-700)",
-        }}
-      >
-        Tiếp tục mua sắm
-      </Button>
+      <CHS.BackButton type="default" icon={<BsArrowReturnLeft />} onClick={onBackToShop}>
+        {t("header.back")}
+      </CHS.BackButton>
     </CHS.FlexCartHeader>
   );
 }

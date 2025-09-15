@@ -1,6 +1,7 @@
 import React, { useReducer } from "react";
 import styled from "styled-components";
 import { Input, Checkbox, Select, Slider, Button, Rate } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { getDistanceFromLatLonInKm } from "@/utils/helpers";
 
@@ -84,6 +85,7 @@ function reducer(state, action) {
 }
 
 export default function VendorFilter({ vendors, onFilter, currentPosition, radius, setRadius }) {
+  const { t } = useTranslation(["searchmap"]);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const { name, hasAddress, minProducts, minSales, minRating, radiusFilter } = state;
@@ -120,16 +122,18 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
     <FilterWrapper>
       <FieldsGrid>
         <Field>
-          <label>Name</label>
+          <label>{t("filter.name")}</label>
           <StyledInput
-            placeholder="Search by name"
+            placeholder={t("filter.namePlaceholder")}
             value={name}
             onChange={(e) => dispatch({ type: "SET_FIELD", field: "name", value: e.target.value })}
           />
         </Field>
 
         <Field>
-          <label>Radius (km): {radius}</label>
+          <label>
+            {t("filter.radius")}: {radius}
+          </label>
           <StyledInput
             type="number"
             min={0}
@@ -144,12 +148,14 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
             checked={hasAddress}
             onChange={(e) => dispatch({ type: "SET_FIELD", field: "hasAddress", value: e.target.checked })}
           >
-            Has Address
+            {t("filter.hasAddress")}
           </StyledCheckbox>
         </Field>
 
         <Field>
-          <label>Min Products: {minProducts}</label>
+          <label>
+            {t("filter.minProducts")}: {minProducts}
+          </label>
           <StyledSlider
             min={0}
             max={100}
@@ -159,7 +165,9 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
         </Field>
 
         <Field>
-          <label>Min Sales: {minSales}</label>
+          <label>
+            {t("filter.minSales")}: {minSales}
+          </label>
           <StyledSlider
             min={0}
             max={100}
@@ -169,7 +177,7 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
         </Field>
 
         <Field>
-          <label>Min Rating</label>
+          <label>{t("filter.minRating")}</label>
           <Rate
             allowHalf
             value={minRating}
@@ -180,9 +188,9 @@ export default function VendorFilter({ vendors, onFilter, currentPosition, radiu
 
       <ButtonGroup>
         <Button type="primary" onClick={handleFilter}>
-          Apply
+          {t("filter.apply")}
         </Button>
-        <Button onClick={handleReset}>Reset</Button>
+        <Button onClick={handleReset}>{t("filter.reset")}</Button>
       </ButtonGroup>
     </FilterWrapper>
   );

@@ -20,7 +20,8 @@
     "menuTitle": "E-BAP",
     "product": "Product",
     "quantity": "Quantity",
-    "price": "Price"
+    "price": "Price",
+    "yourLocation": "Your Location"
   },
   "footer": {
     "supportHotline": "Support Hotline",

@@ -15,5 +15,11 @@
       "success": "Thêm mặt hàng vào giỏ hàng thành công",
       "error": "Thêm mặt hàng vào giỏ hàng không thành công"
     }
+  },
+  "header": {
+    "title": "Giỏ hàng",
+    "home": "Trang chủ",
+    "cart": "Giỏ hàng",
+    "back": "Tiếp tục mua sắm"
   }
 }

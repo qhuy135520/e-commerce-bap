@@ -4,6 +4,7 @@ import { Card, Collapse, Rate, Badge, Tooltip, Pagination, Button } from "antd";
 import { MdLocationOn, MdPhone, MdStar } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const { Panel } = Collapse;
 
@@ -149,6 +150,7 @@ const VendorButton = styled(Button)`
 `;
 
 export default function VendorList({ vendors, pageSize = 9 }) {
+  const { t } = useTranslation(["searchmap"]);
   const [currentPage, setCurrentPage] = useState(1);
 
   const startIndex = (currentPage - 1) * pageSize;
@@ -175,27 +177,27 @@ export default function VendorList({ vendors, pageSize = 9 }) {
           >
             <InfoRow>
               <span>
-                <FaShoppingCart /> Products
+                <FaShoppingCart /> {t("productList.products")}
               </span>
               <StyledBadge count={vendor.totalProducts || 0} />
             </InfoRow>
 
             <InfoRow>
               <span>
-                <MdStar /> Reviews
+                <MdStar /> {t("productList.reviews")}
               </span>
               {vendor.totalReviews > 0 ? (
                 <Tooltip title={`${vendor.totalReviews} reviews`}>
                   <Rate disabled count={Number(vendor.avgRating)} value={Number(vendor.avgRating) || 0} />
                 </Tooltip>
               ) : (
-                <span>No ratings</span>
+                <span>{t("productList.noRatings")}</span>
               )}
             </InfoRow>
 
             <InfoRow>
               <span>
-                <MdPhone /> Total Sales
+                <MdPhone /> {t("productList.totalSales")}
               </span>
               <StyledBadge count={vendor.totalSales || 0} bgcolor="#f59e0b" />
             </InfoRow>
@@ -208,7 +210,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
                   label: (
                     <PanelHeader>
                       <MdLocationOn />
-                      Addresses ({vendor.addresses?.length || 0})
+                      {t("productList.addresses")} ({vendor.addresses?.length || 0})
                     </PanelHeader>
                   ),
                   children:
@@ -216,22 +218,22 @@ export default function VendorList({ vendors, pageSize = 9 }) {
                       vendor.addresses.map((addr) => (
                         <StyledPanelContent key={addr.addressId}>
                           <div>
-                            <strong>Address:</strong> {addr.fullAddress || "N/A"}
+                            <strong> {t("productList.address")}:</strong> {addr.fullAddress || "N/A"}
                           </div>
                           <div>
-                            <strong>Phone:</strong> {addr.phone || "N/A"}
+                            <strong> {t("productList.phone")}:</strong> {addr.phone || "N/A"}
                           </div>
                         </StyledPanelContent>
                       ))
                     ) : (
-                      <StyledPanelContent>No addresses</StyledPanelContent>
+                      <StyledPanelContent> {t("productList.noAddresses")}</StyledPanelContent>
                     ),
                 },
               ]}
             />
 
             <NavLink to={`/vendor/${vendor.vendorId}`}>
-              <VendorButton>View Vendor</VendorButton>
+              <VendorButton>{t("productList.viewVendor")}</VendorButton>
             </NavLink>
           </StyledCard>
         ))}

@@ -45,13 +45,13 @@ export default function OrderHistoryTable() {
         }}
       >
         <Space>
-          <span>Trạng thái:</span>
+          <span>{t("order.filter.status")}</span>
           <Select
             value={filterStatus}
             onChange={setFilterStatus}
             style={{ width: 160 }}
             options={[
-              { label: "Tất cả", value: "all" },
+              { label: t("order.filter.all"), value: "all" },
               { label: t("order.status.processing"), value: "pending" },
               { label: t("order.status.shipped"), value: "shipped" },
               { label: t("order.status.completed"), value: "completed" },
@@ -70,11 +70,11 @@ export default function OrderHistoryTable() {
             }}
             style={{ width: 180 }}
             options={[
-              { label: "Tất cả", value: "all" },
-              { label: "7 ngày gần đây", value: "7d" },
-              { label: "30 ngày gần đây", value: "30d" },
-              { label: "6 tháng gần đây", value: "6m" },
-              { label: "1 năm gần đây", value: "1y" },
+              { label: t("order.filter.all"), value: "all" },
+              { label: t("order.filter.7d"), value: "7d" },
+              { label: t("order.filter.30d"), value: "30d" },
+              { label: t("order.filter.6m"), value: "6m" },
+              { label: t("order.filter.1y"), value: "1y" },
             ]}
           />
           <RangePicker
@@ -87,7 +87,7 @@ export default function OrderHistoryTable() {
         </Space>
       </div>
       {visibleOrders.length === 0 ? (
-        <EmptyCommon description="Không tìm thấy đơn hàng nào phù hợp với bộ lọc" />
+        <EmptyCommon description={t("order.filter.noOrders")} />
       ) : (
         <>
           {visibleOrders.map((order, index) => (

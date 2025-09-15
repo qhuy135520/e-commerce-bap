@@ -19,14 +19,16 @@ export default function OrderItemInfo({ vendorProduct, orderStatus }) {
             <OHTS.Image src={product.productImg || NoImage} alt={product.productName} />
             <OHTS.InfoItem>
               <strong>{product.productName}</strong>
-              <OHTS.SmallMuted>Số lượng: x{product.quantity}</OHTS.SmallMuted>
+              <OHTS.SmallMuted>
+                {t("order.quantity")}: x{product.quantity}
+              </OHTS.SmallMuted>
               <OHTS.Price>{formatCurrency(product.price)}</OHTS.Price>
             </OHTS.InfoItem>
           </OHTS.ItemLeft>
 
           <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.6rem" }}>
             <OHTS.SmallMuted>
-              Thành tiền: <OHTS.Price>{formatCurrency(product.totalPrice)}</OHTS.Price>
+              {t("order.total")}: <OHTS.Price>{formatCurrency(product.totalPrice)}</OHTS.Price>
             </OHTS.SmallMuted>
             <Button
               size="small"

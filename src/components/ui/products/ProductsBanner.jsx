@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const BannerWrapper = styled.section`
   display: flex;
@@ -58,13 +59,15 @@ const BannerContent = styled.div`
 `;
 
 export default function ProductBanner() {
+  const { t } = useTranslation(["product"]);
+
   return (
     <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
       <BannerWrapper>
         <BannerContent>
-          <h1>Mua sắm thông minh – Ưu đãi mỗi ngày</h1>
-          <p>Khám phá các sản phẩm hot, giảm giá cực sốc chỉ hôm nay!</p>
-          <button>Shop Ngay</button>
+          <h1>{t("banner.title")}</h1>
+          <p>{t("banner.description")}</p>
+          <button>{t("banner.button")}</button>
         </BannerContent>
       </BannerWrapper>
     </motion.div>

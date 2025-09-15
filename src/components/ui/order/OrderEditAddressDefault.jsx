@@ -6,8 +6,10 @@ import { Formik } from "formik";
 import { OrderStyled as OS, OrderUpdateAddressModal } from "@/components";
 
 import useAddress from "@/hooks/address/useAddress";
+import { useTranslation } from "react-i18next";
 
 export default function OrderEditAddressDefault({ onCancel }) {
+  const { t } = useTranslation(["order"]);
   const {
     address,
     addressDefault,
@@ -25,7 +27,7 @@ export default function OrderEditAddressDefault({ onCancel }) {
   };
   return (
     <>
-      <OS.HeadingEditAddress as="h3">Đổi địa chỉ mặc định</OS.HeadingEditAddress>
+      <OS.HeadingEditAddress as="h3">{t("order.editDefault.changeDefaultAddress")}</OS.HeadingEditAddress>
 
       <Formik
         initialValues={initialValues}
@@ -35,7 +37,7 @@ export default function OrderEditAddressDefault({ onCancel }) {
       >
         {({ values, setFieldValue }) => (
           <Form layout="vertical">
-            <Form.Item name="addressId" label="Chọn địa chỉ mặc định" required>
+            <Form.Item name="addressId" label={t("order.editDefault.chooseDefaultAddress")} required>
               <OS.RadioGroupAddress
                 name="addressId"
                 value={values.addressId}
@@ -51,16 +53,18 @@ export default function OrderEditAddressDefault({ onCancel }) {
                       <OS.RadioAddress value={addr.id} />
                       <OS.CardHeader>{addr.name}</OS.CardHeader>
                       <OS.CardBody>{addr.fullAddress}</OS.CardBody>
-                      <OS.CardBody>Số điện thoại: {addr.phone}</OS.CardBody>
+                      <OS.CardBody>
+                        {t("order.editDefault.phoneNumber")}: {addr.phone}
+                      </OS.CardBody>
 
                       <Popover
                         content={
                           <div>
                             <Button type="primary" danger size="small" onClick={() => handleDeleteAddress(addr)}>
-                              Xóa
+                              {t("order.editDefault.delete")}
                             </Button>
                             <Divider type="vertical" />
-                            <Button size="small">Hủy</Button>
+                            <Button size="small">{t("order.editDefault.cancel")}</Button>
                           </div>
                         }
                         title="Xác nhận xóa?"
@@ -68,7 +72,7 @@ export default function OrderEditAddressDefault({ onCancel }) {
                         placement="topRight"
                       >
                         <OS.DeleteButton type="primary" danger size="small">
-                          Xóa
+                          {t("order.editDefault.delete")}
                         </OS.DeleteButton>
                       </Popover>
 
@@ -79,7 +83,7 @@ export default function OrderEditAddressDefault({ onCancel }) {
                           handleOpenModal(addr);
                         }}
                       >
-                        Cập nhật địa chỉ
+                        {t("order.editDefault.update")}
                       </OS.EditAddressButton>
                     </OS.CardRadioLabel>
                   ))}
@@ -88,11 +92,11 @@ export default function OrderEditAddressDefault({ onCancel }) {
             </Form.Item>
 
             <Button type="default" onClick={onCancel}>
-              Hủy
+              {t("order.editDefault.cancel")}
             </Button>
             <Divider type="vertical" />
             <Button type="primary" htmlType="submit">
-              Cập nhật địa chỉ mặc định
+              {t("order.editDefault.updateDefault")}
             </Button>
           </Form>
         )}

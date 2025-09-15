@@ -22,7 +22,8 @@
     "balance": "Balance",
     "product": "sản phẩm",
     "quantity": "Số lượng",
-    "price": "Giá tiền"
+    "price": "Giá tiền",
+    "yourLocation": "Vị trí của bạn"
   },
   "footer": {
     "supportHotline": "Tổng đài hỗ trợ",

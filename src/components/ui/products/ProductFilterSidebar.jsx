@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Checkbox, Input, Rate } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { ProductListStyled as PLS } from "@/components";
 
@@ -19,6 +20,7 @@ const ProductFilterSidebar = ({
 }) => {
   const [localPriceMin, setLocalPriceMin] = useState(priceMin || "");
   const [localPriceMax, setLocalPriceMax] = useState(priceMax || "");
+  const { t } = useTranslation(["product"]);
 
   useEffect(() => {
     setLocalPriceMin(priceMin || "");
@@ -34,7 +36,7 @@ const ProductFilterSidebar = ({
       <PLS.Overlay $isOpen={isOpen} onClick={toggleSidebar} />
       <PLS.Sidebar $isOpen={isOpen}>
         <PLS.FilterGroup>
-          <PLS.SidebarTitle>Thương hiệu</PLS.SidebarTitle>
+          <PLS.SidebarTitle>{t("filter.brand")}</PLS.SidebarTitle>
           {brandList.map((b) => (
             <PLS.FilterItem key={b.id}>
               <Checkbox checked={brand === b.id} onChange={() => onFilterChange({ brand: brand === b.id ? "" : b.id })}>
@@ -45,7 +47,7 @@ const ProductFilterSidebar = ({
         </PLS.FilterGroup>
 
         <PLS.FilterGroup>
-          <PLS.SidebarTitle>Danh mục</PLS.SidebarTitle>
+          <PLS.SidebarTitle>{t("filter.category")}</PLS.SidebarTitle>
           {categoryList.map((c) => (
             <PLS.FilterItem key={c.id}>
               <Checkbox
@@ -59,9 +61,9 @@ const ProductFilterSidebar = ({
         </PLS.FilterGroup>
 
         <PLS.FilterGroup>
-          <PLS.SidebarTitle>Khoảng giá</PLS.SidebarTitle>
+          <PLS.SidebarTitle>{t("filter.priceRange")}</PLS.SidebarTitle>
           <Input
-            placeholder="Giá min"
+            placeholder={t("filter.minPrice")}
             type="number"
             value={localPriceMin}
             onChange={(e) => setLocalPriceMin(e.target.value)}
@@ -69,7 +71,7 @@ const ProductFilterSidebar = ({
             style={{ marginBottom: 8 }}
           />
           <Input
-            placeholder="Giá max"
+            placeholder={t("filter.maxPrice")}
             type="number"
             value={localPriceMax}
             onChange={(e) => setLocalPriceMax(e.target.value)}
@@ -78,17 +80,17 @@ const ProductFilterSidebar = ({
         </PLS.FilterGroup>
 
         <PLS.FilterGroup>
-          <PLS.SidebarTitle>Trạng thái</PLS.SidebarTitle>
+          <PLS.SidebarTitle>{t("filter.status")}</PLS.SidebarTitle>
           <Checkbox checked={stock === "low"} onChange={() => onFilterChange({ stock: stock === "low" ? "" : "low" })}>
-            Sắp hết hàng
+            {t("filter.lowStock")}
           </Checkbox>
           <Checkbox checked={bestSeller} onChange={() => onFilterChange({ bestSeller: !bestSeller })}>
-            Bán chạy
+            {t("filter.bestSeller")}
           </Checkbox>
         </PLS.FilterGroup>
 
         <PLS.FilterGroup>
-          <PLS.SidebarTitle>Đánh giá (tối thiểu)</PLS.SidebarTitle>
+          <PLS.SidebarTitle>{t("filter.minReview")}</PLS.SidebarTitle>
           {[5, 4, 3, 2, 1].map((r) => (
             <PLS.FilterItem key={r}>
               <Checkbox
@@ -96,7 +98,7 @@ const ProductFilterSidebar = ({
                 onChange={() => onFilterChange({ minReview: Number(minReview) === r ? 0 : r })}
               >
                 <Rate disabled defaultValue={r} />
-                <span style={{ marginLeft: 8 }}>{r} sao</span>
+                <span style={{ marginLeft: 8 }}>{t("filter.stars", { count: r })}</span>
               </Checkbox>
             </PLS.FilterItem>
           ))}

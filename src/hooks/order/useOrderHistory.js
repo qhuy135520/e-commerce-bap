@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isWithinInterval, subDays, startOfDay, endOfDay } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 import { ordersSelector } from "@/stores/rootSelector";
 import { cartThunk, ordersThunk } from "@/stores/rootThunk";
