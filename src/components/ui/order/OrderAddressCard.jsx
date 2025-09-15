@@ -2,7 +2,7 @@ import { Typography, Button, Divider } from "antd";
 import { FiPlusCircle, FiMapPin, FiHome, FiPhone } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 
-import { OrderStyled as OS } from "@/components/ui/order";
+import { OrderStyled as OS } from "@/components";
 
 const { Text } = Typography;
 

@@ -1,8 +1,9 @@
-import { DividerTitle, HeadingStyled, OrderHistoryHeaderStyled as OHHS } from "@/components";
 import { Breadcrumb, Button } from "antd";
 import { BsArrowReturnLeft } from "react-icons/bs";
 import React from "react";
 import { BiHistory } from "react-icons/bi";
+
+import { DividerTitle, HeadingStyled, OrderHistoryHeaderStyled as OHHS } from "@/components";
 
 export default function OrderHistoryHeader({ onBackToHome }) {
   return (

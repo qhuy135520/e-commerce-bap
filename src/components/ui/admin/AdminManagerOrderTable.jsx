@@ -1,10 +1,11 @@
 import React from "react";
 import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Select } from "antd";
 
-import useOrderAdmin from "@/hooks/order/useOrderAdmin";
-import * as AMOD from "@/components/ui/admin/AdminManagerUser.styled";
-
 import { COMMISSION } from "@/constants";
+
+import { AdminManagerUserStyled as AMOD } from "@/components";
+
+import useOrderAdmin from "@/hooks/order/useOrderAdmin";
 import { formatCurrency, formatNumberCurrency } from "@/utils/helpers";
 
 export default function AdminManagerOrderTable({ orders, loading }) {

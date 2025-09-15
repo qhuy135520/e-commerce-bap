@@ -1,10 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { Select, Pagination, ConfigProvider, Rate } from "antd";
+import { motion } from "framer-motion";
+
 import { EmptyCommon, ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
+
 import useProducts from "@/hooks/products/useProducts";
 import { formatCurrency } from "@/utils/helpers";
+
 import noimage from "@/assets/images/NoImage/noimage.jpg";
-import { motion } from "framer-motion";
 
 const { Option } = Select;
 

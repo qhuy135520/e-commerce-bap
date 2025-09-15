@@ -1,12 +1,12 @@
 import React from "react";
-import { Formik, Form, ErrorMessage } from "formik";
+import { Formik } from "formik";
 import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Input, Select, InputNumber } from "antd";
+
+import { AdminManagerUserStyled as AMUS } from "@/components";
 
 import { useUser } from "@/hooks/authentication/useUser";
 
-import { AdminManagerUserStyled as AMUS } from "@/components";
 import { formatNumberCurrency } from "@/utils/helpers";
-import styled from "styled-components";
 
 const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
   { title: "ID", dataIndex: "id", key: "id", width: "12%", render: (text) => <span>{text?.substring(0, 6)}</span> },

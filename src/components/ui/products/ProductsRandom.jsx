@@ -4,7 +4,7 @@ import { Typography, Rate } from "antd";
 import useProducts from "@/hooks/products/useProducts";
 import noimage from "@/assets/images/NoImage/noimage.jpg";
 
-import * as S from "./ProductsRandom.styled";
+import { ProductsRandom as S } from "@/components";
 import { formatCurrency } from "@/utils/helpers";
 
 const { Title } = Typography;

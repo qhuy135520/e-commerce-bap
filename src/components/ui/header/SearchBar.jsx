@@ -2,7 +2,7 @@ import { IoSearch } from "react-icons/io5";
 
 import useSearchProducts from "@/hooks/useProduct/useSearchProduct";
 
-import { StyleInputSearch, StyledAutoComplete } from "@/components/ui/Header/Header.styled";
+import { StyleInputSearch, StyledAutoComplete } from "@/components/ui/header/Header.styled";
 
 export default function SearchBar({ placeholder }) {
   const { value, options, handleSearch, handleSelect, handleSubmit } = useSearchProducts();

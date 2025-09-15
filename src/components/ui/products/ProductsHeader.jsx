@@ -1,6 +1,7 @@
-import { DividerTitle, HeadingStyled } from "@/components";
 import { Breadcrumb, Row } from "antd";
 import { BiHome } from "react-icons/bi";
+
+import { DividerTitle, HeadingStyled } from "@/components";
 
 import styled from "styled-components";
 

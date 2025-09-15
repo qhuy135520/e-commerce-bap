@@ -1,8 +1,8 @@
 import { Avatar, ConfigProvider, Table } from "antd";
+
 import { formatCurrency } from "@/utils/helpers";
 
 export default function ListProductOrder({ products }) {
-  
   const productColumns = [
     {
       title: "Sản phẩm",

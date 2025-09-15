@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
-import useCategories from "@/hooks/products/useCategories";
-import { useEffect } from "react";
 import { FaMobileAlt, FaLaptop, FaHeadphones, FaTv } from "react-icons/fa";
 import { motion } from "framer-motion";
+
+import useCategories from "@/hooks/products/useCategories";
 
 const categoryIcons = {
   "Điện thoại": <FaMobileAlt />,

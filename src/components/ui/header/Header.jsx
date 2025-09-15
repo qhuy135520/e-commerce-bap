@@ -1,3 +1,4 @@
+import { AiFillDashboard } from "react-icons/ai";
 import { useMemo } from "react";
 import { NavLink } from "react-router-dom";
 import { Button, ConfigProvider, Popover, Tooltip } from "antd";
@@ -7,15 +8,13 @@ import { IoMdPhonePortrait } from "react-icons/io";
 import { SlScreenDesktop } from "react-icons/sl";
 import { IoLocation } from "react-icons/io5";
 
-import { CartPopoverContent, HeaderStyled, LanguageSwitcher } from "@/components";
-import SearchBar from "@/components/ui/Header/SearchBar";
+import { CartPopoverContent, HeaderStyled, LanguageSwitcher, SearchBar } from "@/components";
 
 import { useHeader } from "@/hooks/header/useHeader";
 import useCart from "@/hooks/cart/useCart";
 
 import logo from "@/assets/images/logo.png";
 import { formatCurrency } from "@/utils/helpers";
-import { AiFillDashboard } from "react-icons/ai";
 
 export default function Header() {
   const { navigate, t, user, logout, current, onClick, handleNavigateToHome, handleNavigateToCart } = useHeader();

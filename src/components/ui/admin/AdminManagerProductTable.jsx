@@ -1,8 +1,11 @@
 import React from "react";
 import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Select } from "antd";
-import { formatNumberCurrency } from "@/utils/helpers";
+
+import { AdminManagerUserStyled as AMOD } from "@/components";
+
 import useProductAdmin from "@/hooks/products/useProductAdmin";
-import * as AMOD from "@/components/ui/admin/AdminManagerUser.styled";
+
+import { formatNumberCurrency } from "@/utils/helpers";
 
 export default function AdminManagerProductTable({ products, loading }) {
   const {

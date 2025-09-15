@@ -4,6 +4,7 @@ import { FaCartPlus } from "react-icons/fa";
 import { MdOutlinePayments } from "react-icons/md";
 
 import { HeadingStyled, ProductInfoStyled as PIS } from "@/components";
+
 import { formatCurrency } from "@/utils/helpers";
 import { useUser } from "@/hooks/authentication/useUser";
 

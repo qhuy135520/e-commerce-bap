@@ -1,7 +1,8 @@
-import { DividerTitle, HeadingStyled, CartHeaderStyled as CHS } from "@/components";
 import { Breadcrumb, Button, Badge } from "antd";
 import { CiShoppingCart } from "react-icons/ci";
 import { BsArrowReturnLeft } from "react-icons/bs";
+
+import { DividerTitle, HeadingStyled, CartHeaderStyled as CHS } from "@/components";
 
 export default function CartHeader({ itemCount = 0, onBackToShop }) {
   return (
