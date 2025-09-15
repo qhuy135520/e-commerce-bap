@@ -19,6 +19,10 @@ export const Container = styled.div`
   display: flex;
   gap: 24px;
   margin-top: 24px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const Header = styled.div`
@@ -45,6 +49,50 @@ export const Sidebar = styled.div`
   position: sticky;
   top: 100px;
   height: fit-content;
+
+  @media (max-width: 768px) {
+    position: fixed;
+    top: 0;
+    left: ${(props) => (props.isopen ? "0" : "-100%")};
+    height: 100%;
+    width: 250px;
+    transition: left 0.3s ease;
+    z-index: 10000;
+    background: #fff;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+  }
+`;
+
+export const FilterButton = styled.button`
+  display: none;
+  color: #333;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 12px;
+  cursor: pointer;
+  margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    display: block;
+  }
+`;
+
+export const filterBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const Overlay = styled.div`
+  display: ${(props) => (props.isOpen ? "block" : "none")};
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
 `;
 
 export const FilterGroup = styled.div`

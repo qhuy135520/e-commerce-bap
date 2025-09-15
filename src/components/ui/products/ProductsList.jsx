@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Select, Pagination, ConfigProvider, Rate } from "antd";
 import { motion } from "framer-motion";
 
@@ -36,11 +36,13 @@ const ProductsList = () => {
     isLoading,
   } = useProducts();
 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const productListRef = useRef(null);
+
   useEffect(() => {
     fetchDataProducts();
   }, [fetchDataProducts]);
 
-  const productListRef = useRef(null);
   const onPageChange = (page, pageSize) => {
     handlePageChange(page, pageSize);
     if (productListRef.current) {
@@ -50,6 +52,10 @@ const ProductsList = () => {
         behavior: "smooth",
       });
     }
+  };
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
   };
 
   return (
@@ -67,6 +73,8 @@ const ProductsList = () => {
             bestSeller={bestSeller}
             minReview={minReview}
             onFilterChange={handleFilterChange}
+            isOpen={isSidebarOpen}
+            setIsOpen={setIsSidebarOpen}
           />
 
           <PLS.Box ref={productListRef}>
@@ -74,20 +82,22 @@ const ProductsList = () => {
               <span className="title-text">{t("productList.title")}</span>
               <div className="divider"></div>
             </PLS.TitleWrapper>
-
-            <Select
-              value={sort}
-              style={{ width: 200, marginBottom: 16 }}
-              onChange={handleSortChange}
-              placeholder={t("productList.filter.placeholder")}
-            >
-              <Option value="">{t("productList.filter.default")}</Option>
-              <Option value="price-asc">{t("productList.filter.priceAsc")}</Option>
-              <Option value="price-desc">{t("productList.filter.priceDesc")}</Option>
-              <Option value="sales-asc">{t("productList.filter.salesAsc")}</Option>
-              <Option value="sales-desc">{t("productList.filter.salesDesc")}</Option>
-              <Option value="review-desc">{t("productList.filter.reviewDesc")}</Option>
-            </Select>
+            <PLS.filterBox>
+              <Select
+                value={sort}
+                style={{ width: 200, marginBottom: 16 }}
+                onChange={handleSortChange}
+                placeholder={t("productList.filter.placeholder")}
+              >
+                <Option value="">{t("productList.filter.default")}</Option>
+                <Option value="price-asc">{t("productList.filter.priceAsc")}</Option>
+                <Option value="price-desc">{t("productList.filter.priceDesc")}</Option>
+                <Option value="sales-asc">{t("productList.filter.salesAsc")}</Option>
+                <Option value="sales-desc">{t("productList.filter.salesDesc")}</Option>
+                <Option value="review-desc">{t("productList.filter.reviewDesc")}</Option>
+              </Select>
+              <PLS.FilterButton onClick={toggleSidebar}>{isSidebarOpen ? "Đóng" : "Lọc"}</PLS.FilterButton>
+            </PLS.filterBox>
 
             {isLoading ? (
               <p>Đang tải...</p>
