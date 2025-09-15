@@ -5,88 +5,10 @@ import { VendorManagerProductTableStyled as VMPTS, FormAddProduct, VendorProduct
 import { useEditProduct } from "@/hooks/useAddProduct/useEditProduct";
 
 export default function VendorManagerProductTable({ products }) {
-  const columns = [
-    {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
-      width: "5%",
-      render: (text) => <span>{text?.substring(0, 5)}</span>,
-    },
-    {
-      title: "Tên sản phẩm",
-      dataIndex: "name",
-      key: "name",
-      width: "10%",
-      render: (text) => <b>{text}</b>,
-    },
-    {
-      title: "Hình ảnh",
-      dataIndex: "images",
-      key: "images",
-      width: "10%",
-      render: (images) => {
-        if (images && images.length > 0) {
-          const primaryImage = images.find((img) => img.isPrimary) || images[0];
-          return <Avatar shape="square" size={80} src={primaryImage.imageUrl} />;
-        }
-        return <Avatar shape="square" size={80} icon="📷" />;
-      },
-    },
-    {
-      title: "Nhãn hiệu",
-      dataIndex: "brandName",
-      key: "brandname",
-      width: "10%",
-    },
-    {
-      title: "Danh mục",
-      dataIndex: "categoryName",
-      key: "categoryname",
-      width: "10%",
-    },
-    {
-      title: "Số lượng",
-      key: "stock",
-      dataIndex: "stock",
-      width: "10%",
-    },
-    {
-      title: "Mô tả",
-      key: "description",
-      dataIndex: "description",
-      width: "15%",
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{text && text.length > 150 ? text.substring(0, 50) + "..." : text}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      title: "Thông số",
-      key: "param",
-      dataIndex: "param",
-      width: "15%",
-      render: (text) => (
-        <Tooltip title={text}>
-          <span>{text && text.length > 150 ? text.substring(0, 50) + "..." : text}</span>
-        </Tooltip>
-      ),
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (record) => (
-        <Space size="middle">
-          <Button onClick={() => openUpdateModal(record)}>Cập nhật</Button>
-        </Space>
-      ),
-    },
-  ];
-
   const [productEdit, setProductEdit] = useState({});
 
   const {
+    t,
     initialValues,
     validationSchema,
     categorys,
@@ -101,6 +23,7 @@ export default function VendorManagerProductTable({ products }) {
     setPrimaryIndex,
     setIsModalOpen,
   } = useEditProduct(productEdit);
+
   const openCreateModal = () => {
     setProductEdit({});
     setIsModalOpen(true);
@@ -110,6 +33,85 @@ export default function VendorManagerProductTable({ products }) {
     setProductEdit(record);
     setIsModalOpen(true);
   };
+
+  const columns = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      width: "5%",
+      render: (text) => <span>{text?.substring(0, 5)}</span>,
+    },
+    {
+      title: t("productTable.tableColumns.name"),
+      dataIndex: "name",
+      key: "name",
+      width: "10%",
+      render: (text) => <b>{text}</b>,
+    },
+    {
+      title: t("productTable.tableColumns.images") || "Hình ảnh",
+      dataIndex: "images",
+      key: "images",
+      width: "10%",
+      render: (images) => {
+        if (images && images.length > 0) {
+          const primaryImage = images.find((img) => img.isPrimary) || images[0];
+          return <Avatar shape="square" size={80} src={primaryImage.imageUrl} />;
+        }
+        return <Avatar shape="square" size={80} icon="📷" />;
+      },
+    },
+    {
+      title: t("productTable.tableColumns.brand"),
+      dataIndex: "brandName",
+      key: "brandName",
+      width: "10%",
+    },
+    {
+      title: t("productTable.tableColumns.category"),
+      dataIndex: "categoryName",
+      key: "categoryName",
+      width: "10%",
+    },
+    {
+      title: t("productTable.tableColumns.stock"),
+      dataIndex: "stock",
+      key: "stock",
+      width: "10%",
+    },
+    {
+      title: t("productTable.tableColumns.description") || "Mô tả",
+      dataIndex: "description",
+      key: "description",
+      width: "15%",
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{text && text.length > 150 ? text.substring(0, 50) + "..." : text}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: t("productTable.tableColumns.param") || "Thông số",
+      dataIndex: "param",
+      key: "param",
+      width: "15%",
+      render: (text) => (
+        <Tooltip title={text}>
+          <span>{text && text.length > 150 ? text.substring(0, 50) + "..." : text}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: t("productTable.tableColumns.actions"),
+      key: "actions",
+      render: (record) => (
+        <Space size="middle">
+          <Button onClick={() => openUpdateModal(record)}>{t("productTable.buttons.update") || "Cập nhật"}</Button>
+        </Space>
+      ),
+    },
+  ];
 
   return (
     <ConfigProvider
@@ -136,16 +138,23 @@ export default function VendorManagerProductTable({ products }) {
         <VendorProductOperation />
         <VMPTS.ButtonPosition>
           <Button size="large" color="blue" variant="solid" onClick={openCreateModal}>
-            + Thêm sản phẩm
+            + {t("productTable.buttons.add") || "Thêm sản phẩm"}
           </Button>
         </VMPTS.ButtonPosition>
       </VMPTS.Operation>
-      <Table columns={columns} dataSource={products} rowKey="id" />
+
+      <Table columns={columns} dataSource={products} rowKey="id" locale={{ emptyText: t("productTable.noData") }} />
+
       <Modal
-        title={isEditSession ? "Cập nhật sản phẩm" : "Thêm sản phẩm mới"}
+        title={
+          isEditSession
+            ? t("productTable.modal.update") || "Cập nhật sản phẩm"
+            : t("productTable.modal.add") || "Thêm sản phẩm mới"
+        }
         open={isModalOpen}
         onCancel={handleCancel}
         footer={null}
+        zIndex={5000}
       >
         <FormAddProduct
           initialValues={initialValues}
@@ -158,6 +167,7 @@ export default function VendorManagerProductTable({ products }) {
           onChange={onChange}
           handleSubmit={handleSubmit}
           setPrimaryIndex={setPrimaryIndex}
+          t={t}
         />
       </Modal>
     </ConfigProvider>

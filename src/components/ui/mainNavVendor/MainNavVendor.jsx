@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "antd";
 import { AiFillProduct } from "react-icons/ai";
 import { FaListCheck } from "react-icons/fa6";
@@ -12,51 +13,52 @@ import { formatCurrency } from "@/utils/helpers";
 import { useUser } from "@/hooks/authentication/useUser";
 
 import { LanguageSwitcher, MainNavVendorStyled as MNVS } from "@/components";
+
 export default function MainNavVendor() {
   const { logout } = useLogout();
   const { user } = useUser();
+  const { t } = useTranslation(["vendor"]);
 
   return (
     <nav>
       <MNVS.NavList>
         <LanguageSwitcher />
         <hr />
-        <b>Số tiền chưa thanh toán: {formatCurrency(user.moneyBalance)}</b>
+        <b>{t("mainNav.balance", { moneyBalance: formatCurrency(user.moneyBalance) })}</b>
         <hr />
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/dashboard">
-            <AiFillDashboard /> Dashboard
+            <AiFillDashboard /> {t("mainNav.dashboard")}
           </MNVS.StyledNavLink>
         </li>
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/products">
-            <AiFillProduct /> Quản lý sản phẩm
+            <AiFillProduct /> {t("mainNav.manageProducts")}
           </MNVS.StyledNavLink>
         </li>
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/orders">
-            <FaListCheck /> Quản lý đơn hàng
+            <FaListCheck /> {t("mainNav.manageOrders")}
           </MNVS.StyledNavLink>
         </li>
-        <strong> Settings</strong>
+        <strong>{t("mainNav.settings")}</strong>
         <li>
           <NavLink to="/vendor-dashboard/update-info">
             <Button block>
-              <FaRegUserCircle /> Cập nhật thông tin
+              <FaRegUserCircle /> {t("mainNav.updateInfo")}
             </Button>
           </NavLink>
         </li>
         <li>
           <NavLink to="/">
             <Button block>
-              <FaHome /> Về trang chủ
+              <FaHome /> {t("mainNav.home")}
             </Button>
           </NavLink>
         </li>
         <li>
           <Button block onClick={() => logout()}>
-            <MdLogout />
-            Logout
+            <MdLogout /> {t("mainNav.logout")}
           </Button>
         </li>
       </MNVS.NavList>

@@ -1,79 +1,91 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa";
-import { Button, ConfigProvider, Modal, Table, Tag } from "antd";
+import { useTranslation } from "react-i18next";
+import { ConfigProvider, Modal, Table, Tag } from "antd";
+import { MdCancel } from "react-icons/md";
 
 import { COMMISSION } from "@/constants";
-
-import { ListProductOrder, ChangeStatus, VendorOrderOperation } from "@/components";
-
 import useUpdateStatus from "@/hooks/order/useUpdateStatus";
+
+import {
+  ListProductOrder,
+  ChangeStatus,
+  VendorOrderOperation,
+  VendorManagerOrderTableStyled as VMOTS,
+} from "@/components";
 
 import { formatCurrency } from "@/utils/helpers";
 
 export default function VendorManagerOrderTable() {
+  const { t } = useTranslation("vendor");
   const { orders, selectOrder, isModalOpen, updateOrderStatus, handleCancel, openUpdateModal } = useUpdateStatus();
+
   const columns = [
     {
-      title: "Order ID",
+      title: t("orderTable.columns.orderId"),
       dataIndex: "orderid",
       key: "orderid",
       render: (text) => <b>{text?.substring(0, 5)}</b>,
     },
     {
-      title: "Tên khách hàng",
+      title: t("orderTable.columns.customerName"),
       dataIndex: "username",
       key: "username",
       render: (text) => <b>{text}</b>,
     },
     {
-      title: "Trạng thái",
+      title: t("orderTable.columns.status"),
       dataIndex: "status",
       key: "status",
       render: (value, record) => (
-        <Button
-          onClick={() => openUpdateModal(record)}
-          type="primary"
-          color={
-            value === "pending" ? "yellow" : value === "shipped" ? "blue" : value === "canceled" ? "red " : "green"
-          }
-          variant="solid"
-        >
+        <VMOTS.ButtonStatus onClick={() => openUpdateModal(record)} type="primary" $status={record.status}>
           {value === "pending"
-            ? "Chưa xử lý"
+            ? t("orderTable.status.pending")
             : value === "shipped"
-            ? "Đang giao"
+            ? t("orderTable.status.shipped")
             : value === "canceled"
-            ? "Đã hủy "
-            : "Đã hoàn tất"}
-        </Button>
+            ? t("orderTable.status.canceled")
+            : value === "completed"
+            ? t("orderTable.status.completed")
+            : t("orderTable.status.paid")}
+        </VMOTS.ButtonStatus>
       ),
     },
     {
-      title: "Tổng giá",
+      title: t("orderTable.columns.total"),
       dataIndex: "totalorder",
       key: "totalorder",
       render: (text) => <b>{formatCurrency(text)}</b>,
     },
     {
-      title: "Tiền thực nhận",
+      title: t("orderTable.columns.received"),
       dataIndex: "totalorder",
-      key: "totalorder",
+      key: "totalorderReceived",
       render: (text, record) => (
         <b>
           {formatCurrency(text * COMMISSION)}{" "}
           {record.status === "paid" ? (
             <Tag icon={<FaCheck />} color="success">
-              Đã thanh toán
+              {t("orderTable.tags.paid")}
             </Tag>
           ) : (
-            <Tag icon={<FaCheck />} color="error">
-              Chưa thanh toán
+            <Tag icon={<MdCancel />} color="error">
+              {t("orderTable.tags.unpaid")}
             </Tag>
           )}
         </b>
       ),
     },
   ];
+
+  const statusOptions = [
+    { value: "all", label: t("orderTable.status.all") },
+    { value: "pending", label: t("orderTable.status.pending") },
+    { value: "shipped", label: t("orderTable.status.shipped") },
+    { value: "completed", label: t("orderTable.status.completed") },
+    { value: "paid", label: t("orderTable.status.paid") },
+  ];
+
   return (
     <ConfigProvider
       theme={{
@@ -95,15 +107,7 @@ export default function VendorManagerOrderTable() {
         },
       }}
     >
-      <VendorOrderOperation
-        options={[
-          { value: "all", label: "Tất cả" },
-          { value: "pending", label: "Chờ xử lý" },
-          { value: "shipped", label: "Đang giao" },
-          { value: "completed", label: "Hoàn thành" },
-          { value: "paid", label: "Đã thanh toán" },
-        ]}
-      />
+      <VendorOrderOperation options={statusOptions} />
 
       <Table
         columns={columns}
@@ -113,14 +117,8 @@ export default function VendorManagerOrderTable() {
           expandedRowRender: (record) => <ListProductOrder products={record.products} />,
         }}
       />
-      <Modal
-        title="Xác nhận đổi trạng thái"
-        closable={{ "aria-label": "Custom Close Button" }}
-        open={isModalOpen}
-        onCancel={handleCancel}
-        footer={null}
-        zIndex={4000}
-      >
+
+      <Modal title={t("orderTable.modal.title")} open={isModalOpen} onCancel={handleCancel} footer={null} zIndex={4000}>
         <ChangeStatus selectOrder={selectOrder} updateOrderStatus={updateOrderStatus} />
       </Modal>
     </ConfigProvider>

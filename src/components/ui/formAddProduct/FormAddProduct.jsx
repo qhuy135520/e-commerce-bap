@@ -3,6 +3,7 @@ import ImgCrop from "antd-img-crop";
 import { Formik } from "formik";
 import { Form, Select, Input } from "formik-antd";
 import { Button, ConfigProvider, Upload } from "antd";
+import { useTranslation } from "react-i18next";
 
 import { FormAddProductStyled as FAPS } from "@/components";
 
@@ -17,6 +18,8 @@ export default function FormAddProduct({
   handleSubmit,
   setPrimaryIndex,
 }) {
+  const { t } = useTranslation(["vendor"]);
+
   return (
     <ConfigProvider
       theme={{
@@ -36,14 +39,14 @@ export default function FormAddProduct({
       >
         {({ values, setFieldValue }) => (
           <Form layout="vertical">
-            <Form.Item label="Tên sản phẩm" name="name">
-              <Input name="name" placeholder="Nhập tên sản phẩm..." />
+            <Form.Item label={t("productTable.form.name")} name="name">
+              <Input name="name" placeholder={t("productTable.form.namePlaceholder")} />
             </Form.Item>
 
-            <Form.Item name="categoryId" label="Danh mục">
+            <Form.Item label={t("productTable.form.category")} name="categoryId">
               <Select
                 name="categoryId"
-                placeholder="Chọn danh mục"
+                placeholder={t("productTable.form.categoryPlaceholder")}
                 onChange={(value) => {
                   setFieldValue("categoryId", value);
                   setFieldValue("brandId", "");
@@ -57,8 +60,8 @@ export default function FormAddProduct({
               </Select>
             </Form.Item>
 
-            <Form.Item name="brandId" label="Nhãn hiệu">
-              <Select name="brandId" placeholder="Chọn nhãn hiệu">
+            <Form.Item label={t("productTable.form.brand")} name="brandId">
+              <Select name="brandId" placeholder={t("productTable.form.brandPlaceholder")}>
                 {brands
                   .filter((b) => b.categoryId === values.categoryId)
                   .map((b) => (
@@ -69,29 +72,32 @@ export default function FormAddProduct({
               </Select>
             </Form.Item>
 
-            <Form.Item label="Giá" name="price">
-              <Input type="number" name="price" placeholder="Nhập giá..." />
-            </Form.Item>
-            <Form.Item label="Số lượng" name="stock">
-              <Input type="number" name="stock" placeholder="Nhập số lượng..." />
-            </Form.Item>
-            <Form.Item label="Mô tả" name="description">
-              <Input name="description" placeholder="Nhập mô tả..." />
-            </Form.Item>
-            <Form.Item label="Thông số" name="param">
-              <Input type="text" name="param" placeholder="Nhập thông số..." />
+            <Form.Item label={t("productTable.form.price")} name="price">
+              <Input type="number" name="price" placeholder={t("productTable.form.pricePlaceholder")} />
             </Form.Item>
 
-            <Form.Item name="image" label="Thêm ảnh sản phẩm">
+            <Form.Item label={t("productTable.form.stock")} name="stock">
+              <Input type="number" name="stock" placeholder={t("productTable.form.stockPlaceholder")} />
+            </Form.Item>
+
+            <Form.Item label={t("productTable.form.description")} name="description">
+              <Input name="description" placeholder={t("productTable.form.descriptionPlaceholder")} />
+            </Form.Item>
+
+            <Form.Item label={t("productTable.form.param")} name="param">
+              <Input type="text" name="param" placeholder={t("productTable.form.paramPlaceholder")} />
+            </Form.Item>
+
+            <Form.Item label={t("productTable.form.images")} name="image">
               <ImgCrop rotationSlider>
                 <Upload listType="picture-card" fileList={fileList} onChange={onChange} beforeUpload={() => false}>
-                  {fileList.length < 5 && "+ Upload"}
+                  {fileList.length < 5 && t("productTable.form.upload")}
                 </Upload>
               </ImgCrop>
 
               {fileList.length > 0 && (
                 <FAPS.ChooseImage>
-                  <span>Chọn ảnh chính:</span>
+                  <span>{t("productTable.form.choosePrimary")}:</span>
                   {fileList.map((file, idx) => (
                     <FAPS.OptionImage key={file.uid}>
                       <Input type="radio" checked={primaryIndex === idx} onChange={() => setPrimaryIndex(idx)} />
@@ -104,7 +110,7 @@ export default function FormAddProduct({
 
             <FAPS.PositonButton>
               <Button type="primary" htmlType="submit">
-                Gửi xét duyệt
+                {t("productTable.form.submit")}
               </Button>
             </FAPS.PositonButton>
           </Form>

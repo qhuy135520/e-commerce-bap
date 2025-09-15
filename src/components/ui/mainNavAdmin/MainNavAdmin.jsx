@@ -6,7 +6,7 @@ import { RiContactsLine } from "react-icons/ri";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 
-import { MainNavAdmin as MAS } from "@/components";
+import { MainNavAdminStyled as MAS } from "@/components";
 
 export default function MainNavAdmin() {
   const { logout } = useLogout();
@@ -35,7 +35,6 @@ export default function MainNavAdmin() {
           </MAS.StyledNavLink>
         </li>
 
-        {/* Thống kê */}
         <li>
           <MAS.StatisticsToggle onClick={() => setOpenStatistics((prev) => !prev)}>
             <FaProjectDiagram /> Thống kê

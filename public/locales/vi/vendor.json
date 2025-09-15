@@ -1,0 +1,118 @@
+{
+  "mainNav": {
+    "balance": "Số tiền chưa thanh toán: {{moneyBalance}}",
+    "dashboard": "Dashboard",
+    "manageProducts": "Quản lý sản phẩm",
+    "manageOrders": "Quản lý đơn hàng",
+    "settings": "Cài đặt",
+    "updateInfo": "Cập nhật thông tin",
+    "home": "Về trang chủ",
+    "logout": "Đăng xuất"
+  },
+
+  "productTable": {
+    "updateInfo": "Cập nhật thông tin",
+    "managerProduct": "Quản lý sản phẩm",
+    "managerOrder": "Quản lý đơn hàng",
+    "searchPlaceholder": "Tìm kiếm sản phẩm...",
+    "filterCategory": "-- Tất cả danh mục --",
+    "filterBrand": "-- Tất cả thương hiệu --",
+    "tableColumns": {
+      "id": "ID",
+      "name": "Tên sản phẩm",
+      "images": "Hình ảnh",
+      "category": "Danh mục",
+      "brand": "Thương hiệu",
+      "price": "Giá",
+      "stock": "Số lượng",
+      "status": "Trạng thái",
+      "description": "Mô tả",
+      "param": "Thông số",
+      "actions": "Hành động"
+    },
+    "buttons": {
+      "add": "Thêm sản phẩm",
+      "update": "Cập nhật"
+    },
+    "modal": {
+      "add": "Thêm sản phẩm mới",
+      "update": "Cập nhật sản phẩm"
+    },
+    "operation": {
+      "searchPlaceholder": "Tìm kiếm sản phẩm...",
+      "filterCategoryAll": "-- Tất cả danh mục --",
+      "filterBrandAll": "-- Tất cả thương hiệu --"
+    },
+    "form": {
+      "name": "Tên sản phẩm",
+      "namePlaceholder": "Nhập tên sản phẩm...",
+      "category": "Danh mục",
+      "categoryPlaceholder": "Chọn danh mục",
+      "brand": "Nhãn hiệu",
+      "brandPlaceholder": "Chọn nhãn hiệu",
+      "price": "Giá",
+      "pricePlaceholder": "Nhập giá...",
+      "stock": "Số lượng",
+      "stockPlaceholder": "Nhập số lượng...",
+      "description": "Mô tả",
+      "descriptionPlaceholder": "Nhập mô tả...",
+      "param": "Thông số",
+      "paramPlaceholder": "Nhập thông số...",
+      "images": "Thêm ảnh sản phẩm",
+      "choosePrimary": "Chọn ảnh chính",
+      "upload": "+ Upload",
+      "submit": "Gửi xét duyệt"
+    },
+    "noData": "Không có sản phẩm nào"
+  },
+  "orderTable": {
+    "columns": {
+      "orderId": "Mã đơn hàng",
+      "customerName": "Tên khách hàng",
+      "status": "Trạng thái",
+      "total": "Tổng giá",
+      "received": "Tiền thực nhận"
+    },
+    "status": {
+      "all": "Tất cả",
+      "pending": "Chờ xử lý",
+      "shipped": "Đang giao",
+      "completed": "Hoàn thành",
+      "paid": "Đã thanh toán",
+      "canceled": "Đã hủy"
+    },
+    "modal": {
+      "title": "Xác nhận đổi trạng thái"
+    },
+    "tags": {
+      "paid": "Đã thanh toán",
+      "unpaid": "Chưa thanh toán"
+    }
+  },
+  "chart": {
+    "totalProducts": "Tổng số sản phẩm",
+    "outOfStock": "Số sản phẩm hết hàng",
+    "pieOrder": {
+      "title": "Đơn hàng",
+      "pending": "Chưa xử lý",
+      "shipped": "Đang vận chuyển",
+      "completed": "Hoàn thành",
+      "canceled": "Hủy đơn",
+      "paid": "Đã thanh toán"
+    },
+    "piePayment": {
+      "title": "Doanh thu",
+      "unpaid": "Chưa thanh toán",
+      "paid": "Đã thanh toán"
+    },
+    "barTopProducts": {
+      "title": "Top 5 sản phẩm bán chạy",
+      "value": "Số lượng"
+    },
+    "lineOrdersOverTime": {
+      "title": "Đơn hàng theo thời gian",
+      "orders": "Số đơn hàng",
+      "revenue": "Doanh thu"
+    }
+  }
+}

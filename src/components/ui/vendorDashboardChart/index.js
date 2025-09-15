@@ -2,3 +2,4 @@ export { default as VendorDashboardChartHeader } from "@/components/ui/vendorDas
 export { default as VendorDashboardChartTable } from "@/components/ui/vendorDashboardChart/VendorDashboardChartTable";
 
 export * as VendorDashboardChartHeaderStyled from "@/components/ui/vendorDashboardChart/VendorDashboardChartHeader.styled";
+export * as VendorDashboardChartTableStyled from "@/components/ui/vendorDashboardChart/VendorDashboaChartTable.styled";

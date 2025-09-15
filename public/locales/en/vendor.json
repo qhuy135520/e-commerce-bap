@@ -1,0 +1,117 @@
+{
+  "mainNav": {
+    "balance": "Unpaid balance: {{moneyBalance}}",
+    "dashboard": "Dashboard",
+    "manageProducts": "Manage Products",
+    "manageOrders": "Manage Orders",
+    "settings": "Settings",
+    "updateInfo": "Update Info",
+    "home": "Go to Home",
+    "logout": "Logout"
+  },
+  "productTable": {
+    "updateInfo": "Update Infomation",
+    "managerProduct": "Products Manager",
+    "managerOrder": "Orders Manager",
+    "searchPlaceholder": "Search products...",
+    "filterCategory": "-- All categories --",
+    "filterBrand": "-- All brands --",
+    "tableColumns": {
+      "id": "ID",
+      "name": "Product Name",
+      "images": "Images",
+      "category": "Category",
+      "brand": "Brand",
+      "price": "Price",
+      "stock": "Stock",
+      "status": "Status",
+      "description": "Description",
+      "param": "Specification",
+      "actions": "Actions"
+    },
+    "buttons": {
+      "add": "Add Product",
+      "update": "Update"
+    },
+    "modal": {
+      "add": "Add New Product",
+      "update": "Update Product"
+    },
+    "operation": {
+      "searchPlaceholder": "Search products...",
+      "filterCategoryAll": "-- All categories --",
+      "filterBrandAll": "-- All brands --"
+    },
+    "form": {
+      "name": "Product Name",
+      "namePlaceholder": "Enter product name...",
+      "category": "Category",
+      "categoryPlaceholder": "Select category",
+      "brand": "Brand",
+      "brandPlaceholder": "Select brand",
+      "price": "Price",
+      "pricePlaceholder": "Enter price...",
+      "stock": "Stock",
+      "stockPlaceholder": "Enter stock...",
+      "description": "Description",
+      "descriptionPlaceholder": "Enter description...",
+      "param": "Specification",
+      "paramPlaceholder": "Enter specification...",
+      "images": "Add product images",
+      "choosePrimary": "Choose primary image",
+      "upload": "+ Upload",
+      "submit": "Submit for approval"
+    },
+    "noData": "No products found"
+  },
+  "orderTable": {
+    "columns": {
+      "orderId": "Order ID",
+      "customerName": "Customer Name",
+      "status": "Status",
+      "total": "Total Price",
+      "received": "Net Received"
+    },
+    "status": {
+      "all": "All",
+      "pending": "Pending",
+      "shipped": "Shipped",
+      "completed": "Completed",
+      "paid": "Paid",
+      "canceled": "Canceled"
+    },
+    "modal": {
+      "title": "Confirm Status Change"
+    },
+    "tags": {
+      "paid": "Paid",
+      "unpaid": "Unpaid"
+    }
+  },
+  "chart": {
+    "totalProducts": "Total Products",
+    "outOfStock": "Out of Stock Products",
+    "pieOrder": {
+      "title": "Orders",
+      "pending": "Pending",
+      "shipped": "Shipped",
+      "completed": "Completed",
+      "canceled": "Canceled",
+      "paid": "Paid"
+    },
+    "piePayment": {
+      "title": "Revenue",
+      "unpaid": "Unpaid",
+      "paid": "Paid"
+    },
+    "barTopProducts": {
+      "title": "Top 5 Best-selling Products",
+      "value": "Quantity"
+    },
+    "lineOrdersOverTime": {
+      "title": "Orders Over Time",
+      "orders": "Number of Orders",
+      "revenue": "Revenue"
+    }
+  }
+}
