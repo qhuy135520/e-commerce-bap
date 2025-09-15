@@ -66,7 +66,6 @@ const InfoRow = styled.div`
 
   svg {
     margin-right: 4px;
-    color: #3b82f6;
   }
 `;
 
@@ -134,13 +133,6 @@ const PaginationWrapper = styled.div`
   }
 `;
 
-const RateWrapper = styled(Rate)`
-  .ant-rate-star {
-    font-size: 12px;
-    color: #f59e0b;
-  }
-`;
-
 const VendorButton = styled(Button)`
   margin-top: auto;
   background-color: #3b82f6;
@@ -194,7 +186,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
               </span>
               {vendor.totalReviews > 0 ? (
                 <Tooltip title={`${vendor.totalReviews} reviews`}>
-                  <RateWrapper disabled allowHalf value={vendor.avgRating || 0} />
+                  <Rate disabled count={Number(vendor.avgRating)} value={Number(vendor.avgRating) || 0} />
                 </Tooltip>
               ) : (
                 <span>No ratings</span>

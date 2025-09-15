@@ -1,10 +1,11 @@
 import { useMemo } from "react";
 import { NavLink } from "react-router-dom";
-import { Button, ConfigProvider, Popover } from "antd";
+import { Button, ConfigProvider, Popover, Tooltip } from "antd";
 import { FaUser, FaShoppingCart, FaHeadphones, FaLaptop, FaTabletAlt, FaSignOutAlt, FaMoneyBill } from "react-icons/fa";
 import { MdMenu } from "react-icons/md";
 import { IoMdPhonePortrait } from "react-icons/io";
 import { SlScreenDesktop } from "react-icons/sl";
+import { IoLocation } from "react-icons/io5";
 
 import { CartPopoverContent, HeaderStyled, LanguageSwitcher } from "@/components";
 import SearchBar from "@/components/ui/Header/SearchBar";
@@ -116,35 +117,33 @@ export default function Header() {
                       </Button>
                     </Popover>
 
-                    <>
-                      <Popover
-                        placement="bottom"
-                        title=""
-                        content={
-                          <HeaderStyled.ContentPopover>
-                            <NavLink to="update-user">
-                              <FaUser /> {t("header.profile")}
-                            </NavLink>
-                            <NavLink to="order-history">
-                              <FaShoppingCart /> {t("header.order")}
-                            </NavLink>
-                            <NavLink to="deposit">
-                              <FaMoneyBill /> {t("header.deposit")}
-                              <span className="popover-badge">{formatCurrency(user?.moneyBalance)}</span>
-                            </NavLink>
-                            <hr />
-                            <NavLink onClick={() => logout()}>
-                              <FaSignOutAlt /> {t("header.logout")}
-                            </NavLink>
-                          </HeaderStyled.ContentPopover>
-                        }
-                        trigger="hover"
-                      >
-                        <Button size="large">
-                          <FaUser />
-                        </Button>
-                      </Popover>
-                    </>
+                    <Popover
+                      placement="bottom"
+                      title=""
+                      content={
+                        <HeaderStyled.ContentPopover>
+                          <NavLink to="update-user">
+                            <FaUser /> {t("header.profile")}
+                          </NavLink>
+                          <NavLink to="order-history">
+                            <FaShoppingCart /> {t("header.order")}
+                          </NavLink>
+                          <NavLink to="deposit">
+                            <FaMoneyBill /> {t("header.deposit")}
+                            <span className="popover-badge">{formatCurrency(user?.moneyBalance)}</span>
+                          </NavLink>
+                          <hr />
+                          <NavLink onClick={() => logout()}>
+                            <FaSignOutAlt /> {t("header.logout")}
+                          </NavLink>
+                        </HeaderStyled.ContentPopover>
+                      }
+                      trigger="hover"
+                    >
+                      <Button size="large">
+                        <FaUser />
+                      </Button>
+                    </Popover>
                   </>
                 ) : (
                   <Button size="large" onClick={() => navigate(`/${user.role}-dashboard`)}>
@@ -157,6 +156,14 @@ export default function Header() {
                   <FaUser />
                 </Button>
               )}
+              <NavLink to="search-map-vendor">
+                <Tooltip title="Xem vị trí cửa hàng gần đây">
+                  <HeaderStyled.LocationButton>
+                    <IoLocation />
+                    <span>Vị trí hiện tại</span>
+                  </HeaderStyled.LocationButton>
+                </Tooltip>
+              </NavLink>
               <LanguageSwitcher />
             </HeaderStyled.ButtonHeader>
           </HeaderStyled.ContainerTop>

@@ -47,7 +47,16 @@ export async function subtractVendorBalanceApi(vendorId, amount) {
 
     return data;
   } catch (error) {
-    console.error("Lỗi khi trừ balance vendor:", error.message);
+    throw error;
+  }
+}
+
+export async function getVendorInfoApi(vendorId) {
+  try {
+    const { data, error } = await supabase.from("vendor_info").select("*").eq("vendorId", vendorId).single();
+    if (error) throw error;
+    return data;
+  } catch (error) {
     throw error;
   }
 }

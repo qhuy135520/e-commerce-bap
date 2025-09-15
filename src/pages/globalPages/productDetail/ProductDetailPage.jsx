@@ -24,11 +24,14 @@ export default function ProductDetail() {
     setQuantity,
     handleIncrease,
     handleDecrease,
+    dataVendor,
     avgRating,
     error,
     handleNavigate,
   } = useProductDetail(id);
+  console.log("data", dataVendor);
   const { handleAddProductToCart, isLoading: isLoadingCart } = useCart();
+
   return (
     <Loading isLoading={isLoadingProduct} error={error}>
       <PDS.ProductPage>
@@ -50,7 +53,7 @@ export default function ProductDetail() {
             </Col>
           </Row>
         </PDS.ProductDetail>
-        <InfoVendor vendorId={productDetail.vendorId} handleNavigate={handleNavigate} />
+        <InfoVendor dataVendor={dataVendor} handleNavigate={handleNavigate} />
         <ReviewProduct reviews={productDetail.reviews} avgRating={avgRating} />
       </PDS.ProductPage>
     </Loading>

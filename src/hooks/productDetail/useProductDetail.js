@@ -5,11 +5,13 @@ import { productsSelector } from "@/stores/rootSelector";
 import { productsThunk } from "@/stores/rootThunk";
 import { useUser } from "@/hooks/authentication/useUser";
 import { useNavigate } from "react-router-dom";
+import { vendorThunk } from "@/stores/rootThunk";
 
 export function useProductDetail(id) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useUser();
+  const [dataVendor, setDataVendor] = useState({});
   const productDetail = useSelector((state) => productsSelector.selectProductById(state));
   const error = useSelector((state) => productsSelector.selectError(state));
   const status = useSelector(productsSelector.selectStatus);
@@ -39,6 +41,14 @@ export function useProductDetail(id) {
     }
   }, [id, dispatch]);
 
+  useEffect(() => {
+    async function fetchVendorInfo() {
+      const data = await dispatch(vendorThunk.getVendorInfo(productDetail?.vendorId)).unwrap();
+      setDataVendor(data);
+    }
+    fetchVendorInfo();
+  }, [productDetail?.vendorId]);
+
   function handleIncrease() {
     setQuantity(() => quantity + 1);
   }
@@ -51,6 +61,7 @@ export function useProductDetail(id) {
     productDetail,
     settings,
     quantity,
+    dataVendor,
     setQuantity,
     handleIncrease,
     handleDecrease,

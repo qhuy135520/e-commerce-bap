@@ -1,4 +1,4 @@
-import { AutoComplete, Input, Menu, Popover } from "antd";
+import { AutoComplete, Button, Input, Menu, Popover } from "antd";
 import styled from "styled-components";
 
 export const HeaderBg = styled.header`
@@ -173,5 +173,27 @@ export const StyleInputSearch = styled(Input)`
   }
   @media (max-width: 431px) {
     width: 19rem;
+  }
+`;
+
+export const LocationButton = styled(Button)`
+  padding: 0 1.6rem;
+  height: 4rem;
+  width: 15rem;
+  border: 1px solid white;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  @media (max-width: 431px) {
+    width: fit-content;
+  }
+
+  & span {
+    @media (max-width: 431px) {
+      display: none;
+    }
   }
 `;
