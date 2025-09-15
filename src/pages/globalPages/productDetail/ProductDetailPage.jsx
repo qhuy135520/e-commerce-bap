@@ -29,7 +29,6 @@ export default function ProductDetail() {
     error,
     handleNavigate,
   } = useProductDetail(id);
-  console.log("data", dataVendor);
   const { handleAddProductToCart, isLoading: isLoadingCart } = useCart();
 
   return (
