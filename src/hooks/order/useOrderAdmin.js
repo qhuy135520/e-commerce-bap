@@ -115,13 +115,14 @@ export default function useOrderAdmin(orders) {
   const topCustomers = useMemo(() => {
     const countByUser = {};
     (filteredOrders || []).forEach((o) => {
-      const uid = o.user?.id || o.userId || "unknown";
+      const uid = o.user_id || "unknown"; // dùng user_id thực tế
       const name = o.user_name || `User ${uid}`;
       if (!countByUser[uid]) {
         countByUser[uid] = { name, total: 0 };
       }
       countByUser[uid].total += 1;
     });
+
     return Object.values(countByUser)
       .sort((a, b) => b.total - a.total)
       .slice(0, 5);
