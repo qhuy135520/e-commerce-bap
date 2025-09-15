@@ -65,8 +65,8 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
         vendorName: v.vendorName,
         phone: addr.phone,
         fullAddress: addr.fullAddress,
-        lat: addr.lat,
-        lon: addr.lon,
+        lat: addr?.lat,
+        lon: addr?.lon,
         addressId: addr.addressId,
       })) || []
   );
@@ -101,19 +101,22 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
           </>
         )}
 
-        {markers.map((m) => (
-          <Marker key={`${m.vendorId}-${m.addressId}`} position={[m.lat, m.lon]} icon={vendorIcon}>
-            <Popup>
-              <div>
-                <strong>{m.vendorName}</strong>
-                <br />
-                {m.fullAddress}
-                <br />
-                📞 {m.phone || "N/A"}
-              </div>
-            </Popup>
-          </Marker>
-        ))}
+        {markers.map((m) => {
+          if (!m.lat && !m.lon)
+            return (
+              <Marker key={`${m.vendorId}-${m.addressId}`} position={[m.lat, m.lon]} icon={vendorIcon}>
+                <Popup>
+                  <div>
+                    <strong>{m.vendorName}</strong>
+                    <br />
+                    {m.fullAddress}
+                    <br />
+                    📞 {m.phone || "N/A"}
+                  </div>
+                </Popup>
+              </Marker>
+            );
+        })}
       </MapContainer>
     </MapWrapper>
   );
