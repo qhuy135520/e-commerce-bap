@@ -10,5 +10,5 @@ export { default as SocialAuth } from "@/components/ui/auth/SocialAuth";
 export { default as UpdateUserHeader } from "@/components/ui/auth/UpdateUser/UpdateUserHeader";
 
 export { default as NavlinkStyled } from "@/components/ui/auth/Navlink.styled";
-export * as RoleCardStyled from "@/components/ui/auth/roleSignUp/RoleCard.styled";
-export * as RoleSignUpStyled from "@/components/ui/auth/roleSignUp/RoleSignUp.styled";
+export * as RoleCardStyled from "@/components/ui/auth/RoleSignUp/RoleCard.styled";
+export * as RoleSignUpStyled from "@/components/ui/auth/RoleSignUp/RoleSignUp.styled";
