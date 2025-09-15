@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const DashboardContainer = styled.div`
-  padding: 1.5rem;
   min-height: 100vh;
+  background-color: var(--color-grey-200);
+  border-radius: 20px;
 `;
 
 export const PieChartContainer = styled.div`
@@ -13,8 +14,9 @@ export const PieChartContainer = styled.div`
   width: 100%;
   background-color: #ffffff;
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-grey-200);
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -40,4 +42,13 @@ export const LineChartContainer = styled.div`
 export const ChartTitle = styled.h3`
   text-align: center;
   color: blue;
+`;
+
+export const InfoProductWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  font-weight: 700;
+  align-items: center;
 `;

@@ -22,10 +22,21 @@ const productSlice = createSlice({
     status: "idle",
     error: null,
     searchTerm: "",
+    filterCategory: "all",
+    filterBrand: "all",
   },
   reducers: {
     setSearchTerm: (state, action) => {
       state.searchTerm = action.payload;
+    },
+    setFilterCategory: (state, action) => {
+      state.filterCategory = action.payload;
+    },
+    setFilterBrand: (state, action) => {
+      state.filterBrand = action.payload;
+    },
+    resetSortVendor: (state) => {
+      state.products = state.productsVendor;
     },
   },
   extraReducers: (builder) => {
@@ -121,6 +132,6 @@ const productSlice = createSlice({
   },
 });
 
-export const { sortByPrice, sortBySales, resetSort, setSearchTerm } = productSlice.actions;
+export const { setSearchTerm, setFilterCategory, setFilterBrand } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -24,7 +24,7 @@ export default function PublishedRoutes({ children }) {
             navigate("/admin-dashboard");
             break;
           case "vendor":
-            navigate("/vendor-dashboard/products");
+            navigate("/vendor-dashboard/dashboard");
             break;
           case "customer":
             navigate("/");

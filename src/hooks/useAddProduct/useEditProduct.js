@@ -27,8 +27,8 @@ export function useEditProduct(productEdit = {}) {
 
   const initialValues = {
     name: productEdit.name || "",
-    categoryId: productEdit.categoryid || "",
-    brandId: productEdit.brandid || "",
+    categoryId: productEdit.categoryId || "",
+    brandId: productEdit.brandId || "",
     price: productEdit.price || 0,
     stock: productEdit.stock || 0,
     description: productEdit.description || "",
