@@ -23,6 +23,7 @@ function AdminApprovalVendor() {
 
   const { isModalVisible, showConfirmModal, handleModalOk, handleModalCancel, getModalContent } =
     useVendorModal(handleStatusToggle);
+  console.log(vendors);
 
   return (
     <ConfigProvider>
@@ -67,10 +68,10 @@ function AdminApprovalVendor() {
             </thead>
             <tbody>
               {vendors.map((vendor, index) => (
-                <AAVS.Tr key={vendor.id}>
+                <AAVS.Tr key={vendor.vendorId}>
                   <AAVS.Td>{(currentPage - 1) * itemsPerPage + index + 1}</AAVS.Td>
-                  <AAVS.Td>{vendor.id}</AAVS.Td>
-                  <AAVS.Td>{vendor.name}</AAVS.Td>
+                  <AAVS.Td>{vendor.vendorId}</AAVS.Td>
+                  <AAVS.Td>{vendor.vendorName}</AAVS.Td>
                   <AAVS.Td>{vendor.role}</AAVS.Td>
                   <AAVS.Td>
                     <AAVS.StatusButton

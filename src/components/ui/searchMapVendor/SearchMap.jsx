@@ -77,7 +77,6 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
           attribution='&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
         />
 
-        {/* Auto recenter */}
         <RecenterMap center={center} />
 
         {position && (
