@@ -172,21 +172,21 @@ export default function AdminManagerUserTable({ users, loading }) {
             <AMUS.FormStyled id="updateUserForm">
               <label>Tên người dùng</label>
               <Input name="name" value={values.name} onChange={handleChange} placeholder="Nhập tên người dùng" />
-              <AMUSErrorMessageStyled name="name" component="div" />
+              <AMUS.ErrorMessageStyled name="name" component="div" />
 
               <label>Vai trò</label>
               <AMUS.SelectFormStyled value={values.role} onChange={(val) => setFieldValue("role", val)}>
                 <Select.Option value="admin">Admin</Select.Option>
                 <Select.Option value="customer">Customer</Select.Option>
               </AMUS.SelectFormStyled>
-              <AMUSErrorMessageStyled name="role" component="div" />
+              <AMUS.ErrorMessageStyled name="role" component="div" />
 
               <label>Trạng thái</label>
               <AMUS.SelectFormStyled value={values.status} onChange={(val) => setFieldValue("status", val)}>
                 <Select.Option value="active">Active</Select.Option>
                 <Select.Option value="inactive">Inactive</Select.Option>
               </AMUS.SelectFormStyled>
-              <AMUSErrorMessageStyled name="status" component="div" />
+              <AMUS.ErrorMessageStyled name="status" component="div" />
 
               <label>Số dư (VNĐ)</label>
               <InputNumber
@@ -195,7 +195,7 @@ export default function AdminManagerUserTable({ users, loading }) {
                 value={values.moneyBalance}
                 onChange={(val) => setFieldValue("moneyBalance", val)}
               />
-              <AMUSErrorMessageStyled name="moneyBalance" component="div" />
+              <AMUS.ErrorMessageStyled name="moneyBalance" component="div" />
             </AMUS.FormStyled>
           )}
         </Formik>
