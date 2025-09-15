@@ -37,15 +37,15 @@ export function useUpdateUser() {
   );
 
   const { mutate: updateUser, isPending: isUpdating } = useMutation({
-    mutationFn: updateCurrentUser,
-    onSuccess: ({ user }) => {
-      toast.success(t("updateUser.toast.success"));
+    mutationFn: ({ newDataUserInfo, password, silent }) =>
+      updateCurrentUser({ newDataUserInfo, password }).then((res) => ({ ...res, silent })),
+    onSuccess: ({ user, silent }) => {
+      if (!silent) toast.success(t("updateUser.toast.success"));
       queryClient.setQueryData(["user"], user);
       queryClient.invalidateQueries({ queryKey: ["user"] });
-      // navigate("/");
     },
-    onError: () => {
-      toast.error(t("updateUser.toast.error"));
+    onError: (_, { silent }) => {
+      if (!silent) toast.error(t("updateUser.toast.error"));
     },
   });
   const handleSubmit = (values) => {
