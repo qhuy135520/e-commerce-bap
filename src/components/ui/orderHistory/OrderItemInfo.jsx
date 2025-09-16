@@ -34,7 +34,7 @@ export default function OrderItemInfo({ vendorProduct, orderStatus }) {
               size="small"
               type={product.isReviewed ? "default" : "primary"}
               onClick={() => openReviewModal(product)}
-              disabled={product.isReviewed || orderStatus !== "completed"}
+              disabled={product.isReviewed || !(orderStatus === "completed" || orderStatus === "paid")}
             >
               {product.isReviewed ? t("order.review.reviewed") : t("order.review.review")}
             </Button>

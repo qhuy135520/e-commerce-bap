@@ -19,7 +19,6 @@ export default function AdminStatisticsOrderPage() {
   const ordersFromStore = useSelector(ordersSelector.selectAllOrdersAdmin);
   const orders = ordersFromStore ?? [];
   const loading = useSelector((state) => state.orders?.status === "loading");
-
   useEffect(() => {
     if (!orders || orders.length === 0) {
       dispatch(ordersThunk.fetchAllOrdersAdmin());
@@ -73,7 +72,7 @@ export default function AdminStatisticsOrderPage() {
     },
     {
       title: t("statisticOrder.date"),
-      dataIndex: "createdAt",
+      dataIndex: "created_at",
       key: "createdAt",
       width: "20%",
       render: (date) => new Date(date).toLocaleDateString("vi-VN"),
