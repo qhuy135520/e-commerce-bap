@@ -88,8 +88,19 @@ export default function AdminStatisticsOrderPage() {
           Table: {
             headerBg: "var(--color-grey-200)",
             headerColor: "var(--color-grey-800)",
+            headerSplitColor: "var(--color-grey-500)",
             rowHoverBg: "var(--color-grey-200)",
           },
+          Select: { optionSelectedBg: "var(--color-grey-200)", selectorBg: "var(--color-grey-100)" },
+        },
+        token: {
+          colorTextPlaceholder: "var(--color-grey-400)",
+          colorBgContainer: "var(--color-grey-100)",
+          colorText: "var(--color-grey-800)",
+          colorTextHeading: "var(--color-grey-800)",
+          colorBgElevated: "var(--color-grey-100)",
+          colorTextDisabled: "var(--color-grey-400)",
+          colorOption: "var(--color-blue-800)",
         },
       }}
     >
@@ -113,7 +124,7 @@ export default function AdminStatisticsOrderPage() {
         <ChartContainer>
           <h3>{t("statisticOrder.chartTopCustomersTitle")}</h3>
           <ResponsiveContainer>
-            <BarChart data={topCustomers} layout="vertical" margin={{ left: 50 }}>
+            <BarChart data={topCustomers} layout="vertical" margin={{ left: 50, bottom: 50 }}>
               <XAxis type="number" />
               <YAxis dataKey="name" type="category" width={150} />
               <Bar dataKey="total" fill="#1890ff" />

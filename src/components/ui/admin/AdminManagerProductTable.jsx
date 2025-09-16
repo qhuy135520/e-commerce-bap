@@ -101,7 +101,7 @@ export default function AdminManagerProductTable({ products, loading }) {
         <AMOD.SearchInput
           placeholder={t("product.searchPlaceholder")}
           allowClear
-          enterButton={t("product.approve")}
+          enterButton={t("product.search")}
           size="large"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}

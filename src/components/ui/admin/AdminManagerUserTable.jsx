@@ -51,11 +51,20 @@ export default function AdminManagerUserTable({ users, loading }) {
       dataIndex: "role",
       key: "role",
       width: "12%",
-      render: (role) => (
-        <span style={{ fontWeight: 600, color: role === "admin" ? "red" : "green" }}>
-          {role === "admin" ? t("user.roleAdmin") : t("user.roleCustomer")}
-        </span>
-      ),
+      render: (role) => {
+        let color = "green";
+        let text = t("user.roleCustomer");
+
+        if (role === "admin") {
+          color = "red";
+          text = t("user.roleAdmin");
+        } else if (role === "vendor") {
+          color = "blue";
+          text = t("user.roleVendor");
+        }
+
+        return <span style={{ fontWeight: 600, color }}>{text}</span>;
+      },
     },
     {
       title: t("user.moneyBalance"),
