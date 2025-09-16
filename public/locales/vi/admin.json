@@ -177,7 +177,10 @@
     "order": "Đơn hàng",
     "income": "Biểu đồ thu nhập",
     "revenue": "Thu nhập",
-    "commission": "Hoa hồng"
+    "commission": "Hoa hồng",
+    "monthly": "Tháng",
+    "daily": "Ngày",
+    "hourly": "Giờ"
   },
   "chartInfo": {
     "userBlocked": "Bị khóa",
@@ -187,7 +190,8 @@
     "orderShipped": "Đang vận chuyển",
     "orderPending": "Đang xử lý",
     "orderCompleted": "Hoàn thành",
-    "orderCancelled": "Hủy đơn",
+    "orderCanceled": "Hủy đơn",
+    "orderPaid": "Đã thanh toán",
     "month": "Th"
   }
 }
