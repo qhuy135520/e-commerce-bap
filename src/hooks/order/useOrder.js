@@ -91,17 +91,16 @@ export default function useOrder() {
 
   const handlePlaceOrder = async () => {
     const customerInfo = { email: user.email, name: user.name };
-
     await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
-    await updateUser({
-      newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal },
-      silent: true,
-    });
     Promise.all(
       cartSelect.map((item) => {
         dispatch(cartThunk.removeFromCart({ cartId: item.id, userId: user.id }));
       })
     );
+    await updateUser({
+      newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal },
+      silent: true,
+    });
 
     toast.success(t("order.toast.success"));
     setIsModalOpen(false);

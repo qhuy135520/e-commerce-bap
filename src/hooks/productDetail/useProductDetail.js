@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { productsSelector } from "@/stores/rootSelector";
 import { productsThunk } from "@/stores/rootThunk";
-import { useUser } from "@/hooks/authentication/useUser";
 import { useNavigate } from "react-router-dom";
 import { vendorThunk } from "@/stores/rootThunk";
 
