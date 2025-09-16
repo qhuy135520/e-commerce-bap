@@ -27,8 +27,10 @@ export const createOrder = createAsyncThunk(
   async ({ userId, cartItems, customerInfo }, { dispatch }) => {
     try {
       await Promise.all(
-        cartItems.map((item) => {
-          dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
+        cartItems.map(async (item) => {
+          await dispatch(
+            productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity })
+          ).unwrap();
           const vendorEarnings = item.productPrice * COMMISSION * item.quantity;
           incrementVendorBalance(item.vendorId, vendorEarnings);
         })
@@ -47,6 +49,7 @@ export const createOrder = createAsyncThunk(
     }
   }
 );
+
 export const fetchAllOrdersAdmin = createAsyncThunk("orders/fetchAllOrdersAdmin", async () => {
   try {
     return await fetchAllOrderApi();

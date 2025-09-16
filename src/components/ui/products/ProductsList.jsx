@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Select, Pagination, ConfigProvider, Rate } from "antd";
+import { Select, Pagination, ConfigProvider, Rate, Tooltip } from "antd";
 import { motion } from "framer-motion";
 
 import { EmptyCommon, ProductListStyled as PLS, ProductFilterSidebar } from "@/components";
@@ -119,7 +119,9 @@ const ProductsList = () => {
 
                       <div>
                         <p className="brand">{product.brandName}</p>
-                        <p className="name">{product.name}</p>
+                        <Tooltip title={product.name} placement="top">
+                          <p className="name">{product.name}</p>
+                        </Tooltip>
                         <p className="description">{product.description}</p>
                       </div>
 

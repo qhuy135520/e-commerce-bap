@@ -25,6 +25,7 @@ export default function CartTable({ onMountSubmitRef }) {
     handleUpdateCartSelect,
     t,
   } = useCart();
+  console.log(cartTableWithVendors);
 
   return (
     <Loading isLoading={isLoading} error={error}>
@@ -79,9 +80,9 @@ export default function CartTable({ onMountSubmitRef }) {
                   title: t("cart.actions"),
                   render: (record) =>
                     record.isVendorRow ? null : (
-                      <Button danger onClick={() => handleDeleteCartItem(record.key)}>
+                      <CTS.ButtonDelete danger onClick={() => handleDeleteCartItem(record.key)}>
                         {t("cart.delete")}
-                      </Button>
+                      </CTS.ButtonDelete>
                     ),
                 },
               ],
@@ -95,11 +96,12 @@ export default function CartTable({ onMountSubmitRef }) {
                     type: "checkbox",
                     selectedRowKeys,
                     onChange: setSelectedRowKeys,
-                    getCheckboxProps: (record) => ({ disabled: record.isVendorRow }),
+                    getCheckboxProps: (record) => ({ disabled: record.isVendorRow || record.isDisable }),
                   }}
                   columns={columns}
                   dataSource={cartTableWithVendors}
                   pagination={false}
+                  rowClassName={(record) => (record.isDisable || record.isVendorRow === null ? "row-disabled" : "")}
                   locale={{
                     emptyText: (
                       <EmptyCommon

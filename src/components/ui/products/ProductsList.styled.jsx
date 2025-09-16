@@ -212,6 +212,11 @@ export const ProductItem = styled.div`
         font-size: 15px;
         font-weight: 600;
         color: #222;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
       }
 
       .description {

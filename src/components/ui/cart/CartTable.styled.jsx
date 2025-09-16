@@ -42,6 +42,10 @@ export const CartWrapper = styled.div`
     font-size: 15px;
     color: var(--color-blue-700);
   }
+
+  .row-disabled {
+    opacity: 0.3;
+  }
 `;
 
 export const CardCartTable = styled(Card)`
@@ -206,4 +210,8 @@ export const ButtonCart = styled(Button)`
     box-shadow: none;
     transform: none;
   }
+`;
+
+export const ButtonDelete = styled(Button)`
+  opacity: 1 !important;
 `;
