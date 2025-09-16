@@ -23,27 +23,27 @@ export default function Header() {
   const items = useMemo(
     () => [
       {
-        label: <NavLink to="/phone">{t("header.phone")}</NavLink>,
+        label: t("header.phone"),
         key: "phone",
         icon: <IoMdPhonePortrait />,
       },
       {
-        label: <NavLink to="/laptop">{t("header.laptop")}</NavLink>,
+        label: t("header.laptop"),
         key: "laptop",
         icon: <FaLaptop />,
       },
       {
-        label: <NavLink to="/tablet">{t("header.tablet")}</NavLink>,
+        label: t("header.tablet"),
         key: "tablet",
         icon: <FaTabletAlt />,
       },
       {
-        label: <NavLink to="/accessory">{t("header.accessory")}</NavLink>,
+        label: t("header.accessory"),
         key: "accessory",
         icon: <FaHeadphones />,
       },
       {
-        label: <NavLink to="/screen">{t("header.screen")}</NavLink>,
+        label: t("header.screen"),
         key: "screen",
         icon: <SlScreenDesktop />,
       },

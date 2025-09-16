@@ -26,6 +26,7 @@ export default function useCart() {
   const isLoading = status === "idle" || status === "loading";
 
   // table data
+
   const cartTableData = cart.map((item) => ({
     key: item.id,
     product: item.productName,
@@ -36,6 +37,7 @@ export default function useCart() {
     totalPrice: item.productPrice * item.quantity,
     vendorId: item.vendorId,
     vendorName: item.vendorName,
+    isDisable: item.productStock === 0,
   }));
 
   const cartTableWithVendors = useMemo(() => {

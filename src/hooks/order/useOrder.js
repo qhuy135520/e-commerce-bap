@@ -91,20 +91,26 @@ export default function useOrder() {
 
   const handlePlaceOrder = async () => {
     const customerInfo = { email: user.email, name: user.name };
-    await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
-    Promise.all(
-      cartSelect.map((item) => {
-        dispatch(cartThunk.removeFromCart({ cartId: item.id, userId: user.id }));
-      })
-    );
-    await updateUser({
-      newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal },
-      silent: true,
-    });
 
-    toast.success(t("order.toast.success"));
-    setIsModalOpen(false);
-    navigate("/order-history");
+    try {
+      await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
+
+      await Promise.all(
+        cartSelect.map((item) => dispatch(cartThunk.removeFromCart({ cartId: item.id, userId: user.id })))
+      );
+
+      await updateUser({
+        newDataUserInfo: { moneyBalance: user.moneyBalance - grandTotal },
+        silent: true,
+      });
+
+      toast.success(t("order.toast.success"));
+      setIsModalOpen(false);
+      navigate("/order-history");
+    } catch (error) {
+      toast.error(error.message || t("order.toast.fail"));
+      navigate("/cart");
+    }
   };
 
   const handleSetEditting = (editValue) => {
