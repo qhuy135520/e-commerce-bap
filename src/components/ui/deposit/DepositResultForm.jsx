@@ -49,7 +49,9 @@ const DepositResultPage = () => {
             <DRFS.StyledText>{txnRef || "N/A"}</DRFS.StyledText>
             <br />
             <Text strong>Số tiền: </Text>
-            <DRFS.StyledText>{amount ? parseInt(amount).toLocaleString("vi-VN") + " VND" : "N/A"}</DRFS.StyledText>
+            <DRFS.StyledText>
+              {amount ? parseInt(amount / 100).toLocaleString("vi-VN") + " VND" : "N/A"}
+            </DRFS.StyledText>
             <br />
             <Text strong>Trạng thái: </Text>
             <DRFS.StyledText $status={transactionStatus}>{isSuccess ? "Thành công ✅" : "Thất bại ❌"}</DRFS.StyledText>

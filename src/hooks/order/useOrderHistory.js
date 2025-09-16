@@ -2,11 +2,11 @@ import { useEffect, useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { isWithinInterval, subDays, startOfDay, endOfDay } from "date-fns";
-import { useTranslation } from "react-i18next";
 
 import { ordersSelector } from "@/stores/rootSelector";
 import { cartThunk, ordersThunk } from "@/stores/rootThunk";
 import { useUser } from "@/hooks/authentication/useUser";
+import useCart from "@/hooks/cart/useCart";
 
 const STEP = 5;
 
@@ -14,6 +14,8 @@ export default function useOrderHistory() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useUser();
+
+  const { handleAddProductToCart } = useCart();
 
   const orders = useSelector(ordersSelector.selectOrders);
   const status = useSelector(ordersSelector.selectOrderStatus);
@@ -79,17 +81,7 @@ export default function useOrderHistory() {
   async function handleClickBuyAgain(order) {
     const products = order.productsbyvendor.flatMap((item) => item.products);
 
-    await Promise.all(
-      products.map((product) =>
-        dispatch(
-          cartThunk.addToCart({
-            userId: user.id,
-            productId: product.productId,
-            quantity: product.quantity,
-          })
-        )
-      )
-    );
+    await Promise.all(products.map((product) => handleAddProductToCart(product.productId, product.quantity)));
 
     navigate("/cart");
   }

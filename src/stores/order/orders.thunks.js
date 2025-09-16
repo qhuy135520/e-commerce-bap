@@ -26,16 +26,15 @@ export const createOrder = createAsyncThunk(
   "orders/createOrder",
   async ({ userId, cartItems, customerInfo }, { dispatch }) => {
     try {
-      const data = await createOrderApi(cartItems, userId);
-
       await Promise.all(
         cartItems.map((item) => {
+          dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
           const vendorEarnings = item.productPrice * COMMISSION * item.quantity;
           incrementVendorBalance(item.vendorId, vendorEarnings);
-          debugger;
-          dispatch(productsThunk.updateStockProduct({ productId: item.productId, quantity: item.quantity }));
         })
       );
+
+      const data = await createOrderApi(cartItems, userId);
 
       await sendEmail(
         convertOrderToEmailPayload({ ...data, customerInfo }),
