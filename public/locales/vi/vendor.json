@@ -114,5 +114,11 @@
       "orders": "Số đơn hàng",
       "revenue": "Doanh thu"
     }
+  },
+  "modalStatus": {
+    "confirmChange": "Bạn có muốn thay đổi trạng thái đơn hàng",
+    "toStatus": "thành",
+    "cancelOrder": "Hủy đơn",
+    "prepared": "Đã chuẩn bị xong"
   }
 }

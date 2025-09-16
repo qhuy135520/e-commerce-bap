@@ -9,8 +9,8 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng: "en",
-    supportedLngs: ["en", "vi"],
-    ns: ["common", "auth", "product", "order", "cart", "address", "searchmap", "vendor"],
+    supportedLngs: ["en", "vi", "ja"],
+    ns: ["common", "auth", "product", "order", "cart", "address", "searchmap", "vendor", "admin"],
     defaultNS: "common",
     backend: {
       loadPath: "/locales/{{lng}}/{{ns}}.json",

@@ -1,14 +1,16 @@
 import { Input, Pagination, Select, Modal, ConfigProvider } from "antd";
-
-import { AdminApprovalVendorStyled as AAVS } from "@/components";
+import { useTranslation } from "react-i18next";
 
 import { useVendorAdmin } from "@/hooks/vendor/useVendorAdmin";
 import useVendorModal from "@/hooks/vendor/useVendorModal";
+
+import { AdminApprovalVendorStyled as AAVS } from "@/components";
 
 const { Search } = Input;
 const { Option } = Select;
 
 function AdminApprovalVendor() {
+  const { t } = useTranslation(["admin"]);
   const {
     vendors,
     totalItems,
@@ -29,14 +31,18 @@ function AdminApprovalVendor() {
   return (
     <ConfigProvider>
       <AAVS.Container>
-        <AAVS.Title>Phê duyệt nhà cung cấp</AAVS.Title>
+        <AAVS.Title>{t("approvalVendor.title")}</AAVS.Title>
+
         <AAVS.HeaderContainer>
           <AAVS.Summaries>
-            <AAVS.Summary>Tổng số nhà cung cấp: {totalItems}</AAVS.Summary>
+            <AAVS.Summary>
+              {t("approvalVendor.totalVendors")}: {totalItems}
+            </AAVS.Summary>
           </AAVS.Summaries>
+
           <AAVS.SearchWrapper>
             <Search
-              placeholder="Tìm theo tên"
+              placeholder={t("approvalVendor.searchPlaceholder")}
               onSearch={handleSearch}
               onChange={(e) => handleSearch(e.target.value)}
               value={searchTerm}
@@ -49,9 +55,9 @@ function AdminApprovalVendor() {
               style={{ width: 120, marginLeft: 10 }}
               disabled={status === "loading"}
             >
-              <Option value="all">Tất cả</Option>
-              <Option value="inactive">Chưa duyệt</Option>
-              <Option value="active">Đã duyệt</Option>
+              <Option value="all">{t("approvalVendor.all")}</Option>
+              <Option value="inactive">{t("approvalVendor.inactive")}</Option>
+              <Option value="active">{t("approvalVendor.active")}</Option>
             </Select>
           </AAVS.SearchWrapper>
         </AAVS.HeaderContainer>
@@ -60,11 +66,11 @@ function AdminApprovalVendor() {
           <AAVS.Table>
             <thead>
               <AAVS.Tr>
-                <AAVS.Th>#</AAVS.Th>
-                <AAVS.Th>ID</AAVS.Th>
-                <AAVS.Th>Họ Tên</AAVS.Th>
-                <AAVS.Th>Vai Trò</AAVS.Th>
-                <AAVS.Th>Trạng Thái</AAVS.Th>
+                <AAVS.Th>{t("approvalVendor.table.index")}</AAVS.Th>
+                <AAVS.Th>{t("approvalVendor.table.id")}</AAVS.Th>
+                <AAVS.Th>{t("approvalVendor.table.name")}</AAVS.Th>
+                <AAVS.Th>{t("approvalVendor.table.role")}</AAVS.Th>
+                <AAVS.Th>{t("approvalVendor.table.status")}</AAVS.Th>
               </AAVS.Tr>
             </thead>
             <tbody>
@@ -80,7 +86,9 @@ function AdminApprovalVendor() {
                       onClick={() => showConfirmModal(vendor)}
                       disabled={status === "loading"}
                     >
-                      {vendor.status === "active" ? "Đã duyệt" : "Chưa duyệt"}
+                      {vendor.status === "active"
+                        ? t("approvalVendor.statusButton.active")
+                        : t("approvalVendor.statusButton.inactive")}
                     </AAVS.StatusButton>
                   </AAVS.Td>
                 </AAVS.Tr>
@@ -88,6 +96,7 @@ function AdminApprovalVendor() {
             </tbody>
           </AAVS.Table>
         </AAVS.TableContainer>
+
         <Pagination
           align="center"
           current={currentPage}
@@ -99,12 +108,12 @@ function AdminApprovalVendor() {
         />
 
         <Modal
-          title="Xác nhận thay đổi trạng thái"
+          title={t("approvalVendor.modal.title")}
           open={isModalVisible}
           onOk={handleModalOk}
           onCancel={handleModalCancel}
-          okText="Xác nhận"
-          cancelText="Hủy"
+          okText={t("approvalVendor.modal.okText")}
+          cancelText={t("approvalVendor.modal.cancelText")}
         >
           <div dangerouslySetInnerHTML={getModalContent()} />
         </Modal>

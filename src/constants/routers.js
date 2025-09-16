@@ -1,8 +1,4 @@
 export const AUTH_ROUTER_PATH = {
-  LOGIN: { KEY: "LOGIN", PATH: "/login" },
-  ROLE_SIGN_UP: { KEY: "ROLE_SIGN_UP", PATH: "/role-signup" },
-  SIGN_UP: { KEY: "SIGN_UP", PATH: "/signup" },
-  FORGOT_PASSWORD: { KEY: "FORGOT_PASSWORD", PATH: "/forgot-password" },
   UPDATE_PASSWORD: { KEY: "UPDATE_PASSWORD", PATH: "/update-password" },
   UPDATE_USER: { KEY: "UPDATE_USER", PATH: "/update-user" },
   DEPOSIT: { KEY: "DEPOSIT", PATH: "/deposit" },
@@ -10,6 +6,15 @@ export const AUTH_ROUTER_PATH = {
 };
 
 export const PUBLIC_ROUTER_PATH = {
+  LOGIN: { KEY: "LOGIN", PATH: "/login" },
+  ROLE_SIGN_UP: { KEY: "ROLE_SIGN_UP", PATH: "/role-signup" },
+  SIGN_UP: { KEY: "SIGN_UP", PATH: "/signup" },
+  FORGOT_PASSWORD: { KEY: "FORGOT_PASSWORD", PATH: "/forgot-password" },
+};
+
+export const GLOBAL_ROUTER_PATH = {
+  NOT_FOUND: { KEY: "NOT_FOUND", PATH: "*" },
+  SEARCH_MAP_VENDOR: { KEY: "SEARCH_MAP_VENDOR", PATH: "/search-map-vendor" },
   HOME_PAGE: { KEY: "HOME_PAGE", PATH: "/" },
   ABOUT: { KEY: "ABOUT", PATH: "/about" },
   PRODUCT_DETAIL: { KEY: "PRODUCT_DETAIL", PATH: "/product/:id" },
@@ -18,11 +23,6 @@ export const PUBLIC_ROUTER_PATH = {
     KEY: "PRODUCT_VENDOR_PAGE",
     PATH: "/vendor/:vendorId",
   },
-};
-
-export const GLOBAL_ROUTER_PATH = {
-  NOT_FOUND: { KEY: "NOT_FOUND", PATH: "*" },
-  SEARCH_MAP_VENDOR: { KEY: "SEARCH_MAP_VENDOR", PATH: "/search-map-vendor" },
 };
 
 export const PRIVATE_ROUTER_PATH = {
@@ -40,7 +40,6 @@ export const PRIVATE_ROUTER_PATH = {
   ADMIN_MANAGER_ORDER: { KEY: "ADMIN_MANAGER_ORDER", PATH: "/admin-dashboard/orders" },
   ADMIN_STATISTICS_PRODUCT: { KEY: "ADMIN_STATISTICS_PRODUCT", PATH: "/admin-dashboard/statistics-product" },
   ADMIN_STATISTICS_ORDER: { KEY: "ADMIN_STATISTICS_ORDER", PATH: "/admin-dashboard/statistics-order" },
-
   ADMIN_PAYMENT_HISTORY: { KEY: "ADMIN_PAYMENT_HISTORY", PATH: "/admin-dashboard/payment-history" },
   ADMIN_APPROVAL_VENDOR: { KEY: "ADMIN_APPROVAL_VENDOR", PATH: "/admin-dashboard/approval-vendor" },
 };

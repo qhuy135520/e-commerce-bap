@@ -1,74 +1,17 @@
 import React from "react";
 import { Formik } from "formik";
+import { useTranslation } from "react-i18next";
 import { Button, ConfigProvider, Space, Table, Tooltip, Modal, Input, Select, InputNumber } from "antd";
-
-import { AdminManagerUserStyled as AMUS } from "@/components";
 
 import { useUser } from "@/hooks/authentication/useUser";
 
+import { AdminManagerUserStyled as AMUS } from "@/components";
+
 import { formatNumberCurrency } from "@/utils/helpers";
 
-const columns = (handleDeleteConfirm, handleUpdateConfirm) => [
-  { title: "ID", dataIndex: "id", key: "id", width: "12%", render: (text) => <span>{text?.substring(0, 6)}</span> },
-  {
-    title: "Tên người dùng",
-    dataIndex: "name",
-    key: "name",
-    width: "20%",
-    render: (text) => <b>{text || "Chưa có tên"}</b>,
-  },
-  {
-    title: "Vai trò",
-    dataIndex: "role",
-    key: "role",
-    width: "12%",
-    render: (role) => <span style={{ fontWeight: 600, color: role === "admin" ? "red" : "green" }}>{role}</span>,
-  },
-  {
-    title: "Số dư (VNĐ)",
-    dataIndex: "moneyBalance",
-    key: "moneyBalance",
-    width: "15%",
-    render: (balance) => (
-      <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(balance || 0))}</span>
-    ),
-  },
-  {
-    title: "Trạng thái",
-    dataIndex: "status",
-    key: "status",
-    width: "12%",
-    render: (status) => (
-      <Tooltip title={status === "active" ? "Hoạt động" : "Đã khóa"}>
-        <span>{status === "active" ? "✅ Active" : "❌ Inactive"}</span>
-      </Tooltip>
-    ),
-  },
-  {
-    title: "Ngày tạo",
-    dataIndex: "createdAt",
-    key: "createdAt",
-    width: "15%",
-    render: (date) => (date ? new Date(date).toLocaleDateString("vi-VN") : "—"),
-  },
-  {
-    title: "Hành động",
-    key: "action",
-    width: "14%",
-    render: (_, record) => (
-      <Space size="middle">
-        <Button type="primary" onClick={() => handleUpdateConfirm(record)}>
-          Cập nhật
-        </Button>
-        <Button danger onClick={() => handleDeleteConfirm(record)}>
-          Xóa
-        </Button>
-      </Space>
-    ),
-  },
-];
-
 export default function AdminManagerUserTable({ users, loading }) {
+  const { t } = useTranslation(["admin"]);
+
   const {
     searchInput,
     setSearchInput,
@@ -87,6 +30,76 @@ export default function AdminManagerUserTable({ users, loading }) {
     validateUser,
     handleSubmitUpdate,
   } = useUser(users);
+
+  const columns = [
+    {
+      title: t("user.id"),
+      dataIndex: "id",
+      key: "id",
+      width: "12%",
+      render: (text) => <span>{text?.substring(0, 6)}</span>,
+    },
+    {
+      title: t("user.name"),
+      dataIndex: "name",
+      key: "name",
+      width: "20%",
+      render: (text) => <b>{text || t("user.form.namePlaceholder")}</b>,
+    },
+    {
+      title: t("user.role"),
+      dataIndex: "role",
+      key: "role",
+      width: "12%",
+      render: (role) => (
+        <span style={{ fontWeight: 600, color: role === "admin" ? "red" : "green" }}>
+          {role === "admin" ? t("user.roleAdmin") : t("user.roleCustomer")}
+        </span>
+      ),
+    },
+    {
+      title: t("user.moneyBalance"),
+      dataIndex: "moneyBalance",
+      key: "moneyBalance",
+      width: "15%",
+      render: (balance) => (
+        <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(balance || 0))}</span>
+      ),
+    },
+    {
+      title: t("user.status"),
+      dataIndex: "status",
+      key: "status",
+      width: "12%",
+      render: (status) => (
+        <Tooltip title={status === "active" ? t("user.statusActive") : t("user.statusInactive")}>
+          <span>{status === "active" ? "✅ " + t("user.statusActive") : "❌ " + t("user.statusInactive")}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: t("user.createdAt"),
+      dataIndex: "createdAt",
+      key: "createdAt",
+      width: "15%",
+      render: (date) => (date ? new Date(date).toLocaleDateString() : "—"),
+    },
+    {
+      title: t("user.actions"),
+      key: "action",
+      width: "14%",
+      render: (_, record) => (
+        <Space size="middle">
+          <Button type="primary" onClick={() => handleUpdateConfirm(record)}>
+            {t("user.update")}
+          </Button>
+          <Button danger onClick={() => handleDeleteConfirm(record)}>
+            {t("user.delete")}
+          </Button>
+        </Space>
+      ),
+    },
+  ];
 
   return (
     <ConfigProvider
@@ -117,9 +130,9 @@ export default function AdminManagerUserTable({ users, loading }) {
       {/* Search */}
       <AMUS.ButtonPosition>
         <AMUS.SearchInput
-          placeholder="Tìm kiếm theo tên hoặc email..."
+          placeholder={t("user.searchPlaceholder")}
           allowClear
-          enterButton="Tìm kiếm"
+          enterButton={t("user.search")}
           size="large"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
@@ -127,31 +140,35 @@ export default function AdminManagerUserTable({ users, loading }) {
         />
       </AMUS.ButtonPosition>
 
+      {/* Table */}
       <Table
         rowKey="id"
-        columns={columns(handleDeleteConfirm, handleUpdateConfirm)}
+        columns={columns}
         dataSource={filteredUsers}
         loading={loading}
         pagination={{ pageSize: 10, showSizeChanger: false, position: ["bottomCenter"] }}
       />
 
-      {/* Modal xác nhận xóa */}
+      {/* Modal Delete */}
       <Modal
-        title="Xác nhận xóa"
+        title={t("user.deleteConfirmTitle")}
         open={isDeleteModal}
         onOk={handleDelete}
         onCancel={() => setIsDeleteModal(false)}
-        okText="Xóa"
-        cancelText="Hủy"
+        okText={t("user.deleteOk")}
+        cancelText={t("user.deleteCancel")}
         okButtonProps={{ danger: true }}
       >
-        <p>
-          Bạn có chắc chắn muốn xóa user <b>{selectedUser?.name || selectedUser?.id}</b> không?
-        </p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t("user.deleteConfirmText", { name: selectedUser?.name || selectedUser?.id }),
+          }}
+        />
       </Modal>
 
+      {/* Modal Update */}
       <Modal
-        title="Cập nhật User"
+        title={t("user.updateModalTitle")}
         open={isUpdateModal}
         onOk={() =>
           document
@@ -159,8 +176,8 @@ export default function AdminManagerUserTable({ users, loading }) {
             .dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
         }
         onCancel={() => setIsUpdateModal(false)}
-        okText="Lưu"
-        cancelText="Hủy"
+        okText={t("user.updateOk")}
+        cancelText={t("user.updateCancel")}
       >
         <Formik
           enableReinitialize
@@ -170,25 +187,30 @@ export default function AdminManagerUserTable({ users, loading }) {
         >
           {({ values, handleChange, setFieldValue }) => (
             <AMUS.FormStyled id="updateUserForm">
-              <label>Tên người dùng</label>
-              <Input name="name" value={values.name} onChange={handleChange} placeholder="Nhập tên người dùng" />
+              <label>{t("user.form.namePlaceholder")}</label>
+              <Input
+                name="name"
+                value={values.name}
+                onChange={handleChange}
+                placeholder={t("user.form.namePlaceholder")}
+              />
               <AMUS.ErrorMessageStyled name="name" component="div" />
 
-              <label>Vai trò</label>
+              <label>{t("user.form.roleLabel")}</label>
               <AMUS.SelectFormStyled value={values.role} onChange={(val) => setFieldValue("role", val)}>
-                <Select.Option value="admin">Admin</Select.Option>
-                <Select.Option value="customer">Customer</Select.Option>
+                <Select.Option value="admin">{t("user.roleAdmin")}</Select.Option>
+                <Select.Option value="customer">{t("user.roleCustomer")}</Select.Option>
               </AMUS.SelectFormStyled>
               <AMUS.ErrorMessageStyled name="role" component="div" />
 
-              <label>Trạng thái</label>
+              <label>{t("user.form.statusLabel")}</label>
               <AMUS.SelectFormStyled value={values.status} onChange={(val) => setFieldValue("status", val)}>
-                <Select.Option value="active">Active</Select.Option>
-                <Select.Option value="inactive">Inactive</Select.Option>
+                <Select.Option value="active">{t("user.statusActive")}</Select.Option>
+                <Select.Option value="inactive">{t("user.statusInactive")}</Select.Option>
               </AMUS.SelectFormStyled>
               <AMUS.ErrorMessageStyled name="status" component="div" />
 
-              <label>Số dư (VNĐ)</label>
+              <label>{t("user.form.moneyBalanceLabel")}</label>
               <InputNumber
                 min={0}
                 style={{ width: "100%" }}

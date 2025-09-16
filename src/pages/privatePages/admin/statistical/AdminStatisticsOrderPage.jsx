@@ -1,17 +1,20 @@
-// AdminStatisticsOrderPage.jsx
 import React, { useEffect } from "react";
 import { Table, ConfigProvider } from "antd";
 import { PieChart, Pie, Cell, Tooltip as ReTooltip, ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from "recharts";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 import { ordersSelector } from "@/stores/rootSelector";
-import { formatNumberCurrency } from "@/utils/helpers";
-import { fetchAllOrdersAdmin } from "@/stores/order/orders.thunks";
+import { ordersThunk } from "@/stores/rootThunk";
+
 import useOrderAdmin from "@/hooks/order/useOrderAdmin";
+
+import { formatNumberCurrency } from "@/utils/helpers";
 
 import { ChartsWrapper, ChartContainer } from "@/pages/privatePages/admin/statistical/AdminStatistical.styled";
 
 export default function AdminStatisticsOrderPage() {
+  const { t } = useTranslation(["admin"]);
   const dispatch = useDispatch();
   const ordersFromStore = useSelector(ordersSelector.selectAllOrdersAdmin);
   const orders = ordersFromStore ?? [];
@@ -19,7 +22,7 @@ export default function AdminStatisticsOrderPage() {
 
   useEffect(() => {
     if (!orders || orders.length === 0) {
-      dispatch(fetchAllOrdersAdmin());
+      dispatch(ordersThunk.fetchAllOrdersAdmin());
     }
   }, [orders, dispatch]);
 
@@ -27,28 +30,28 @@ export default function AdminStatisticsOrderPage() {
 
   const columns = [
     {
-      title: "Mã đơn",
+      title: t("statisticOrder.orderId"),
       dataIndex: "order_id",
       key: "order_id",
       width: "15%",
       render: (id) => <span>{id?.substring(0, 8)}</span>,
     },
     {
-      title: "Khách hàng",
+      title: t("statisticOrder.customer"),
       dataIndex: "user_name",
       key: "user_name",
       width: "25%",
-      render: (text, record) => text || record.userId || "N/A",
+      render: (text, record) => text || record.userId || t("statisticOrder.noData"),
     },
     {
-      title: "Tổng tiền",
+      title: t("statisticOrder.totalAmount"),
       dataIndex: "total_amount",
       key: "total_amount",
       width: "20%",
       render: (val) => <span style={{ fontWeight: 600, color: "blue" }}>{formatNumberCurrency(Number(val || 0))}</span>,
     },
     {
-      title: "Trạng thái",
+      title: t("statisticOrder.status"),
       dataIndex: "status",
       key: "status",
       width: "20%",
@@ -61,11 +64,15 @@ export default function AdminStatisticsOrderPage() {
             : status === "canceled" || status === "cancelled"
             ? "red"
             : "gray";
-        return <span style={{ fontWeight: 600, color }}>{status}</span>;
+        return (
+          <span style={{ fontWeight: 600, color }}>
+            {t(`statisticOrder.status${status.charAt(0).toUpperCase() + status.slice(1)}`)}
+          </span>
+        );
       },
     },
     {
-      title: "Ngày đặt",
+      title: t("statisticOrder.date"),
       dataIndex: "createdAt",
       key: "createdAt",
       width: "20%",
@@ -90,7 +97,7 @@ export default function AdminStatisticsOrderPage() {
       <ChartsWrapper>
         {/* Pie Chart: trạng thái đơn hàng */}
         <ChartContainer>
-          <h3>Trạng thái đơn hàng</h3>
+          <h3>{t("statisticOrder.chartStatusTitle")}</h3>
           <ResponsiveContainer>
             <PieChart>
               <Pie data={statusData} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
@@ -105,7 +112,7 @@ export default function AdminStatisticsOrderPage() {
 
         {/* Bar Chart: top khách hàng */}
         <ChartContainer>
-          <h3>Top 5 khách hàng nhiều đơn</h3>
+          <h3>{t("statisticOrder.chartTopCustomersTitle")}</h3>
           <ResponsiveContainer>
             <BarChart data={topCustomers} layout="vertical" margin={{ left: 50 }}>
               <XAxis type="number" />

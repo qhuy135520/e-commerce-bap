@@ -1,0 +1,117 @@
+{
+  "mainNav": {
+    "balance": "未払い残高: {{moneyBalance}}",
+    "dashboard": "ダッシュボード",
+    "manageProducts": "商品管理",
+    "manageOrders": "注文管理",
+    "settings": "設定",
+    "updateInfo": "情報を更新",
+    "home": "ホームへ",
+    "logout": "ログアウト"
+  },
+  "productTable": {
+    "updateInfo": "情報を更新",
+    "managerProduct": "商品管理",
+    "managerOrder": "注文管理",
+    "searchPlaceholder": "商品を検索...",
+    "filterCategory": "-- すべてのカテゴリー --",
+    "filterBrand": "-- すべてのブランド --",
+    "tableColumns": {
+      "id": "ID",
+      "name": "商品名",
+      "images": "画像",
+      "category": "カテゴリー",
+      "brand": "ブランド",
+      "price": "価格",
+      "stock": "在庫",
+      "status": "ステータス",
+      "description": "説明",
+      "param": "仕様",
+      "actions": "操作"
+    },
+    "buttons": {
+      "add": "商品を追加",
+      "update": "更新"
+    },
+    "modal": {
+      "add": "新商品を追加",
+      "update": "商品を更新"
+    },
+    "operation": {
+      "searchPlaceholder": "商品を検索...",
+      "filterCategoryAll": "-- すべてのカテゴリー --",
+      "filterBrandAll": "-- すべてのブランド --"
+    },
+    "form": {
+      "name": "商品名",
+      "namePlaceholder": "商品名を入力...",
+      "category": "カテゴリー",
+      "categoryPlaceholder": "カテゴリーを選択",
+      "brand": "ブランド",
+      "brandPlaceholder": "ブランドを選択",
+      "price": "価格",
+      "pricePlaceholder": "価格を入力...",
+      "stock": "在庫",
+      "stockPlaceholder": "在庫数を入力...",
+      "description": "説明",
+      "descriptionPlaceholder": "説明を入力...",
+      "param": "仕様",
+      "paramPlaceholder": "仕様を入力...",
+      "images": "商品画像を追加",
+      "choosePrimary": "メイン画像を選択",
+      "upload": "+ アップロード",
+      "submit": "承認依頼を提出"
+    },
+    "noData": "商品が見つかりません"
+  },
+  "orderTable": {
+    "columns": {
+      "orderId": "注文ID",
+      "customerName": "顧客名",
+      "status": "ステータス",
+      "total": "合計金額",
+      "received": "受取金額"
+    },
+    "status": {
+      "all": "すべて",
+      "pending": "保留中",
+      "shipped": "発送済み",
+      "completed": "完了",
+      "paid": "支払い済み",
+      "canceled": "キャンセル済み"
+    },
+    "modal": {
+      "title": "ステータス変更の確認"
+    },
+    "tags": {
+      "paid": "支払い済み",
+      "unpaid": "未払い"
+    }
+  },
+  "chart": {
+    "totalProducts": "商品総数",
+    "outOfStock": "在庫切れ商品",
+    "pieOrder": {
+      "title": "注文",
+      "pending": "保留中",
+      "shipped": "発送済み",
+      "completed": "完了",
+      "canceled": "キャンセル済み",
+      "paid": "支払い済み"
+    },
+    "piePayment": {
+      "title": "収益",
+      "unpaid": "未払い",
+      "paid": "支払い済み"
+    },
+    "barTopProducts": {
+      "title": "売上トップ5商品",
+      "value": "数量"
+    },
+    "lineOrdersOverTime": {
+      "title": "注文の推移",
+      "orders": "注文数",
+      "revenue": "収益"
+    }
+  }
+}

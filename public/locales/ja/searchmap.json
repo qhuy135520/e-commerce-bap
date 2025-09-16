@@ -1,0 +1,40 @@
+{
+  "filter": {
+    "title": "販売者フィルター",
+    "name": "名前",
+    "namePlaceholder": "販売者名で検索",
+    "radius": "半径 (km)",
+    "hasAddress": "住所あり",
+    "minProducts": "最低商品数",
+    "minSales": "最低販売数",
+    "minRating": "最低評価",
+    "apply": "適用",
+    "reset": "リセット"
+  },
+  "map": {
+    "yourLocation": "あなたの位置",
+    "vendorLocation": "販売者の位置",
+    "noVendors": "この地域には販売者が見つかりません",
+    "distance": "{{distance}} km 離れています"
+  },
+  "vendor": {
+    "products": "商品",
+    "reviews": "レビュー",
+    "noRatings": "評価なし",
+    "contact": "連絡先",
+    "address": "住所",
+    "viewDetail": "詳細を見る"
+  },
+  "productList": {
+    "products": "商品",
+    "reviews": "レビュー",
+    "reviewCount": "{{count}} 件のレビュー",
+    "noRatings": "評価なし",
+    "totalSales": "総販売数",
+    "addresses": "住所一覧 ({{count}})",
+    "address": "住所",
+    "phone": "電話番号",
+    "noAddresses": "住所はありません",
+    "viewVendor": "販売者を見る"
+  }
+}

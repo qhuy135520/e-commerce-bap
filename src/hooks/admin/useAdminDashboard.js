@@ -1,38 +1,37 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers } from "@/stores/user/users.thunks";
-import { usersSelector } from "@/stores/user/users.selector";
-import { getAllProducts } from "@/stores/products/products.thunks";
-import { selectAllProducts } from "@/stores/products/products.selectors";
-import { fetchAllOrdersAdmin } from "@/stores/order/orders.thunks";
-import { selectAllOrdersAdmin } from "@/stores/order/orders.selector";
+import { useTranslation } from "react-i18next";
+
+import { ordersThunk, productsThunk, userThunk } from "@/stores/rootThunk";
+import { ordersSelector, productsSelector, userSelector } from "@/stores/rootSelector";
 
 export const useAdminDashboard = () => {
+  const { t } = useTranslation(["admin"]);
   const dispatch = useDispatch();
-  const users = useSelector(usersSelector);
-  const products = useSelector(selectAllProducts);
-  const orders = useSelector(selectAllOrdersAdmin);
+  const users = useSelector(userSelector.usersSelector);
+  const products = useSelector(productsSelector.selectAllProducts);
+  const orders = useSelector(ordersSelector.selectAllOrdersAdmin);
 
   const [pieUser, setPieUser] = useState([
-    { name: "Bị khóa", value: 0 },
-    { name: "Đang hoạt động", value: 0 },
+    { name: t("chartInfo.userBlocked"), value: 0 },
+    { name: t("chartInfo.userActive"), value: 0 },
   ]);
   const [pieProduct, setPieProduct] = useState([
-    { name: "Chờ duyệt", value: 0 },
-    { name: "Đã duyệt", value: 0 },
+    { name: t("chartInfo.productPending"), value: 0 },
+    { name: t("chartInfo.productApproved"), value: 0 },
   ]);
   const [pieOrder, setPieOrder] = useState([
-    { name: "Đang vận chuyển", value: 0 },
-    { name: "Đang xử lý", value: 0 },
-    { name: "Hoàn thành", value: 0 },
-    { name: "Hủy đơn", value: 0 },
+    { name: t("chartInfo.orderShipped"), value: 0 },
+    { name: t("chartInfo.orderPending"), value: 0 },
+    { name: t("chartInfo.orderCompleted"), value: 0 },
+    { name: t("chartInfo.orderCancelled"), value: 0 },
   ]);
   const [lineData, setLineData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-    dispatch(getAllProducts());
-    dispatch(fetchAllOrdersAdmin());
+    dispatch(userThunk.fetchUsers());
+    dispatch(productsThunk.getAllProducts());
+    dispatch(ordersThunk.fetchAllOrdersAdmin());
   }, [dispatch]);
 
   useEffect(() => {
@@ -40,22 +39,22 @@ export const useAdminDashboard = () => {
       const active = users.filter((u) => u.role === "customer" && u.status === "active").length;
       const inactive = users.filter((u) => u.role === "customer" && u.status === "inactive").length;
       setPieUser([
-        { name: "Bị khóa", value: inactive },
-        { name: "Đang hoạt động", value: active },
+        { name: t("chartInfo.userBlocked"), value: inactive },
+        { name: t("chartInfo.userActive"), value: active },
       ]);
     }
-  }, [users]);
+  }, [users, t]);
 
   useEffect(() => {
     if (products.length > 0) {
       const trueCount = products.filter((p) => p.status === true).length;
       const falseCount = products.filter((p) => p.status === false).length;
       setPieProduct([
-        { name: "Chờ duyệt", value: falseCount },
-        { name: "Đã duyệt", value: trueCount },
+        { name: t("chartInfo.productPending"), value: falseCount },
+        { name: t("chartInfo.productApproved"), value: trueCount },
       ]);
     }
-  }, [products]);
+  }, [products, t]);
 
   useEffect(() => {
     if (orders.length > 0) {
@@ -63,16 +62,17 @@ export const useAdminDashboard = () => {
       const pending = orders.filter((o) => o.status === "pending").length;
       const completed = orders.filter((o) => o.status === "completed").length;
       const cancelled = orders.filter((o) => o.status === "cancelled").length;
+
       setPieOrder([
-        { name: "Đang vận chuyển", value: shipped },
-        { name: "Đang xử lý", value: pending },
-        { name: "Hoàn thành", value: completed },
-        { name: "Hủy đơn", value: cancelled },
+        { name: t("chartInfo.orderShipped"), value: shipped },
+        { name: t("chartInfo.orderPending"), value: pending },
+        { name: t("chartInfo.orderCompleted"), value: completed },
+        { name: t("chartInfo.orderCancelled"), value: cancelled },
       ]);
 
       const monthlyData = orders.reduce((acc, order) => {
         const date = new Date(order.created_at || Date.now());
-        const month = `Th ${date.getMonth() + 1}`;
+        const month = `${t("chartInfo.month")} ${date.getMonth() + 1}`;
         if (!acc[month]) {
           acc[month] = { name: month, orderTotal: 0, adminCommission: 0 };
         }
@@ -89,7 +89,7 @@ export const useAdminDashboard = () => {
 
       setLineData(lineDataArray);
     }
-  }, [orders]);
+  }, [orders, t]);
 
   return { pieUser, pieProduct, pieOrder, lineData };
 };

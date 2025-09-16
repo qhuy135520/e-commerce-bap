@@ -5,11 +5,12 @@ import styled from "styled-components";
 
 import ENFlag from "@/assets/images/en.svg";
 import VIFlag from "@/assets/images/vi.svg";
+import JAFlag from "@/assets/images/ja.svg";
 
 const { Option } = Select;
 
 const SelectStyled = styled(Select)`
-  width: "92px";
+  width: 92px;
 `;
 
 const OptionContent = styled.div`
@@ -55,6 +56,12 @@ export default function LanguageSwitcher() {
           <OptionContent style={{ display: "flex", gap: "11px" }}>
             <span>VI</span>
             <img src={VIFlag} alt="VI" />
+          </OptionContent>
+        </Option>
+        <Option value="ja">
+          <OptionContent>
+            <span>JA</span>
+            <img src={JAFlag} alt="JA" />
           </OptionContent>
         </Option>
       </SelectStyled>

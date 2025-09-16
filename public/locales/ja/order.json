@@ -1,0 +1,98 @@
+{
+  "order": {
+    "products": "商品",
+    "quantity": "数量",
+    "addAddress": "住所を追加",
+    "changeAddressDefault": "デフォルト住所を変更",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "pay": "支払い",
+    "grandTotal": "合計金額",
+    "subtotal": "小計",
+    "shipping": "配送方法",
+    "shippingFee": "配送料",
+    "total": "合計",
+    "addAddressTitle": "新しい住所を追加",
+    "useMyLocation": "現在地を使用",
+    "recipientName": "受取人氏名",
+    "phone": "電話番号",
+    "addressDetail": "住所詳細",
+    "orderDetails": {
+      "address": "配送先住所"
+    },
+    "confirmPayment": "支払いを確認",
+    "paymentMethod": "支払い方法",
+    "paymentDetail": "支払い詳細",
+    "placeOrder": "注文する",
+    "paymentMethods": {
+      "cod": "代金引換 (COD)",
+      "vnpay": "EB電子ウォレット",
+      "bank": "銀行振込"
+    },
+    "balance": "残高",
+    "insufficientBalance": "残高が不足しています。別の支払い方法を選択してください。",
+    "toast": {
+      "success": "注文の支払いが完了しました",
+      "error": "注文の支払いに失敗しました",
+      "orderSuccess": "ご注文が正常に完了しました！",
+      "orderFailed": "注文に失敗しました。もう一度お試しください。"
+    },
+    "validation": {
+      "nameRequired": "受取人氏名は必須です",
+      "phoneRequired": "電話番号は必須です",
+      "phoneInvalid": "電話番号は0から始まり、10桁でなければなりません",
+      "provinceRequired": "都道府県は必須です",
+      "districtRequired": "区・市は必須です",
+      "wardRequired": "町・村は必須です",
+      "detailRequired": "住所詳細は必須です"
+    },
+    "status": {
+      "completed": "完了",
+      "processing": "処理中",
+      "shipped": "配送中",
+      "canceled": "キャンセル済み"
+    },
+    "review": {
+      "title": "商品のレビュー: {{name}}",
+      "placeholder": "レビューを入力してください...",
+      "submit": "レビューを送信",
+      "review": "レビュー",
+      "reviewed": "レビュー済み",
+      "toast": {
+        "success": "レビューが正常に送信されました",
+        "error": "レビューの送信に失敗しました"
+      }
+    },
+    "buyAgain": "再購入",
+    "totalPrice": "合計金額",
+    "editDefault": {
+      "changeDefaultAddress": "デフォルト住所を変更",
+      "chooseDefaultAddress": "デフォルト住所を選択",
+      "phoneNumber": "電話番号",
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "update": "住所を更新",
+      "updateDefault": "デフォルト住所を更新"
+    },
+    "history": {
+      "title": "注文履歴",
+      "breadcrumb": {
+        "home": "ホーム",
+        "orderHistory": "注文履歴"
+      },
+      "backButton": "ホームに戻る"
+    },
+    "filter": {
+      "status": "ステータス:",
+      "time": "期間:",
+      "all": "すべて",
+      "7d": "直近7日間",
+      "30d": "直近30日間",
+      "6m": "直近6か月",
+      "1y": "直近1年間",
+      "noOrders": "まだ注文がありません",
+      "noResults": "一致する注文が見つかりませんでした",
+      "loadMore": "さらに読み込む"
+    }
+  }
+}

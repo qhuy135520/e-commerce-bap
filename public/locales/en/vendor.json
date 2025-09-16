@@ -113,5 +113,11 @@
       "orders": "Number of Orders",
       "revenue": "Revenue"
     }
+  },
+  "modalStatus": {
+    "confirmChange": "Do you want to change the order",
+    "toStatus": "to",
+    "cancelOrder": "Cancel Order",
+    "prepared": "Ready"
   }
 }

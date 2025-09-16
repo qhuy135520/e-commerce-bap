@@ -210,7 +210,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
                   label: (
                     <PanelHeader>
                       <MdLocationOn />
-                      {t("productList.addresses")} ({vendor.addresses?.length || 0})
+                      {t("productList.addresses", { count: vendor.addresses?.length || 0 })}
                     </PanelHeader>
                   ),
                   children:
