@@ -95,12 +95,20 @@ export default function OrderHistoryTable() {
               <OHTS.OrderTitleHeader>
                 <Tag
                   color={
-                    order.orderstatus === "pending" ? "orange" : order.orderstatus === "shipped" ? "yellow" : "green"
+                    order.orderstatus === "pending"
+                      ? "orange"
+                      : order.orderstatus === "canceled"
+                      ? "red"
+                      : order.orderstatus === "shipped"
+                      ? "yellow"
+                      : "green"
                   }
                   style={{ fontSize: "1.5rem", padding: "0.2rem 1rem" }}
                 >
                   {order.orderstatus === "pending"
                     ? t("order.status.processing")
+                    : order.orderstatus === "canceled"
+                    ? t("order.status.canceled")
                     : order.orderstatus === "shipped"
                     ? t("order.status.shipped")
                     : t("order.status.completed")}

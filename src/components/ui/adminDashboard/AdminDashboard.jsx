@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from "react";
 import { PieChart, Pie, Cell, Tooltip, Legend, LineChart, Line, XAxis, YAxis, CartesianGrid } from "recharts";
 import { useTranslation } from "react-i18next";
 import { useAdminDashboard } from "@/hooks/admin/useAdminDashboard";
+// import { AdminDashboardStyled as ADS } from "@/components";
 import { AdminDashboardStyled as ADS } from "@/components";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#ff2e2e"];
@@ -72,15 +73,9 @@ export default function AdminDashboard() {
       <ADS.LineChartContainer ref={lineChartRef}>
         <ADS.ChartTitle>{t("chart.income")}</ADS.ChartTitle>
         <ADS.ToggleButtons>
-          <ADS.ToggleButton onClick={() => setToggleView("monthly")} active={toggleView === "monthly"}>
-            {t("chart.monthly")}
-          </ADS.ToggleButton>
-          <ADS.ToggleButton onClick={() => setToggleView("daily")} active={toggleView === "daily"}>
-            {t("chart.daily")}
-          </ADS.ToggleButton>
-          <ADS.ToggleButton onClick={() => setToggleView("hourly")} active={toggleView === "hourly"}>
-            {t("chart.hourly")}
-          </ADS.ToggleButton>
+          <ADS.ToggleButton onClick={() => setToggleView("monthly")}>{t("chart.monthly")}</ADS.ToggleButton>
+          <ADS.ToggleButton onClick={() => setToggleView("daily")}>{t("chart.daily")}</ADS.ToggleButton>
+          <ADS.ToggleButton onClick={() => setToggleView("hourly")}>{t("chart.hourly")}</ADS.ToggleButton>
         </ADS.ToggleButtons>
         <LineChart
           width={lineChartWidth * 0.95}

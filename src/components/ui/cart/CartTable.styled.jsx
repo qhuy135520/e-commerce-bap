@@ -45,6 +45,13 @@ export const CartWrapper = styled.div`
 
   .row-disabled {
     opacity: 0.3;
+    .ant-btn {
+      opacity: 1 !important;
+    }
+
+    .ant-btn-dangerous {
+      opacity: 1 !important;
+    }
   }
 `;
 

@@ -147,7 +147,11 @@ export default function OrderDetail() {
                 </OS.AlertWrapper>
               )}
 
-              <OS.PlaceOrderButton type="primary" onClick={handlePlaceOrder} disabled={isInsufficientBalance}>
+              <OS.PlaceOrderButton
+                type="primary"
+                onClick={handlePlaceOrder}
+                disabled={isInsufficientBalance || isLoading}
+              >
                 {t("order.placeOrder")}
               </OS.PlaceOrderButton>
             </Modal>

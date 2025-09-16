@@ -27,10 +27,10 @@ export default function useOrderHistory() {
   const [visibleCount, setVisibleCount] = useState(STEP);
 
   useEffect(() => {
-    if (status === "idle" && user) {
-      dispatch(ordersThunk.fetchAllOrder(user.id));
-    }
-  }, [status, user, dispatch]);
+    if (!user) return;
+
+    dispatch(ordersThunk.fetchAllOrder(user.id));
+  }, [user?.id, dispatch]);
 
   const isLoading = status === "idle" || status === "loading" || !user;
 
