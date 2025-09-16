@@ -22,6 +22,7 @@ export default function VendorManagerProductTable({ products }) {
     handleSubmit,
     setPrimaryIndex,
     setIsModalOpen,
+    status,
   } = useEditProduct(productEdit);
 
   const openCreateModal = () => {
@@ -168,6 +169,7 @@ export default function VendorManagerProductTable({ products }) {
           handleSubmit={handleSubmit}
           setPrimaryIndex={setPrimaryIndex}
           t={t}
+          status={status}
         />
       </Modal>
     </ConfigProvider>

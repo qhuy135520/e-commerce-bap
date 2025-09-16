@@ -17,6 +17,7 @@ export default function FormAddProduct({
   onChange,
   handleSubmit,
   setPrimaryIndex,
+  status,
 }) {
   const { t } = useTranslation(["vendor"]);
 
@@ -117,7 +118,7 @@ export default function FormAddProduct({
             </Form.Item>
 
             <FAPS.PositonButton>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" disabled={status === "loading"}>
                 {t("productTable.form.submit")}
               </Button>
             </FAPS.PositonButton>
