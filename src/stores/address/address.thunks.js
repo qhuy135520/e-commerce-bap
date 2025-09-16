@@ -66,7 +66,8 @@ export const updateDefaultAddress = createAsyncThunk(
 
 export const removeAddress = createAsyncThunk("address/removeAddress", async ({ id, userId }, { dispatch }) => {
   try {
-    await removeAddressApi(id);
+    const newAddress = { id, status: false };
+    await updateAddressApi(newAddress);
     await dispatch(fetchAddress(userId));
   } catch (error) {
     throw error;

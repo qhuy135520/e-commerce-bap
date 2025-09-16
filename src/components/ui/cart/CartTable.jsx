@@ -25,7 +25,6 @@ export default function CartTable({ onMountSubmitRef }) {
     handleUpdateCartSelect,
     t,
   } = useCart();
-  console.log(cartTableWithVendors);
 
   return (
     <Loading isLoading={isLoading} error={error}>

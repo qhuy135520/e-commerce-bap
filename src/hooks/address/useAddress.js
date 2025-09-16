@@ -36,10 +36,10 @@ export default function useAddress(addressEdit = {}) {
   };
 
   useEffect(() => {
-    if (status === "idle" && user) {
-      dispatch(addressThunk.fetchAddress(user.id));
-    }
-  }, [status, user, dispatch]);
+    if (!user) return;
+
+    dispatch(addressThunk.fetchAddress(user.id));
+  }, [user, dispatch]);
 
   async function handleAddAddress(newAddress) {
     await dispatch(addressThunk.addAddress(newAddress));

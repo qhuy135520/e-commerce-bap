@@ -2,7 +2,7 @@ import supabase from "@/services/supabase";
 
 export async function fetchAddressUserApi(userId) {
   try {
-    const { data: address, error } = await supabase.from("address").select("*").eq("userId", userId);
+    const { data: address, error } = await supabase.from("address").select("*").eq("userId", userId).eq("status", true);
 
     if (error) {
       throw error;
