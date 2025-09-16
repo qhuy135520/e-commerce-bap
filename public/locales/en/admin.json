@@ -135,7 +135,10 @@
       "status": "Status",
       "type": "Type",
       "time": "Time"
-    }
+    },
+    "enterAmount": "Enter amount",
+    "minPlaceholder": "Minimum",
+    "maxPlaceholder": "Maximum"
   },
   "approvalVendor": {
     "title": "Vendor Approval",

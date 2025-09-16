@@ -3,11 +3,13 @@ import { AdminPaymentHistoryStyled as APHS, Loading } from "@/components";
 import { useTransactions } from "@/hooks/transactions/useTransactions";
 import { formatCurrency } from "@/utils/helpers";
 import { FaCrown } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
 const { Option } = Select;
 
 export default function AdminPaymentHistory() {
+  const { t } = useTranslation(["admin"]);
   const {
     transactions,
     totalTransactions,
@@ -31,18 +33,23 @@ export default function AdminPaymentHistory() {
   return (
     <Loading isLoading={status === "loading"} error={error}>
       <APHS.Container>
-        <APHS.Title>Lịch sử giao dịch</APHS.Title>
+        <APHS.Title>{t("payment.title")}</APHS.Title>
         <APHS.HeaderContainer>
           <APHS.Summaries>
-            <APHS.Summary>Tổng số giao dịch: {totalTransactions}</APHS.Summary>
-            <APHS.Summary>Tổng số tiền: {totalAmount}</APHS.Summary>
+            <APHS.Summary>
+              {t("payment.totalTransactions")}: {totalTransactions}
+            </APHS.Summary>
+            <APHS.Summary>
+              {" "}
+              {t("payment.totalAmount")}: {totalAmount}
+            </APHS.Summary>
           </APHS.Summaries>
 
           <APHS.FilterRow>
             <APHS.FilterSearch>
               <APHS.SearchWrapper>
                 <Search
-                  placeholder="Tìm theo ID hoặc Tên"
+                  placeholder={t("payment.searchPlaceholder")}
                   onSearch={handleSearch}
                   onChange={(e) => handleSearch(e.target.value)}
                   value={searchTerm}
@@ -54,18 +61,18 @@ export default function AdminPaymentHistory() {
                 value={statusFilter}
                 onChange={handleStatusFilter}
                 style={{ width: 150 }}
-                placeholder="Lọc theo trạng thái"
+                placeholder={t("payment.statusFilter")}
               >
-                <Option value="all">Tất cả</Option>
-                <Option value="success">Thành công</Option>
-                <Option value="failed">Thất bại</Option>
+                <Option value="all">{t("payment.all")}</Option>
+                <Option value="success">{t("payment.success")}</Option>
+                <Option value="failed">{t("payment.failed")}</Option>
               </Select>
             </APHS.FilterSearch>
 
             <div>
-              <span>Nhập số tiền: </span>
+              <span>{t("payment.enterAmount")}: </span>
               <InputNumber
-                placeholder="Tối thiểu"
+                placeholder={t("payment.minPlaceholder")}
                 value={minAmount}
                 onChange={handleMinAmount}
                 style={{ width: 120 }}
@@ -73,7 +80,7 @@ export default function AdminPaymentHistory() {
               />
               --
               <InputNumber
-                placeholder="Tối đa"
+                placeholder={t("payment.maxPlaceholder")}
                 value={maxAmount}
                 onChange={handleMaxAmount}
                 style={{ width: 120 }}
@@ -87,13 +94,13 @@ export default function AdminPaymentHistory() {
           <APHS.Table>
             <thead>
               <APHS.Tr>
-                <APHS.Th>#</APHS.Th>
-                <APHS.Th>ID</APHS.Th>
-                <APHS.Th>Họ Tên</APHS.Th>
-                <APHS.Th>Số Tiền</APHS.Th>
-                <APHS.Th>Trạng Thái</APHS.Th>
-                <APHS.Th>Kiểu</APHS.Th>
-                <APHS.Th>Thời Gian</APHS.Th>
+                <APHS.Th>{t("payment.table.index")}</APHS.Th>
+                <APHS.Th>{t("payment.table.id")}</APHS.Th>
+                <APHS.Th>{t("payment.table.name")}</APHS.Th>
+                <APHS.Th>{t("payment.table.amount")}</APHS.Th>
+                <APHS.Th>{t("payment.table.status")}</APHS.Th>
+                <APHS.Th>{t("payment.table.type")}</APHS.Th>
+                <APHS.Th>{t("payment.table.time")}</APHS.Th>
               </APHS.Tr>
             </thead>
             <tbody>
