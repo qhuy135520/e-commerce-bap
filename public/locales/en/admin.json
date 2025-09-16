@@ -176,7 +176,10 @@
     "order": "Orders",
     "income": "Income Chart",
     "revenue": "Revenue",
-    "commission": "Commission"
+    "commission": "Commission",
+    "monthly": "Monthly",
+    "daily": "Daily",
+    "hourly": "Hourly"
   },
   "chartInfo": {
     "userBlocked": "Blocked",
@@ -186,7 +189,8 @@
     "orderShipped": "Shipped",
     "orderPending": "Pending",
     "orderCompleted": "Completed",
-    "orderCancelled": "Cancelled",
+    "orderCanceled": "Canceled",
+    "orderPaid": "Paid",
     "month": "M"
   }
 }
