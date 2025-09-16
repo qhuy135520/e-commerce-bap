@@ -12,7 +12,6 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
   const transactions = useSelector(transactionsSelector.selectTransactions);
   const status = useSelector(transactionsSelector.selectTransactionsStatus);
   const error = useSelector(transactionsSelector.selectTransactionsError);
-  console.log(transactions);
 
   const transactionsUser = transactions.filter((t) => t.user_id === user?.id) || [];
 

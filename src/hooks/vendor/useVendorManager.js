@@ -40,7 +40,9 @@ export default function useVendorManager() {
     if (orders.length > 0) {
       const paidValue = orders.filter((o) => o.status === "paid").reduce((sum, o) => sum + (o.totalorder || 0), 0);
 
-      const unpaidValue = orders.filter((o) => o.status !== "paid").reduce((sum, o) => sum + (o.totalorder || 0), 0);
+      const unpaidValue = orders
+        .filter((o) => o.status !== "paid" && o.status !== "canceled")
+        .reduce((sum, o) => sum + (o.totalorder || 0), 0);
 
       setPiePayment([
         { name: t("chart.piePayment.unpaid"), value: unpaidValue },

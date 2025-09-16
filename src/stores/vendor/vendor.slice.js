@@ -1,9 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchAllVendor, getVendorInfo, subtractVendorBalance, updateVendor } from "@/stores/vendor/vendor.thunks";
+import {
+  fetchAllVendor,
+  getVendorInfo,
+  refundToUser,
+  subtractVendorBalance,
+  updateVendor,
+} from "@/stores/vendor/vendor.thunks";
 
 const vendorSlice = createSlice({
   name: "vendor",
-  initialState: { data: [], status: "idle", error: null },
+  initialState: { data: {}, status: "idle", error: null },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllVendor.pending, (state) => {
@@ -46,10 +52,23 @@ const vendorSlice = createSlice({
       .addCase(getVendorInfo.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(getVendorInfo.fulfilled, (state) => {
+      .addCase(getVendorInfo.fulfilled, (state, action) => {
         state.status = "succeeded";
+        state.data = action.payload;
       })
       .addCase(getVendorInfo.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+
+      .addCase(refundToUser.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(refundToUser.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.data = action.payload;
+      })
+      .addCase(refundToUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });

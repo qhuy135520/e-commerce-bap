@@ -19,7 +19,7 @@ export default function Sidebar() {
         {open ? <FaArrowCircleLeft size={20} /> : <IoMdMenu size={20} />}
       </SS.ToggleButton>
       <SS.Overlay $open={open} onClick={closeSidebar} />
-      <SS.StyledSidebar $open={open}>{user.role === "vendor" ? <MainNavVendor /> : <MainNavAdmin />}</SS.StyledSidebar>
+      <SS.StyledSidebar $open={open}>{user.role === "vendor" ? <MainNavVendor vendor={user} /> : <MainNavAdmin />}</SS.StyledSidebar>
     </>
   );
 }

@@ -9,7 +9,7 @@ export const DashboardContainer = styled.div`
 export const PieChartContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 4rem;
   flex-wrap: wrap;
   width: 100%;
   background-color: #ffffff;
@@ -25,7 +25,11 @@ export const PieChartContainer = styled.div`
 `;
 
 export const PieChartWrapper = styled.div`
-  flex: 1;
+  /* flex: 1; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   min-width: 200px;
   max-width: 350px;
 `;
@@ -51,4 +55,10 @@ export const InfoProductWrapper = styled.div`
   gap: 2rem;
   font-weight: 700;
   align-items: center;
+`;
+
+export const ChartCircleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 `;

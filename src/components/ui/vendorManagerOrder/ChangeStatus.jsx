@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { VendorManagerOrderTableStyled as VMOTS } from "@/components";
 
 export default function ChangeStatus({ selectOrder, updateOrderStatus }) {
-  const { t } = useTranslation(["admin"]);
+  const { t } = useTranslation(["vendor"]);
 
   return (
     <div>

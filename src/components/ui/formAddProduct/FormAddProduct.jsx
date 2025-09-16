@@ -28,6 +28,14 @@ export default function FormAddProduct({
             labelFontSize: "1.5rem",
             labelColor: "var(--color-grey-600)",
           },
+          Select: {
+            optionSelectedBg: "var(--color-grey-300)",
+            optionSelectedColor: "var(--color-grey-700)",
+            optionActiveBg: "var(--color-grey-400)",
+          },
+        },
+        token: {
+          colorTextPlaceholder: "#999999",
         },
       }}
     >
