@@ -6,10 +6,12 @@ import GlobalRoutes from "@/routes/configs/_global";
 import PublicRoutes from "@/routes/configs/_public";
 
 import { Spin } from "antd";
+import { ScrollToTop } from "@/components";
 
 const RootRouter = () => {
   return (
     <Suspense fallback={<Spin fullscreen />}>
+      <ScrollToTop />
       <Routes>
         {PrivateRoutes}
         {GlobalRoutes}
