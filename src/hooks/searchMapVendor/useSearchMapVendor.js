@@ -14,33 +14,35 @@ export default function useSearchMapVendor() {
   const [coordsLoading, setCoordsLoading] = useState(false);
 
   useEffect(() => {
-    if (status === "idle") {
-      dispatch(vendorThunk.fetchAllVendor());
-    }
-  }, [status]);
+    dispatch(vendorThunk.fetchAllVendor());
+  }, []);
 
   useEffect(() => {
     if (vendors && vendors.length > 0) {
       setCoordsLoading(true);
 
       async function fetchCoords() {
-        const data = await Promise.all(
-          vendors.map(async (v) => {
-            if (!v.addresses || v.addresses.length === 0) return { ...v, addressesWithCoords: [] };
+        try {
+          const data = await Promise.all(
+            vendors.map(async (v) => {
+              if (!v.addresses || v.addresses.length === 0) return { ...v, addressesWithCoords: [] };
 
-            const addressesWithCoords = await Promise.all(
-              v.addresses.map(async (addr) => {
-                const coords = await geocodeAddress(simplifyAddress(addr.fullAddress));
-                return { ...addr, ...coords };
-              })
-            );
+              const addressesWithCoords = await Promise.all(
+                v.addresses.map(async (addr) => {
+                  const coords = await geocodeAddress(simplifyAddress(addr.fullAddress));
+                  return { ...addr, ...coords };
+                })
+              );
 
-            return { ...v, addressesWithCoords };
-          })
-        );
+              return { ...v, addressesWithCoords };
+            })
+          );
 
-        setVendorsWithCoords(data);
-        setCoordsLoading(false);
+          setVendorsWithCoords(data);
+          setCoordsLoading(false);
+        } catch (error) {
+          throw error;
+        }
       }
 
       fetchCoords();
