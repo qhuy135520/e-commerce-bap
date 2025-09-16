@@ -188,7 +188,7 @@ export default function VendorList({ vendors, pageSize = 9 }) {
               </span>
               {vendor.totalReviews > 0 ? (
                 <Tooltip title={`${vendor.totalReviews} reviews`}>
-                  <Rate disabled count={Number(vendor.avgRating)} value={Number(vendor.avgRating) || 0} />
+                  <Rate disabled count={5} value={Number(vendor.avgRating) || 0} />
                 </Tooltip>
               ) : (
                 <span>{t("productList.noRatings")}</span>
