@@ -5,6 +5,8 @@ import "leaflet/dist/leaflet.css";
 import styled from "styled-components";
 import { useTranslation } from "react-i18next";
 
+import { getDistanceFromLatLonInKm } from "@/utils/helpers";
+
 const vendorIcon = new L.Icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
@@ -58,9 +60,15 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
   const { t } = useTranslation(["searchmap"]);
   const center = position || { lat: 16.0544, lng: 108.2022 };
 
-  const markers = vendors.flatMap(
-    (v) =>
-      v.addressesWithCoords?.map((addr) => ({
+  const markers = vendors.flatMap((v) =>
+    (v.addressesWithCoords || [])
+      .filter((addr) => {
+        if (!addr?.lat || !addr?.lon) return false;
+        if (radius <= 0) return true;
+        const distance = getDistanceFromLatLonInKm(center?.lat, center?.lng, addr?.lat, addr?.lon);
+        return distance <= radius;
+      })
+      .map((addr) => ({
         vendorId: v.vendorId,
         vendorName: v.vendorName,
         phone: addr.phone,
@@ -68,7 +76,7 @@ export default function SearchMap({ vendors, position, radius = 0 }) {
         lat: addr?.lat,
         lon: addr?.lon,
         addressId: addr.addressId,
-      })) || []
+      }))
   );
 
   return (
