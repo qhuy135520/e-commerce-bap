@@ -5,9 +5,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 import { useUser } from "@/hooks/authentication/useUser";
-import { cartSlice } from "@/stores/rootReducer";
 import { cartSelector, productsSelector } from "@/stores/rootSelector";
-import { cartThunk, productsThunk } from "@/stores/rootThunk";
+import { cartThunk } from "@/stores/rootThunk";
 
 export default function useCart() {
   const dispatch = useDispatch();
@@ -23,6 +22,7 @@ export default function useCart() {
 
   const error = useSelector(cartSelector.selectCartError);
   const productDetail = useSelector(productsSelector.selectProductById);
+  const products = useSelector(productsSelector.selectProducts);
 
   const isLoading = status === "idle" || status === "loading";
 
@@ -114,9 +114,10 @@ export default function useCart() {
   }
 
   async function handleAddProductToCart(productId, quantity) {
+    let product = products.find((p) => p.id === productId);
     let productExistingCart = cart.find((item) => item.productId === productId);
     let totalQuantity = productExistingCart ? quantity + productExistingCart.quantity : quantity;
-    if (productExistingCart && totalQuantity > productDetail.stock) {
+    if (totalQuantity > product.stock) {
       toast.error(t("This product has insufficient stock."));
       return;
     }

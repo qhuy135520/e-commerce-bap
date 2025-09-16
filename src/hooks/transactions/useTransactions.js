@@ -4,12 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { transactionsThunk } from "@/stores/rootThunk";
 import { transactionsSelector } from "@/stores/rootSelector";
 import { formatCurrency } from "@/utils/helpers";
+import { useUser } from "@/hooks/authentication/useUser";
 
 export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
   const dispatch = useDispatch();
+  const { user } = useUser();
   const transactions = useSelector(transactionsSelector.selectTransactions);
   const status = useSelector(transactionsSelector.selectTransactionsStatus);
   const error = useSelector(transactionsSelector.selectTransactionsError);
+  console.log(transactions);
+
+  const transactionsUser = transactions.filter((t) => t.user_id === user?.id) || [];
 
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
@@ -84,6 +89,7 @@ export const useTransactions = ({ itemsPerPage = 20 } = {}) => {
   };
 
   return {
+    transactionsUser,
     transactions: currentData,
     totalTransactions,
     totalAmount: formatCurrency(totalAmount),

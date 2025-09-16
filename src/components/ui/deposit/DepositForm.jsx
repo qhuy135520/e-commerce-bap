@@ -14,13 +14,13 @@ const { Option } = Select;
 
 export default function DepositForm() {
   const { handleDeposit, depositSchema, loading, errorMsg, setErrorMsg } = useDeposit();
-  const { transactions } = useTransactions();
+  const { transactionsUser } = useTransactions();
 
   const [activeTab, setActiveTab] = useState("deposit");
   const [statusFilter, setStatusFilter] = useState("all");
   const [dateRange, setDateRange] = useState([]);
 
-  const filteredTransactions = (transactions || [])
+  const filteredTransactions = (transactionsUser || [])
     .filter((t) => {
       const matchStatus = statusFilter === "all" || t.status === statusFilter;
       const matchDate =
