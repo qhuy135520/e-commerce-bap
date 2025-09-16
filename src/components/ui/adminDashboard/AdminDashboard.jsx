@@ -81,7 +81,7 @@ export default function AdminDashboard() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="orderTotal" stroke="#8884d8" name="Thu nhập" />
+          <Line type="monotone" dataKey="orderTotal" stroke="#8884d8" name="Thu nhập người bán" />
           <Line type="monotone" dataKey="adminCommission" stroke="#82ca9d" name="Hoa hồng" />
         </LineChart>
       </ADS.LineChartContainer>
