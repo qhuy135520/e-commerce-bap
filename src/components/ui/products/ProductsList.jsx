@@ -110,7 +110,10 @@ const ProductsList = () => {
                 <PLS.ProductItem key={product.id}>
                   <div className="product-card" onClick={() => handleNavigate(product.id)}>
                     <div className="image-wrapper">
-                      <img src={product.images?.[0]?.imageUrl || noimage} alt={product.name} />
+                      <img
+                        src={product.images?.find((img) => img.isPrimary).imageUrl || product.images?.[0]}
+                        alt={product.name}
+                      />
                     </div>
 
                     <div className="product-info">
