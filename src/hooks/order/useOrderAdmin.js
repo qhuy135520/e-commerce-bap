@@ -1,6 +1,4 @@
-import { COMMISSION } from "@/constants";
 import { useState, useEffect, useMemo } from "react";
-import supabase from "@/services/supabase";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 
@@ -58,7 +56,7 @@ export default function useOrderAdmin(orders) {
 
     try {
       await dispatch(
-        subtractVendorBalance({ vendorId: payModal.order.vendor_id, amount: payModal.order.total_amount * COMMISSION })
+        subtractVendorBalance({ vendorId: payModal.order.vendor_id, amount: payModal.order.total_amount  })
       ).unwrap();
 
       await dispatch(

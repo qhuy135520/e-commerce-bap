@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useUser } from "@/hooks/authentication/useUser";
-import { ordersThunk } from "@/stores/rootThunk";
+import { ordersThunk, vendorThunk } from "@/stores/rootThunk";
 import { ordersSelector } from "@/stores/rootSelector";
 
 export function getNextStatusOptions(currentStatus) {
@@ -40,6 +40,16 @@ export default function useUpdateStatus() {
   const updateOrderStatus = async (order, nextStatus) => {
     if (!nextStatus) return;
 
+    if (nextStatus === "canceled") {
+      await dispatch(
+        vendorThunk.refundToUser({
+          vendorId: user.id,
+          userId: order.userid,
+          amount: order.totalorder,
+        })
+      );
+    }
+
     await dispatch(
       ordersThunk.updateStatusOrder({
         vendorId: user.id,
@@ -47,10 +57,10 @@ export default function useUpdateStatus() {
         nextStatus,
       })
     );
+
     setIsModalOpen(false);
     setSelectOrder(null);
   };
-
   return {
     orders,
     selectOrder,

@@ -38,32 +38,32 @@ export default function VendorDashboardChartTable() {
           </div>
         </VDCTS.InfoProductWrapper>
 
-        <VDCTS.PieChartWrapper>
-          <VDCTS.ChartTitle>{t("chart.pieOrder.title")}</VDCTS.ChartTitle>
-          <PieChart width={350} height={350}>
-            <Pie data={pieOrder} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
-              {pieOrder.map((entry, index) => (
-                <Cell key={`cell-order-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </VDCTS.PieChartWrapper>
-
-        <VDCTS.PieChartWrapper>
-          <VDCTS.ChartTitle>{t("chart.piePayment.title")}</VDCTS.ChartTitle>
-          <PieChart width={350} height={350}>
-            <Pie data={piePayment} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
-              {piePayment.map((entry, index) => (
-                <Cell key={`cell-payment-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
-        </VDCTS.PieChartWrapper>
-
+        <VDCTS.ChartCircleWrapper>
+          <VDCTS.PieChartWrapper>
+            <VDCTS.ChartTitle>{t("chart.pieOrder.title")}</VDCTS.ChartTitle>
+            <PieChart width={500} height={500}>
+              <Pie data={pieOrder} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
+                {pieOrder.map((entry, index) => (
+                  <Cell key={`cell-order-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </VDCTS.PieChartWrapper>
+          <VDCTS.PieChartWrapper>
+            <VDCTS.ChartTitle>{t("chart.piePayment.title")}</VDCTS.ChartTitle>
+            <PieChart width={500} height={500}>
+              <Pie data={piePayment} cx="50%" cy="50%" outerRadius={100} dataKey="value" label>
+                {piePayment.map((entry, index) => (
+                  <Cell key={`cell-payment-${index}`} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </VDCTS.PieChartWrapper>
+        </VDCTS.ChartCircleWrapper>
         <div>
           <VDCTS.ChartTitle>{t("chart.barTopProducts.title")}</VDCTS.ChartTitle>
           <BarChart width={1000} height={300} data={productSalestData}>

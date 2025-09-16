@@ -1,23 +1,34 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { Button } from "antd";
+
 import { AiFillProduct } from "react-icons/ai";
 import { FaListCheck } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { FaRegUserCircle, FaHome } from "react-icons/fa";
 import { AiFillDashboard } from "react-icons/ai";
-import { NavLink } from "react-router-dom";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
+
+import { vendorSelector } from "@/stores/rootSelector";
+import { vendorThunk } from "@/stores/rootThunk";
+import { MainNavVendorStyled as MNVS } from "@/components";
+
 import { formatCurrency } from "@/utils/helpers";
-import { useUser } from "@/hooks/authentication/useUser";
 
-import { LanguageSwitcher, MainNavVendorStyled as MNVS } from "@/components";
-
-export default function MainNavVendor() {
+export default function MainNavVendor({ vendor }) {
+  const dispatch = useDispatch();
   const { logout } = useLogout();
-  const { user } = useUser();
   const { t } = useTranslation(["vendor"]);
+  const vendorInfo = useSelector(vendorSelector.selectVendor);
+
+  useEffect(() => {
+    if (vendor?.id) {
+      dispatch(vendorThunk.getVendorInfo(vendor.id));
+    }
+  }, [vendor?.id, dispatch]);
 
   return (
     <nav>
@@ -25,7 +36,7 @@ export default function MainNavVendor() {
         <MNVS.StyledNavLink to="/admin-dashboard">
           <strong>Vendor Dashboard</strong>
         </MNVS.StyledNavLink>
-        <b>{t("mainNav.balance", { moneyBalance: formatCurrency(user.moneyBalance) })}</b>
+        <b>{t("mainNav.balance", { moneyBalance: formatCurrency(vendorInfo.moneyBalance) })}</b>
         <hr />
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/dashboard">
@@ -58,7 +69,7 @@ export default function MainNavVendor() {
           </NavLink>
         </li>
         <li>
-          <Button block onClick={() => logout()}>
+          <Button block onClick={logout}>
             <MdLogout /> {t("mainNav.logout")}
           </Button>
         </li>
