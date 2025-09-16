@@ -16,6 +16,7 @@ export default function ProductInfo({
   onDecrease,
   handleAddProductToCart,
   isLoadingCart,
+  handleBuyNow,
 }) {
   const { user } = useUser();
 
@@ -92,7 +93,13 @@ export default function ProductInfo({
           >
             <FaCartPlus /> Thêm vào giỏ hàng
           </Button>
-          <Button size="large" color="red" variant="solid">
+          <Button
+            size="large"
+            color="red"
+            variant="solid"
+            onClick={() => handleBuyNow(productDetail.id, quantity)}
+            disabled={isLoadingCart || user?.role !== "customer"}
+          >
             <MdOutlinePayments /> Mua ngay
           </Button>
         </PIS.Button>

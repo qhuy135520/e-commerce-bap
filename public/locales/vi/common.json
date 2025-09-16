@@ -47,5 +47,6 @@
     "districtPlaceholder": "Chọn Quận/Huyện",
     "ward": "Phường",
     "wardPlaceholder": "Chọn Quận/Huyện"
-  }
+  },
+  "toastHello": "Xin chào, "
 }

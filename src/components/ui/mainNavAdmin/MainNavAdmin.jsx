@@ -19,6 +19,9 @@ export default function MainNavAdmin() {
     <nav>
       <MAS.NavList>
         <MAS.StyledNavLink to="/admin-dashboard">
+          <strong>Vendor Dashboard</strong>
+        </MAS.StyledNavLink>
+        <MAS.StyledNavLink to="/admin-dashboard">
           <AiFillDashboard />
           {t("nav.dashboard")}
         </MAS.StyledNavLink>

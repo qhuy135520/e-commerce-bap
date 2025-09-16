@@ -139,7 +139,7 @@ export default function CartTable({ onMountSubmitRef }) {
                         </CTS.ButtonCart>
                         <CTS.ButtonCart
                           type="primary"
-                          onClick={() => handleUpdateCartSelect({ values, type: "buy" })}
+                          onClick={() => handleUpdateCartSelect({ values, type: "buyFromCart" })}
                           disabled={!qty}
                         >
                           {t("cart.buy")}

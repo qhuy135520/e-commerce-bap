@@ -45,5 +45,6 @@
     "districtPlaceholder": "区・市を選択",
     "ward": "町・村",
     "wardPlaceholder": "町・村を選択"
-  }
+  },
+  "toastHello": "こんにちは、 "
 }
