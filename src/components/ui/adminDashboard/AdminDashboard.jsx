@@ -82,8 +82,10 @@ export default function AdminDashboard() {
           <YAxis />
           <Tooltip />
           <Legend />
+
           <Line type="monotone" dataKey="orderTotal" stroke="#8884d8" name={t("chart.revenue")} />
           <Line type="monotone" dataKey="adminCommission" stroke="#82ca9d" name={t("chart.commission")} />
+
         </LineChart>
       </ADS.LineChartContainer>
     </ADS.DashboardContainer>
