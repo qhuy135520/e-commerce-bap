@@ -108,7 +108,9 @@ export default function AdminHeader() {
           <ContainerTop>
             <ListCateMobileWrapper />
             <ButtonHeader>
-              <strong style={{ marginRight: "2rem" }}>Xin chào, {user.name}</strong>
+              <strong style={{ marginRight: "2rem" }}>
+                {t("toastHello")} {user.name}
+              </strong>
               <LanguageSwitcher />
             </ButtonHeader>
           </ContainerTop>

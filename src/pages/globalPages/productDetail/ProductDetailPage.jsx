@@ -29,7 +29,7 @@ export default function ProductDetail() {
     error,
     handleNavigate,
   } = useProductDetail(id);
-  const { handleAddProductToCart, isLoading: isLoadingCart } = useCart();
+  const { handleAddProductToCart, isLoading: isLoadingCart, handleBuyNow } = useCart();
 
   return (
     <Loading isLoading={isLoadingProduct} error={error}>
@@ -47,6 +47,7 @@ export default function ProductDetail() {
                 onDecrease={handleDecrease}
                 onQuantity={setQuantity}
                 handleAddProductToCart={handleAddProductToCart}
+                handleBuyNow={handleBuyNow}
                 isLoadingCart={isLoadingCart}
               />
             </Col>

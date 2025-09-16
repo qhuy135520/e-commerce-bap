@@ -45,5 +45,6 @@
     "districtPlaceholder": "Select District",
     "ward": "Ward",
     "wardPlaceholder": "Select Ward"
-  }
+  },
+  "toastHello": "Hello, "
 }

@@ -21,11 +21,11 @@ export default function useCart() {
   const cartSelect = cart.filter((item) => item.isSelect);
 
   const error = useSelector(cartSelector.selectCartError);
-  const productDetail = useSelector(productsSelector.selectProductById);
   const products = useSelector(productsSelector.selectProducts);
 
   const isLoading = status === "idle" || status === "loading";
 
+  // table data
   const cartTableData = cart.map((item) => ({
     key: item.id,
     product: item.productName,
@@ -41,11 +41,9 @@ export default function useCart() {
   const cartTableWithVendors = useMemo(() => {
     return cartTableData.reduce((acc, item) => {
       const lastVendorKey = `vendor-${item.vendorId}`;
-
       if (!acc.some((row) => row.key === lastVendorKey)) {
         acc.push({ key: lastVendorKey, isVendorRow: true, vendorName: item.vendorName });
       }
-
       acc.push(item);
       return acc;
     }, []);
@@ -58,19 +56,18 @@ export default function useCart() {
     return result;
   }, {});
 
-  useEffect(
-    function () {
-      if (status === "idle" && user) {
-        dispatch(cartThunk.fetchCart(user?.id));
-      }
-    },
-    [status, user]
-  );
+  // fetch cart
+  useEffect(() => {
+    if (status === "idle" && user) {
+      dispatch(cartThunk.fetchCart(user?.id));
+    }
+  }, [status, user, dispatch]);
 
   const selectedItems = cartTableWithVendors.filter((item) => !item.isVendorRow && selectedRowKeys.includes(item.key));
   const totalQuantity = selectedItems.reduce((sum, item) => sum + item.quantity, 0);
   const totalPrice = selectedItems.reduce((sum, item) => sum + item.totalPrice, 0);
 
+  // actions
   function handleDeleteCartItem(cartId) {
     dispatch(cartThunk.removeFromCart({ cartId, userId: user.id }));
   }
@@ -86,37 +83,49 @@ export default function useCart() {
       cartId,
       quantity,
     }));
+
     switch (type) {
-      case "updateQuantity":
+      case "updateQuantity": {
         dispatch(cartThunk.updateQuantity({ items: allItems, userId: user.id }));
         break;
-      case "buy":
+      }
+
+      case "buyFromCart": {
+        // chỉ lấy các sản phẩm user chọn trong cart
         const result = allItems
-          .filter((item) => selectedItems.some((p) => p.key === item.cartId))
+          .filter((item) => selectedRowKeys.includes(item.cartId))
           .map((item) => ({
             id: item.cartId,
             quantity: item.quantity,
             isSelect: true,
           }));
-        dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
+
+        if (!result.length) return;
+        await dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
         navigate("/order-detail");
         break;
-      case "cancelOrder":
+      }
+
+      case "cancelOrder": {
         const cancelItems = allItems.map((item) => ({
           id: item.cartId,
           quantity: item.quantity,
           isSelect: false,
         }));
-
         await dispatch(cartThunk.updateQuantityAndSelect({ items: cancelItems, userId: user.id }));
+        break;
+      }
+
+      default:
         break;
     }
   }
 
   async function handleAddProductToCart(productId, quantity) {
-    let product = products.find((p) => p.id === productId);
-    let productExistingCart = cart.find((item) => item.productId === productId);
-    let totalQuantity = productExistingCart ? quantity + productExistingCart.quantity : quantity;
+    const product = products.find((p) => p.id === productId);
+    const productExistingCart = cart.find((item) => item.productId === productId);
+
+    const totalQuantity = productExistingCart ? quantity + productExistingCart.quantity : quantity;
     if (totalQuantity > product.stock) {
       toast.error(t("This product has insufficient stock."));
       return;
@@ -127,7 +136,35 @@ export default function useCart() {
     if (status === "succeeded") {
       toast.success(t("cart.toast.success"));
     }
-    if (status === "failed") toast.error(t("cart.toast.error"));
+    if (status === "failed") {
+      toast.error(t("cart.toast.error"));
+    }
+  }
+
+  async function handleBuyNow(productId, quantity) {
+    // tìm sản phẩm trong giỏ
+    let productExistingCart = cart.find((item) => item.productId === productId);
+
+    // nếu chưa có thì thêm vào giỏ
+    if (!productExistingCart) {
+      await dispatch(cartThunk.addToCart({ userId: user.id, productId, quantity }));
+      const updatedCart = await dispatch(cartThunk.fetchCart(user.id)).unwrap();
+      productExistingCart = updatedCart.find((item) => item.productId === productId);
+    }
+
+    if (!productExistingCart) return;
+
+    // chỉ update đúng sản phẩm này để mua ngay
+    const buyItems = [
+      {
+        id: productExistingCart.id,
+        quantity,
+        isSelect: true,
+      },
+    ];
+
+    await dispatch(cartThunk.updateQuantityAndSelect({ items: buyItems, userId: user.id }));
+    navigate("/order-detail");
   }
 
   function handleBackToHome() {
@@ -154,6 +191,7 @@ export default function useCart() {
     handleResetCart,
     handleUpdateCartSelect,
     handleBackToHome,
+    handleBuyNow,
     t,
   };
 }
