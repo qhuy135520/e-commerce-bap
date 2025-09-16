@@ -22,8 +22,9 @@ export default function MainNavVendor() {
   return (
     <nav>
       <MNVS.NavList>
-        <LanguageSwitcher />
-        <hr />
+        <MNVS.StyledNavLink to="/admin-dashboard">
+          <strong>Vendor Dashboard</strong>
+        </MNVS.StyledNavLink>
         <b>{t("mainNav.balance", { moneyBalance: formatCurrency(user.moneyBalance) })}</b>
         <hr />
         <li>

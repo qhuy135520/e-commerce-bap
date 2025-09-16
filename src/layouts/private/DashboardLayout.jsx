@@ -2,11 +2,13 @@ import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
 import { Footer, Sidebar } from "@/components";
+import AdminHeader from "@/components/ui/header/AdminHeader";
 
 export default function DashboardLayout() {
   return (
     <>
       <StyledAppLayout>
+        <AdminHeader />
         <Sidebar />
         <Main>
           <Container>

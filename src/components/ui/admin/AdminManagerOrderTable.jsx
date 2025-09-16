@@ -81,17 +81,32 @@ export default function AdminManagerOrderTable({ orders, loading }) {
 
   return (
     <ConfigProvider
-      theme={
-        {
-          /* giữ nguyên theme */
-        }
-      }
+      theme={{
+        components: {
+          Table: {
+            headerBg: "var(--color-grey-200)",
+            headerColor: "var(--color-grey-800)",
+            headerSplitColor: "var(--color-grey-500)",
+            rowHoverBg: "var(--color-grey-200)",
+          },
+          Select: { optionSelectedBg: "var(--color-grey-200)", selectorBg: "var(--color-grey-100)" },
+        },
+        token: {
+          colorTextPlaceholder: "var(--color-grey-400)",
+          colorBgContainer: "var(--color-grey-100)",
+          colorText: "var(--color-grey-800)",
+          colorTextHeading: "var(--color-grey-800)",
+          colorBgElevated: "var(--color-grey-100)",
+          colorTextDisabled: "var(--color-grey-400)",
+          colorOption: "var(--color-blue-800)",
+        },
+      }}
     >
       <AMOD.SpaceStyled>
         <AMOD.SearchInput
           placeholder={t("order.searchPlaceholder")}
           allowClear
-          enterButton={t("order.pay")}
+          enterButton={t("order.search")}
           size="large"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}

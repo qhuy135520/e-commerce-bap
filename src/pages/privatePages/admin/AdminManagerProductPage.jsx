@@ -16,7 +16,7 @@ export default function AdminManagerProductPage() {
   return (
     <>
       <AdminManagerProductHeader />
-      <AdminManagerProductTable products={products} />;
+      <AdminManagerProductTable products={products} />
     </>
   );
 }

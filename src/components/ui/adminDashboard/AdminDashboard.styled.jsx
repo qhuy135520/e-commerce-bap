@@ -4,6 +4,7 @@ export const DashboardContainer = styled.div`
   min-height: 100vh;
   background-color: var(--color-grey-200);
   border-radius: 20px;
+  margin-top: 8rem;
 `;
 
 export const PieChartContainer = styled.div`

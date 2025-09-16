@@ -18,8 +18,6 @@ export default function MainNavAdmin() {
   return (
     <nav>
       <MAS.NavList>
-        <LanguageSwitcher />
-        <hr />
         <MAS.StyledNavLink to="/admin-dashboard">
           <AiFillDashboard />
           {t("nav.dashboard")}
