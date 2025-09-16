@@ -136,7 +136,10 @@
       "status": "Trạng Thái",
       "type": "Kiểu",
       "time": "Thời Gian"
-    }
+    },
+    "enterAmount": "Nhập số tiền",
+    "minPlaceholder": "Tối thiểu",
+    "maxPlaceholder": "Tối đa"
   },
   "approvalVendor": {
     "title": "Phê duyệt nhà cung cấp",

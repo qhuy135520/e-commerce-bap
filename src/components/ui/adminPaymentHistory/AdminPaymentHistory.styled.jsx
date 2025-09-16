@@ -41,7 +41,7 @@ export const Tr = styled.tr`
 export const Th = styled.th`
   border: 1px solid #ddd;
   padding: 12px;
-  text-align: left;
+  text-align: center;
   background-color: #e5e7eb;
   color: #333;
   font-weight: 600;

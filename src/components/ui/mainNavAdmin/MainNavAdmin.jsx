@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useLogout } from "@/hooks/authentication/useLogout";
 
 import { LanguageSwitcher, MainNavAdminStyled as MAS } from "@/components";
+import { AiFillDashboard } from "react-icons/ai";
 
 export default function MainNavAdmin() {
   const { logout } = useLogout();
@@ -20,7 +21,8 @@ export default function MainNavAdmin() {
         <LanguageSwitcher />
         <hr />
         <MAS.StyledNavLink to="/admin-dashboard">
-          <strong>{t("nav.dashboard")}</strong>
+          <AiFillDashboard />
+          {t("nav.dashboard")}
         </MAS.StyledNavLink>
 
         <li>
