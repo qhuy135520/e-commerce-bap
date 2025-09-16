@@ -9,7 +9,7 @@ export default function ChangeStatus({ selectOrder, updateOrderStatus }) {
 
   return (
     <div>
-      {t("modalStatus.confirmChange")} <b>{selectOrder.orderid.substring(0, 5)}</b> {t("modalStatus.toStatus")}?
+      {t("modalStatus.confirmChange")} <b>{selectOrder.orderid.substring(0, 5)}</b> ?
       <VMOTS.ButtonGroupStatus>
         <Button danger onClick={() => updateOrderStatus(selectOrder, "canceled")}>
           {t("modalStatus.cancelOrder")}

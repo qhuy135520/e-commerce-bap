@@ -183,5 +183,10 @@
     "orderCompleted": "完了",
     "orderCancelled": "キャンセル済み",
     "month": "月"
+  },
+  "modalStatus": {
+    "confirmChange": "のステータスを変更してもよろしいですか？",
+    "prepared": "発送準備中",
+    "cancelOrder": "キャンセル"
   }
 }

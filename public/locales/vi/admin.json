@@ -189,5 +189,10 @@
     "orderCompleted": "Hoàn thành",
     "orderCancelled": "Hủy đơn",
     "month": "Th"
+  },
+  "modalStatus": {
+    "confirmChange": "Bạn có chắc chắn muốn thay đổi trạng thái của ",
+    "prepared": "Chuyển giao hàng",
+    "cancelOrder": "Hủy đơn"
   }
 }

@@ -188,5 +188,10 @@
     "orderCompleted": "Completed",
     "orderCancelled": "Cancelled",
     "month": "M"
+  },
+  "modalStatus": {
+    "confirmChange": "Are you sure you want to change the status of ",
+    "prepared": "Preparing Shipment",
+    "cancelOrder": "Cancel"
   }
 }
