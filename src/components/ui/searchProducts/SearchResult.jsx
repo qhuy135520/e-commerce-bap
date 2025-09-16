@@ -13,8 +13,9 @@ export default function SearchResult() {
   const { products, totalProducts, status, query, page, pageSize, handleNavigate, handlePageChange, t } =
     useSearchProducts();
 
-  if (status === "succeeded" && !products.length)
-    <EmptyCommon description={<p>No results for {query}</p>} buttonText={null} />;
+  if (status === "succeeded" && products.length === 0) {
+    return <EmptyCommon description={<p>Không tìm thấy kết quả cho "{query}"</p>} buttonText={null} />;
+  }
 
   return (
     <Loading isLoading={status === "loading"}>

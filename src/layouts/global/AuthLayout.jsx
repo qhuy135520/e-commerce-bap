@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Col, Flex } from "antd";
 import styled from "styled-components";
 
@@ -14,11 +14,13 @@ const FormStyled = styled.div`
 `;
 
 export default function AuthLayout() {
+  const navigate = useNavigate();
+  const onBackToUserList = () => navigate("/");
   return (
     <>
       <Header />
       <Container>
-        <UpdateUserHeader />
+        <UpdateUserHeader onBackToUserList={onBackToUserList} />
         <AuthLayoutStyled>
           <Flex justify="center" align="center">
             <Col md={12} xs={0}>
