@@ -29,7 +29,7 @@ export default function useSearchMapVendor() {
 
               const addressesWithCoords = await Promise.all(
                 v.addresses.map(async (addr) => {
-                  const coords = await geocodeAddress(simplifyAddress(addr.fullAddress));
+                  const coords = await geocodeAddress(addr.fullAddress);
                   return { ...addr, ...coords };
                 })
               );

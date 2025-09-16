@@ -55,14 +55,15 @@ export async function fetchAddressLocation(lat, lng) {
 
 export async function geocodeAddress(address) {
   const query = encodeURIComponent(address);
-  const url = `https://nominatim.openstreetmap.org/search?format=json&q=${query}`;
+  const url = `${import.meta.env.VITE_URL_SERPAPI}?q=${query}`;
+  debugger;
   try {
     const res = await fetch(url);
     const data = await res.json();
-    if (data && data.length > 0) {
+    if (data) {
       return {
-        lat: parseFloat(data[0].lat),
-        lon: parseFloat(data[0].lon),
+        lat: parseFloat(data.latitude),
+        lon: parseFloat(data.longitude),
       };
     }
   } catch (err) {
