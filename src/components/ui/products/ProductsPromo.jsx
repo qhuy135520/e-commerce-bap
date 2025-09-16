@@ -91,7 +91,7 @@ const PromoImage = styled.img`
 const PromoOverlay = styled.div`
   position: absolute;
   inset: 0;
-  background: ${(props) => props.gradient};
+  background: ${(props) => props.$gradient};
   mix-blend-mode: overlay;
   opacity: 0.5;
 `;
@@ -164,7 +164,7 @@ export default function ProductsPromo() {
             <SwiperSlide key={idx}>
               <PromoCard>
                 <PromoImage src={promo.img} alt={promo.title} />
-                <PromoOverlay gradient={gradients[idx % gradients.length]} />
+                <PromoOverlay $gradient={gradients[idx % gradients.length]} />
                 <PromoContent>
                   <h3>{promo.title}</h3>
                   <p>{promo.desc}</p>
