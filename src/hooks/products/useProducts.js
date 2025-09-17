@@ -2,9 +2,10 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+
+import { PAGE_SIZE } from "@/constants";
 import { productsThunk, vendorThunk } from "@/stores/rootThunk";
 import { productsSelector } from "@/stores/rootSelector";
-import { PAGE_SIZE } from "@/constants";
 
 export default function useProducts() {
   const { t } = useTranslation(["product"]);
@@ -33,7 +34,7 @@ export default function useProducts() {
   useEffect(() => {
     async function fetchVendorInfo() {
       if (vendorId) {
-        const data = await dispatch(vendorThunk.getVendorInfo(vendorId)).unwrap();
+        const data = await dispatch(vendorThunk.getVendorTotal(vendorId)).unwrap();
         setDataVendor(data);
       }
     }

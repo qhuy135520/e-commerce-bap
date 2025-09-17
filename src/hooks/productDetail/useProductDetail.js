@@ -42,7 +42,7 @@ export function useProductDetail(id) {
   useEffect(() => {
     if (!productDetail?.vendorId) return;
     async function fetchVendorInfo() {
-      const data = await dispatch(vendorThunk.getVendorInfo(productDetail?.vendorId)).unwrap();
+      const data = await dispatch(vendorThunk.getVendorTotal(productDetail?.vendorId)).unwrap();
       setDataVendor(data);
     }
     fetchVendorInfo();

@@ -55,9 +55,19 @@ export async function getVendorInfoApi(vendorId) {
   try {
     const { data, error } = await supabase.from("userInfo").select("*").eq("userId", vendorId).single();
     if (error) throw error;
-    console.log("Data", data);
     return data;
   } catch (error) {
     throw error;
   }
 }
+
+export async function getVendorTotalApi(vendorId) {
+  try {
+    const { data, error } = await supabase.from("vendor_info").select("*").eq("vendorId", vendorId).single();
+    if (error) throw error;
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
