@@ -56,7 +56,6 @@ export async function fetchAddressLocation(lat, lng) {
 export async function geocodeAddress(address) {
   const query = encodeURIComponent(address);
   const url = `${import.meta.env.VITE_URL_SERPAPI}?q=${query}`;
-  debugger;
   try {
     const res = await fetch(url);
     const data = await res.json();

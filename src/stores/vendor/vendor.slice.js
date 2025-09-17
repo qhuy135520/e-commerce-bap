@@ -9,7 +9,7 @@ import {
 
 const vendorSlice = createSlice({
   name: "vendor",
-  initialState: { data: {}, status: "idle", error: null },
+  initialState: { data: [], status: "idle", error: null },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllVendor.pending, (state) => {

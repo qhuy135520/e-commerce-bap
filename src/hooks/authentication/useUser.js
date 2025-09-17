@@ -70,8 +70,8 @@ export function useUser(users = []) {
 
   const handleUpdate = async (values) => {
     try {
-      await dispatch(updateUser({ id: selectedUser.id, updates: values })).unwrap();
-      toast.success(`Đã cập nhật user: ${values.name || selectedUser.id}`);
+      await dispatch(updateUser({ id: selectedUser.userId, updates: values })).unwrap();
+      toast.success(`Đã cập nhật user: ${values.name || selectedUser.userId}`);
       setIsUpdateModal(false);
       setSelectedUser(null);
     } catch {
