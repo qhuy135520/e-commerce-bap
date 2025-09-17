@@ -103,11 +103,7 @@ export default function useCart() {
 
         if (!result.length) return;
         await dispatch(productsThunk.fetchAllProducts());
-        const product = products.find((p) => selectedRowKeys.some((item) => item === p.id));
-        if (!product) {
-          toast.error(t("This product does not exist or banned."));
-          return;
-        }
+
         await dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
         navigate("/order-detail");
         break;
