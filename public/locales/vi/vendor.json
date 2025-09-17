@@ -120,5 +120,8 @@
     "toStatus": "thành",
     "cancelOrder": "Hủy đơn",
     "prepared": "Đã chuẩn bị xong"
+  },
+  "title": {
+    "titleUpdateAddress": "Cập nhật địa chỉ"
   }
 }

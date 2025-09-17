@@ -2,27 +2,29 @@ import React from "react";
 import { Button, Spin, Typography } from "antd";
 import { FaMapMarkerAlt } from "react-icons/fa";
 
-import { DividerTitle, OrderStyled as OS, OrderAddressCart, OrderEditAddressDefault, OrderEditAddressForm } from "@/components";
+import {
+  DividerTitle,
+  OrderStyled as OS,
+  OrderAddressCart,
+  OrderEditAddressDefault,
+  OrderEditAddressForm,
+} from "@/components";
 
 import useAddress from "@/hooks/address/useAddress";
 import useOrder from "@/hooks/order/useOrder";
+import { useTranslation } from "react-i18next";
 
 const { Text } = Typography;
 
 export default function VendorUpdateAddressForm() {
   const { isEditting, handleSetEditting, validateSchema, handleCancel } = useOrder();
   const { addressDefault, isLoading } = useAddress();
+  const { t } = useTranslation(["vendor"]);
 
   return (
     <Spin spinning={isLoading}>
-      <DividerTitle title={"Cập nhật địa chỉ"} />
+      <DividerTitle title={t("title.titleUpdateAddress")} />
       <OS.Section>
-        <OS.FlexRow>
-          <OS.AddressTitle level={3}>
-            <FaMapMarkerAlt /> Địa chỉ vendor
-          </OS.AddressTitle>
-        </OS.FlexRow>
-
         {!isEditting &&
           (addressDefault ? (
             <>

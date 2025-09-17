@@ -56,14 +56,14 @@ export function useVendorAdmin(itemsPerPage = 10) {
       await dispatch(updateVendor({ vendorId, newStatus })).unwrap();
 
       if (newStatus === "active" && vendorEmail) {
-        await sendEmail(
-          {
-            user_name: vendorName,
-            email: vendorEmail,
-            status: newStatus,
-          },
-          import.meta.env.VITE_TEMPLATE_VENDER_ID
-        );
+        // await sendEmail(
+        //   {
+        //     user_name: vendorName,
+        //     email: vendorEmail,
+        //     status: newStatus,
+        //   },
+        //   import.meta.env.VITE_TEMPLATE_VENDER_ID
+        // );
         toast.success(`Đã gửi email xác nhận cho ${vendorName}`);
       }
 

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useUser } from "@/hooks/authentication/useUser";
 import { cartSelector, productsSelector } from "@/stores/rootSelector";
-import { cartThunk } from "@/stores/rootThunk";
+import { cartThunk, productsThunk } from "@/stores/rootThunk";
 
 export default function useCart() {
   const dispatch = useDispatch();
@@ -93,7 +93,6 @@ export default function useCart() {
       }
 
       case "buyFromCart": {
-        // chỉ lấy các sản phẩm user chọn trong cart
         const result = allItems
           .filter((item) => selectedRowKeys.includes(item.cartId))
           .map((item) => ({
@@ -103,6 +102,12 @@ export default function useCart() {
           }));
 
         if (!result.length) return;
+        await dispatch(productsThunk.fetchAllProducts());
+        const product = products.find((p) => selectedRowKeys.some((item) => item === p.id));
+        if (!product) {
+          toast.error(t("This product does not exist or banned."));
+          return;
+        }
         await dispatch(cartThunk.updateQuantityAndSelect({ items: result, userId: user.id }));
         navigate("/order-detail");
         break;
@@ -124,7 +129,12 @@ export default function useCart() {
   }
 
   async function handleAddProductToCart(productId, quantity) {
+    await dispatch(productsThunk.fetchAllProducts());
     const product = products.find((p) => p.id === productId);
+    if (!product) {
+      toast.error(t("This product does not exist or banned."));
+      return;
+    }
     const productExistingCart = cart.find((item) => item.productId === productId);
 
     const totalQuantity = productExistingCart ? quantity + productExistingCart.quantity : quantity;
@@ -144,10 +154,8 @@ export default function useCart() {
   }
 
   async function handleBuyNow(productId, quantity) {
-    // tìm sản phẩm trong giỏ
     let productExistingCart = cart.find((item) => item.productId === productId);
 
-    // nếu chưa có thì thêm vào giỏ
     if (!productExistingCart) {
       await dispatch(cartThunk.addToCart({ userId: user.id, productId, quantity }));
       const updatedCart = await dispatch(cartThunk.fetchCart(user.id)).unwrap();
@@ -156,7 +164,6 @@ export default function useCart() {
 
     if (!productExistingCart) return;
 
-    // chỉ update đúng sản phẩm này để mua ngay
     const buyItems = [
       {
         id: productExistingCart.id,
