@@ -9,7 +9,7 @@ import {
 
 const vendorSlice = createSlice({
   name: "vendor",
-  initialState: { data: [], status: "idle", error: null },
+  initialState: { data: [], vendor: {}, status: "idle", error: null },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllVendor.pending, (state) => {
@@ -54,7 +54,7 @@ const vendorSlice = createSlice({
       })
       .addCase(getVendorInfo.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.data = action.payload;
+        state.vendor = action.payload;
       })
       .addCase(getVendorInfo.rejected, (state, action) => {
         state.status = "failed";
@@ -64,9 +64,8 @@ const vendorSlice = createSlice({
       .addCase(refundToUser.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(refundToUser.fulfilled, (state, action) => {
+      .addCase(refundToUser.fulfilled, (state) => {
         state.status = "succeeded";
-        state.data = action.payload;
       })
       .addCase(refundToUser.rejected, (state, action) => {
         state.status = "failed";

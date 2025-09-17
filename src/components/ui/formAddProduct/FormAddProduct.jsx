@@ -2,7 +2,7 @@ import React from "react";
 import ImgCrop from "antd-img-crop";
 import { Formik } from "formik";
 import { Form, Select, Input } from "formik-antd";
-import { Button, ConfigProvider, Upload } from "antd";
+import { Button, ConfigProvider, Radio, Upload } from "antd";
 import { useTranslation } from "react-i18next";
 
 import { FormAddProductStyled as FAPS } from "@/components";
@@ -47,9 +47,9 @@ export default function FormAddProduct({
         enableReinitialize
       >
         {({ values, setFieldValue }) => (
-          <Form layout="vertical">
+          <Form layout="vertical" autoComplete="off">
             <Form.Item label={t("productTable.form.name")} name="name">
-              <Input name="name" placeholder={t("productTable.form.namePlaceholder")} />
+              <Input name="name" placeholder={t("productTable.form.namePlaceholder")} autoComplete="off" />
             </Form.Item>
 
             <Form.Item label={t("productTable.form.category")} name="categoryId">
@@ -109,8 +109,9 @@ export default function FormAddProduct({
                   <span>{t("productTable.form.choosePrimary")}:</span>
                   {fileList.map((file, idx) => (
                     <FAPS.OptionImage key={file.uid}>
-                      <Input type="radio" checked={primaryIndex === idx} onChange={() => setPrimaryIndex(idx)} />
-                      {`ẢNH THỨ ${idx + 1}`}
+                      <Radio checked={primaryIndex === idx} onChange={() => setPrimaryIndex(idx)}>
+                        {`ẢNH THỨ ${idx + 1}`}
+                      </Radio>
                     </FAPS.OptionImage>
                   ))}
                 </FAPS.ChooseImage>
