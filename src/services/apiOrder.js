@@ -14,7 +14,6 @@ export async function fetchOrderApi(userId) {
 export async function createOrderApi(cartItems, userId) {
   try {
     const address = await fetchAddressUserDefaultApi(userId);
-    debugger;
     const groupedByVendor = cartItems.reduce((acc, item) => {
       if (!acc[item.vendorId]) acc[item.vendorId] = [];
       acc[item.vendorId].push(item);

@@ -94,15 +94,15 @@ export function parseAddress(addressString) {
     detail,
   };
 }
+export function convertOrderToEmailPayload({ results, customerInfo }) {
+  debugger;
+  const allDetails = results.flatMap((r) => r.newOrderDetails);
 
-export function convertOrderToEmailPayload(data) {
-  const { order, newOrderDetails, customerInfo } = data;
-
-  const subtotal = newOrderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const subtotal = allDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 0;
   const total = subtotal + shipping;
 
-  const orders = newOrderDetails.map((item) => ({
+  const orders = allDetails.map((item) => ({
     image_url: item.product?.productImage[0]?.imageUrl || "https://via.placeholder.com/150",
     name: item.product.name,
     units: item.quantity,
@@ -110,7 +110,7 @@ export function convertOrderToEmailPayload(data) {
   }));
 
   return {
-    order_id: order.id,
+    order_id: results.map((r) => r.order.id).join(", "),
     orders,
     cost: {
       shipping: "Free Shipping",

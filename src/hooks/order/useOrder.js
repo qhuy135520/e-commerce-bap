@@ -94,7 +94,6 @@ export default function useOrder() {
 
     try {
       await dispatch(ordersThunk.createOrder({ userId: user.id, cartItems: cartSelect, customerInfo })).unwrap();
-
       await Promise.all(
         cartSelect.map((item) => dispatch(cartThunk.removeFromCart({ cartId: item.id, userId: user.id })))
       );
