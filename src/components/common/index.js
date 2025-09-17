@@ -7,5 +7,6 @@ export { default as WardSelect } from "@/components/common/formAddress/WardSelec
 export { default as EmptyCommon } from "@/components/common/EmptyCommon";
 export { default as InputQuantity } from "@/components/common/InputQuantity";
 export { default as ScrollToTop } from "@/components/common/ScrollToTop";
+export { default as LoadingPage } from "@/components/common/LoadingPage";
 
 export * as AddressFormStyled from "@/components/common/formAddress/AddressForm.styled";
