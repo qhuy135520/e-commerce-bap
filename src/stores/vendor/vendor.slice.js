@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchAllVendor,
   getVendorInfo,
+  getVendorTotal,
   refundToUser,
   subtractVendorBalance,
   updateVendor,
@@ -68,6 +69,17 @@ const vendorSlice = createSlice({
         state.status = "succeeded";
       })
       .addCase(refundToUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error;
+      })
+
+      .addCase(getVendorTotal.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getVendorTotal.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(getVendorTotal.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error;
       });
