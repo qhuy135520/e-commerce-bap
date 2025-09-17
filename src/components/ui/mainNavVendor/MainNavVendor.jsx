@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Button } from "antd";
 
@@ -12,23 +11,13 @@ import { AiFillDashboard } from "react-icons/ai";
 
 import { useLogout } from "@/hooks/authentication/useLogout";
 
-import { vendorSelector } from "@/stores/rootSelector";
-import { vendorThunk } from "@/stores/rootThunk";
 import { MainNavVendorStyled as MNVS } from "@/components";
 
 import { formatCurrency } from "@/utils/helpers";
 
 export default function MainNavVendor({ vendor }) {
-  const dispatch = useDispatch();
   const { logout } = useLogout();
   const { t } = useTranslation(["vendor"]);
-  const vendorInfo = useSelector(vendorSelector.selectVendor);
-
-  useEffect(() => {
-    if (vendor?.id) {
-      dispatch(vendorThunk.getVendorInfo(vendor.id));
-    }
-  }, [vendor?.id, dispatch]);
 
   return (
     <nav>
@@ -36,7 +25,9 @@ export default function MainNavVendor({ vendor }) {
         <MNVS.StyledNavLink to="/admin-dashboard">
           <strong>Vendor Dashboard</strong>
         </MNVS.StyledNavLink>
-        <b>{t("mainNav.balance", { moneyBalance: formatCurrency(vendorInfo.moneyBalance) })}</b>
+        <b>
+          {t("mainNav.balance")}: {formatCurrency(vendor?.moneyBalance)}
+        </b>
         <hr />
         <li>
           <MNVS.StyledNavLink to="/vendor-dashboard/dashboard">

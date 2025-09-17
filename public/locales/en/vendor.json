@@ -1,6 +1,6 @@
 {
   "mainNav": {
-    "balance": "Unpaid balance: {{moneyBalance}}",
+    "balance": "Unpaid balance:",
     "dashboard": "Dashboard",
     "manageProducts": "Manage Products",
     "manageOrders": "Manage Orders",

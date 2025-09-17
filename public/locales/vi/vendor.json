@@ -1,6 +1,6 @@
 {
   "mainNav": {
-    "balance": "Số tiền chưa thanh toán: {{moneyBalance}}",
+    "balance": "Số tiền chưa thanh toán: ",
     "dashboard": "Dashboard",
     "manageProducts": "Quản lý sản phẩm",
     "manageOrders": "Quản lý đơn hàng",
