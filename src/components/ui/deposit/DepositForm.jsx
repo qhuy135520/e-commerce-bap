@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { Form, Button, Table, Tabs, Tag, Select, DatePicker, Row, Col } from "antd";
 import { parseISO, format, isAfter, isBefore, endOfDay } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 import { DepositFormStyled as DFS } from "@/components";
-
 import { useDeposit } from "@/hooks/deposit/useDeposit";
 import { useTransactions } from "@/hooks/transactions/useTransactions";
-
 import { formatNumberCurrency, parseNumberCurrency } from "@/utils/helpers";
 
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 
 export default function DepositForm() {
+  const { t } = useTranslation(["deposit"]);
   const { handleDeposit, depositSchema, loading, errorMsg, setErrorMsg } = useDeposit();
   const { transactionsUser } = useTransactions();
 
@@ -33,7 +33,7 @@ export default function DepositForm() {
 
   const columns = [
     {
-      title: "Ngày",
+      title: t("table.date"),
       dataIndex: "created_at",
       key: "created_at",
       sorter: (a, b) => parseISO(a.created_at) - parseISO(b.created_at),
@@ -41,21 +41,25 @@ export default function DepositForm() {
       render: (text) => format(parseISO(text), "dd/MM/yyyy HH:mm:ss"),
     },
     {
-      title: "Số tiền",
+      title: t("table.amount"),
       dataIndex: "amount",
       key: "amount",
       render: (amount) => formatNumberCurrency(amount) + " VND",
       sorter: (a, b) => a.amount - b.amount,
     },
     {
-      title: "Trạng thái",
+      title: t("table.status"),
       dataIndex: "status",
       key: "status",
       render: (status) =>
-        status === "success" ? <Tag color="green">Thành công</Tag> : <Tag color="red">Thất bại</Tag>,
+        status === "success" ? (
+          <Tag color="green">{t("status.success")}</Tag>
+        ) : (
+          <Tag color="red">{t("status.failed")}</Tag>
+        ),
     },
     {
-      title: "Mô tả",
+      title: t("table.description"),
       dataIndex: "description",
       key: "description",
     },
@@ -64,11 +68,11 @@ export default function DepositForm() {
   return (
     <DFS.StyledContainer>
       <DFS.StyledCard style={{ width: "90%", maxWidth: 1200 }}>
-        <DFS.StyledTitle level={2}>Nạp tiền VNPay</DFS.StyledTitle>
+        <DFS.StyledTitle level={2}>{t("title")}</DFS.StyledTitle>
 
         <Tabs activeKey={activeTab} onChange={setActiveTab}>
-          <Tabs.TabPane tab="Nạp tiền" key="deposit">
-            {errorMsg && <DFS.StyledAlert onClose={() => setErrorMsg(null)}>{errorMsg}</DFS.StyledAlert>}
+          <Tabs.TabPane tab={t("tab.deposit")} key="deposit">
+            {errorMsg && <DFS.StyledAlert onClose={() => setErrorMsg(null)}>{t("alert.error")}</DFS.StyledAlert>}
 
             <Form
               layout="vertical"
@@ -78,7 +82,7 @@ export default function DepositForm() {
               initialValues={{ amount: "" }}
             >
               <Form.Item
-                label="Số tiền (VND)"
+                label={t("form.amount")}
                 name="amount"
                 rules={[
                   {
@@ -93,7 +97,7 @@ export default function DepositForm() {
                 ]}
               >
                 <DFS.StyledInputNumber
-                  placeholder="Nhập số tiền"
+                  placeholder={t("form.placeholder")}
                   disabled={loading}
                   min={1000}
                   max={100000000}
@@ -103,22 +107,22 @@ export default function DepositForm() {
               </Form.Item>
               <Form.Item>
                 <Button type="primary" htmlType="submit" block loading={loading} size="large">
-                  Thanh toán VNPay
+                  {t("form.submit")}
                 </Button>
               </Form.Item>
             </Form>
 
-            <DFS.StyledText type="secondary">Bạn sẽ được chuyển hướng tới VNPay để hoàn tất thanh toán.</DFS.StyledText>
+            <DFS.StyledText type="secondary">{t("form.note")}</DFS.StyledText>
           </Tabs.TabPane>
 
-          <Tabs.TabPane tab="Lịch sử giao dịch" key="history">
+          <Tabs.TabPane tab={t("tab.history")} key="history">
             <div style={{ position: "sticky", top: 0, zIndex: 1, background: "#fff", paddingBottom: 16 }}>
               <Row gutter={[16, 16]}>
                 <Col>
                   <Select value={statusFilter} onChange={setStatusFilter} style={{ width: 180 }}>
-                    <Option value="all">Tất cả trạng thái</Option>
-                    <Option value="success">Thành công</Option>
-                    <Option value="failed">Thất bại</Option>
+                    <Option value="all">{t("status.all")}</Option>
+                    <Option value="success">{t("status.success")}</Option>
+                    <Option value="failed">{t("status.failed")}</Option>
                   </Select>
                 </Col>
                 <Col>

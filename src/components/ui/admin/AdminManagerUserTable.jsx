@@ -102,9 +102,6 @@ export default function AdminManagerUserTable({ users, loading }) {
           <Button type="primary" onClick={() => handleUpdateConfirm(record)}>
             {t("user.update")}
           </Button>
-          <Button danger onClick={() => handleDeleteConfirm(record)}>
-            {t("user.delete")}
-          </Button>
         </Space>
       ),
     },

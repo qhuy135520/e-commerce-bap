@@ -1,0 +1,34 @@
+{
+  "title": "VNPayで入金",
+  "tab": {
+    "deposit": "入金",
+    "history": "取引履歴"
+  },
+  "form": {
+    "amount": "金額 (VND)",
+    "placeholder": "金額を入力してください",
+    "submit": "VNPayで支払う",
+    "note": "支払いを完了するためにVNPayにリダイレクトされます。"
+  },
+  "alert": {
+    "error": "エラーが発生しました"
+  },
+  "table": {
+    "date": "日付",
+    "amount": "金額",
+    "status": "ステータス",
+    "description": "説明"
+  },
+  "status": {
+    "all": "すべてのステータス",
+    "success": "成功",
+    "failed": "失敗"
+  },
+  "breadcrumb": {
+    "home": "ホーム",
+    "deposit": "デポジット"
+  },
+  "button": {
+    "backHome": "ホームに戻る"
+  }
+}

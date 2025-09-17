@@ -14,37 +14,51 @@ export async function fetchOrderApi(userId) {
 export async function createOrderApi(cartItems, userId) {
   try {
     const address = await fetchAddressUserDefaultApi(userId);
+    debugger;
+    const groupedByVendor = cartItems.reduce((acc, item) => {
+      if (!acc[item.vendorId]) acc[item.vendorId] = [];
+      acc[item.vendorId].push(item);
+      return acc;
+    }, {});
 
-    const { data: order, error: orderError } = await supabase
-      .from("order")
-      .insert([{ userId, addressId: address.id }])
-      .select()
-      .single();
-    if (orderError) throw orderError;
-    const orderDetails = cartItems.map((item) => ({
-      orderId: order.id,
-      productId: item.productId,
-      quantity: item.quantity,
-      price: item.productPrice,
-    }));
+    const results = [];
 
-    const { data: newOrderDetails, error: detailError } = await supabase
-      .from("orderDetail")
-      .insert(orderDetails)
-      .select(
+    for (const [_, items] of Object.entries(groupedByVendor)) {
+      const { data: order, error: orderError } = await supabase
+        .from("order")
+        .insert([{ userId, addressId: address.id }])
+        .select()
+        .single();
+
+      if (orderError) throw orderError;
+
+      const orderDetails = items.map((item) => ({
+        orderId: order.id,
+        productId: item.productId,
+        quantity: item.quantity,
+        price: item.productPrice,
+      }));
+
+      const { data: newOrderDetails, error: detailError } = await supabase
+        .from("orderDetail")
+        .insert(orderDetails)
+        .select(
+          `
+          *,
+          product (
+            *,
+            productImage!left(*)
+          )
         `
-    *,
-    product (
-      *,
-      productImage!left(*)
-    )
-  `
-      )
-      .eq("product.productImage.isPrimary", true);
+        )
+        .eq("product.productImage.isPrimary", true);
 
-    if (detailError) throw detailError;
+      if (detailError) throw detailError;
 
-    return { order, newOrderDetails };
+      results.push({ order, newOrderDetails });
+    }
+
+    return results;
   } catch (error) {
     throw error;
   }

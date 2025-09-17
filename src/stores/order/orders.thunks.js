@@ -38,10 +38,10 @@ export const createOrder = createAsyncThunk(
 
       const data = await createOrderApi(cartItems, userId);
 
-      await sendEmail(
-        convertOrderToEmailPayload({ ...data, customerInfo }),
-        import.meta.env.VITE_TEMPLATE_ORDER_CONFIRM_ID
-      );
+      // await sendEmail(
+      //   convertOrderToEmailPayload({ ...data, customerInfo }),
+      //   import.meta.env.VITE_TEMPLATE_ORDER_CONFIRM_ID
+      // );
 
       return dispatch(fetchAllOrder(userId));
     } catch (error) {

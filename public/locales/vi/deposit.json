@@ -1,0 +1,34 @@
+{
+  "title": "Nạp tiền VNPay",
+  "tab": {
+    "deposit": "Nạp tiền",
+    "history": "Lịch sử giao dịch"
+  },
+  "form": {
+    "amount": "Số tiền (VND)",
+    "placeholder": "Nhập số tiền",
+    "submit": "Thanh toán VNPay",
+    "note": "Bạn sẽ được chuyển hướng tới VNPay để hoàn tất thanh toán."
+  },
+  "alert": {
+    "error": "Có lỗi xảy ra"
+  },
+  "table": {
+    "date": "Ngày",
+    "amount": "Số tiền",
+    "status": "Trạng thái",
+    "description": "Mô tả"
+  },
+  "status": {
+    "all": "Tất cả trạng thái",
+    "success": "Thành công",
+    "failed": "Thất bại"
+  },
+  "breadcrumb": {
+    "home": "Trang chủ",
+    "deposit": "Nạp tiền"
+  },
+  "button": {
+    "backHome": "Quay lại Trang chủ"
+  }
+}

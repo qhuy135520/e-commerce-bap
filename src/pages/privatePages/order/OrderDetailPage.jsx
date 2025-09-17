@@ -150,7 +150,8 @@ export default function OrderDetail() {
               <OS.PlaceOrderButton
                 type="primary"
                 onClick={handlePlaceOrder}
-                disabled={isInsufficientBalance || isLoading}
+                disabled={isInsufficientBalance}
+                loading={isLoading}
               >
                 {t("order.placeOrder")}
               </OS.PlaceOrderButton>

@@ -1,44 +1,27 @@
-import { DividerTitle, HeadingStyled } from "@/components";
-import { Breadcrumb, Button, Row } from "antd";
-import styled from "styled-components";
-import { FaUser } from "react-icons/fa";
+import React from "react";
 import { BsArrowReturnLeft } from "react-icons/bs";
-
-export const FlexUserHeader = styled(Row)`
-  margin: 1.4rem 0;
-  padding: 1.8rem 2rem;
-  width: 100%;
-  border-radius: 1rem;
-`;
+import { DividerTitle, OrderHistoryHeaderStyled as OHHS } from "@/components";
+import { useTranslation } from "react-i18next";
+import { FaUser } from "react-icons/fa";
 
 export default function UpdateUserHeader({ onBackToUserList }) {
+  const { t } = useTranslation(["auth"]);
   return (
-    <FlexUserHeader justify="space-between" align="center">
+    <OHHS.FlexOrderHeader>
       <div>
-        <HeadingStyled as="h2" style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <FaUser style={{ color: "var(--color-brand-600)", fontSize: 28 }} />
-          <span>Người dùng</span>
+        <OHHS.HeadingWrapper as="h2">
+          <OHHS.HistoryIconWrapper>
+            <FaUser />
+          </OHHS.HistoryIconWrapper>
+          <span>{t("user.title")}</span>
           <DividerTitle type="vertical" />
-        </HeadingStyled>
-
-        <Breadcrumb
-          items={[{ title: "Trang chủ" }, { title: "Người dùng" }]}
-          style={{ marginTop: 4, fontSize: 13, color: "var(--color-grey-500)" }}
-        />
+        </OHHS.HeadingWrapper>
+        <OHHS.OrderBreadcrumb items={[{ title: t("user.home") }, { title: t("user.title") }]} />
       </div>
 
-      <Button
-        type="default"
-        icon={<BsArrowReturnLeft />}
-        onClick={onBackToUserList}
-        style={{
-          borderRadius: "6px",
-          borderColor: "var(--color-grey-300)",
-          color: "var(--color-grey-700)",
-        }}
-      >
-        Quay về danh sách
-      </Button>
-    </FlexUserHeader>
+      <OHHS.BackButton type="default" icon={<BsArrowReturnLeft />} onClick={onBackToUserList}>
+        {t("user.backToHome")}
+      </OHHS.BackButton>
+    </OHHS.FlexOrderHeader>
   );
 }

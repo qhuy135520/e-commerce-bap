@@ -91,6 +91,7 @@ export default function CartTable({ onMountSubmitRef }) {
             return (
               <Form>
                 <Table
+                  scroll={{ x: "max-content" }}
                   rowSelection={{
                     type: "checkbox",
                     selectedRowKeys,

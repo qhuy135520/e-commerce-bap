@@ -8,6 +8,11 @@ export const FlexOrderHeader = styled(Flex)`
 
   justify-content: space-between;
   align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
 `;
 
 export const HeadingWrapper = styled.div`

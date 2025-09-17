@@ -21,7 +21,6 @@ export default function SignUpPage() {
         {t("signup.title", { ns: "auth" })} ({t(`roles.${role}`, { ns: "common" })})
       </HeadingStyled>
       <DividerTitle title={t("signup.socialTitle")} />
-      <SocialAuth type={t("signup.title")} />
       <SignUpForm />
       <DividerForgotPassword />
     </Loading>

@@ -99,7 +99,7 @@ export function convertOrderToEmailPayload(data) {
   const { order, newOrderDetails, customerInfo } = data;
 
   const subtotal = newOrderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = "Free Shipping";
+  const shipping = 0;
   const total = subtotal + shipping;
 
   const orders = newOrderDetails.map((item) => ({
@@ -113,7 +113,7 @@ export function convertOrderToEmailPayload(data) {
     order_id: order.id,
     orders,
     cost: {
-      shipping: formatCurrency(shipping),
+      shipping: "Free Shipping",
       total: formatCurrency(total),
     },
     email: customerInfo.email,

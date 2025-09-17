@@ -60,10 +60,10 @@ export default function useCart() {
 
   // fetch cart
   useEffect(() => {
-    if (status === "idle" && user) {
-      dispatch(cartThunk.fetchCart(user?.id));
-    }
-  }, [status, user, dispatch]);
+    if (!user) return;
+
+    dispatch(cartThunk.fetchCart(user?.id));
+  }, [user, dispatch]);
 
   const selectedItems = cartTableWithVendors.filter((item) => !item.isVendorRow && selectedRowKeys.includes(item.key));
   const totalQuantity = selectedItems.reduce((sum, item) => sum + item.quantity, 0);

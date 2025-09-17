@@ -1,0 +1,34 @@
+{
+  "title": "Deposit via VNPay",
+  "tab": {
+    "deposit": "Deposit",
+    "history": "Transaction History"
+  },
+  "form": {
+    "amount": "Amount (VND)",
+    "placeholder": "Enter amount",
+    "submit": "Pay with VNPay",
+    "note": "You will be redirected to VNPay to complete the payment."
+  },
+  "alert": {
+    "error": "An error occurred"
+  },
+  "table": {
+    "date": "Date",
+    "amount": "Amount",
+    "status": "Status",
+    "description": "Description"
+  },
+  "status": {
+    "all": "All statuses",
+    "success": "Success",
+    "failed": "Failed"
+  },
+  "breadcrumb": {
+    "home": "Home",
+    "deposit": "Deposit"
+  },
+  "button": {
+    "backHome": "Back to Home"
+  }
+}

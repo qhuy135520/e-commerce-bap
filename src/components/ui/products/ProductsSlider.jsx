@@ -44,8 +44,8 @@ export default function ProductsSlider() {
                   </div>
 
                   <div className="product-info">
-                    {product.total_sold > 10 && <span className="badge">{t("productCard.bestSeller")}</span>}
-                    {product.stock < 5 && <span className="badge badge-stock">{t("productCard.lowStock")}</span>}
+                    {product.total_sold >= 10 && <span className="badge">{t("productCard.bestSeller")}</span>}
+                    {product.stock <= 5 && <span className="badge badge-stock">{t("productCard.lowStock")}</span>}
 
                     <div>
                       <p className="brand">{product.brandName}</p>
